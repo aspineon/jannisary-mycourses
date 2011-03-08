@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 16, 2010 9:24:39 PM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="entities.DOMAIN.TestUser" table="test_User" catalog="Test">
+        <id name="userId" type="int">
+            <column name="UserId" />
+            <generator class="assigned" />
+        </id>
+        <property name="userName" type="string">
+            <column name="User_Name" length="50" />
+        </property>
+        <property name="userPass" type="string">
+            <column name="User_Pass" length="50" />
+        </property>
+    </class>
+     
+    <sql-query name="queryUser" callable="true">
+    <return alias="testUser" class="entities.DOMAIN.TestUser"/>
+    	<![CDATA[CALL queryUserSP(:uName,:uPass)]]>
+    </sql-query>
+    
+</hibernate-mapping>
