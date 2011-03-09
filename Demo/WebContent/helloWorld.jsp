@@ -6,7 +6,7 @@
        xmlns:s="http://jboss.com/products/seam/taglib"
        xmlns:a4j="http://richfaces.org/a4j">
 <head>
-<title>JAnissary</title>
+<title>Janissary</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="author" content="Tom@Lwis (http://www.lwis.net/free-css-drop-down-menu/)" />
 <meta name="keywords" content=" css, dropdowns, dropdown menu, drop-down, menu, navigation, nav, horizontal, vertical left-to-right, vertical right-to-left, horizontal linear, horizontal upwards, cross browser, internet explorer, ie, firefox, safari, opera, browser, lwis" />
@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<h1><img src="images/icon.png" alt="flickr" /> JANISSARY SENIOR PROJECT</h1>
+<h1><img src="images/icon.png" alt="flickr" /> JANISSARY SENIOR PROJECT(Erdi)</h1>
 
 <!-- Beginning of compulsory code below -->
 
