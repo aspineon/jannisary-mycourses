@@ -6,16 +6,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>AMK</title>
+<title>TEST</title>
 </head>
 <body>
 <f:view>
 <rich:comboBox>
-	
+		<f:selectItem itemValue="Oregon"/>            
+        <f:selectItem itemValue="Pennsylvania"/>
+        <f:selectItem itemValue="Rhode Island"/>
+        <f:selectItem itemValue="South Carolina"/>
 </rich:comboBox>
-
-
-
 </f:view>
 </body>
 </html>
