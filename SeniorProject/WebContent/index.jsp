@@ -19,6 +19,7 @@
         <f:selectItem itemValue="NewYork"/>
         <f:selectItem itemValue="Corci Danilds 87"/>
         <f:selectItem itemValue="Corci Danilds 88"/>
+        <f:selectItem itemValue="Corci Danilds 89"/>
 </rich:comboBox>
 </f:view>
 </body>
