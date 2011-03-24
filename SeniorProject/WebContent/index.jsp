@@ -15,6 +15,8 @@
         <f:selectItem itemValue="Pennsylvania"/>
         <f:selectItem itemValue="Rhode Island"/>
         <f:selectItem itemValue="South Carolina"/>
+        <f:selectItem itemValue="Washington"/>
+        <f:selectItem itemValue="NewYork"/>
 </rich:comboBox>
 </f:view>
 </body>
