@@ -17,6 +17,7 @@
         <f:selectItem itemValue="South Carolina"/>
         <f:selectItem itemValue="Washington"/>
         <f:selectItem itemValue="NewYork"/>
+        <f:selectItem itemValue="Corci Danilds 87"/>
 </rich:comboBox>
 </f:view>
 </body>
