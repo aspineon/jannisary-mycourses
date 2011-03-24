@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 23, 2011 10:30:47 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.domain.TestUser" table="test_user" catalog="test">
+        <id name="userId" type="int">
+            <column name="UserId" />
+            <generator class="assigned" />
+        </id>
+        <property name="userName" type="string">
+            <column name="User_Name" length="50" />
+        </property>
+        <property name="userPass" type="string">
+            <column name="User_Pass" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
