@@ -24,7 +24,7 @@
 <h1><img src="css/dropdown/themes/flickr.com/images/icon.png" alt="flickr" /> Scheduling System</h1>
 
 <!-- Beginning of compulsory code below -->
-
+  
 <ul id="nav" class="dropdown dropdown-horizontal">
 	<li><a href="Main.jsp">Home</a></li>
 	<li><span class="dir">Scheduling</span>
