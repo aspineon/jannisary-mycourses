@@ -106,7 +106,6 @@
 									<a4j:region>
 										<h:panelGrid styleClass="dropzoneDecoration" id="drag2">
 											<h:outputText value="#{type} - drag" />
-					
 											<rich:dragSupport dragType="#{type}" dragValue="#{type} - value" action="#{bean.dragAction}" dragListener="#{bean.processDrag}">
 												<a4j:actionparam value="#{type} - test drag param" assignTo="#{bean.testParam}" />
 											</rich:dragSupport>

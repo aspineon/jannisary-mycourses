@@ -113,6 +113,50 @@
                 </rich:menuItem>
 
             </rich:dropDownMenu>
+            
+            <rich:dropDownMenu>
+
+                <f:facet name="label">
+                    <h:panelGrid cellpadding="0" cellspacing="0" columns="2"
+                        style="vertical-align:middle">
+                        <h:outputText value="Admin Panel" />
+                    </h:panelGrid>
+                </f:facet>
+
+                <rich:menuItem submitMode="none"
+                    onclick="document.location.href='http://labs.jboss.com/jbossrichfaces/'">
+                    <h:outputLink value="http://labs.jboss.com/jbossrichfaces/">
+                        <h:outputText value="Course Operation"></h:outputText>
+                    </h:outputLink>
+                </rich:menuItem>
+
+                <rich:menuItem submitMode="none"
+                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    <h:outputLink
+                        value="http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261">
+                        <h:outputText value="Lecturer Operation"></h:outputText>
+                    </h:outputLink>
+                </rich:menuItem>
+                
+                <rich:menuItem submitMode="none"
+                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    <h:outputLink
+                        value="http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261">
+                        <h:outputText value="User Operation"></h:outputText>
+                    </h:outputLink>
+                </rich:menuItem>
+
+				<rich:menuItem submitMode="none"
+                    onclick="./syllabus.jsp'" target="myframe">
+                    <h:outputLink
+                        value="./syllabus.jsp" target="myframe">
+                        <h:outputText value="Syllabus Operation"></h:outputText>
+                    </h:outputLink>
+                </rich:menuItem>
+
+            </rich:dropDownMenu>
+            
+            
             <rich:toolBarGroup location="right">
                 <rich:dropDownMenu value="Search" direction="bottom-left" jointPoint="br" styleClass="search">
                     <rich:menuItem submitMode="none">
