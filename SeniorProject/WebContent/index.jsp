@@ -124,24 +124,25 @@
                 </f:facet>
 
                 <rich:menuItem submitMode="none"
-                    onclick="document.location.href='http://labs.jboss.com/jbossrichfaces/'">
-                    <h:outputLink value="http://labs.jboss.com/jbossrichfaces/">
+                    onclick="./course.jsp'" target="myframe">
+                    <h:outputLink
+                        value="./course.jsp" target="myframe">
                         <h:outputText value="Course Operation"></h:outputText>
                     </h:outputLink>
                 </rich:menuItem>
 
                 <rich:menuItem submitMode="none"
-                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    onclick="./lecturer.jsp'" target="myframe">
                     <h:outputLink
-                        value="http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261">
+                        value="./lecturer.jsp" target="myframe">
                         <h:outputText value="Lecturer Operation"></h:outputText>
                     </h:outputLink>
                 </rich:menuItem>
                 
                 <rich:menuItem submitMode="none"
-                    onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
+                    onclick="./user.jsp'" target="myframe">
                     <h:outputLink
-                        value="http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261">
+                        value="./user.jsp" target="myframe">
                         <h:outputText value="User Operation"></h:outputText>
                     </h:outputLink>
                 </rich:menuItem>
