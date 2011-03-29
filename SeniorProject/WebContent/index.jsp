@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Senior Project (Scheduler)</title>
 </head>
-<body>
+<body background="C:\Users\Fatih\Desktop\2037414248_72fa2c4e66_b.jpg">
 <f:view>
 
 	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
@@ -122,7 +122,6 @@
                         <h:outputText value="Admin Panel" />
                     </h:panelGrid>
                 </f:facet>
-
                 <rich:menuItem submitMode="none"
                     onclick="./course.jsp'" target="myframe">
                     <h:outputLink
