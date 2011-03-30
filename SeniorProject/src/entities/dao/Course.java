@@ -44,10 +44,7 @@ public class Course  implements java.io.Serializable {
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
-			//System.out.println("Lecturer.java lecturerName:" + lecturerName);
 			Query query = session.getNamedQuery("AddCourse");
-			//System.out.println("Lecturer: AddLecturer2");
-			//query.setParameter(, arg1)
 			query.setParameter("pCourseName", courseName);
 			query.setParameter("pTeoricLecturerHours", teoricLectureHours);
 			query.setParameter("pPracticeLecturerHours", practiceLectureHourse);
@@ -56,8 +53,6 @@ public class Course  implements java.io.Serializable {
 			query.setParameter("pAttandance", attendance);
 			
 			query.executeUpdate();
-			
-			//System.out.println("Lecturer: AddLecturer3");
 			
 		}catch(Exception e){
 			System.err.print(e.getMessage());
@@ -120,10 +115,5 @@ public class Course  implements java.io.Serializable {
     public void setSyllabuses(Set syllabuses) {
         this.syllabuses = syllabuses;
     }
-
-
-
-
 }
-
 
