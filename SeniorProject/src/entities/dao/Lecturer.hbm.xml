@@ -13,7 +13,7 @@
         </property>
     </class>
     
-    <sql-query name="AddLecturer" callable="true">
+    <sql-query name="AddLecturer">
     <return alias="lecturer" class="entities.dao.Lecturer"/>
         <![CDATA[CALL AddLecturer(:pLecturerName)]]>
     </sql-query>
