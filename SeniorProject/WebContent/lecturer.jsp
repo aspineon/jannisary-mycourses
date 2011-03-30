@@ -27,7 +27,7 @@
 			<a4j:support event="onclick"/>
 		</h:commandButton>
 	</rich:tab>
-	<rich:tab label="Update Lecturer">
+	<rich:tab label="DataTable TestTab">
 		
 	</rich:tab>
 	<rich:tab label="Delete Lecturer">

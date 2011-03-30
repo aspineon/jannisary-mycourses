@@ -28,12 +28,9 @@
 		</script>
 
 		<f:view>
-			<h:form id="form">
-                <h:selectOneRadio binding="#{skinBean.component}" />
-                <h:commandLink action="#{skinBean.change}" value="set skin" />
-			</h:form>
+			
 			<h:panelGrid columns="3">
-				<h:form>
+				<h:form id="form2">
 					<fieldset>
 						<legend>Tables</legend>
 					
@@ -42,7 +39,7 @@
 						</h:panelGroup>
 		
 		               	<h:panelGrid columns="3">
-			                <h:dataTable var="type" value="#{bean.types}">
+			                <h:dataTable var="type" value="#{Bean.types}">
 								<h:column>
 									<h:panelGrid styleClass="dropzoneDecoration" id="drop1A">
 										<h:outputText value="#{type} - drop" />
@@ -54,7 +51,7 @@
 								</h:column>
 			                </h:dataTable>
 			                
-			                <h:dataTable var="type" value="#{bean.types}">
+			                <h:dataTable var="type" value="#{Bean.types}">
 								<h:column>
 									<h:panelGrid styleClass="dropzoneDecoration" id="drag1">
 										<h:outputText value="#{type} - drag" />
@@ -79,7 +76,7 @@
 		               	</h:panelGrid>
 					</fieldset>
 				</h:form>
-				<h:form>	
+				<h:form id="form3">	
 					<fieldset>
 						<legend>Regions</legend>
 					
@@ -141,7 +138,7 @@
 		               	<h:panelGrid columns="3">
 			                <h:dataTable var="type" value="#{bean.types}">
 								<h:column>
-									<h:form>
+									<h:form id="form4" >
 										<h:panelGrid styleClass="dropzoneDecoration" id="drag3A">
 											<h:outputText value="#{type} - drop" />
 					
@@ -155,7 +152,7 @@
 			                
 			                <h:dataTable var="type" value="#{bean.types}">
 								<h:column>
-									<h:form>
+									<h:form id="form5">
 										<h:panelGrid styleClass="dropzoneDecoration" id="drag3">
 											<h:outputText value="#{type} - drag" />
 					
@@ -169,7 +166,7 @@
 		
 			                <h:dataTable var="type" value="#{bean.types}">
 								<h:column>
-									<h:form>
+									<h:form id="form6">
 										<h:panelGrid styleClass="dropzoneDecoration" id="drop3B">
 											<h:outputText value="#{type} - drop" />
 					
@@ -185,7 +182,7 @@
 				</h:panelGroup>
 			</h:panelGrid>
 
-			<h:form id="form2">
+			<h:form id="form74">
 				<rich:dragIndicator  id="indicator" acceptClass="accept" rejectClass="reject" style="width: 500px;">
 					<f:facet name="single">
 						<f:verbatim>

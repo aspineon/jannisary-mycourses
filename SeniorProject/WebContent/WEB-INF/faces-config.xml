@@ -23,14 +23,8 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
-  <managed-bean-name>courseBean</managed-bean-name>
-  <managed-bean-class>entities.business.CourseBean</managed-bean-class>
-  <managed-bean-scope>session</managed-bean-scope>
+  <managed-bean-name>syllabusBean</managed-bean-name>
+  <managed-bean-class>entities.business.SyllabusBean</managed-bean-class>
+  <managed-bean-scope>application</managed-bean-scope>
  </managed-bean>
- <managed-bean>
-	    <managed-bean-name>syllabusBean</managed-bean-name>
-	    <managed-bean-class>entities.business.SyllabusBean</managed-bean-class>
-	    <managed-bean-scope>application</managed-bean-scope>
-  </managed-bean>
- 
 </faces-config>
