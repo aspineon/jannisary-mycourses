@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar 26, 2011 8:57:08 PM by Hibernate Tools 3.4.0.CR1 -->
+<!-- Generated Mar 30, 2011 4:46:26 AM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="entities.dao.Lecturer" table="lecturer" catalog="janissary">
+    <class name="entities.dao.Lecturer" table="Lecturer" catalog="JANISSARY">
         <id name="lecturerId" type="java.lang.Integer">
             <column name="Lecturer_Id" />
             <generator class="identity" />
@@ -11,11 +11,11 @@
         <property name="lecturerName" type="string">
             <column name="Lecturer_Name" length="50" />
         </property>
-        <set name="syllabuses" table="syllabus" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Lecturer_Id" not-null="true" />
-            </key>
-            <one-to-many class="entities.dao.Syllabus" />
-        </set>
     </class>
+    
+    <sql-query name="AddLecturer" callable="true">
+    <return alias="lecturer" class="entities.dao.Lecturer"/>
+        <![CDATA[CALL AddLecturer(:pLecturerName)]]>
+    </sql-query>
+    
 </hibernate-mapping>
