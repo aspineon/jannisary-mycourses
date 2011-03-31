@@ -1,5 +1,10 @@
 package entities.dao;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 // Generated Mar 31, 2011 9:47:33 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -105,4 +110,28 @@ public class Course implements java.io.Serializable {
 		this.courseDescription = courseDescription;
 	}
 
+	public void AddCourse(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			//System.out.println("Lecturer: AddLecturer1");
+			Query query = session.getNamedQuery("AddCourse");
+			//System.out.println("Lecturer: AddLecturer2");
+			query.setParameter("p_Course_Code", courseCode);
+			query.setParameter("p_Course_Name", "human");
+			query.setParameter("p_Teoric_Lecture_Hours", 2);
+			query.setParameter("p_Practice_Lecture_Hours", 2);
+			query.setParameter("p_Attendance", 2);
+			query.setParameter("p_Typeof_Course_Id", 2);
+			query.setParameter("p_Course_Description", "bos bi ders");
+			query.executeUpdate();
+			
+			//System.out.println("Lecturer: AddLecturer3");
+			
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+	}
 }
