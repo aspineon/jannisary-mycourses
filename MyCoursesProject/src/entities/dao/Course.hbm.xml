@@ -30,4 +30,10 @@
             <column name="Course_Description" length="2000" />
         </property>
     </class>
+    
+    <sql-query name="AddCourse">
+    <return alias="course" class="entities.dao.Course"/>
+        <![CDATA[CALL AddCourse(:p_Course_Code, :p_Course_Name, :p_Teoric_Lecture_Hours, :p_Practice_Lecture_Hours, :p_Attendance, :p_Typeof_Course_Id, :p_Course_Description)]]>
+    </sql-query>
+    
 </hibernate-mapping>
