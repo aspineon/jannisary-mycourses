@@ -24,4 +24,10 @@
             <column name="Telephone" length="11" />
         </property>
     </class>
+    
+    <sql-query name="AddLecturer">
+    <return alias="lecturer" class="entities.dao.Lecturer"/>
+        <![CDATA[CALL AddLecturer(:pLecturerName,:pTitle,:pDepartment,:pEmail,:pTelephone)]]>
+    </sql-query>
+    
 </hibernate-mapping>
