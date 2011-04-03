@@ -29,4 +29,9 @@
         <![CDATA[CALL DeleteUser(:pUserId)]]>
     </sql-query>
     
+    <sql-query name="UpdateUser">
+    <return alias="SysUser" class="entities.dao.SysUser"/>
+        <![CDATA[CALL UpdateUser(:pUserId,:pUserName,:pUserStatus,:pUserPass)]]>
+    </sql-query>
+    
 </hibernate-mapping>
