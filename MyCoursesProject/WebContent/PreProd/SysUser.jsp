@@ -27,16 +27,7 @@
         <script type="text/javascript">
             var row;
         </script>
-        <rich:contextMenu attached="false" id="menu" submitMode="ajax" oncollapse="row.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
-            <rich:menuItem value="Edit Record" ajaxSingle="true"
-                oncomplete="#{rich:component('editPanel')}.show()"
-                actionListener="#{sysUserBean.fetchCurrentRow}">
-            </rich:menuItem>
-            <rich:menuItem value="Remove Record" ajaxSingle="true"
-                oncomplete="#{rich:component('deletePanel')}.show()"
-                actionListener="#{sysUserBean.fetchCurrentRow}">
-            </rich:menuItem>
-        </rich:contextMenu>
+        
         <a4j:region>
             <rich:dataTable value="#{sysUserBean.allUsers}"
                 var="category" rows="20" rowKeyVar="row"
@@ -128,7 +119,7 @@
                 </a4j:outputPanel>
                 <a4j:commandButton value="Store"
                     action="#{sysUserBean.store}"
-                    reRender="make, model, price"
+                    reRender="table"
                     oncomplete="if (#{facesContext.maximumSeverity==null}) #{rich:component('editPanel')}.hide();" />
             </h:panelGrid>
         </h:form>
@@ -157,8 +148,8 @@
                         </td>
                         <td align="center" width="50%"><a4j:commandButton
                             value="Cancel"
-                            onclick="#{rich:component('deletePanel')}.hide();return false;" />
-                      </td>
+                            onclick ="#{rich:component('deletePanel')}.hide();return false;" />
+                        </td>
                     </tr>
                 </tbody>
             </table>
