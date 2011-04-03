@@ -18,4 +18,15 @@
             <column name="User_Password" length="20" not-null="true" />
         </property>
     </class>
+    
+    <sql-query name="getAllUser" callable="true">
+    <return alias="SysUser" class="entities.dao.SysUser"/>
+        <![CDATA[CALL getAllUserSP()]]>
+    </sql-query>
+    
+    <sql-query name="DeleteUser">
+    <return alias="SysUser" class="entities.dao.SysUser"/>
+        <![CDATA[CALL DeleteUser(:pUserId)]]>
+    </sql-query>
+    
 </hibernate-mapping>
