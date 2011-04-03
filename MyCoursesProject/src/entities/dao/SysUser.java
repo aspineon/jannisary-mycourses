@@ -61,7 +61,7 @@ public class SysUser implements java.io.Serializable {
 			session = sessionFactory.openSession();
 			Query query = session.getNamedQuery("DeleteUser");
 			query.setParameter("pUserId", userId);
-			
+			query.executeUpdate();
 		}catch(Exception e){
 			System.err.print(e.getMessage());
 		}
