@@ -10,8 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 import entities.dao.SysUser;
 
@@ -23,18 +21,6 @@ public class SysUserBean {
 
 	private SysUser currentItem = new SysUser();
 
-	public void fetchCurrentRow(ActionEvent event) {
-		String strUserId = (FacesContext.getCurrentInstance().
-				getExternalContext().getRequestParameterMap().get("UserId"));
-		currentRow = Integer.parseInt(FacesContext.getCurrentInstance().
-				getExternalContext().getRequestParameterMap().get("row"));
-		for (SysUser item : allUsers) {
-			if (item.getUserId().toString().equals(strUserId)){
-				currentItem=item;
-				break;
-			}
-		}
-	}
 
 	public List<SysUser> getAllUsers() {
 		synchronized (this) {
@@ -63,11 +49,30 @@ public class SysUserBean {
 		keys.add(currentRow);
 		*/
 		
+		/*try-catch blogu eklenecek*/
+		try{
+			currentItem = allUsers.get(currentRow);
+			currentItem.updateUser();
+			allUsers.set(currentRow, currentItem);
+			keys.clear();
+			keys.add(currentRow);
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
 	}
 
+	
 	public void delete() {
-//		allCars.remove(currentRow);
+		
+		/* try-catch bloğu eklenecek
+		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
+		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
+		 *de silinmeyecek ve kullanıcı veritabanı hatasından bilgilendirilecektir.
+		 * 
+		 */
+		currentItem = allUsers.get(currentRow);
 		currentItem.deleteUser();
+		allUsers.remove(currentItem);
 	}
 	
 	public SysUser getCurrentItem() {
