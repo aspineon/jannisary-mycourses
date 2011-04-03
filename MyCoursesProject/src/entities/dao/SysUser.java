@@ -67,6 +67,24 @@ public class SysUser implements java.io.Serializable {
 		}
 	}
 	
+	public void updateUser() throws Exception{
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Query query = session.getNamedQuery("UpdateUser");
+			query.setParameter("pUserId", userId);
+			query.setParameter("pUserName", userName);
+			query.setParameter("pUserStatus", userStatus);
+			query.setParameter("pUserPass", userPassword);
+			query.executeUpdate();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+			throw new Exception(e);
+		}
+	}
+	
 	public Integer getUserId() {
 		return this.userId;
 	}
