@@ -24,6 +24,11 @@
         <![CDATA[CALL getAllUserSP()]]>
     </sql-query>
     
+    <sql-query name="AddUser">
+    <return alias="SysUser" class="entities.dao.SysUser"/>
+        <![CDATA[CALL AddUser(:pUserName, :pUserStatus,:pUserPass)]]>
+    </sql-query>
+    
     <sql-query name="DeleteUser">
     <return alias="SysUser" class="entities.dao.SysUser"/>
         <![CDATA[CALL DeleteUser(:pUserId)]]>
