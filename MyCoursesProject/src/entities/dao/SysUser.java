@@ -31,6 +31,13 @@ public class SysUser implements java.io.Serializable {
 		this.userPassword = userPassword;
 	}
 
+	/*Copy Constructor added 8.04.2011 by Erhun*/
+	
+	public SysUser(SysUser sysUser){
+		this.userName = sysUser.userName;
+		this.userPassword = sysUser.userPassword;
+		this.userStatus = sysUser.userStatus;
+	}
 	
 	@SuppressWarnings("unchecked")
 	public List<SysUser> getAllUser(){
@@ -51,6 +58,22 @@ public class SysUser implements java.io.Serializable {
                  e.getMessage();
          } 
          return allUser;
+	}
+	
+	public void addUser(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Query query = session.getNamedQuery("AddUser");
+			query.setParameter("pUserName", userName);
+			query.setParameter("pUserPass", userPassword);
+			query.setParameter("pUserStatus", userStatus);
+			query.executeUpdate();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
 	}
 	
 	public void deleteUser(){
