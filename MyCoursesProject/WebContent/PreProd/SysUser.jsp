@@ -126,7 +126,7 @@
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
-                <h:graphicImage value="/images/modal/close.png"
+                <h:graphicImage value="../images/modal/close.ico"
                     styleClass="hidelink" id="hidelink2" />
                 <rich:componentControl for="deletePanel" attachTo="hidelink2"
                     operation="hide" event="onclick" />
