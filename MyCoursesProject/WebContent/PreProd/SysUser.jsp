@@ -38,12 +38,7 @@
                 <f:facet name="header">
                     <h:outputText value="User Operation" />
                 </f:facet>
-                <rich:column>
-                    <f:facet name="header">
-                        <h:outputText value="UserId" />
-                    </f:facet>
-                    <h:outputText value="#{category.userId}" id="userId" />
-                </rich:column>
+                
                 <rich:column>
                     <f:facet name="header">
                         <h:outputText value="Name" />
@@ -164,6 +159,33 @@
         </f:facet>
         <h:outputText value="Wait Please..." />
     </rich:modalPanel>
+    
+    <h:form>
+    
+    <br>
+    <h:outputText value="User Name: "/>
+    <h:inputText value="#{sysUserBean.currentItem.userName}">
+    <f:validateLength minimum="1" maximum="50"/>
+    </h:inputText>
+    
+    <br>
+    <h:outputText value="User Password: "/>
+    <h:inputText value="#{sysUserBean.currentItem.userPassword}">
+    <f:validateLength minimum="1" maximum="20"/>
+    </h:inputText>
+    
+    <br>
+    <h:outputText value="Select Status: "/>
+    <rich:comboBox value="#{sysUserBean.currentItem.userStatus}" valueChangeListener="#{sysUserBean.selectionChanged}">
+		<f:selectItems value="#{sysUserBean.selectItems}"/>
+	</rich:comboBox>
+
+	<br>
+    <h:commandButton value="Add User" action="#{sysUserBean.addUser}">
+			<a4j:support event="onclick" reRender="table"/>
+		</h:commandButton>
+    </h:form>
+    
     <rich:messages>
     
     </rich:messages>
