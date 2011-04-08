@@ -10,6 +10,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+
 
 import entities.dao.SysUser;
 
@@ -19,9 +22,27 @@ import entities.dao.SysUser;
  */
 public class SysUserBean {
 
+	public SysUserBean() {
+		selectItems.add(new SelectItem("User"));
+		selectItems.add(new SelectItem("Admin"));
+	}
+	
 	private SysUser currentItem = new SysUser();
+	List<SelectItem> selectItems = new ArrayList<SelectItem>();
 
+	/* Bug selectionChanged method***********
+	 * Su an bu olay en son değişikliği kaydediyor, o yüzden ekranda ekleme
+	 * işelmi yaparken en son başka bir alan değiştirilirse o değeri alıyor
+	 * */
+	 public void selectionChanged(ValueChangeEvent  evt) {
+		 String selectedValue = (String) evt.getNewValue();
+		 
 
+		 if (!selectedValue.equals("")) {
+			 currentItem.setUserStatus(selectedValue);
+		 }
+	}
+	
 	public List<SysUser> getAllUsers() {
 		synchronized (this) {
 			if (allUsers == null) {
@@ -41,6 +62,22 @@ public class SysUserBean {
 
 	
 
+	public String addUser(){
+		try{
+			
+			
+			int size = allUsers.size();		
+			
+			SysUser sysUser = new SysUser(currentItem);
+			allUsers.add(size,sysUser);
+			keys.clear();
+			keys.add(allUsers.size());
+			
+			
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());}
+		return null;
+	}
 	
 	public void store() {
 		/*
@@ -75,6 +112,10 @@ public class SysUserBean {
 		allUsers.remove(currentItem);
 	}
 	
+	public List<SelectItem> getSelectItems(){
+		return selectItems;
+	}
+	
 	public SysUser getCurrentItem() {
 		return currentItem;
 	}
@@ -100,11 +141,55 @@ public class SysUserBean {
 	}
 
 	
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+
+	public String getUserStatus() {
+		return userStatus;
+	}
+
+
+
+
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
+	}
+
+
+
+
+	public String getUserPassword() {
+		return userPassword;
+	}
+
+
+
+
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
+	}
+
+
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	
 	
-
+	private String userName;
+	private String userStatus;
+	private String userPassword;
+	
+	
 	private List<SysUser> allUsers = null;
 }
 
