@@ -60,8 +60,9 @@ public class Course implements java.io.Serializable {
                 session = sessionFactory.openSession();
                 
                 Query query = session.getNamedQuery("getCourseCodeById");
-                query.setParameter("pCourse_Id", this.courseId);
-                courseCodeList =(List<String>) query.list();
+                
+                query.setParameter("pCourseId", courseId);
+                courseCodeList = (List<String>) query.list();
                 
         } catch (Exception e) {
                 // TODO: handle exception
