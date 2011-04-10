@@ -1,5 +1,7 @@
 package entities.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,6 +24,7 @@ public class Course implements java.io.Serializable {
 	private String courseDescription;
 
 	public Course() {
+		
 	}
 
 	public Course(String courseCode, String courseName, int teoricLectureHours,
@@ -46,6 +49,27 @@ public class Course implements java.io.Serializable {
 		this.courseDescription = courseDescription;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<String> getCourseCodeById(){
+		List<String> courseCodeList = null;
+		
+        Session session = null;
+        
+        try {
+                SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                session = sessionFactory.openSession();
+                
+                Query query = session.getNamedQuery("getCourseCodeById");
+                query.setParameter("pCourse_Id", this.courseId);
+                courseCodeList =(List<String>) query.list();
+                
+        } catch (Exception e) {
+                // TODO: handle exception
+                e.getMessage();
+        } 
+        return courseCodeList;
+	}
+	
 	public Integer getCourseId() {
 		return this.courseId;
 	}
