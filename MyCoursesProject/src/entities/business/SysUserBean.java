@@ -27,10 +27,10 @@ public class SysUserBean {
 		selectItems.add(new SelectItem("Admin"));
 	}
 	
-	private SysUser currentItem = new SysUser();
-	List<SelectItem> selectItems = new ArrayList<SelectItem>();
+	
 
-	/* Bug selectionChanged method***********
+	/* Bug Fixed
+	 * Bug selectionChanged method***********
 	 * Su an bu olay en son değişikliği kaydediyor, o yüzden ekranda ekleme
 	 * işelmi yaparken en son başka bir alan değiştirilirse o değeri alıyor
 	 * */
@@ -186,6 +186,8 @@ public class SysUserBean {
 	}
 
 
+	private SysUser currentItem = new SysUser();
+	List<SelectItem> selectItems = new ArrayList<SelectItem>();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	
