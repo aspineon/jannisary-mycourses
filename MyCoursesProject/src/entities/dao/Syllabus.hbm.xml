@@ -24,4 +24,10 @@
             <column name="Section_No" />
         </property>
     </class>
+    
+    <sql-query name="getAllSyllabus" callable="true">
+    <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL getAllSyllabus]]>
+    </sql-query>
+    
 </hibernate-mapping>
