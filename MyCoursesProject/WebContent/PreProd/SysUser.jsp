@@ -34,7 +34,7 @@
                 ajaxKeys="#{sysUserBean.keys}" id="table"
                 onRowContextMenu="if (row) row.style.backgroundColor='#{a4jSkin.tableBackgroundColor}';
                 this.style.backgroundColor='#F1F1F1'; row=this;
-                return false;">
+                return false;" style="height : 142px; width : 634px;">
                 <f:facet name="header">
                     <h:outputText value="User Operation" />
                 </f:facet>
@@ -161,31 +161,39 @@
     </rich:modalPanel>
     
     <h:form>
+    <table>
     
-    <br>
-    <h:outputText value="User Name: "/>
-    <h:inputText value="#{sysUserBean.currentItem.userName}">
-    <f:validateLength minimum="1" maximum="50"/>
-    </h:inputText>
+    <tr>
+    	<td>	    	
+	    	<h:inputText  value="#{sysUserBean.currentItem.userName}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	
+    	<td>
+    	
+	    	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
+				<f:selectItems value="#{sysUserBean.selectItems}"/>
+			</rich:comboBox>
+	    	
+    	</td>
     
-    <br>
-    <h:outputText value="User Password: "/>
-    <h:inputText value="#{sysUserBean.currentItem.userPassword}">
-    <f:validateLength minimum="1" maximum="20"/>
-    </h:inputText>
-    
-    <br>
-    <h:outputText value="Select Status: "/>
-    <rich:comboBox value="#{sysUserBean.currentItem.userStatus}" valueChangeListener="#{sysUserBean.selectionChanged}">
-		<f:selectItems value="#{sysUserBean.selectItems}"/>
-	</rich:comboBox>
-
-	<br>
-    <h:commandButton value="Add User" action="#{sysUserBean.addUser}">
-			<a4j:support event="onclick" reRender="table"/>
-		</h:commandButton>
+    	<td>
+	    	
+			<h:inputText value="#{sysUserBean.currentItem.userPassword}">
+	    		<f:validateLength minimum="1" maximum="20"/>
+	    	</h:inputText>
+		</td>
+		
+		<td>	
+	    	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style=" width : 110px; height : 20px;">
+				<a4j:support event="onclick" reRender="table"/>
+			</h:commandButton>
+		</td>
+	</tr>
+	</table>
     </h:form>
-    
+        
     <rich:messages>
     
     </rich:messages>
