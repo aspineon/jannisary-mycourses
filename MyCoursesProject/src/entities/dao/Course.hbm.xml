@@ -38,7 +38,7 @@
     
      <sql-query name="getCourseCodeById" callable="true">
     <return alias="Course" class="entities.dao.Course"/>
-        <![CDATA[CALL getCourseCodeById(:pCourse_Id)]]>
+        <![CDATA[CALL getCourseCodeById(:pCourseId)]]>
     </sql-query>
     
 </hibernate-mapping>
