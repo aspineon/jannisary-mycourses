@@ -70,8 +70,13 @@ public class SysUserBean {
 			
 			SysUser sysUser = new SysUser(currentItem);
 			allUsers.add(size,sysUser);
+			sysUser.addUser();
 			keys.clear();
 			keys.add(allUsers.size());
+			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
+			currentItem.setUserName("");
+			currentItem.setUserPassword("");
+			
 			
 			
 		}catch(Exception ex){
