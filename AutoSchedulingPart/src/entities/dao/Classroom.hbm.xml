@@ -18,4 +18,9 @@
             <one-to-many class="entities.dao.Schedule" />
         </set>
     </class>
+    <sql-query name="getClassroomName" callable="true">
+    	<return alias="Classroom" class="entities.dao.Classroom"/>
+    	<![CDATA[CALL getClassroomName]]>
+    </sql-query>
+    
 </hibernate-mapping>

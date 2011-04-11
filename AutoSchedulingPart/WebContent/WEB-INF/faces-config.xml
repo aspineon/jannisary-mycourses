@@ -7,4 +7,9 @@
   <managed-bean-class>entities.business.DepartmentBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>classroomBean</managed-bean-name>
+  <managed-bean-class>entities.business.ClassroomBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
 </faces-config>

@@ -145,7 +145,9 @@
             	  			<h:outputText value="Room : "></h:outputText>
             	  		</td>
             	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBox" value = "Choose Room" width="99"></rich:comboBox>
+            	  			<rich:comboBox  id="roomComboBox" value = "Choose Room" width="99">
+            	  				<f:selectItems id="fresmanRoom" value="#{classroomBean.selectItemListClassroom }"/>
+            	  			</rich:comboBox>
             	  		</td>
             	  		
             	  	</tr>           	  	
@@ -269,7 +271,9 @@
             	  			<h:outputText value="Room : "></h:outputText>
             	  		</td>
             	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxSomophore" value = "Choose Room" width="99"></rich:comboBox>
+            	  			<rich:comboBox  id="roomComboBoxSomophore" value = "Choose Room" width="99">
+            	  				<f:selectItems id="somophoreRoom" value="#{classroomBean.selectItemListClassroom}"/>
+            	  			</rich:comboBox>
             	  		</td>
             	  		
             	  	</tr>           	  	
@@ -392,7 +396,9 @@
             	  			<h:outputText value="Room : "></h:outputText>
             	  		</td>
             	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxJunior" value = "Choose Room" width="99"></rich:comboBox>
+            	  			<rich:comboBox  id="roomComboBoxJunior" value = "Choose Room" width="99">
+            	  				<f:selectItems id="juniorRoom" value="#{classroomBean.selectItemListClassroom}"/>
+            	  			</rich:comboBox>
             	  		</td>
             	  		
             	  	</tr>           	  	
@@ -515,7 +521,9 @@
             	  			<h:outputText value="Room : "></h:outputText>
             	  		</td>
             	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxSenior" value = "Choose Room" width="99"></rich:comboBox>
+            	  			<rich:comboBox  id="roomComboBoxSenior" value = "Choose Room" width="99">
+            	  				<f:selectItems id="seniorRooms" value="#{classroomBean.selectItemListClassroom}"/>
+            	  			</rich:comboBox>
             	  		</td>
             	  		
             	  	</tr>           	  	
@@ -581,9 +589,22 @@
 						<td>
 						</td>
 					</tr>
+					<tr>
+					<td></td>
+					</tr>
 					<tr style=" height : 22px;">
-					<td style=" width : 35px;">
-					</td>
+						<td style=" width : 35px;">
+						</td>
+						<td>
+							<h:outputText value="Room : "></h:outputText>							
+						</td>
+						<td>
+							<rich:comboBox id="deanClassroomComboBox" value="Choose Room">
+								<f:selectItems value="#{classroomBean.selectItemListClassroom}"/>
+							</rich:comboBox>
+						</td>
+						<td>
+						</td>
 					</tr>
 				</table>
 			</rich:panel>
