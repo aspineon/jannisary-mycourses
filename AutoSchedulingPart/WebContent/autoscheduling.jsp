@@ -534,79 +534,129 @@
             </rich:panel>
         </rich:tab>
 		<rich:tab label="Dean Lectures">
-			<rich:panel style=" height : 401px;">
-				<table bgcolor="silver">
-					<tr style=" height : 14px;">
-					<td style=" width : 22px;">
+			<rich:panel style=" height : 401px; background-color:lightgray">
+			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
+			
+			<table style="background-color: graytext; color:white; width : 267px;">
+				
+				<tr>
+					<td>
+						<table>
+							<tr style=" height : 15px;">
+							<td></td>
+							</tr>
+							<tr>
+							<td>
+							</td>
+								<td>
+									<h:outputText value="Course : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox value="Choose Dean's Course"></rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+							<td></td>
+							</tr>
+							<tr>
+							<td>
+							</td>
+								<td>
+									<h:outputText value="Lecturer : "></h:outputText>
+								
+								</td>
+								<td>
+									<h:inputText disabled="true"></h:inputText>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+							<td></td>
+							</tr>
+							<tr>
+							<td style=" width : 22px;">
+							</td>
+								<td>
+									<h:outputText value="Credit : "></h:outputText>
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td>
+												<h:inputText style=" width : 52px;"></h:inputText>
+											</td>
+											<td>
+												<h:outputText value="+"></h:outputText>
+											</td>
+											<td>
+												<h:inputText style=" width : 57px;"></h:inputText>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>					
 					</td>
-					</tr>
-					<tr>
-						<td>
-						</td>
-						<td>
-							<h:outputText value="Course : "></h:outputText> 
-						</td>
-						<td>
-							<rich:comboBox value="Choose Dean's Course">
+					
+						
+				
+				</tr>
+				<tr style=" height : 161px;">
+					<td style=" width : 289px; background-color:gray;">
+						<table>
+							<tr>
+								<td>
+									
+								</td>
+								<td>
+									<h:outputText value="Theorical Courses" style="font-size:medium"></h:outputText>
+								</td>
+							</tr>
+							<tr style=" height : 19px; font-size:small;">
+								<td>
+									<h:outputText value="Days : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox value="Choose Day">
+										<f:selectItem itemValue="Monday"/>	
+										<f:selectItem itemValue="Tuesday"/>
+										<f:selectItem itemValue="Wednesday"/>
+										<f:selectItem itemValue="Thursday"/>
+										<f:selectItem itemValue="Friday"/>								
+									</rich:comboBox>
+								</td>
+							</tr>
+							<tr style="height: 9px">
+								<td>
+								</td>
+							</tr>
+							<tr style=" height : 28px; font-size:small;">
+								<td>
+									<h:outputText value="Start Hour : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox value ="Choose Start Hour"></rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 19px;">
+								<td>
+									
+								</td>
+								<td>
 								
-							</rich:comboBox>
-						</td>
-						<td>
-						</td>
-					</tr>
-					<tr>
-					</tr>
-					<tr>
+								</td>
+							</tr>
+						</table>					
+					</td>
 					<td>
-						</td>
-						<td>
-							<h:outputText value="Lecturer : "></h:outputText>
-						</td>
-						<td>
-							<h:inputText disabled="true" style=" width : 257px;"></h:inputText>
-						</td>
-						<td style=" width : 47px;">
-						</td>
-					</tr>
-					<tr>
-					</tr>
-					<tr>
-					<td>
-						</td>
-						<td>
-							<h:outputText value="Days : "></h:outputText> 
-						</td>
-						<td>
-							<rich:comboBox value="Choose Course Day">
-								
-								<f:selectItem itemValue="Monday"/>
-								<f:selectItem itemValue="Tuesday"/>
-								<f:selectItem itemValue="Wednesday"/>
-								<f:selectItem itemValue="Thursday"/>
-								<f:selectItem itemValue="Friday"/>							
-							</rich:comboBox>
-						</td>
-						<td>
-						</td>
-					</tr>
-					<tr>
-					<td></td>
-					</tr>
-					<tr style=" height : 22px;">
-						<td style=" width : 35px;">
-						</td>
-						<td>
-							<h:outputText value="Room : "></h:outputText>							
-						</td>
-						<td>
-							<rich:comboBox id="deanClassroomComboBox" value="Choose Room">
-								<f:selectItems value="#{classroomBean.selectItemListClassroom}"/>
-							</rich:comboBox>
-						</td>
-						<td>
-						</td>
-					</tr>
-				</table>
+					</td>
+				</tr>
+				<tr style=" height : 1px;">
+				<td></td>
+				</tr>
+				
+			</table>
+			
+				
 			</rich:panel>
 		</rich:tab>		
 	</rich:tabPanel>
