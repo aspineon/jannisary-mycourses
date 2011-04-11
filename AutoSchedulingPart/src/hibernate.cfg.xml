@@ -9,5 +9,14 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost/janissary</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <mapping resource="entities/dao/Department.hbm.xml"/>
+		 <mapping resource="entities/dao/Course.hbm.xml"/>
+		 <mapping resource="entities/dao/Classroom.hbm.xml"/>
+		 <mapping resource="entities/dao/Lecturer.hbm.xml"/>
+		 <mapping resource="entities/dao/Schedule.hbm.xml"/>
+		 <mapping resource="entities/dao/Syllabus.hbm.xml"/>
+		 <mapping resource="entities/dao/SyllabusArchive.hbm.xml"/>
+		 <mapping resource="entities/dao/SysUser.hbm.xml"/>
+		 <mapping resource="entities/dao/TypeofCourse.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
