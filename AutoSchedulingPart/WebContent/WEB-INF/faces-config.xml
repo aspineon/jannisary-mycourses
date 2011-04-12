@@ -12,4 +12,9 @@
   <managed-bean-class>entities.business.ClassroomBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>deanBean</managed-bean-name>
+  <managed-bean-class>entities.business.DeanBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
 </faces-config>

@@ -56,17 +56,17 @@
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTable" value="Department Schedule Table" style=" width : 700px;">
+            			<rich:dataTable id="myDataTable" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px;">
+	        				<rich:column style=" width : 180px; height: 19px">
 	        					<f:facet name="header">
-	        						<h:outputText value="Hours/Days " />
+	        						<h:outputText value="Hours/Days" />
 	        					</f:facet>
-	        					<f:facet name="footer"></f:facet>
+	        					<h:outputText value="#{item}" />
 	        					
 	        				</rich:column>
                 			
@@ -182,17 +182,17 @@
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTableSomophore" value="Department Schedule Table" style=" width : 700px;">
+            			<rich:dataTable id="myDataTableSomophore" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px;">
+	        				<rich:column style=" width : 180px; height: 19px">
 	        					<f:facet name="header">
 	        						<h:outputText value="Hours/Days " />
 	        					</f:facet>
-	        					<f:facet name="footer"></f:facet>
+	        					<h:outputText style="font-align:center;" value="#{item}" />	
 	        					
 	        				</rich:column>
                 			
@@ -288,7 +288,7 @@
             	   <table>
             	<tr>
             		<td>
-            			 <rich:orderingList style=" width : 280px;">
+            			 <rich:orderingList style=" width : 280px; ">
 	            	       	<rich:column  width="300">
 					            <f:facet name="header">
 					                <h:outputText value="Lecture Name " style="width:30%" />
@@ -307,17 +307,17 @@
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTableJunior" value="Department Schedule Table" style=" width : 700px;">
+            			<rich:dataTable id="myDataTableJunior" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px;">
+	        				<rich:column style=" width : 180px; height: 19px">
 	        					<f:facet name="header">
 	        						<h:outputText value="Hours/Days " />
 	        					</f:facet>
-	        					<f:facet name="footer"></f:facet>
+	        					<h:outputText style="font-align:center;" value="#{item}" />	
 	        					
 	        				</rich:column>
                 			
@@ -432,17 +432,17 @@
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTableSenior" value="Department Schedule Table" style=" width : 700px;">
+            			<rich:dataTable id="myDataTableSenior" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px;">
+	        				<rich:column style=" width : 180px; height: 19px">
 	        					<f:facet name="header">
 	        						<h:outputText value="Hours/Days " />
 	        					</f:facet>
-	        					<f:facet name="footer"></f:facet>
+	        					<h:outputText style="font-align:center;" value="#{item}" />	
 	        					
 	        				</rich:column>
                 			
@@ -535,7 +535,7 @@
             </rich:panel>
         </rich:tab>
 		<rich:tab label="Dean Lectures">
-			<rich:panel style="height : 401px; background-color:lightgray; width : 933px;">
+			<rich:panel style="background-color:lightgray; width : 933px; height : 432px;">
 			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
 			
 			<table>
@@ -543,9 +543,9 @@
 					<td>
 					
 							
-			<table style="background-color: graytext; color:white; width : 267px;">
+			<table style="background-color: graytext; color:white; width : 267px; height : 242px;">
 								
-				<tr style=" height : 23px;">
+				<tr style=" height : 3px;">
 				<td>
 				</td>
 				</tr>
@@ -601,7 +601,22 @@
 												<h:inputText style=" width : 57px;"></h:inputText>
 											</td>
 										</tr>
+										
 									</table>
+								</td>
+							</tr>
+							<tr style=" height : 33px;">
+								<td>
+								</td>
+							</tr>
+							<tr style=" height : 33px;">
+								<td>
+								<h:commandButton value="Submit"></h:commandButton>
+								</td>
+								<td>
+									
+								</td>
+								<td>
 								</td>
 							</tr>
 						</table>					
@@ -620,17 +635,16 @@
 					<td style=" width : 46px;">
 					</td>
 					<td style="background-color: silver; width : 513px;">
-						<rich:dataTable id="deanScheduleTable" style="width:600px; height : 53px;">
+						<rich:dataTable id="deanScheduleTable" value="#{deanBean.list}" var="item" style="width:600px; height : 53px;">
 							<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px;">
+	        				<rich:column style=" width : 180px; height: 19px">
 	        					<f:facet name="header">
-	        						<h:outputText value="Hours/Days " />
+	        						<h:outputText value="Hours / Days" />
 	        					</f:facet>
-	        					<f:facet name="footer"></f:facet>
-	        					
+	        					<h:outputText style="font-align:center;" value="#{item}" />	        					
 	        				</rich:column>
                 			
         				        				
@@ -638,6 +652,9 @@
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
                 			</f:facet>
+                			
+                			
+                			
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
