@@ -25,6 +25,14 @@ public class SysUser implements java.io.Serializable {
 		this.userPassword = userPassword;
 	}
 
+/*Copy Constructor added 8.04.2011 by Erhun*/
+	
+	public SysUser(SysUser sysUser){
+		this.userName = sysUser.userName;
+		this.userPassword = sysUser.userPassword;
+		this.userStatus = sysUser.userStatus;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<SysUser> getAllUser(){
 		List<SysUser> allUser = null;
