@@ -21,7 +21,7 @@
     
     <sql-query name="getAllUser" callable="true">
     <return alias="SysUser" class="entities.dao.SysUser"/>
-        <![CDATA[CALL GetAllUserSP()]]>
+        <![CDATA[CALL GetAllUser()]]>
     </sql-query>
     
     <sql-query name="AddUser">
