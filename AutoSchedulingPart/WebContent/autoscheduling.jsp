@@ -476,6 +476,7 @@
             			</rich:dataTable>
             		</td>
             	</tr>
+            	
             	<tr>
             		<td>
             			<br/>
@@ -534,15 +535,24 @@
             </rich:panel>
         </rich:tab>
 		<rich:tab label="Dean Lectures">
-			<rich:panel style=" height : 401px; background-color:lightgray">
+			<rich:panel style="height : 401px; background-color:lightgray; width : 933px;">
 			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
 			
+			<table>
+				<tr>
+					<td>
+					
+							
 			<table style="background-color: graytext; color:white; width : 267px;">
-				
+								
+				<tr style=" height : 23px;">
+				<td>
+				</td>
+				</tr>
 				<tr>
 					<td>
 						<table>
-							<tr style=" height : 15px;">
+							<tr style=" height : 1px;">
 							<td></td>
 							</tr>
 							<tr>
@@ -596,65 +606,65 @@
 							</tr>
 						</table>					
 					</td>
-					
-						
-				
+									
 				</tr>
-				<tr style=" height : 161px;">
-					<td style=" width : 289px; background-color:gray;">
-						<table>
-							<tr>
-								<td>
-									
-								</td>
-								<td>
-									<h:outputText value="Theorical Courses" style="font-size:medium"></h:outputText>
-								</td>
-							</tr>
-							<tr style=" height : 19px; font-size:small;">
-								<td>
-									<h:outputText value="Days : "></h:outputText>
-								</td>
-								<td>
-									<rich:comboBox value="Choose Day">
-										<f:selectItem itemValue="Monday"/>	
-										<f:selectItem itemValue="Tuesday"/>
-										<f:selectItem itemValue="Wednesday"/>
-										<f:selectItem itemValue="Thursday"/>
-										<f:selectItem itemValue="Friday"/>								
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style="height: 9px">
-								<td>
-								</td>
-							</tr>
-							<tr style=" height : 28px; font-size:small;">
-								<td>
-									<h:outputText value="Start Hour : "></h:outputText>
-								</td>
-								<td>
-									<rich:comboBox value ="Choose Start Hour"></rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 19px;">
-								<td>
-									
-								</td>
-								<td>
-								
-								</td>
-							</tr>
-						</table>					
-					</td>
+				
+				<tr style="width: 20px; height : 33px;">
 					<td>
 					</td>
-				</tr>
-				<tr style=" height : 1px;">
-				<td></td>
-				</tr>
-				
+				</tr>				
+								
 			</table>
+					
+					</td>
+					<td style=" width : 46px;">
+					</td>
+					<td style="background-color: silver; width : 513px;">
+						<rich:dataTable id="deanScheduleTable" style="width:600px; height : 53px;">
+							<f:facet name="header">
+	                			<h:outputText value="Schedule Table" />
+	        				</f:facet>
+        				
+	        				<rich:column style=" width : 180px;">
+	        					<f:facet name="header">
+	        						<h:outputText value="Hours/Days " />
+	        					</f:facet>
+	        					<f:facet name="footer"></f:facet>
+	        					
+	        				</rich:column>
+                			
+        				        				
+        				 <rich:column style=" width : 250px;">
+                			<f:facet name="header">
+                				<h:outputText value="Monday"/>
+                			</f:facet>
+        				 </rich:column>
+        				 <rich:column style=" width : 250px;">
+                			<f:facet name="header">
+                				<h:outputText value="Tuesday"/>
+                			</f:facet>
+        				 </rich:column>
+        				 <rich:column style=" width : 250px;">
+                			<f:facet name="header">
+                				<h:outputText value="Wednesday"/>
+                			</f:facet>
+        				 </rich:column>
+        				 <rich:column style=" width : 250px;">
+                			<f:facet name="header">
+                				<h:outputText value="Thursday"/>
+                			</f:facet>
+        				 </rich:column>
+        				 <rich:column style=" width : 500px;">
+                			<f:facet name="header">
+                				<h:outputText value="Friday"/>
+                			</f:facet>
+        				 </rich:column>
+						</rich:dataTable>
+					</td>
+				</tr>
+			</table>
+			
+		
 			
 				
 			</rich:panel>
