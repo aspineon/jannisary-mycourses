@@ -33,7 +33,7 @@
 	<br/>
 	<rich:tabPanel switchType="Client">
 		<rich:tab label="Freshman">
-            <rich:panel style=" height : 401px;">
+            <rich:panel style=" height : 450px;">
             <table>
             	<tr>
             		<td>
@@ -102,7 +102,7 @@
             	</tr>
             	<tr>
             		<td>
-            			<br/>
+            			
             	  <table>
             	  	<tr>
             	  		<td>
@@ -159,7 +159,7 @@
 	      </rich:panel>
         </rich:tab>
         <rich:tab label="Sophomore">
-            <rich:panel style=" height : 401px;">
+            <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
             		<td>
@@ -228,7 +228,7 @@
             	</tr>
             	<tr>
             		<td>
-            			<br/>
+            			
             	  <table>
             	  	<tr>
             	  		<td>
@@ -284,7 +284,7 @@
             </rich:panel>
         </rich:tab>
         <rich:tab label="Junior">
-            <rich:panel style=" height : 401px;">
+            <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
             		<td>
@@ -353,7 +353,7 @@
             	</tr>
             	<tr>
             		<td>
-            			<br/>
+            			
             	  <table>
             	  	<tr>
             	  		<td>
@@ -409,7 +409,7 @@
             </rich:panel>
         </rich:tab>
         <rich:tab label="Senior">
-            <rich:panel style=" height : 401px;">
+            <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
             		<td>
@@ -479,7 +479,7 @@
             	
             	<tr>
             		<td>
-            			<br/>
+            			
             	  <table>
             	  	<tr>
             	  		<td>
@@ -535,7 +535,7 @@
             </rich:panel>
         </rich:tab>
 		<rich:tab label="Dean Lectures">
-			<rich:panel style="background-color:lightgray; width : 933px; height : 432px;">
+			<rich:panel style="background-color:lightgray; width : 933px; height : 500px;">
 			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
 			
 			<table>
@@ -579,44 +579,160 @@
 									<h:inputText disabled="true"></h:inputText>
 								</td>
 							</tr>
+							<tr style=" height : 17px;">
+							<td></td>
+							</tr>
+							<tr style="background-color: gray">
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Theorical "></h:outputText>
+								</td>
+								<td>
+								</td>
+							</tr>
 							<tr style=" height : 7px;">
 							<td></td>
 							</tr>
-							<tr>
+							<tr style="background-color: gray">
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Day : "></h:outputText>
+								</td>
+								
+								<td>
+									<rich:comboBox id="deanTheoDayComboBox" value="Choose Day">
+										<f:selectItem itemValue="Monday"/>
+										<f:selectItem itemValue="Tuesday"/>
+										<f:selectItem itemValue="Wednesday"/>
+										<f:selectItem itemValue="Thursday"/>
+										<f:selectItem itemValue="Friday"/>
+									</rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
+								</td>
+							</tr>
+							
+							<tr style="background-color: gray">
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Start Hour : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox id="deanTheoStartHourComboBox" value="Choose Start Hour">
+										<f:selectItem itemValue="1"/>
+										<f:selectItem itemValue="2"/>
+										<f:selectItem itemValue="3"/>
+										<f:selectItem itemValue="4"/>
+										<f:selectItem itemValue="5"/>
+										<f:selectItem itemValue="6"/>
+										<f:selectItem itemValue="7"/>
+										<f:selectItem itemValue="8"/>
+									</rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
+								</td>
+							</tr>
+							<tr style="background-color: gray">			
 							<td style=" width : 22px;">
 							</td>
 								<td>
 									<h:outputText value="Credit : "></h:outputText>
 								</td>
+								<td>									
+									<h:inputText disabled="true" style=" width : 52px;"></h:inputText>	
+								</td>
+							</tr>
+							<tr style=" height : 17px;">
 								<td>
-									<table>
-										<tr>
-											<td>
-												<h:inputText style=" width : 52px;"></h:inputText>
-											</td>
-											<td>
-												<h:outputText value="+"></h:outputText>
-											</td>
-											<td>
-												<h:inputText style=" width : 57px;"></h:inputText>
-											</td>
-										</tr>
-										
-									</table>
+								</td>
+							</tr>
+							<tr style=" height : 10px;">
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Practice"></h:outputText>
+								</td>
+								<td>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
+								</td>
+							</tr>
+							<tr >
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Day : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox id="deanPracDayComboBox" value="Choose Day">
+										<f:selectItem itemValue="Monday"/>
+										<f:selectItem itemValue="Tuesday"/>
+										<f:selectItem itemValue="Wednesday"/>
+										<f:selectItem itemValue="Thursday"/>
+										<f:selectItem itemValue="Friday"/>
+									</rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
+								</td>
+							</tr>
+							<tr >
+								<td>
+								</td>
+								<td>
+									<h:outputText value="Start Hour : "></h:outputText>
+								</td>
+								<td>
+									<rich:comboBox id="deanPracHoursComboBox" value="Choose Start Hour">
+										<f:selectItem itemValue="1"/>
+										<f:selectItem itemValue="2"/>
+										<f:selectItem itemValue="3"/>
+										<f:selectItem itemValue="4"/>
+										<f:selectItem itemValue="5"/>
+										<f:selectItem itemValue="6"/>
+										<f:selectItem itemValue="7"/>
+										<f:selectItem itemValue="8"/>
+									</rich:comboBox>
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
+								</td>
+							</tr>
+							<tr style="background-color: gray">			
+							<td style=" width : 22px;">
+							</td>
+								<td>
+									<h:outputText value="Credit : "></h:outputText>
+								</td>
+								<td>									
+									<h:inputText disabled="true" style=" width : 52px;"></h:inputText>	
+								</td>
+							</tr>
+							<tr style=" height : 7px;">
+								<td>
 								</td>
 							</tr>
 							<tr style=" height : 33px;">
 								<td>
-								</td>
-							</tr>
-							<tr style=" height : 33px;">
-								<td>
-								<h:commandButton value="Submit"></h:commandButton>
+								
 								</td>
 								<td>
 									
 								</td>
-								<td>
+								
+								<td style=" width : 98px;">
+									<h:commandButton id="deanSubmitButton" value="Submit"></h:commandButton>
 								</td>
 							</tr>
 						</table>					
