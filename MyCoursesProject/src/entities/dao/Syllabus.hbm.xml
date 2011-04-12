@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 11, 2011 11:14:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.dao.Syllabus" table="Syllabus" catalog="erhun_db3">
+        <id name="syllabusId" type="java.lang.Integer">
+            <column name="Syllabus_Id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="lecturer" class="entities.dao.Lecturer" fetch="select">
+            <column name="Lecturer_Id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="course" class="entities.dao.Course" fetch="select">
+            <column name="Course_Id" not-null="true" />
+        </many-to-one>
+        <property name="semester" type="string">
+            <column name="Semester" length="20" not-null="true" />
+        </property>
+        <property name="year" type="int">
+            <column name="Year" not-null="true" />
+        </property>
+        <property name="sectionNo" type="java.lang.Integer">
+            <column name="Section_No" />
+        </property>
+        <set name="schedules" table="Schedule" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Syllabus_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Schedule" />
+        </set>
+    </class>
+    
+    <sql-query name="getAllSyllabus" callable="true">
+    <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL GetAllSyllabus]]>
+    </sql-query>
+</hibernate-mapping>
