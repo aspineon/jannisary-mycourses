@@ -32,7 +32,7 @@ public class SysUserBean {
 	/* Bug Fixed
 	 * Bug selectionChanged method***********
 	 * Su an bu olay en son değişikliği kaydediyor, o yüzden ekranda ekleme
-	 * işelmi yaparken en son başka bir alan değiştirilirse o değeri alıyor
+	 * işlemi yaparken en son başka bir alan değiştirilirse o değeri alıyor
 	 * */
 	 public void selectionChanged(ValueChangeEvent  evt) {
 		 String selectedValue = (String) evt.getNewValue();
@@ -67,6 +67,7 @@ public class SysUserBean {
 			
 			
 			int size = allUsers.size();		
+			
 			
 			SysUser sysUser = new SysUser(currentItem);
 			allUsers.add(size,sysUser);
