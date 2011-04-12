@@ -3,6 +3,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
@@ -60,13 +61,20 @@ public class SysUser implements java.io.Serializable {
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.getNamedQuery("AddUser");
 			query.setParameter("pUserName", userName);
 			query.setParameter("pUserPass", userPassword);
 			query.setParameter("pUserStatus", userStatus);
 			query.executeUpdate();
+			tx.commit();
+			
 		}catch(Exception e){
 			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+			
 		}
 	}
 	
@@ -76,11 +84,16 @@ public class SysUser implements java.io.Serializable {
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.getNamedQuery("DeleteUser");
 			query.setParameter("pUserId", userId);
 			query.executeUpdate();
+			tx.commit();
 		}catch(Exception e){
 			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
 		}
 	}
 
@@ -90,15 +103,20 @@ public class SysUser implements java.io.Serializable {
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
 			Query query = session.getNamedQuery("UpdateUser");
 			query.setParameter("pUserId", userId);
 			query.setParameter("pUserName", userName);
 			query.setParameter("pUserStatus", userStatus);
 			query.setParameter("pUserPass", userPassword);
 			query.executeUpdate();
+			tx.commit();
 		}catch(Exception e){
 			System.err.print(e.getMessage());
 			throw new Exception(e);
+		}
+		finally{
+			session.close();
 		}
 	}
 	
