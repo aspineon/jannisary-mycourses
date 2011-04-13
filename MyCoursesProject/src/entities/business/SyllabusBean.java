@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.model.SelectItem;
+
 import entities.dao.Course;
+import entities.dao.Lecturer;
 import entities.dao.Syllabus;
 
 public class SyllabusBean {
@@ -25,18 +28,6 @@ public class SyllabusBean {
 		
 	}
 	
-    public int getLecturerId() {
-		return lecturerId;
-	}
-	public void setLecturerId(int lecturerId) {
-		this.lecturerId = lecturerId;
-	}
-	public int getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
-	}
 	public Integer getSyllabusId() {
 		return syllabusId;
 	}
@@ -86,17 +77,19 @@ public class SyllabusBean {
 	public void setAllSyllabusList(List<Syllabus> allSyllabusList) {
 		this.allSyllabusList = allSyllabusList;
 	}
-	public ArrayList<String> getCourseCodeList() {
+	/*Bug:
+	 * Farklı 2 hoca aynı dersi vermesi durumunda aynı ders kodu comboBox içerisinde 2 kez gösteriliyor.
+	 * Course Code 2 kez gösterilmemeli, bug çözülmeli.
+	 * */
+	public ArrayList<SelectItem> getCourseCodeList() {
 		synchronized (this) {
 			if (courseCodeList == null) {
-				courseCodeList = new ArrayList<String>();
+				courseCodeList = new ArrayList<SelectItem>();
 					try {
 						int i;
 						for(i=0; i<allSyllabusList.size(); i++){
-							int courseId = allSyllabusList.get(i).getCourseId();
-							course.setCourseId(courseId);
-							String courseCode = course.getCourseCodeById().get(0);
-							courseCodeList.add(courseCode);
+							String strCourseCode = allSyllabusList.get(i).getCourse().getCourseCode();
+							courseCodeList.add(new SelectItem(strCourseCode));
 						}
 						
 					} catch (Exception e) {
@@ -109,13 +102,32 @@ public class SyllabusBean {
 		
 		return courseCodeList;
 	}
-	public void setCourseCodeList(ArrayList<String> courseNameList) {
+	public void setCourseCodeList(ArrayList<SelectItem> courseNameList) {
 		this.courseCodeList = courseNameList;
 	}
-	public ArrayList<String> getLecturerNameList() {
+	public ArrayList<SelectItem> getLecturerNameList() {
+		
+		synchronized (this) {
+			if (lecturerNameList == null) {
+				lecturerNameList = new ArrayList<SelectItem>();
+					try {
+						int i;
+						for(i=0; i<allSyllabusList.size(); i++){
+							String strLecturerName = allSyllabusList.get(i).getLecturer().getLecturerName();
+							lecturerNameList.add(new SelectItem(strLecturerName));
+						}
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSyllabusBean:getLecturerNameList Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		
 		return lecturerNameList;
 	}
-	public void setLecturerNameList(ArrayList<String> lecturerNameList) {
+	public void setLecturerNameList(ArrayList<SelectItem> lecturerNameList) {
 		this.lecturerNameList = lecturerNameList;
 	}
 	
@@ -143,18 +155,18 @@ public class SyllabusBean {
 		this.currentRow = currentRow;
 	}
 	
-	private int lecturerId;
-    private int courseId;
+	
     private Integer syllabusId;
     private int year;
     private String semester;
     private Integer sectionNo;
     
     private Course course = new Course();
+    private Lecturer lecturer = new Lecturer();
     private int currentRow;
     private Set<Integer> keys = new HashSet<Integer>();
     private Syllabus currentItem = new Syllabus();
     private List<Syllabus> allSyllabusList = null;
-    private ArrayList<String> courseCodeList = null;
-    private ArrayList<String> lecturerNameList = null;
+    private ArrayList<SelectItem> courseCodeList = null;
+    private ArrayList<SelectItem> lecturerNameList = null;
 }
