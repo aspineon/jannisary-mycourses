@@ -147,9 +147,9 @@
                 </rich:menuItem>
 
 				<rich:menuItem submitMode="none"
-                    onclick="./syllabus.jsp'" target="myframe">
+                    onclick="./Syllabus.jsp'" target="myframe">
                     <h:outputLink
-                        value="./syllabus.jsp" target="myframe">
+                        value="./Syllabus.jsp" target="myframe">
                         <h:outputText value="Syllabus Operation"></h:outputText>
                     </h:outputLink>
                 </rich:menuItem>
