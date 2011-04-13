@@ -562,7 +562,9 @@
 									<h:outputText value="Course : "></h:outputText>
 								</td>
 								<td>
-									<rich:comboBox value="Choose Dean's Course"></rich:comboBox>
+									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course">
+										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
+									</rich:comboBox>
 								</td>
 							</tr>
 							<tr style=" height : 7px;">

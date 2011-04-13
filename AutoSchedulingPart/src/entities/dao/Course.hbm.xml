@@ -45,4 +45,10 @@
             <one-to-many class="entities.dao.Syllabus" />
         </set>
     </class>
+    
+    <sql-query name="getDeanCourseName" callable="true">
+    	<return alias="Course" class="entities.dao.Course"/>
+    	<![CDATA[CALL getDeanCourses]]>
+    </sql-query>
+    
 </hibernate-mapping>
