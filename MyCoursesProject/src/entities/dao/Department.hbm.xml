@@ -27,4 +27,14 @@
             <one-to-many class="entities.dao.Lecturer" />
         </set>
     </class>
+    
+    <sql-query name="getAllDepartments">
+    	<return alias="Department" class="entities.dao.Department"/>
+    	<![CDATA[CALL GetAllDepartments()]]>
+ 	</sql-query>
+    
+    <sql-query name="getDepartmentByCode">
+    	<return alias="Department" class="entities.dao.Department"/>
+    	<![CDATA[CALL GetDepartmentByCode(:pDepartmentCode)]]>
+ 	</sql-query>
 </hibernate-mapping>
