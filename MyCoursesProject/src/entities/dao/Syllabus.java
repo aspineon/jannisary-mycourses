@@ -4,6 +4,7 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
@@ -43,6 +44,75 @@ public class Syllabus implements java.io.Serializable {
 		this.sectionNo = sectionNo;
 		this.schedules = schedules;
 	}
+	
+	public void deleteSyllabus(){
+		
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("DeleteSyllabus");
+			query.setParameter("pSyllabusId", syllabusId);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
+public void updateSyllabus(){
+		
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("UpdateSyllabus");
+			query.setParameter("pSyllabusId", syllabusId);
+			query.setParameter("pSemester", semester);
+			query.setParameter("pYear", year);
+			query.setParameter("pCourseId", course.getCourseId());
+			query.setParameter("pLecturerId", lecturer.getLecturerId());
+			query.setParameter("pSectionNo", sectionNo);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+
+public void addSyllabus(){
+	
+	Session session=null;
+	try{
+		
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		Query query = session.getNamedQuery("AddSyllabus");
+		query.setParameter("pSemester", semester);
+		query.setParameter("pYear", year);
+		query.setParameter("pCourseId", course.getCourseId());
+		query.setParameter("pLecturerId", lecturer.getLecturerId());
+		query.setParameter("pSectionNo", sectionNo);
+		query.executeUpdate();
+		tx.commit();
+	}catch(Exception e){
+		System.err.print(e.getMessage());
+	}
+	finally{
+		session.close();
+	}
+}
 	
 	@SuppressWarnings("unchecked")
 	public List<Syllabus> getAllSyllabus(){
