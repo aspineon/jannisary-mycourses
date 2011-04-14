@@ -1,63 +1,79 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 11, 2011 11:14:10 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="entities.dao.Course" table="Course" catalog="erhun_db3">
-        <id name="courseId" type="java.lang.Integer">
-            <column name="Course_Id" />
-            <generator class="identity" />
-        </id>
-        <many-to-one name="typeofCourse" class="entities.dao.TypeofCourse" fetch="select">
-            <column name="Typeof_Course_Id" not-null="true" />
-        </many-to-one>
-        <many-to-one name="department" class="entities.dao.Department" fetch="select">
-            <column name="Department_Id" not-null="true" />
-        </many-to-one>
-        <property name="courseCode" type="string">
-            <column name="Course_Code" length="10" not-null="true" unique="true" />
-        </property>
-        <property name="courseName" type="string">
-            <column name="Course_Name" not-null="true" />
-        </property>
-        <property name="teoricLectureHours" type="int">
-            <column name="Teoric_Lecture_Hours" not-null="true" />
-        </property>
-        <property name="practiceLectureHourse" type="int">
-            <column name="Practice_Lecture_Hourse" not-null="true" />
-        </property>
-        <property name="attendance" type="boolean">
-            <column name="Attendance" not-null="true" />
-        </property>
-        <property name="grade" type="int">
-            <column name="Grade" not-null="true" />
-        </property>
-        <property name="precondition" type="string">
-            <column name="Precondition" length="10" />
-        </property>
-        <property name="courseDescription" type="string">
-            <column name="Course_Description" length="2000" />
-        </property>
-        <set name="syllabuses" table="Syllabus" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Course_Id" not-null="true" />
-            </key>
-            <one-to-many class="entities.dao.Syllabus" />
-        </set>
-    </class>
-    
-    <sql-query name="AddCourse">
-    <return alias="course" class="entities.dao.Course"/>
-        <![CDATA[CALL AddCourse(:p_Course_Code, :p_Course_Name, :p_Teoric_Lecture_Hours, :p_Practice_Lecture_Hours, :p_Attendance, :p_Typeof_Course_Id, :p_Course_Description)]]>
-    </sql-query>
-    
-     <sql-query name="getCourseCodeById" callable="true">
-    <return alias="Course" class="entities.dao.Course"/>
-        <![CDATA[CALL GetCourseCodeById(:pCourseId)]]>
-    </sql-query>
-    
-     <sql-query name="getCourseCodeList" callable="true">
-    <return alias="Course" class="entities.dao.Course"/>
-        <![CDATA[CALL GetCourseCodeList()]]>
-    </sql-query>
+ <class catalog="erhun_db3" name="entities.dao.Course" table="Course">
+  <id name="courseId" type="java.lang.Integer">
+   <column name="Course_Id"/>
+   <generator class="identity"/>
+  </id>
+  <many-to-one class="entities.dao.TypeofCourse" fetch="select" name="typeofCourse">
+   <column name="Typeof_Course_Id" not-null="true"/>
+  </many-to-one>
+  <many-to-one class="entities.dao.Department" fetch="select" name="department">
+   <column name="Department_Id" not-null="true"/>
+  </many-to-one>
+  <property generated="never" lazy="false" name="courseCode" type="string">
+   <column length="10" name="Course_Code" not-null="true" unique="true"/>
+  </property>
+  <property generated="never" lazy="false" name="courseName" type="string">
+   <column name="Course_Name" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="teoricLectureHours" type="int">
+   <column name="Teoric_Lecture_Hours" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="practiceLectureHourse" type="int">
+   <column name="Practice_Lecture_Hourse" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="attendance" type="boolean">
+   <column name="Attendance" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="grade" type="int">
+   <column name="Grade" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="precondition" type="string">
+   <column length="10" name="Precondition"/>
+  </property>
+  <property generated="never" lazy="false" name="courseDescription" type="string">
+   <column length="2000" name="Course_Description"/>
+  </property>
+  <set fetch="select" inverse="true" lazy="true" name="syllabuses"
+   sort="unsorted" table="Syllabus">
+   <key>
+    <column name="Course_Id" not-null="true"/>
+   </key>
+   <one-to-many class="entities.dao.Syllabus"/>
+  </set>
+ </class>
+ 
+ <sql-query name="AddCourse">
+   <return alias="course" class="entities.dao.Course"/>
+   <![CDATA[CALL AddCourse(:p_Course_Code, :p_Course_Name, :p_Teoric_Lecture_Hours, :p_Practice_Lecture_Hours, :p_Attendance, :p_Typeof_Course_Id, :p_Course_Description)]]>
+ </sql-query>
+ 
+ <sql-query callable="true" name="getCourseCodeById">
+ 	<return alias="Course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL GetCourseCodeById(:pCourseId)]]>
+ </sql-query>
+ 
+ <sql-query callable="true" name="getCourseCodeList">
+ 	<return alias="Course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL GetCourseCodeList()]]>
+ </sql-query>
+ 
+ <sql-query callable="true" name="getAllCourses">
+ 	<return alias="Course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL GetAllCourses()]]>
+ </sql-query>
+ 
+ <sql-query name="updateCourse">
+ 	<return alias="course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL UpdateCourse(:pCourseId, :pCourseCode, :pCourseName, :pTeoricLectureHours, :pPracticeLectureHourse, :pAttendance, :pGrade, :pTypeofCourse, :pDepartment, :pPrecondition, :pCourseDescription)]]>
+ </sql-query>
+ 
+ <sql-query name="deleteCourse">
+ 	<return alias="Course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL DeleteCourse(:pCourseId)]]>
+ </sql-query>
 </hibernate-mapping>
