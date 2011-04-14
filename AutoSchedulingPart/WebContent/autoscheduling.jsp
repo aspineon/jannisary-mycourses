@@ -562,7 +562,8 @@
 									<h:outputText value="Course : "></h:outputText>
 								</td>
 								<td>
-									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course">
+								
+									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course" valueChangeListener="#{deanBean.selectionChanged}" onchange="submit()">
 										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
 									</rich:comboBox>
 								</td>
@@ -578,7 +579,11 @@
 								
 								</td>
 								<td>
-									<h:inputText disabled="true"></h:inputText>
+									<h:form>
+									<rich:comboBox id="deanLecturerNameComboBox" value="Choose Lecturer">
+										<f:selectItems value="#{deanBean.deanLecturerList}"/>
+									</rich:comboBox>
+									</h:form>
 								</td>
 							</tr>
 							<tr style=" height : 17px;">
@@ -605,6 +610,7 @@
 								
 								<td>
 									<rich:comboBox id="deanTheoDayComboBox" value="Choose Day">
+										<f:selectItem itemValue="Choose Day"/>
 										<f:selectItem itemValue="Monday"/>
 										<f:selectItem itemValue="Tuesday"/>
 										<f:selectItem itemValue="Wednesday"/>
@@ -675,7 +681,8 @@
 									<h:outputText value="Day : "></h:outputText>
 								</td>
 								<td>
-									<rich:comboBox id="deanPracDayComboBox" value="Choose Day">
+									<rich:comboBox disabled="true" id="deanPracDayComboBox" value="Choose Day">
+										<f:selectItem itemValue="Choose Day"/>
 										<f:selectItem itemValue="Monday"/>
 										<f:selectItem itemValue="Tuesday"/>
 										<f:selectItem itemValue="Wednesday"/>
@@ -695,7 +702,7 @@
 									<h:outputText value="Start Hour : "></h:outputText>
 								</td>
 								<td>
-									<rich:comboBox id="deanPracHoursComboBox" value="Choose Start Hour">
+									<rich:comboBox disabled="true" id="deanPracHoursComboBox" value="Choose Start Hour">
 										<f:selectItem itemValue="1"/>
 										<f:selectItem itemValue="2"/>
 										<f:selectItem itemValue="3"/>
@@ -733,8 +740,14 @@
 									
 								</td>
 								
-								<td style=" width : 98px;">
+								<td style=" width : 115px;">
 									<h:commandButton id="deanSubmitButton" value="Submit"></h:commandButton>
+									<h:commandButton disabled="true" id ="deanApplyButton" value="Apply All"></h:commandButton>
+									
+								</td>
+								<td>
+																	</td>
+								<td>
 								</td>
 							</tr>
 						</table>					

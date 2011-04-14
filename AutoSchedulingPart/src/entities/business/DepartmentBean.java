@@ -55,6 +55,7 @@ public class DepartmentBean
 		
 		return selectItemList;
 	}
+	
 	public void setSelectItemList(ArrayList<SelectItem> selectItemList) {
 		this.selectItemList = selectItemList;
 	}

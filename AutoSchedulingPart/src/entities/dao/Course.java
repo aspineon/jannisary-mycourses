@@ -4,6 +4,7 @@ package entities.dao;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.Query;
@@ -80,6 +81,25 @@ public class Course implements java.io.Serializable {
 			ex.getMessage();
 		}
 		return deanCourseNameList;
+	}
+	
+	public ArrayList<Syllabus> getLecturerNameByCourseId()
+	{
+		Session session = null;
+		ArrayList<Syllabus> deanLecturerNameList = new ArrayList<Syllabus>();
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Query query = session.getNamedQuery("getLecturerNameByCourseId");
+			query.setParameter("pCourseId", courseId);
+			deanLecturerNameList = (ArrayList<Syllabus>)query.list();
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return deanLecturerNameList;
 	}
 	
 	//**************************************************************

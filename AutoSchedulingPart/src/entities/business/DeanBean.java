@@ -3,10 +3,12 @@ package entities.business;
 import java.util.*;
 
 import javax.annotation.PostConstruct;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import entities.dao.Classroom;
 import entities.dao.Course;
+import entities.dao.Syllabus;
 
 public class DeanBean 
 {
@@ -33,7 +35,7 @@ public class DeanBean
 	// Dekan derslerini filtreleme **************************************************
 	Course deanCourse = new Course();
 	ArrayList<SelectItem> selectItemListDeanCourse = new ArrayList<SelectItem>();
-	
+		
 	public ArrayList<SelectItem> getSelectItemListDeanCourse() {
 		System.out.println("asd");
 		synchronized (this) {
@@ -60,6 +62,90 @@ public class DeanBean
 		return selectItemListDeanCourse;
 	}
 	
+	private int getCourseIdFromCourseList(String paramCourseName)
+	{
+		int returnValue = -1;
+		try
+		{
+			for(int acc = 0; acc < deanCourseList.size(); acc++)
+			{
+				String str_CourseName = deanCourseList.get(acc).getCourseName();
+				if(str_CourseName.equals(paramCourseName))
+				{
+					returnValue = deanCourseList.get(acc).getCourseId();
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		
+		return returnValue;
+	}
+	
+	
+	public void selectionChanged(ValueChangeEvent evt)
+	{
+		String selectedCourseName = (String)evt.getNewValue();
+		if(!selectedCourseName.equals(""))
+		{
+			int intCourseId = getCourseIdFromCourseList(selectedCourseName);
+			deanCourse.setCourseId(intCourseId);
+			deanCourse.getLecturerNameByCourseId();
+		}
+	}
+	
+		
+	public ArrayList<SelectItem> getDeanLecturerList() {
+		
+		System.out.println("asd");
+		synchronized (this) {
+			if(deanSyllabusList == null)
+			{
+				deanSyllabusList = new ArrayList<Syllabus>();
+				try
+				{
+					deanSyllabusList = deanCourse.getLecturerNameByCourseId();
+					
+					for(int i = 0; i < deanSyllabusList.size(); i++)
+					{
+						String lecturerName = deanSyllabusList.get(i).getLecturer().getLecturerName();
+						deanLecturerList.add(new SelectItem(lecturerName));//(new SelectItem(departmentDesc));
+					}
+				}
+				catch(Exception ex)
+				{
+					System.err.println(ex.getMessage());
+				}
+			}
+		}
+		
+		return deanLecturerList;
+		
+		/*
+		deanLecturerList = new ArrayList<SelectItem>();
+		if(deanSyllabusList != null)
+		{
+			for(int i = 0; i < deanSyllabusList.size(); i++)
+			{
+				String str_LecturerName = deanSyllabusList.get(i).getLecturer().getLecturerName();
+				deanLecturerList.add(new SelectItem(str_LecturerName));
+			}
+		}
+		else
+		{
+			deanLecturerList.add(new SelectItem(""));
+		}
+		return deanLecturerList;*/
+	}
+
+	public void setDeanLecturerList(ArrayList<SelectItem> deanLecturerList) {
+		this.deanLecturerList = deanLecturerList;
+	}
+
+	ArrayList<Syllabus> deanSyllabusList = null;
+	ArrayList<SelectItem> deanLecturerList = null;
 	ArrayList<Course> deanCourseList = null;
 	
 //**********************************************************************************	
