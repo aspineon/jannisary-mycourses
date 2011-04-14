@@ -35,4 +35,20 @@
     <return alias="Syllabus" class="entities.dao.Syllabus"/>
         <![CDATA[CALL GetAllSyllabus]]>
     </sql-query>
+    
+    <sql-query name="AddSyllabus">
+    <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL AddSyllabus(:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo)]]>
+    </sql-query>
+    
+    <sql-query name="DeleteSyllabus">
+    <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL DeleteSyllabus(:pSyllabusId)]]>
+    </sql-query>
+    
+    <sql-query name="UpdateSyllabus">
+    <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL UpdateSyllabus(:pSyllabusId,:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo)]]>
+    </sql-query>
+    
 </hibernate-mapping>
