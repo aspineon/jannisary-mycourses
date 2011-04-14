@@ -10,15 +10,33 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortOrder;
 import org.richfaces.model.selection.SimpleSelection;
 
-import entities.dao.Course;;
+import entities.dao.Course;
+import entities.dao.Department;
+import entities.dao.SysUser;
+import entities.dao.TypeofCourse;
 
 public class CourseBean {
 	
+/*	public CourseBean(){
+		this.FillCombo();
+	}*/
+	
+	public List<SelectItem> getSelectItems() {
+		FillCombo();
+		return selectItems;
+	}
+
+	public void setSelectItems(List<SelectItem> selectItems) {
+		this.selectItems = selectItems;
+	}
+
 	public String AddCourse(){
 		Course course = new Course();
 		course.setCourseCode(courseCode);
@@ -33,8 +51,9 @@ public class CourseBean {
 	private int teoricLectureHours;
 	private int practiceLectureHourse;
 	private boolean attendance;
-	private int typeofCourseId;
+	private TypeofCourse typeofCourseId;
 	private String courseDescription;
+	private Department department;
 	
 	
 	public Integer getCourseId() {
@@ -73,10 +92,10 @@ public class CourseBean {
 	public void setAttendance(boolean attendance) {
 		this.attendance = attendance;
 	}
-	public int getTypeofCourseId() {
+	public TypeofCourse getTypeofCourseId() {
 		return typeofCourseId;
 	}
-	public void setTypeofCourseId(int typeofCourseId) {
+	public void setTypeofCourseId(TypeofCourse typeofCourseId) {
 		this.typeofCourseId = typeofCourseId;
 	}
 	public String getCourseDescription() {
@@ -88,151 +107,112 @@ public class CourseBean {
 
 	///////////////////////////////////////////////////////////
 	
+	private List<SelectItem> selectItems;
 	private Course currentItem = new Course();
+	private Set<Integer> keys = new HashSet<Integer>();
+	private int currentRow;
+	private List<Course> allCourses = null;
+	private List<Department> allDepartments = null;
 
-	public void fetchCurrentRow(ActionEvent event) {
-		String course_Id=(FacesContext.getCurrentInstance().
-				getExternalContext().getRequestParameterMap().get("courseId"));
-		currentRow = Integer.parseInt(FacesContext.getCurrentInstance().
-				getExternalContext().getRequestParameterMap().get("row"));
-		for (Course item : allCourses) {
-			if (item.getCourseId().equals(course_Id)){
-				currentItem=item;
-				break;
-			}
+	public void selectionChangedDepartmentCombo(ValueChangeEvent  evt) {
+		 String selectedValue = (String) evt.getNewValue();
+		 Department dpt = new Department();
+		 dpt = allDepartments.get(0);
+		 dpt.setDeptCode(selectedValue);
+		 allDepartments = dpt.getDepartmentByCode();
+
+		 if (!selectedValue.equals("")) {
+			 currentItem.setDepartment(allDepartments.get(0));
+		 }
+	}
+	
+	public void FillCombo(){
+		int i;
+		selectItems = new ArrayList<SelectItem>();
+		department = allCourses.get(0).getDepartment();
+		allDepartments = department.getAllDepartments();
+		for(i=0;i<allDepartments.size();i++){
+			String strDpt = allDepartments.get(i).getDeptCode();
+			selectItems.add(new SelectItem(strDpt));
 		}
 	}
-
-	private Set<Integer> keys = new HashSet<Integer>();
-
-	private int currentRow;
-
-	private SimpleSelection selection = new SimpleSelection();
-
-	private SortOrder order = new SortOrder();
-
-
-//	private ArrayList<CourseBean[]> model = null;
-
-	private ArrayList<Course> selectedCourses = new ArrayList<Course>();
-	private ArrayList<Facet> columns = new ArrayList<Facet>();
-/*	private static int DECIMALS = 1;
-	private static int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;*/
-
-	private List<Course> allCourses = null;
-
-	public void DataTableScrollerBean() {
-		//initColumnsHeaders();
-		SortField[] fields = { new SortField("courseId", true) };
-		order.setFields(fields);
-	}
-
-	/*public String getallCourses() {
+	
+	public List<Course> getAllCourses() {
 		synchronized (this) {
 			if (allCourses == null) {
 				allCourses = new ArrayList<Course>();
-				// Buraya allcourses.add() gibi bisey yazilicak ve databaseden cekilen veriler buraya atilacak.
-				Course course = new Course();
-				allCourses = course.GetAllCourses();
-				
+					try {
+						allCourses = currentItem.getAllCourses();
+						//listSeperator();
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllUsers Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
 			}
+		}
+		return allCourses;
+	}
+
+	
+
+	public String addCourse(){
+		try{
+			
+			
+			int size = allCourses.size();		
+			
+			Course course = new Course(currentItem);
+			allCourses.add(size,course);
+			course.AddCourse();
+			keys.clear();
+			keys.add(allCourses.size());
+			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
+			
+			/*currentItem.setUserName("");
+			currentItem.setUserPassword("");*/
+			
+			
+			
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
 		}
 		return null;
-	}*/
-
-/*	public List<Course> getTenRandomCars() {
-		List<Course> result = new ArrayList<Course>();
-		int size = getallCourses().size() - 1;
-		for (int i = 0; i < 10; i++) {
-			result.add(getallCourses().get(rand(1, size)));
+	}
+	
+	public void store() {
+		/*
+		allCars.set(currentRow, currentItem);
+		keys.clear();
+		keys.add(currentRow);
+		*/
+		
+		/*try-catch blogu eklenecek*/
+		try{
+			currentItem = allCourses.get(currentRow);
+			currentItem.updateCourse();
+			allCourses.set(currentRow, currentItem);
+			keys.clear();
+			keys.add(currentRow);
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
 		}
-		return result;
-	}*/
-
-	public SimpleSelection getSelection() {
-		return selection;
 	}
 
-	public void setSelection(SimpleSelection selection) {
-		this.selection = selection;
+	
+	public void delete() {
+		
+		/* try-catch bloğu eklenecek
+		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
+		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
+		 *de silinmeyecek ve kullanıcı veritabanı hatasından bilgilendirilecektir.
+		 * 
+		 */
+		currentItem = allCourses.get(currentRow);
+		currentItem.deleteCourse();
+		allCourses.remove(currentItem);
 	}
-
-/*	public String takeSelection() {
-		getselectedCourses().clear();
-		if (getSelection().isSelectAll()) {
-			getselectedCourses().addAll(allCourses);
-		} else {
-			Iterator<Object> iterator = getSelection().getKeys();
-			while (iterator.hasNext()) {
-				Object key = iterator.next();
-				getselectedCourses().add(allCourses.get((Integer)key));
-				
-			}
-		}
-		return null;
-	}*/
-
-	public ArrayList<Course> getselectedCourses() {
-		return selectedCourses;
-	}
-
-	public void setselectedCourses(ArrayList<Course> selectedCourses) {
-		this.selectedCourses = selectedCourses;
-	}
-
-/*	public void initColumnsHeaders() {
-		columns.clear();
-		String header;
-		String footer = "";
-		header = "Chevrolet";
-		Facet facet = new Facet(header, footer);
-		columns.add(facet);
-		header = "Ford";
-		facet = new Facet(header, footer);
-		columns.add(facet);
-		header = "Nissan";
-		facet = new Facet(header, footer);
-		columns.add(facet);
-		header = "Toyota";
-		facet = new Facet(header, footer);
-		columns.add(facet);
-		header = "GMC";
-		facet = new Facet(header, footer);
-		columns.add(facet);
-		header = "Infiniti";
-		facet = new Facet(header, footer);
-		columns.add(facet);
-	}*/
-
-/*	public ArrayList<CourseBean[]> getModel() {
-		if (model == null) {
-			model = new ArrayList<CourseBean[]>();
-			for (int i = 0; i < 9; i++) {
-				CourseBean[] items = new CourseBean[6];
-				items[0] = createCar("Chevrolet", "Corvette", 1).get(0);
-				items[1] = createCar("Ford", "Explorer", 1).get(0);
-				items[2] = createCar("Nissan", "Maxima", 1).get(0);
-				items[3] = createCar("Toyota", "Camry", 1).get(0);
-				items[4] = createCar("GMC", "Yukon", 1).get(0);
-				items[5] = createCar("Infiniti", "G35", 1).get(0);
-				model.add(items);
-			}
-		}
-		return model;
-	}*/
-
-	public ArrayList<Facet> getColumns() {
-		return columns;
-	}
-
-	public SortOrder getOrder() {
-		return order;
-	}
-
-	public void setOrder(SortOrder order) {
-		this.order = order;
-	}
-
+	
 	public Course getCurrentItem() {
 		return currentItem;
 	}
@@ -249,15 +229,6 @@ public class CourseBean {
 		this.currentRow = currentRow;
 	}
 
-	public void store() {
-		allCourses.set(currentRow, currentItem);
-		keys.clear();
-		keys.add(currentRow);
-	}
-
-	public void delete() {
-		allCourses.remove(currentRow);
-	}
 
 	public Set<Integer> getKeys() {
 		return keys;
