@@ -113,9 +113,13 @@ public class SysUserBean {
 		 *de silinmeyecek ve kullanıcı veritabanı hatasından bilgilendirilecektir.
 		 * 
 		 */
-		currentItem = allUsers.get(currentRow);
-		currentItem.deleteUser();
-		allUsers.remove(currentItem);
+		try{
+			currentItem = allUsers.get(currentRow);
+			currentItem.deleteUser();
+			allUsers.remove(currentItem);
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
 	}
 	
 	public List<SelectItem> getSelectItems(){
