@@ -2,9 +2,11 @@ package entities.dao;
 
 import java.util.List;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
@@ -30,6 +32,21 @@ public class Course implements java.io.Serializable {
 	private Set syllabuses = new HashSet(0);
 
 	public Course() {
+	}
+	
+	//Copy constructor added by Erdi 
+	public Course(Course course){
+		this.typeofCourse = course.typeofCourse;
+		this.department = course.department;
+		this.attendance = course.attendance;
+		this.courseCode = course.courseCode;
+		this.courseName = course.courseName;
+		this.teoricLectureHours = course.teoricLectureHours;
+		this.practiceLectureHourse = course.practiceLectureHourse;
+		this.grade = course.grade;
+		this.precondition = course.precondition;
+		this.courseDescription = course.courseDescription;
+		
 	}
 
 	public Course(TypeofCourse typeofCourse, Department department,
@@ -87,6 +104,56 @@ public class Course implements java.io.Serializable {
 		}
 	}
 	
+	public void updateCourse() throws Exception{
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("updateCourse");
+			query.setParameter("pCourseId", courseId);
+			query.setParameter("pCourseCode", courseCode);
+			query.setParameter("pCourseName", courseName);
+			query.setParameter("pTeoricLectureHours", teoricLectureHours);
+			query.setParameter("pPracticeLectureHourse", practiceLectureHourse);
+			query.setParameter("pAttendance", attendance);
+			query.setParameter("pGrade", grade);
+			query.setParameter("pTypeofCourse", typeofCourse);
+			query.setParameter("pDepartment", department);
+			query.setParameter("pPrecondition", precondition);
+			query.setParameter("pCourseDescription", courseDescription);
+			
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+			throw new Exception(e);
+		}
+		finally{
+			session.close();
+		}
+	}
+	
+	public void deleteCourse(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("deleteCourse");
+			query.setParameter("pCourseId", courseId);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Course> getCourseCodeById(){
 		List<Course> courseCodeList = null;
@@ -109,6 +176,7 @@ public class Course implements java.io.Serializable {
         return courseCodeList;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	public List<Course> getCourseCodeList(){
 		List<Course> courseCodeList = null;
@@ -127,6 +195,23 @@ public class Course implements java.io.Serializable {
                 e.getMessage();
         } 
         return courseCodeList;
+	}
+	
+	public List<Course> getAllCourses(){
+		List<Course> allCoursesList = null;
+		Session session = null;
+		
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			
+			Query query = session.getNamedQuery("getAllCourses");
+			allCoursesList = (List<Course>) query.list();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+		return allCoursesList;
 	}
 	
 	public Integer getCourseId() {
