@@ -21,7 +21,9 @@ public class SyllabusBean {
 	}
 	
 	public void delete(){
-		
+		currentItem = allSyllabusList.get(currentRow);
+		currentItem.deleteSyllabus();
+		allSyllabusList.remove(currentItem);
 	}
 	
 	public void addSyllabus(){
