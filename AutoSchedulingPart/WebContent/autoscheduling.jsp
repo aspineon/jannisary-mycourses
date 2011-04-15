@@ -537,7 +537,7 @@
 			
 		<rich:tab label="Dean Courses">
 			<rich:panel style=" height : 378px;">
-				<table align="center" style="background-color: gray; height : 178px;">
+				<table style="background-color: gray; height : 178px;">
 					<tr style=" height : 48px;">
 					<td style=" width : 302px; background-color: dark">						
 						<h:form prependId="false">
@@ -590,8 +590,8 @@
 						            		 <h:outputText value="Type : " style="color:white"/>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="operationTypeComboBox" style=" width : 127px;">
-								            	<f:selectItem itemValue="Choose Day"/>
+						            		<h:selectOneMenu id="operationTypeComboBox" style=" width : 151px;">
+								            	<f:selectItem itemValue="Choose Operation"/>
 								            	<f:selectItem itemValue="Theory Operation."/>
 								            	<f:selectItem itemValue="Practice Operation"/>
 							            	</h:selectOneMenu>
@@ -603,11 +603,24 @@
 					            	<td>
 					            	</td>
 					            	</tr>
-					            	<tr>
+					            	<tr style=" height : 9px;">
 						            	<td>
 						            	</td>
 						            	<td>
 						            		
+						            	</td>
+						            	<td>
+						            	</td>
+					            	</tr>
+					            	<tr bgcolor="#817679">
+						            	<td>
+						            	</td>
+						            	<td>
+						            		
+						            	</td>
+						            	<td>
+						            		<h:commandButton value="Submit"></h:commandButton>
+						            		<h:commandButton value="Apply"></h:commandButton>
 						            	</td>
 						            	<td>
 						            	</td>
@@ -617,11 +630,7 @@
 						            	</td>
 					            	</tr>				            
 					            </table>
-					            
-					            					           
-					           
-					            		 
-					            			     					
+		            			     					
 					</td>
 					<td>
 					</td>
