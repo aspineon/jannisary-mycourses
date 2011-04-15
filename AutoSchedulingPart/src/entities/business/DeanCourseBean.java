@@ -8,8 +8,13 @@ public class DeanCourseBean
 {
 	private List<SelectItem> deanCourseList;
 	private List<SelectItem> deanLecturerList;
+	//private List<String> creditListTheo;
+	//private List<String> creditListPrac;
 	String selectedDeanCourse = "";
 	String selectedDeanLecturer;
+	
+	String creditValueTheo;
+	String creditValuePrac;
 	
 	public DeanCourseBean()
 	{
@@ -34,6 +39,22 @@ public class DeanCourseBean
 			loadLecturer();
 		}
 		return deanLecturerList;
+	}
+
+	public String getCreditValueTheo() {
+		return creditValueTheo;
+	}
+
+	public void setCreditValueTheo(String creditValueTheo) {
+		this.creditValueTheo = creditValueTheo;
+	}
+
+	public String getCreditValuePrac() {
+		return creditValuePrac;
+	}
+
+	public void setCreditValuePrac(String creditValuePrac) {
+		this.creditValuePrac = creditValuePrac;
 	}
 
 	public void setDeanLecturerList(List<SelectItem> deanLecturerList) {
@@ -75,24 +96,32 @@ public class DeanCourseBean
 		if(selectedDeanCourse.equals("PHY1002"))
 		{
 			deanLecturerList.add(new SelectItem("PHY1002-CSE", "Mehmet SAHIN"));
-			
+			creditValueTheo = "4";
+			creditValuePrac = "0";
 		}
 		else if(selectedDeanCourse.equals("MAT1002"))
 		{
 			deanLecturerList.add(new SelectItem("MAT1002-CSE", "Mustafa GUZEL"));
-			
+			creditValueTheo = "4";
+			creditValuePrac = "0";			
 		}
 		else if(selectedDeanCourse.equals("TAR1002"))
 		{
 			deanLecturerList.add(new SelectItem("TAR1002-CSE", "Gurcan BOZKIR"));
+			creditValueTheo = "2";
+			creditValuePrac = "0";
 		}
 		else if(selectedDeanCourse.equals("TUR2002"))
 		{
 			deanLecturerList.add(new SelectItem("TUR2002-CSE", "Gulece BILEN"));
+			creditValueTheo = "2";
+			creditValuePrac = "0";
 		}	
 		else
 		{
-			deanLecturerList.add(new SelectItem("", "Dean Course did not select"));
+			deanLecturerList.add(new SelectItem("", "No Course Selected"));
+			creditValueTheo = "No Selection";
+			creditValuePrac = "No Selection";
 		}
 	}
 	

@@ -534,238 +534,100 @@
             </table>			    				   	
             </rich:panel>
         </rich:tab>
-		<rich:tab label="Dean Lectures Old">
-			<rich:panel style="background-color:lightgray; width : 933px; height : 500px;">
-			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
 			
-			<table>
-				<tr>
+		<rich:tab label="Dean Courses">
+			<rich:panel style=" height : 378px;">
+				<table align="center" style="background-color: gray; height : 178px;">
+					<tr style=" height : 48px;">
+					<td style=" width : 302px; background-color: dark">						
+						<h:form prependId="false">
+					        <h:panelGrid columns="2">
+					        <h:outputText value="Courses : " style="color:white"/>
+					            
+					            <h:selectOneMenu id="deanCourses"
+								    value="#{deanCourseBean.selectedDeanCourse}" onchange="submit();"
+								    valueChangeListener="#{deanCourseBean.handleValueChange}" style=" width : 194px;">
+								    <f:selectItem itemValue="" itemLabel="Choose Course" />
+								    <f:selectItems value="#{deanCourseBean.deanCourseList}" />
+								</h:selectOneMenu>
+								
+								<h:outputText value="Lecturer" style="color:white"/>
+					           
+					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}" style=" width : 195px;">
+					                <f:selectItems value="#{deanCourseBean.deanLecturerList}" />
+					            </h:selectOneMenu>
+			            		
+			            		<h:outputText style="color:white" value="Theoric Hour : " />
+			            		<h:inputText disabled="true" value="#{deanCourseBean.creditValueTheo}" />
+			            		
+			            		<h:outputText style="color:white" value="Prac. Hour : " />
+			            		<h:inputText disabled="true" value="#{deanCourseBean.creditValuePrac}" />
+			            		
+			            		</h:panelGrid>
+					            </h:form>
+					            
+					            <table bgcolor="#566D7E">
+					            	<tr >
+					            	<td>
+					            	</td>
+					            		<td>
+					            			
+					            			<h:outputText value="Locking Operations" style="color:white;"></h:outputText>					            								            		
+					            		</td>
+					            		<td>
+					            		</td>
+					            		<td>
+					            		</td>
+					            	</tr>
+					            	<tr style=" height : 22px;">
+						            	<td>
+						            	</td>
+					            	</tr>	
+					            	<tr>
+					            	<td style=" width : 17px;">
+					            	</td>
+						            	<td>
+						            		 <h:outputText value="Type : " style="color:white"/>
+						            	</td>
+						            	<td>
+						            		<h:selectOneMenu id="operationTypeComboBox" style=" width : 127px;">
+								            	<f:selectItem itemValue="Choose Day"/>
+								            	<f:selectItem itemValue="Theory Operation."/>
+								            	<f:selectItem itemValue="Practice Operation"/>
+							            	</h:selectOneMenu>
+						            	</td>
+						            	<td style=" width : 102px;">
+						            	</td>
+					            	</tr>
+					            	<tr style=" height : 5px;">
+					            	<td>
+					            	</td>
+					            	</tr>
+					            	<tr>
+						            	<td>
+						            	</td>
+						            	<td>
+						            		
+						            	</td>
+						            	<td>
+						            	</td>
+					            	</tr>
+					            	<tr style=" height : 17px;">
+						            	<td>
+						            	</td>
+					            	</tr>				            
+					            </table>
+					            
+					            					           
+					           
+					            		 
+					            			     					
+					</td>
 					<td>
+					</td>
+					<td style=" width : 367px;background-color: lightgray">
 					
-							
-			<table style="background-color: graytext; color:white; width : 267px; height : 242px;">
-								
-				<tr style=" height : 3px;">
-				<td>
-				</td>
-				</tr>
-				<tr>
-					<td>
-						<table>
-							<tr style=" height : 1px;">
-							<td></td>
-							</tr>
-							<tr>
-							<td>
-							</td>
-								<td>
-									<h:outputText value="Course : "></h:outputText>
-								</td>
-								<td>
-								
-									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course" valueChangeListener="#{deanBean.selectionChanged}">
-										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-							<td></td>
-							</tr>
-							<tr>
-							<td>
-							</td>
-								<td>
-									<h:outputText value="Lecturer : "></h:outputText>
-								
-								</td>
-								<td>
-									<rich:comboBox id="deanLecturerCombo" value="Choose Dean's Lecturer">
-										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
-									</rich:comboBox>
-												
-								</td>
-							</tr>
-							<tr style=" height : 17px;">
-							<td></td>
-							</tr>
-							<tr style="background-color: gray">
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Theorical "></h:outputText>
-								</td>
-								<td>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-							<td></td>
-							</tr>
-							<tr style="background-color: gray">
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Day : "></h:outputText>
-								</td>
-								
-								<td>
-									<rich:comboBox id="deanTheoDayComboBox" value="Choose Day">
-										<f:selectItem itemValue="Choose Day"/>
-										<f:selectItem itemValue="Monday"/>
-										<f:selectItem itemValue="Tuesday"/>
-										<f:selectItem itemValue="Wednesday"/>
-										<f:selectItem itemValue="Thursday"/>
-										<f:selectItem itemValue="Friday"/>
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							
-							<tr style="background-color: gray">
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Start Hour : "></h:outputText>
-								</td>
-								<td>
-									<rich:comboBox id="deanTheoStartHourComboBox" value="Choose Start Hour">
-										<f:selectItem itemValue="1"/>
-										<f:selectItem itemValue="2"/>
-										<f:selectItem itemValue="3"/>
-										<f:selectItem itemValue="4"/>
-										<f:selectItem itemValue="5"/>
-										<f:selectItem itemValue="6"/>
-										<f:selectItem itemValue="7"/>
-										<f:selectItem itemValue="8"/>
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							<tr style="background-color: gray">			
-							<td style=" width : 22px;">
-							</td>
-								<td>
-									<h:outputText value="Credit : "></h:outputText>
-								</td>
-								<td>									
-									<h:inputText disabled="true" style=" width : 52px;"></h:inputText>	
-								</td>
-							</tr>
-							<tr style=" height : 17px;">
-								<td>
-								</td>
-							</tr>
-							<tr style=" height : 10px;">
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Practice"></h:outputText>
-								</td>
-								<td>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							<tr >
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Day : "></h:outputText>
-								</td>
-								<td>
-									<rich:comboBox disabled="true" id="deanPracDayComboBox" value="Choose Day">
-										<f:selectItem itemValue="Choose Day"/>
-										<f:selectItem itemValue="Monday"/>
-										<f:selectItem itemValue="Tuesday"/>
-										<f:selectItem itemValue="Wednesday"/>
-										<f:selectItem itemValue="Thursday"/>
-										<f:selectItem itemValue="Friday"/>
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							<tr >
-								<td>
-								</td>
-								<td>
-									<h:outputText value="Start Hour : "></h:outputText>
-								</td>
-								<td>
-									<rich:comboBox disabled="true" id="deanPracHoursComboBox" value="Choose Start Hour">
-										<f:selectItem itemValue="1"/>
-										<f:selectItem itemValue="2"/>
-										<f:selectItem itemValue="3"/>
-										<f:selectItem itemValue="4"/>
-										<f:selectItem itemValue="5"/>
-										<f:selectItem itemValue="6"/>
-										<f:selectItem itemValue="7"/>
-										<f:selectItem itemValue="8"/>
-									</rich:comboBox>
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							<tr style="background-color: gray">			
-							<td style=" width : 22px;">
-							</td>
-								<td>
-									<h:outputText value="Credit : "></h:outputText>
-								</td>
-								<td>									
-									<h:inputText disabled="true" style=" width : 52px;"></h:inputText>	
-								</td>
-							</tr>
-							<tr style=" height : 7px;">
-								<td>
-								</td>
-							</tr>
-							<tr style=" height : 33px;">
-								<td>
-								
-								</td>
-								<td>
-									
-								</td>
-								
-								<td style=" width : 115px;">
-									<h:commandButton id="deanSubmitButton" value="Submit"></h:commandButton>
-									<h:commandButton disabled="true" id ="deanApplyButton" value="Apply All"></h:commandButton>
-									
-								</td>
-								<td>
-																	</td>
-								<td>
-								</td>
-							</tr>
-						</table>					
-					</td>
-									
-				</tr>
-				
-				<tr style="width: 20px; height : 33px;">
-					<td>
-					</td>
-				</tr>				
-								
-			</table>
-					
-					</td>
-					<td style=" width : 46px;">
-					</td>
-					<td style="background-color: silver; width : 513px;">
-						<rich:dataTable id="deanScheduleTable" value="#{deanBean.list}" var="item" style="width:600px; height : 53px;">
+						<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" var="item" style="width:600px; height : 53px;">
 							<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
@@ -782,77 +644,39 @@
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
                 			</f:facet>
-                			
-                			
-                			
+                			<h:selectBooleanCheckbox value="" />
+              			
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
+                			<h:selectBooleanCheckbox value="" />
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Wednesday"/>
                 			</f:facet>
+                			<h:selectBooleanCheckbox value="" />
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
+                			<h:selectBooleanCheckbox value="" />
         				 </rich:column>
         				 <rich:column style=" width : 500px;">
                 			<f:facet name="header">
                 				<h:outputText value="Friday"/>
                 			</f:facet>
+                			<h:selectBooleanCheckbox value="" />
         				 </rich:column>
 						</rich:dataTable>
-					</td>
-				</tr>
-			</table>			
-			</rich:panel>		
-		</rich:tab>		
-		<rich:tab label="Dean Lock">
-			<rich:panel style=" height : 220px;">
-				<table align="center" style="background-color: gray; height : 178px;">
-					<tr style=" height : 48px;">
-					<td style=" width : 302px; background-color: silver">						
-						<h:form prependId="false">
-					        <h:panelGrid columns="2">
-					        <h:outputText value="Courses : " />
-					            
-					            <h:selectOneMenu id="deanCourses"
-								    value="#{deanCourseBean.selectedDeanCourse}" onchange="submit();"
-								    valueChangeListener="#{deanCourseBean.handleValueChange}">
-								    <f:selectItem itemValue="" itemLabel="Choose Dean's Lecture" />
-								    <f:selectItems value="#{deanCourseBean.deanCourseList}" />
-								</h:selectOneMenu>
-								<h:outputText value="Lecturer" />
-					           
-					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}">
-					                <f:selectItems value="#{deanCourseBean.deanLecturerList}" />
-					            </h:selectOneMenu>
-					            <!-- 
-					            <h:outputText value="Banka" />
-					            
-					            <h:selectOneMenu id="bankalar"
-								    value="#{testVCListener.selectedBanka}" onchange="submit();"
-								    valueChangeListener="#{testVCListener.handleValueChange}">
-								    <f:selectItem itemValue="" itemLabel="Banka secin..." />
-								    <f:selectItems value="#{testVCListener.bankalar}" />
-								</h:selectOneMenu>
-					            <h:outputText value="Sube" />
-					           
-					            <h:selectOneMenu value="#{testVCListener.selectedSube}">
-					                <f:selectItems value="#{testVCListener.subeler}" />
-					            </h:selectOneMenu> -->
-					            <!--<h:commandButton value="Kaydet" action="#{testVCListener.save}" />-->
-					        </h:panelGrid>
-					     </h:form>
 					
 					</td>
-					<td style=" width : 367px;background-color: lightgray">
-					</td>
+						
+						
+					
 					</tr>
 				</table>
 			</rich:panel>
