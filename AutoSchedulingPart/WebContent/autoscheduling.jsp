@@ -534,7 +534,7 @@
             </table>			    				   	
             </rich:panel>
         </rich:tab>
-		<rich:tab label="Dean Lectures">
+		<rich:tab label="Dean Lectures Old">
 			<rich:panel style="background-color:lightgray; width : 933px; height : 500px;">
 			<h2 style="font-family:tahoma; color:blue;"> Locking Dean Courses </h2>
 			
@@ -563,7 +563,7 @@
 								</td>
 								<td>
 								
-									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course">
+									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course" valueChangeListener="#{deanBean.selectionChanged}">
 										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
 									</rich:comboBox>
 								</td>
@@ -579,9 +579,10 @@
 								
 								</td>
 								<td>
-									
-									<h:inputText disabled="true"></h:inputText>
-									
+									<rich:comboBox id="deanLecturerCombo" value="Choose Dean's Lecturer">
+										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
+									</rich:comboBox>
+												
 								</td>
 							</tr>
 							<tr style=" height : 17px;">
@@ -808,13 +809,54 @@
 						</rich:dataTable>
 					</td>
 				</tr>
-			</table>
-			
-		
-			
-				
-			</rich:panel>
+			</table>			
+			</rich:panel>		
 		</rich:tab>		
+		<rich:tab label="Dean Lock">
+			<rich:panel style=" height : 220px;">
+				<table align="center" style="background-color: gray; height : 178px;">
+					<tr style=" height : 48px;">
+					<td style=" width : 302px; background-color: silver">						
+						<h:form prependId="false">
+					        <h:panelGrid columns="2">
+					        <h:outputText value="Courses : " />
+					            
+					            <h:selectOneMenu id="deanCourses"
+								    value="#{deanCourseBean.selectedDeanCourse}" onchange="submit();"
+								    valueChangeListener="#{deanCourseBean.handleValueChange}">
+								    <f:selectItem itemValue="" itemLabel="Choose Dean's Lecture" />
+								    <f:selectItems value="#{deanCourseBean.deanCourseList}" />
+								</h:selectOneMenu>
+								<h:outputText value="Lecturer" />
+					           
+					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}">
+					                <f:selectItems value="#{deanCourseBean.deanLecturerList}" />
+					            </h:selectOneMenu>
+					            <!-- 
+					            <h:outputText value="Banka" />
+					            
+					            <h:selectOneMenu id="bankalar"
+								    value="#{testVCListener.selectedBanka}" onchange="submit();"
+								    valueChangeListener="#{testVCListener.handleValueChange}">
+								    <f:selectItem itemValue="" itemLabel="Banka secin..." />
+								    <f:selectItems value="#{testVCListener.bankalar}" />
+								</h:selectOneMenu>
+					            <h:outputText value="Sube" />
+					           
+					            <h:selectOneMenu value="#{testVCListener.selectedSube}">
+					                <f:selectItems value="#{testVCListener.subeler}" />
+					            </h:selectOneMenu> -->
+					            <!--<h:commandButton value="Kaydet" action="#{testVCListener.save}" />-->
+					        </h:panelGrid>
+					     </h:form>
+					
+					</td>
+					<td style=" width : 367px;background-color: lightgray">
+					</td>
+					</tr>
+				</table>
+			</rich:panel>
+		</rich:tab>
 	</rich:tabPanel>
 	</h:form>
 </f:view>

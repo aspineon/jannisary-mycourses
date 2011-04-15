@@ -92,7 +92,7 @@ public class Course implements java.io.Serializable {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			Query query = session.getNamedQuery("getLecturerNameByCourseId");
-			query.setParameter("pCourseId", courseId);
+			query.setParameter("pCourseId", 7);//courseId);
 			deanLecturerNameList = (ArrayList<Syllabus>)query.list();
 		}
 		catch(Exception ex)
