@@ -563,7 +563,7 @@
 								</td>
 								<td>
 								
-									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course" valueChangeListener="#{deanBean.selectionChanged}" onchange="submit()">
+									<rich:comboBox id="deanCourseComboBox" value="Choose Dean's Course">
 										<f:selectItems value="#{deanBean.selectItemListDeanCourse}"/>
 									</rich:comboBox>
 								</td>
@@ -579,11 +579,9 @@
 								
 								</td>
 								<td>
-									<h:form>
-									<rich:comboBox id="deanLecturerNameComboBox" value="Choose Lecturer">
-										<f:selectItems value="#{deanBean.deanLecturerList}"/>
-									</rich:comboBox>
-									</h:form>
+									
+									<h:inputText disabled="true"></h:inputText>
+									
 								</td>
 							</tr>
 							<tr style=" height : 17px;">
