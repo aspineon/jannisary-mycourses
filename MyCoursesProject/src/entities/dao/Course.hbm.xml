@@ -57,11 +57,6 @@
  	<![CDATA[CALL GetCourseCodeById(:pCourseId)]]>
  </sql-query>
  
- <sql-query callable="true" name="getCourseCodeList">
- 	<return alias="Course" class="entities.dao.Course"/>
- 	<![CDATA[CALL GetCourseCodeList()]]>
- </sql-query>
- 
  <sql-query callable="true" name="getAllCourses">
  	<return alias="Course" class="entities.dao.Course"/>
  	<![CDATA[CALL GetAllCourses()]]>
