@@ -85,18 +85,22 @@ public class Course implements java.io.Serializable {
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
 			//System.out.println("Lecturer: AddLecturer1");
 			Query query = session.getNamedQuery("AddCourse");
 			//System.out.println("Lecturer: AddLecturer2");
-			query.setParameter("p_Course_Code", courseCode);
-			query.setParameter("p_Course_Name", "human");
-			query.setParameter("p_Teoric_Lecture_Hours", 2);
-			query.setParameter("p_Practice_Lecture_Hours", 2);
-			query.setParameter("p_Attendance", 2);
-			query.setParameter("p_Typeof_Course_Id", 2);
-			query.setParameter("p_Course_Description", "bos bi ders");
+			query.setParameter("pCourseCode", courseCode);
+			query.setParameter("pCourseName", courseName);
+			query.setParameter("pTeoricLectureHours", teoricLectureHours);
+			query.setParameter("pPracticeLectureHours", practiceLectureHourse);
+			query.setParameter("pAttendance", attendance);
+			query.setParameter("pGrade", grade);
+			query.setParameter("pTypeofCourseId", typeofCourse);
+			query.setParameter("pDepartmentId", department);
+			query.setParameter("pPrecondition", precondition);
+			query.setParameter("pCourseDescription", courseDescription);
 			query.executeUpdate();
-			
+			tx.commit();
 			//System.out.println("Lecturer: AddLecturer3");
 			
 		}catch(Exception e){
