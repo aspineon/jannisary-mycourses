@@ -1,5 +1,6 @@
 package entities.dao;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,6 +43,23 @@ public class Lecturer implements java.io.Serializable {
 		this.syllabuses = syllabuses;
 	}
 
+	public List<Lecturer> getAllLecturer(){
+		List<Lecturer> allLecturerList = null;
+		Session session = null;
+		
+		try {
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			
+			Query query = session.getNamedQuery("getAllLecturer");
+			allLecturerList = (List<Lecturer>) query.list();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+		return allLecturerList;
+	}
+	
 	public void AddLecturer(){
         Session session=null;
         try{
