@@ -45,6 +45,17 @@ public class Syllabus implements java.io.Serializable {
 		this.schedules = schedules;
 	}
 	
+	/*Copy constructor Added by Erhun 16.04.2011*/
+	public Syllabus(Syllabus syllabus){
+		this.syllabusId = syllabus.getSyllabusId();
+		this.semester = syllabus.getSemester();
+		this.year = syllabus.getYear();
+		this.course = syllabus.getCourse();
+		this.lecturer = syllabus.getLecturer();
+		this.sectionNo = syllabus.getSectionNo();
+		this.schedules = syllabus.getSchedules();
+	}
+	
 	public void deleteSyllabus(){
 		
 		Session session=null;
