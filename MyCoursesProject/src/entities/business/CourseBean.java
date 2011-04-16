@@ -24,26 +24,6 @@ import entities.dao.TypeofCourse;
 
 public class CourseBean {
 	
-/*	public CourseBean(){
-		this.FillCombo();
-	}*/
-	
-	public List<SelectItem> getSelectItems() {
-		FillCombo();
-		return selectItems;
-	}
-
-	public void setSelectItems(List<SelectItem> selectItems) {
-		this.selectItems = selectItems;
-	}
-
-	public String AddCourse(){
-		Course course = new Course();
-		course.setCourseCode(courseCode);
-		course.AddCourse();
-		return null;
-	}
-	
 	private Course course;
 	private Integer courseId;
 	private String courseCode;
@@ -107,18 +87,36 @@ public class CourseBean {
 
 	///////////////////////////////////////////////////////////
 	
-	private List<SelectItem> selectItems;
+	private List<SelectItem> selectItemsForDepartments;
+	private List<SelectItem> selectItemsForTypeofCourses;
 	private Course currentItem = new Course();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	private List<Course> allCourses = null;
 	private List<Department> allDepartments = null;
+	private List<TypeofCourse> allTypeofCourses = null;
 
+	
+	public List<SelectItem> getSelectItemsForTypeofCourses() {
+		FillTypeofCoursesCombo();
+		return selectItemsForTypeofCourses;
+	}
+	public void setSelectItemsForTypeofCourses(
+			List<SelectItem> selectItemsForTypeofCourses) {
+		this.selectItemsForTypeofCourses = selectItemsForTypeofCourses;
+	}
+	public List<SelectItem> getSelectItemsForDepartments() {
+		FillDepartmentsCombo();
+		return selectItemsForDepartments;
+	}
+
+	public void setSelectItemsForDepartments(List<SelectItem> selectItems) {
+		this.selectItemsForDepartments = selectItems;
+	}
+	
 	public void selectionChangedDepartmentCombo(ValueChangeEvent  evt) {
 		 String selectedValue = (String) evt.getNewValue();
-		 Department dpt = new Department();
-		 dpt = allDepartments.get(0);
-		 dpt.setDeptCode(selectedValue);
+		 Department dpt = new Department(selectedValue);
 		 allDepartments = dpt.getDepartmentByCode();
 
 		 if (!selectedValue.equals("")) {
@@ -126,14 +124,35 @@ public class CourseBean {
 		 }
 	}
 	
-	public void FillCombo(){
+	public void selectionChangedTypeofCourseCombo(ValueChangeEvent  evt) {
+		 String selectedValue = (String) evt.getNewValue();
+		 TypeofCourse toc = new TypeofCourse(selectedValue);
+		 allTypeofCourses = toc.getTypeofCourseByCode();
+
+		 if (!selectedValue.equals("")) {
+			 currentItem.setTypeofCourse(allTypeofCourses.get(0));
+		 }
+	}
+	
+	public void FillDepartmentsCombo(){
 		int i;
-		selectItems = new ArrayList<SelectItem>();
+		selectItemsForDepartments = new ArrayList<SelectItem>();
 		department = allCourses.get(0).getDepartment();
 		allDepartments = department.getAllDepartments();
 		for(i=0;i<allDepartments.size();i++){
 			String strDpt = allDepartments.get(i).getDeptCode();
-			selectItems.add(new SelectItem(strDpt));
+			selectItemsForDepartments.add(new SelectItem(strDpt));
+		}
+	}
+	
+	public void FillTypeofCoursesCombo(){
+		int i;
+		selectItemsForTypeofCourses = new ArrayList<SelectItem>();
+		typeofCourseId = allCourses.get(0).getTypeofCourse();
+		allTypeofCourses = typeofCourseId.getAllTypeofCourses();
+		for(i=0;i<allTypeofCourses.size();i++){
+			String strTypeofCourse = allTypeofCourses.get(i).getTypeofCourse();
+			selectItemsForTypeofCourses.add(new SelectItem(strTypeofCourse));
 		}
 	}
 	
