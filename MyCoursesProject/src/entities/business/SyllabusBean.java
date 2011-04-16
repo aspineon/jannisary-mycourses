@@ -11,7 +11,6 @@ import javax.faces.model.SelectItem;
 import entities.dao.Course;
 import entities.dao.Lecturer;
 import entities.dao.Syllabus;
-import entities.dao.SysUser;
 
 public class SyllabusBean {
 	
@@ -20,10 +19,12 @@ public class SyllabusBean {
 		 String selectedLecturerName = (String) evt.getNewValue();
 		 
 		 lecturer.setLecturerName(selectedLecturerName);
-		 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
-
+		 //Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
+		 
+		 lecturer = new Lecturer(lecturer.getIdByLecturerName().get(0));
+		 
 		 if (!selectedLecturerName.equals("")) {
-			 lecturer.setLecturerId(intLecturerId);
+			 currentItem.setLecturer(lecturer);
 		 }
 	}
 	
@@ -31,10 +32,12 @@ public class SyllabusBean {
 		 String selectedCourseCode = (String) evt.getNewValue();
 		 
 		 course.setCourseCode(selectedCourseCode);
-		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
+//		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
 
+		 course = new Course(course.getIdByCourseCode().get(0));
+		 
 		 if (!selectedCourseCode.equals("")) {
-			 course.setCourseId(intCourseId);
+			 currentItem.setCourse(course);
 		 }
 	}
 	
