@@ -43,6 +43,17 @@ public class Lecturer implements java.io.Serializable {
 		this.syllabuses = syllabuses;
 	}
 
+	/*Copy constructor added by Erhun 16.04.2011*/
+	public Lecturer(Lecturer lecturer){
+		this.lecturerId = lecturer.lecturerId;
+		this.department = lecturer.department;
+		this.lecturerName = lecturer.lecturerName;
+		this.title = lecturer.title;
+		this.email = lecturer.email;
+		this.telephone = lecturer.telephone;
+		this.syllabuses = lecturer.syllabuses;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Lecturer> getIdByLecturerName(){
 		List<Lecturer> lecturerNameList = null;
