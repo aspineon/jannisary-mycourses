@@ -62,6 +62,11 @@
  	<![CDATA[CALL GetAllCourses()]]>
  </sql-query>
  
+ <sql-query callable="true" name="getIdByCourseCode">
+ 	<return alias="Course" class="entities.dao.Course"/>
+ 	<![CDATA[CALL GetIdByCourseCode(:pCourseCode)]]>
+ </sql-query>
+ 
  <sql-query name="updateCourse">
  	<return alias="course" class="entities.dao.Course"/>
  	<![CDATA[CALL UpdateCourse(:pCourseId, :pCourseCode, :pCourseName, :pTeoricLectureHours, :pPracticeLectureHourse, :pAttendance, :pGrade, :pTypeofCourse, :pDepartment, :pPrecondition, :pCourseDescription)]]>
