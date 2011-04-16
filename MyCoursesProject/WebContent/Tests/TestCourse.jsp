@@ -157,9 +157,13 @@
                         <h:outputText value="Grade" />
                         <h:inputText value="#{courseBean.currentItem.grade}" />
                         <h:outputText value="Type" />
-                        <h:inputText value="#{courseBean.currentItem.typeofCourse.typeofCourse}" />
+                        <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="130" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+							<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
+						</rich:comboBox>
                         <h:outputText value="Department" />
-                        <h:inputText value="#{courseBean.currentItem.department.deptCode}" />
+                        <rich:comboBox id="selectDepartmentForEditPanel" width="130" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+							<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
+						</rich:comboBox>
                         <h:outputText value="Precondition" />
                         <h:inputText value="#{courseBean.currentItem.precondition}" />
                         <h:outputText value="Description" />
@@ -191,8 +195,7 @@
             <table width="100%">
                 <tbody>
                     <tr>
-                        <td align="center" width="50%"><a4j:commandButton value="Yes"
-                            ajaxSingle="true" action="#{courseBean.delete}"
+                        <td align="center" width="50%"><a4j:commandButton value="Yes" ajaxSingle="true" action="#{courseBean.delete}"
                             oncomplete="#{rich:component('deletePanel')}.hide();"
                             reRender="table" />
                         </td>
@@ -219,29 +222,65 @@
     <table>
     
     <tr>
+    	<td>	   
+    		<h:outputLabel for="Course Code" value="Course Code"></h:outputLabel> 	
+	    	<h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
     	<td>	    	
-	    	<h:inputText  value="#{sysUserBean.currentItem.userName}">
+	    	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.attendance}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.grade}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
     	</td>
     	
     	<td>
     	
-	    	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
-				<f:selectItems value="#{courseBean.selectItems}"/>
+	    	<rich:comboBox id="selectTypeofCourseId" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
+				<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 			</rich:comboBox>
 	    	
     	</td>
-    
     	<td>
+    	
+	    	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+				<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
+			</rich:comboBox>
 	    	
-			<h:inputText value="#{sysUserBean.currentItem.userPassword}">
-	    		<f:validateLength minimum="1" maximum="20"/>
-	    	</h:inputText>
-		</td>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.precondition}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.courseDescription}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
 		
 		<td>	
-	    	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style=" width : 110px; height : 20px;">
+	    	<h:commandButton value="Add Course" action="#{courseBean.addCourse}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
 		</td>
