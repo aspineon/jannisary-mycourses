@@ -113,20 +113,26 @@
             <h:panelGrid columns="1">
                 <a4j:outputPanel ajaxRendered="true">
                     <h:panelGrid columns="2">
+                    
                         <h:outputText value="Semester" />
                         <h:inputText value="#{syllabusBean.currentItem.semester}" />
+                        
                         <h:outputText value="Year" />
                         <h:inputText value="#{syllabusBean.currentItem.year}" />
+                        
                         <h:outputText value="Course Code" />
-                        <rich:comboBox value="Select Course Code">
-                        	<f:selectItems value="#{syllabusBean.courseCodeList}"/>
+                        <rich:comboBox id="courseEditId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseEditCombo}">
+                        <f:selectItems value="#{syllabusBean.courseCodeList}"/>
                         </rich:comboBox>
+                        
                         <h:outputText value="Lecture Name" />
-                        <rich:comboBox value="Select Lecturer Name">
+                        <rich:comboBox id="lecturerEditId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLecturerEditCombo}">
                         	<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
                         </rich:comboBox>
+                        
                         <h:outputText value="SectionNo" />
                         <h:inputText value="#{syllabusBean.currentItem.sectionNo}" />
+                        
                     </h:panelGrid>
                     <rich:message showSummary="true" showDetail="false" for="price" />
                 </a4j:outputPanel>
@@ -177,6 +183,56 @@
         </f:facet>
         <h:outputText value="Wait Please..." />
     </rich:modalPanel>
+    
+    
+     <h:form>
+    <table>
+    
+    <tr>
+    	<td>	    	
+	    	<h:inputText  value="#{syllabusBean.currentItem.semester}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	
+    	<td>	    	
+	    	<h:inputText  value="#{syllabusBean.currentItem.year}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   		</h:inputText>
+    	</td>
+    	
+    	<td>
+    	
+	    	<rich:comboBox id="selectCourseId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
+				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
+			</rich:comboBox>
+	    	
+    	</td>
+    	
+    	<td>
+    	
+	    	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
+				<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
+			</rich:comboBox>
+	    	
+    	</td>
+    
+    	<td>
+	    	
+			<h:inputText value="#{syllabusBean.currentItem.sectionNo}">
+	    		<f:validateLength minimum="1" maximum="20"/>
+	    	</h:inputText>
+		</td>
+		
+		<td>	
+	    	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style=" width : 110px; height : 20px;">
+				<a4j:support event="onclick" reRender="table"/>
+			</h:commandButton>
+		</td>
+	</tr>
+	</table>
+    </h:form>
+    
     
     <rich:messages>
     
