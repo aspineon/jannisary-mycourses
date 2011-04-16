@@ -11,6 +11,7 @@ import javax.faces.model.SelectItem;
 import entities.dao.Course;
 import entities.dao.Lecturer;
 import entities.dao.Syllabus;
+import entities.dao.SysUser;
 
 public class SyllabusBean {
 	
@@ -36,6 +37,31 @@ public class SyllabusBean {
 			 course.setCourseId(intCourseId);
 		 }
 	}
+	
+	public void selectionChangedLectureAddCombo(ValueChangeEvent  evt) {
+		 String selectedLectureName = (String) evt.getNewValue();
+
+		 lecturer.setLecturerName(selectedLectureName);
+		 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
+		 
+		 if (!selectedLectureName.equals("")) {
+			 lecturer.setLecturerId(intLecturerId);
+			 currentItem.setLecturer(lecturer);
+		 }
+	}
+	
+	public void selectionChangedCourseAddCombo(ValueChangeEvent  evt) {
+		 String selectedCourseCode = (String) evt.getNewValue();
+		 
+		 course.setCourseCode(selectedCourseCode);
+		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
+		 
+		 if (!selectedCourseCode.equals("")) {
+			 course.setCourseId(intCourseId);
+			 currentItem.setCourse(course);
+		 }
+	}
+	
 	
 	public void store(){
 		/*try-catch blogu eklenecek*/
@@ -65,8 +91,26 @@ public class SyllabusBean {
 		}
 	}
 	
-	public void addSyllabus(){
-		
+	public String addSyllabus(){
+		try{
+			
+			
+			int size = allSyllabusList.size();		
+			
+			
+			Syllabus syllabus = new Syllabus(currentItem);
+			allSyllabusList.add(size,syllabus);
+			syllabus.addSyllabus();
+			keys.clear();
+			keys.add(allSyllabusList.size());
+			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
+			//currentItem.
+			//currentItem.setUserPassword("");
+			
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+		return null;
 	}
 	
 	public Integer getSyllabusId() {
