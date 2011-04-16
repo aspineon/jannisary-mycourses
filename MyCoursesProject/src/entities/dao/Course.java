@@ -159,7 +159,7 @@ public class Course implements java.io.Serializable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Course> getCourseCodeById(){
+	public List<Course> getIdByCourseCode(){
 		List<Course> courseCodeList = null;
 		
         Session session = null;
@@ -168,30 +168,9 @@ public class Course implements java.io.Serializable {
                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                 session = sessionFactory.openSession();
                 
-                Query query = session.getNamedQuery("getCourseCodeById");
+                Query query = session.getNamedQuery("getIdByCourseCode");
                 
-                query.setParameter("pCourseId", courseId);
-                courseCodeList = (List<Course>) query.list();
-                
-        } catch (Exception e) {
-                // TODO: handle exception
-                e.getMessage();
-        } 
-        return courseCodeList;
-	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public List<Course> getCourseCodeList(){
-		List<Course> courseCodeList = null;
-		
-        Session session = null;
-        
-        try {
-                SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                session = sessionFactory.openSession();
-                
-                Query query = session.getNamedQuery("getCourseCodeList");
+                query.setParameter("pCourseCode", courseCode);
                 courseCodeList = (List<Course>) query.list();
                 
         } catch (Exception e) {
