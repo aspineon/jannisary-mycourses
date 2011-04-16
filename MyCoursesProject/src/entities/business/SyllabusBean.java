@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import entities.dao.Course;
@@ -14,16 +15,54 @@ import entities.dao.Syllabus;
 public class SyllabusBean {
 	
 	
+	public void selectionChangedLecturerEditCombo(ValueChangeEvent  evt) {
+		 String selectedLecturerName = (String) evt.getNewValue();
+		 
+		 lecturer.setLecturerName(selectedLecturerName);
+		 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
+
+		 if (!selectedLecturerName.equals("")) {
+			 lecturer.setLecturerId(intLecturerId);
+		 }
+	}
 	
+	public void selectionChangedCourseEditCombo(ValueChangeEvent  evt) {
+		 String selectedCourseCode = (String) evt.getNewValue();
+		 
+		 course.setCourseCode(selectedCourseCode);
+		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
+
+		 if (!selectedCourseCode.equals("")) {
+			 course.setCourseId(intCourseId);
+		 }
+	}
 	
 	public void store(){
-		
+		/*try-catch blogu eklenecek*/
+		try{
+			currentItem = allSyllabusList.get(currentRow);
+			currentItem.setCourse(course);
+			currentItem.setLecturer(lecturer);
+			currentItem.updateSyllabus();
+			//getAllSyllabusList çağrılarak güncellenen veriler alınıyor.
+			//getAllSyllabusList();
+			allSyllabusList.set(currentRow, currentItem);
+			keys.clear();
+			keys.add(currentRow);
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
 	}
 	
 	public void delete(){
+		try{
 		currentItem = allSyllabusList.get(currentRow);
 		currentItem.deleteSyllabus();
 		allSyllabusList.remove(currentItem);
+	
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
 	}
 	
 	public void addSyllabus(){
@@ -84,13 +123,16 @@ public class SyllabusBean {
 	 * Course Code 2 kez gösterilmemeli, bug çözülmeli.
 	 * */
 	public ArrayList<SelectItem> getCourseCodeList() {
+		
 		synchronized (this) {
 			if (courseCodeList == null) {
 				courseCodeList = new ArrayList<SelectItem>();
 					try {
+						//Course nesnelerini al.
+						List<Course> courseList = course.getAllCourses();
 						int i;
-						for(i=0; i<allSyllabusList.size(); i++){
-							String strCourseCode = allSyllabusList.get(i).getCourse().getCourseCode();
+						for(i=0; i<courseList.size(); i++){
+							String strCourseCode = courseList.get(i).getCourseCode();
 							courseCodeList.add(new SelectItem(strCourseCode));
 						}
 						
@@ -108,14 +150,14 @@ public class SyllabusBean {
 		this.courseCodeList = courseNameList;
 	}
 	public ArrayList<SelectItem> getLecturerNameList() {
-		
+		List<Lecturer> lecturerList = lecturer.getAllLecturer();
 		synchronized (this) {
 			if (lecturerNameList == null) {
 				lecturerNameList = new ArrayList<SelectItem>();
 					try {
 						int i;
-						for(i=0; i<allSyllabusList.size(); i++){
-							String strLecturerName = allSyllabusList.get(i).getLecturer().getLecturerName();
+						for(i=0; i<lecturerList.size(); i++){
+							String strLecturerName = lecturerList.get(i).getLecturerName();
 							lecturerNameList.add(new SelectItem(strLecturerName));
 						}
 						
