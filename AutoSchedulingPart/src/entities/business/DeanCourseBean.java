@@ -1,4 +1,5 @@
 package entities.business;
+import java.awt.Color;
 import java.util.*;
 
 import javax.faces.event.ValueChangeEvent;
@@ -8,11 +9,56 @@ public class DeanCourseBean
 {
 	private List<SelectItem> deanCourseList;
 	private List<SelectItem> deanLecturerList;
-	//private List<String> creditListTheo;
-	//private List<String> creditListPrac;
+	
 	String selectedDeanCourse = "";
 	String selectedDeanLecturer;
+	String selectedDeanDay = "";
+	String selectedOperation = "";
+	String selectedStartHour = "";
+	String selectedEndHour = "";
 	
+	Color testColor = Color.green;
+	
+	public String getSelectedOperation() {
+		return selectedOperation;
+	}
+
+	public void setSelectedOperation(String selectedOperation) {
+		this.selectedOperation = selectedOperation;
+	}
+
+	public String getSelectedStartHour() {
+		return selectedStartHour;
+	}
+
+	public void setSelectedStartHour(String selectedStartHour) {
+		this.selectedStartHour = selectedStartHour;
+	}
+
+	public String getSelectedEndHour() {
+		return selectedEndHour;
+	}
+
+	public void setSelectedEndHour(String selectedEndHour) {
+		this.selectedEndHour = selectedEndHour;
+	}
+
+	public String getSelectedDeanDay() {
+		return selectedDeanDay;
+	}
+
+	public void setSelectedDeanDay(String selectedDeanDay) {
+		this.selectedDeanDay = selectedDeanDay;
+	}
+
+	public Color getTestColor() {
+		return testColor;
+	}
+
+	public void setTestColor(Color testColor) {
+		this.testColor = testColor;
+	}
+
 	String creditValueTheo;
 	String creditValuePrac;
 	
@@ -86,6 +132,44 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		selectedDeanCourse = newValue;
 		loadLecturer();
+	}
+	public void handleValueDayChange(ValueChangeEvent event)
+	{
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		selectedDeanCourse = newValue;		
+	}
+	
+	public void handleValueOperationChange(ValueChangeEvent event)
+	{
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		selectedOperation = newValue;		
+	}
+	public void handleValueStartHourChange(ValueChangeEvent event)
+	{
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		selectedStartHour = newValue;		
+	}
+	
+	public void handleValueEndHourChange(ValueChangeEvent event)
+	{
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		selectedEndHour = newValue;		
 	}
 	
 	private void loadLecturer()

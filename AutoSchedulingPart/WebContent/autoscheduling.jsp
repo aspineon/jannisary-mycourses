@@ -539,6 +539,10 @@
 		<rich:tab label="Dean Courses">
 			<rich:panel style=" height : 378px;">
 				<table style="background-color: gray; height : 178px;">
+					<tr style=" height : 12px;">
+						<td>
+						</td>
+					</tr>
 					<tr style=" height : 48px;">
 					<td style=" width : 302px; background-color: dark">						
 						<h:form prependId="false">
@@ -565,7 +569,7 @@
 			            		<h:inputText disabled="true" value="#{deanCourseBean.creditValuePrac}" />
 			            		
 			            		</h:panelGrid>
-					            </h:form>
+					            
 					            
 					            <table bgcolor="#566D7E">
 					            	<tr >
@@ -591,10 +595,12 @@
 						            		 <h:outputText value="Type : " style="color:white"/>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="operationTypeComboBox" style=" width : 151px;">
-								            	<f:selectItem itemValue="Choose Operation"/>
-								            	<f:selectItem itemValue="Theory Operation."/>
-								            	<f:selectItem itemValue="Practice Operation"/>
+						            		<h:selectOneMenu id="operationTypeComboBox" 
+						            		style=" width : 151px;" onchange="submit()" value="#{deanCourseBean.selectedOperation}"
+						            		valueChangeListener="#{deanCourseBean.handleValueOperationChange}">
+								            	<f:selectItem itemValue="Choose Operation" />
+								            	<f:selectItem itemValue="Theory Operation"/>
+								            	<f:selectItem itemValue="Practice Operation" />
 							            	</h:selectOneMenu>
 						            	</td>
 						            	<td style=" width : 102px;">
@@ -612,13 +618,15 @@
 						            		</h:outputLabel>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="deanDaysComboBox">
-						            			<f:selectItem itemValue="Choose Days"/>
-						            			<f:selectItem itemValue="Monday"/>
-						            			<f:selectItem itemValue="Tuesday"/>
-						            			<f:selectItem itemValue="Wednesday"/>
-						            			<f:selectItem itemValue="Thursday"/>
-						            			<f:selectItem itemValue="Friday"/>
+						            		<h:selectOneMenu id="deanDaysComboBox"
+						            			value="#{deanCourseBean.selectedDeanDay}"
+						            		 	onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueDayChange}">
+						            			<f:selectItem itemValue="Choose Days" />
+						            			<f:selectItem itemValue="Monday" />
+						            			<f:selectItem itemValue="Tuesday" />
+						            			<f:selectItem itemValue="Wednesday" />
+						            			<f:selectItem itemValue="Thursday" />
+						            			<f:selectItem itemValue="Friday" />
 						            		</h:selectOneMenu>
 						            	</td>
 					            	</tr>
@@ -633,7 +641,8 @@
 						            		<h:outputLabel value="Start Hour : " style="color:white"></h:outputLabel>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="deanStartHour">
+						            		<h:selectOneMenu id="deanStartHour" value="#{deanCourseBean.selectedStartHour}"
+						            		onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueStartHourChange}">
 						            			<f:selectItem itemValue="Choose Start Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -657,7 +666,8 @@
 					            			<h:outputLabel value="End Hour : " style="color:white"></h:outputLabel>
 					            		</td>
 					            		<td>
-					            			<h:selectOneMenu id="deanEndHour">
+					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" 
+					            			onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueEndHourChange}">
 						            			<f:selectItem itemValue="Choose End Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -670,7 +680,7 @@
 						            		</h:selectOneMenu>
 					            		</td>
 					            	</tr>
-					            	<tr style=" height : 6px;">
+					            	<tr style=" height : 16px;">
 						            	<td>
 						            	</td>
 					            	</tr>
@@ -692,64 +702,65 @@
 						            	</td>
 					            	</tr>				            
 					            </table>
-		            			     					
+		            			 </h:form>    					
 					</td>
 					<td>
 					</td>
 					<td style=" width : 367px;background-color: lightgray">
-												
-					<h:form>
-					<script type="text/javascript">
-						var = row;
-					</script>
-						<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" 
-						var="item" style="width:600px; height : 53px;"
-						rowKeyVar="row">
-							<f:facet name="header">
-	                			<h:outputText value="Schedule Table" />
-	        				</f:facet>
-        				
-	        				<rich:column style=" width : 180px; height: 19px">
-	        					<f:facet name="header">
-	        						<h:outputText value="Hours / Days" />
-	        					</f:facet>
-	        					<h:outputText style="font-align:center;" value="#{item}" />	        					
-	        				</rich:column>
-                			
-        				        				
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Monday"/>
-                			</f:facet>
-                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
-                			                			            			
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Tuesday"/>
-                			</f:facet>
-                			<!--<h:selectBooleanCheckbox value="" />-->
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Wednesday"/>
-                			</f:facet>
-                			<!--<h:selectBooleanCheckbox value="" />-->
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Thursday"/>
-                			</f:facet>
-                			<!--<h:selectBooleanCheckbox value="" />-->
-        				 </rich:column>
-        				 <rich:column style=" width : 500px;">
-                			<f:facet name="header">
-                				<h:outputText value="Friday"/>
-                			</f:facet>
-                			<!--<h:selectBooleanCheckbox value="" />-->
-        				 </rich:column>
-						</rich:dataTable>
-						</h:form>
+						<rich:panel header="Table">						
+						<h:form>
+						<script type="text/javascript">
+							var = row;
+						</script>
+							<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" 
+							var="item" style="width:600px; height : 53px;"
+							rowKeyVar="row">
+								<f:facet name="header">
+		                			<h:outputText value="Schedule Table" />
+		        				</f:facet>
+	        				
+		        				<rich:column style=" width : 180px; height: 19px">
+		        					<f:facet name="header">
+		        						<h:outputText value="Hours / Days" />
+		        					</f:facet>
+		        					<h:outputText style="font-align:center;" value="#{item}" />	        					
+		        				</rich:column>
+	                			
+	        				        				
+	        				 <rich:column style=" width : 250px;">
+	                			<f:facet name="header">
+	                				<h:outputText value="Monday"/>
+	                			</f:facet>
+	                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
+	                			                			            			
+	        				 </rich:column>
+	        				 <rich:column style=" width : 250px;">
+	                			<f:facet name="header">
+	                				<h:outputText value="Tuesday"/>
+	                			</f:facet>
+	                			<!--<h:selectBooleanCheckbox value="" />-->
+	        				 </rich:column>
+	        				 <rich:column style=" width : 250px;">
+	                			<f:facet name="header">
+	                				<h:outputText value="Wednesday"/>
+	                			</f:facet>
+	                			<!--<h:selectBooleanCheckbox value="" />-->
+	        				 </rich:column>
+	        				 <rich:column style=" width : 250px;">
+	                			<f:facet name="header">
+	                				<h:outputText value="Thursday"/>
+	                			</f:facet>
+	                			<!--<h:selectBooleanCheckbox value="" />-->
+	        				 </rich:column>
+	        				 <rich:column style=" width : 500px;">
+	                			<f:facet name="header">
+	                				<h:outputText value="Friday"/>
+	                			</f:facet>
+	                			<!--<h:selectBooleanCheckbox value="" />-->
+	        				 </rich:column>
+							</rich:dataTable>
+							</h:form>
+							</rich:panel>
 					</td>
 						
 											
