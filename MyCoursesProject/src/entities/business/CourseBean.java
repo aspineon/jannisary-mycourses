@@ -227,9 +227,14 @@ public class CourseBean {
 		 *de silinmeyecek ve kullanıcı veritabanı hatasından bilgilendirilecektir.
 		 * 
 		 */
-		currentItem = allCourses.get(currentRow);
-		currentItem.deleteCourse();
-		allCourses.remove(currentItem);
+		try {
+			currentItem = allCourses.get(currentRow);
+			currentItem.deleteCourse();
+			allCourses.remove(currentItem);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Course getCurrentItem() {
