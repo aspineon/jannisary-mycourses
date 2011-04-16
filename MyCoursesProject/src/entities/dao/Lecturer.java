@@ -43,6 +43,28 @@ public class Lecturer implements java.io.Serializable {
 		this.syllabuses = syllabuses;
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Lecturer> getIdByLecturerName(){
+		List<Lecturer> lecturerNameList = null;
+		
+        Session session = null;
+        
+        try {
+                SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                session = sessionFactory.openSession();
+                
+                Query query = session.getNamedQuery("getIdByLecturerName");
+                
+                query.setParameter("pLecturerName", lecturerName);
+                lecturerNameList = (List<Lecturer>) query.list();
+                
+        } catch (Exception e) {
+                // TODO: handle exception
+                e.getMessage();
+        } 
+        return lecturerNameList;
+	}
+	
 	public List<Lecturer> getAllLecturer(){
 		List<Lecturer> allLecturerList = null;
 		Session session = null;
