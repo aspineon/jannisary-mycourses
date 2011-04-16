@@ -77,8 +77,8 @@ public void updateSyllabus(){
 			query.setParameter("pSyllabusId", syllabusId);
 			query.setParameter("pSemester", semester);
 			query.setParameter("pYear", year);
-			query.setParameter("pCourseId", course.getCourseId());
-			query.setParameter("pLecturerId", lecturer.getLecturerId());
+			query.setParameter("pCourseId", this.getCourse().getCourseId());
+			query.setParameter("pLecturerId", this.getLecturer().getLecturerId());
 			query.setParameter("pSectionNo", sectionNo);
 			query.executeUpdate();
 			tx.commit();
