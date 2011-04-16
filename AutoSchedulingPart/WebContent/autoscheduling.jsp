@@ -2,6 +2,8 @@
 <%@ taglib prefix="f"  uri="http://java.sun.com/jsf/core"%>
 <%@ taglib prefix="h"  uri="http://java.sun.com/jsf/html"%>
 <%@ taglib prefix="rich" uri="http://richfaces.org/rich" %>
+<%@taglib uri="http://richfaces.org/rich" prefix="rich"%>
+<%@taglib uri="http://richfaces.org/a4j" prefix="a4j"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j"%>
 <html>
@@ -69,8 +71,7 @@
 	        					<h:outputText value="#{item}" />
 	        					
 	        				</rich:column>
-                			
-        				        				
+                			        				        				
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
@@ -607,8 +608,69 @@
 						            	<td>
 						            	</td>
 						            	<td>
-						            		
+						            		<h:outputLabel value="Days : " style="color:white">						            			
+						            		</h:outputLabel>
 						            	</td>
+						            	<td>
+						            		<h:selectOneMenu id="deanDaysComboBox">
+						            			<f:selectItem itemValue="Choose Days"/>
+						            			<f:selectItem itemValue="Monday"/>
+						            			<f:selectItem itemValue="Tuesday"/>
+						            			<f:selectItem itemValue="Wednesday"/>
+						            			<f:selectItem itemValue="Thursday"/>
+						            			<f:selectItem itemValue="Friday"/>
+						            		</h:selectOneMenu>
+						            	</td>
+					            	</tr>
+					            	<tr style=" height : 6px;">
+						            	<td>
+						            	</td>
+					            	</tr>
+					            	<tr>
+						            	<td>
+						            	</td>
+						            	<td style=" width : 62px;">
+						            		<h:outputLabel value="Start Hour : " style="color:white"></h:outputLabel>
+						            	</td>
+						            	<td>
+						            		<h:selectOneMenu id="deanStartHour">
+						            			<f:selectItem itemValue="Choose Start Hour"/>
+						            			<f:selectItem itemValue="1"/>
+						            			<f:selectItem itemValue="2"/>
+						            			<f:selectItem itemValue="3"/>
+						            			<f:selectItem itemValue="4"/>
+						            			<f:selectItem itemValue="5"/>
+						            			<f:selectItem itemValue="6"/>
+						            			<f:selectItem itemValue="7"/>
+						            			<f:selectItem itemValue="8"/>
+						            		</h:selectOneMenu>
+						            	</td>
+					            	</tr>
+					            	<tr style=" height : 6px;">
+						            	<td>
+						            	</td>
+					            	</tr>
+					            	<tr>
+					            		<td>
+					            		</td>
+					            		<td>
+					            			<h:outputLabel value="End Hour : " style="color:white"></h:outputLabel>
+					            		</td>
+					            		<td>
+					            			<h:selectOneMenu id="deanEndHour">
+						            			<f:selectItem itemValue="Choose End Hour"/>
+						            			<f:selectItem itemValue="1"/>
+						            			<f:selectItem itemValue="2"/>
+						            			<f:selectItem itemValue="3"/>
+						            			<f:selectItem itemValue="4"/>
+						            			<f:selectItem itemValue="5"/>
+						            			<f:selectItem itemValue="6"/>
+						            			<f:selectItem itemValue="7"/>
+						            			<f:selectItem itemValue="8"/>
+						            		</h:selectOneMenu>
+					            		</td>
+					            	</tr>
+					            	<tr style=" height : 6px;">
 						            	<td>
 						            	</td>
 					            	</tr>
@@ -635,8 +697,14 @@
 					<td>
 					</td>
 					<td style=" width : 367px;background-color: lightgray">
-					
-						<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" var="item" style="width:600px; height : 53px;">
+												
+					<h:form>
+					<script type="text/javascript">
+						var = row;
+					</script>
+						<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" 
+						var="item" style="width:600px; height : 53px;"
+						rowKeyVar="row">
 							<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
@@ -653,39 +721,38 @@
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox ></h:selectBooleanCheckbox>
-                			            			
+                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
+                			                			            			
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox value="" />
+                			<!--<h:selectBooleanCheckbox value="" />-->
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Wednesday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox value="" />
+                			<!--<h:selectBooleanCheckbox value="" />-->
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox value="" />
+                			<!--<h:selectBooleanCheckbox value="" />-->
         				 </rich:column>
         				 <rich:column style=" width : 500px;">
                 			<f:facet name="header">
                 				<h:outputText value="Friday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox value="" />
+                			<!--<h:selectBooleanCheckbox value="" />-->
         				 </rich:column>
 						</rich:dataTable>
-					
+						</h:form>
 					</td>
 						
-						
-					
+											
 					</tr>
 				</table>
 			</rich:panel>

@@ -1,11 +1,13 @@
 package entities.business;
 
-public class Person {
+public class Person 
+{
 	private boolean selected;
 	private String firstName;
 	private String lastName;
 
-	public Person() {
+	public Person() 
+	{
 		
 	}
 	
