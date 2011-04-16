@@ -27,4 +27,9 @@
   <managed-bean-class>entities.business.DeanCourseBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>friendBean</managed-bean-name>
+  <managed-bean-class>entities.business.FriendBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
 </faces-config>

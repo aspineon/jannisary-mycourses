@@ -96,6 +96,7 @@ public class DeanCourseBean
 		if(selectedDeanCourse.equals("PHY1002"))
 		{
 			deanLecturerList.add(new SelectItem("PHY1002-CSE", "Mehmet SAHIN"));
+			deanLecturerList.add(new SelectItem("PHY1002-CSE", "Aylin YILDIZ"));
 			creditValueTheo = "4";
 			creditValuePrac = "0";
 		}

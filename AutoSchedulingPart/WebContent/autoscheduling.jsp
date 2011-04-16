@@ -653,8 +653,8 @@
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
                 			</f:facet>
-                			<h:selectBooleanCheckbox value="" />
-              			
+                			<h:selectBooleanCheckbox ></h:selectBooleanCheckbox>
+                			            			
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
