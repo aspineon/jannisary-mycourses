@@ -35,4 +35,15 @@
     <return alias="lecturer" class="entities.dao.Lecturer"/>
         <![CDATA[CALL AddLecturer(:pLecturerName,:pTitle,:pDepartment,:pEmail,:pTelephone)]]>
     </sql-query>
+    
+     <sql-query callable="true" name="getAllLecturer">
+ 	<return alias="Lecturer" class="entities.dao.Lecturer"/>
+ 		<![CDATA[CALL GetAllLecturer]]>
+ 	</sql-query>
+ 
+ 	 <sql-query callable="true" name="getIdByLecturerName">
+ 	<return alias="Lecturer" class="entities.dao.Lecturer"/>
+ 		<![CDATA[CALL GetIdByLecturerName(:pLecturerName)]]>
+ 	</sql-query>
+ 
 </hibernate-mapping>
