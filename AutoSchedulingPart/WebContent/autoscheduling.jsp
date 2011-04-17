@@ -58,10 +58,10 @@
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTable" value="#{deanBean.list}" var="item" style=" width : 700px;">
+            			<rich:dataTable id="deanDataTable" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
-	                			<h:outputText value="Schedule Table" />
+	                			<h:outputText value="Schedule Table For Dean Course" />
 	        				</f:facet>
         				
 	        				<rich:column style=" width : 180px; height: 19px">
@@ -537,14 +537,14 @@
         </rich:tab>
 			
 		<rich:tab label="Dean Courses">
-			<rich:panel style=" height : 378px;">
+			<rich:panel style=" height : 450px;">
 				<table style="background-color: gray; height : 178px;">
 					<tr style=" height : 12px;">
 						<td>
 						</td>
 					</tr>
 					<tr style=" height : 48px;">
-					<td style=" width : 302px; background-color: dark">						
+					<td style=" width : 309px; background-color: dark">						
 						<h:form prependId="false">
 					        <h:panelGrid columns="2">
 					        <h:outputText value="Courses : " style="color:white"/>
@@ -595,15 +595,17 @@
 						            		 <h:outputText value="Type : " style="color:white"/>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="operationTypeComboBox" 
-						            		style=" width : 151px;" onchange="submit()" value="#{deanCourseBean.selectedOperation}"
-						            		valueChangeListener="#{deanCourseBean.handleValueOperationChange}">
-								            	<f:selectItem itemValue="Choose Operation" />
-								            	<f:selectItem itemValue="Theory Operation"/>
-								            	<f:selectItem itemValue="Practice Operation" />
-							            	</h:selectOneMenu>
+						            		
+							            		<h:selectOneMenu id="operationTypeComboBox" 
+							            		style=" width : 151px;" onchange="submit()" value="#{deanCourseBean.selectedOperation}"
+							            		valueChangeListener="#{deanCourseBean.handleValueOperationChange}">
+									            	<f:selectItem itemValue="Choose Operation" />
+									            	<f:selectItem itemValue="Theory Operation"/>
+									            	<f:selectItem itemValue="Practice Operation" />
+								            	</h:selectOneMenu>
+							            	
 						            	</td>
-						            	<td style=" width : 102px;">
+						            	<td style=" width : 30px;">
 						            	</td>
 					            	</tr>
 					            	<tr style=" height : 5px;">
@@ -680,6 +682,25 @@
 						            		</h:selectOneMenu>
 					            		</td>
 					            	</tr>
+					            	<tr style=" height : 7px;">
+						            	<td>
+						            	</td>
+					            	</tr>
+					            	<tr>
+						            	<td>
+						            	</td>
+						            	<td>
+						            		<h:outputLabel value="Rooms :" style="color:white;"></h:outputLabel>
+						            	</td>
+						            	<td>
+						            		<h:selectOneMenu id="deanRoomComboBox" style=" width : 127px;"
+						            		value="#{deanCourseBean.selectedRoom}" 
+						            		valueChangeListener="#{deanCourseBean.handleValueRoomChange}" onchange="submit()">
+						            			<f:selectItem itemValue="Choose Room"/>
+						            			<f:selectItems value="#{classroomBean.selectItemListClassroom}"/>
+						            		</h:selectOneMenu>
+						            	</td>
+					            	</tr>
 					            	<tr style=" height : 16px;">
 						            	<td>
 						            	</td>
@@ -690,9 +711,9 @@
 						            	<td>
 						            		
 						            	</td>
-						            	<td>
-						            		<h:commandButton value="Submit"></h:commandButton>
-						            		<h:commandButton value="Apply"></h:commandButton>
+						            	<td>						            		
+							            	<h:commandButton value="Submit" action="#{deanCourseBean.initDeanCourseTable}" onclick="submit()"></h:commandButton>
+							            	    		
 						            	</td>
 						            	<td>
 						            	</td>
@@ -702,19 +723,16 @@
 						            	</td>
 					            	</tr>				            
 					            </table>
-		            			 </h:form>    					
+		            		</h:form>	     					
 					</td>
 					<td>
 					</td>
 					<td style=" width : 367px;background-color: lightgray">
-						<rich:panel header="Table">						
-						<h:form>
-						<script type="text/javascript">
-							var = row;
-						</script>
+						<rich:panel header="Table" style=" width : 650px; height:350px">						
+						
+						
 							<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" 
-							var="item" style="width:600px; height : 53px;"
-							rowKeyVar="row">
+							style="width:600px; height : 53px;" var="item">
 								<f:facet name="header">
 		                			<h:outputText value="Schedule Table" />
 		        				</f:facet>
@@ -723,7 +741,7 @@
 		        					<f:facet name="header">
 		        						<h:outputText value="Hours / Days" />
 		        					</f:facet>
-		        					<h:outputText style="font-align:center;" value="#{item}" />	        					
+		        					<h:outputLabel value="#{item}" />	        					
 		        				</rich:column>
 	                			
 	        				        				
@@ -731,6 +749,7 @@
 	                			<f:facet name="header">
 	                				<h:outputText value="Monday"/>
 	                			</f:facet>
+	                			<h:outputText value=""/>
 	                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
 	                			                			            			
 	        				 </rich:column>
@@ -752,14 +771,14 @@
 	                			</f:facet>
 	                			<!--<h:selectBooleanCheckbox value="" />-->
 	        				 </rich:column>
-	        				 <rich:column style=" width : 500px;">
+	        				 <rich:column style=" width : 400px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Friday"/>
 	                			</f:facet>
 	                			<!--<h:selectBooleanCheckbox value="" />-->
 	        				 </rich:column>
 							</rich:dataTable>
-							</h:form>
+							
 							</rich:panel>
 					</td>
 						

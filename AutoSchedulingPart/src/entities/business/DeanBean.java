@@ -13,6 +13,7 @@ import entities.dao.Syllabus;
 public class DeanBean 
 {
 	private ArrayList<Integer> list;
+	private Integer testArray[];
 	@PostConstruct
 	public void init()
 	{
@@ -25,8 +26,28 @@ public class DeanBean
 		list.add(6);
 		list.add(7);
 		list.add(8);
+		
+		/*
+		testArray = new Integer[8];
+		testArray[0] = 1;
+		testArray[1] = 2;
+		testArray[2] = 3;
+		testArray[3] = 4;
+		testArray[4] = 5;
+		testArray[5] = 6;
+		testArray[6] = 7;
+		testArray[7] = 8;*/
+		
 	}
-	
+	/*
+	public Integer[] getTestArray() {
+		return testArray;
+	}
+
+	public void setTestArray(Integer[] testArray) {
+		this.testArray = testArray;
+	}
+*/
 	public ArrayList<Integer> getList()
 	{		
 		return list;
