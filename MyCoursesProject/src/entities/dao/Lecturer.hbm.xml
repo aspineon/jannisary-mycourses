@@ -31,9 +31,19 @@
         </set>
     </class>
     
-    <sql-query name="AddLecturer">
+    <sql-query name="addLecturer">
     <return alias="lecturer" class="entities.dao.Lecturer"/>
         <![CDATA[CALL AddLecturer(:pLecturerName,:pTitle,:pDepartment,:pEmail,:pTelephone)]]>
+    </sql-query>
+    
+    <sql-query name="deleteLecturer">
+    <return alias="lecturer" class="entities.dao.Lecturer"/>
+        <![CDATA[CALL DeleteLecturer(:pLecturerId)]]>
+    </sql-query>
+    
+    <sql-query name="updateLecturer">
+    <return alias="lecturer" class="entities.dao.Lecturer"/>
+        <![CDATA[CALL UpdateLecturer(:pLecturerId,:pLecturerName,:pTitle,:pDepartment,:pEmail,:pTelephone)]]>
     </sql-query>
     
      <sql-query callable="true" name="getAllLecturer">
