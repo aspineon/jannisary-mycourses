@@ -109,7 +109,6 @@ public class Lecturer implements java.io.Serializable {
                 query.setParameter("pTelephone",telephone);
                 query.executeUpdate();
                 tx.commit();
-                System.out.println("Lecturer:" + lecturerName + " is added.");
                 
         }catch(Exception e){
                 System.err.print(e.getMessage());
