@@ -184,52 +184,43 @@
     
     
      <h:form>
-    <table>
-    
-    <tr>
-    	<td>	    	
+     <rich:panel>
+   		<h:panelGrid>	    	
 	    	<h:inputText  value="#{lecturerBean.currentItem.title}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
-    	</td>
-    	
-    	<td>	    	
+    		    	
 	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
-    	</td>
     	
-    	<td>
     	
 	    	<h:inputText  value="#{lecturerBean.currentItem.email}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
-	    	
-    	</td>
-    	
-    	<td>
+	    
     	
     		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
 			
-    	</td>
     	
-    	<td>
     	
 	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
 	    	
-    	</td>
-    	
-		<td>	
+    		
+		
+	</h:panelGrid>
+	
+	</rich:panel>
 	    	<h:commandButton value="Add Lecturer" action="#{lecturerBean.addLecturer}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+	
+	
+	
     </h:form>
     
     
