@@ -4,6 +4,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
@@ -93,26 +94,75 @@ public class Lecturer implements java.io.Serializable {
 		return allLecturerList;
 	}
 	
-	public void AddLecturer(){
+	public void addLecturer(){
         Session session=null;
         try{
                 
                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                 session = sessionFactory.openSession();
-                Query query = session.getNamedQuery("AddLecturer");
+                Transaction tx = session.beginTransaction();
+                Query query = session.getNamedQuery("addLecturer");
                 query.setParameter("pLecturerName", lecturerName);
-                query.setParameter("pTitle", "Dr.");
-                query.setParameter("pDepartment", "CS");
-                query.setParameter("pEmail", "ulas.cs.deu.edu.tr");
-                query.setParameter("pTelephone", "77777777777");
+                query.setParameter("pTitle", title);
+                query.setParameter("pDepartment", department);
+                query.setParameter("pEmail", email);
+                query.setParameter("pTelephone",telephone);
                 query.executeUpdate();
-                
+                tx.commit();
                 System.out.println("Lecturer:" + lecturerName + " is added.");
                 
         }catch(Exception e){
                 System.err.print(e.getMessage());
         }
-}
+        finally{
+        	session.close();
+        }
+   }
+	
+public void deleteLecturer(){
+		
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("deleteLecturer");
+			query.setParameter("pLecturerId", lecturerId);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
+public void updateLecturer(){
+		
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("updateLecturer");
+			query.setParameter("pLecturerId",lecturerId);
+            query.setParameter("pLecturerName", lecturerName);
+            query.setParameter("pTitle", title);
+            query.setParameter("pDepartment", department);
+            query.setParameter("pEmail", email);
+            query.setParameter("pTelephone",telephone);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
 	
 	public Integer getLecturerId() {
 		return this.lecturerId;
