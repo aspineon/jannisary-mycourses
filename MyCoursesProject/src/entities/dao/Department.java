@@ -38,6 +38,15 @@ public class Department implements java.io.Serializable {
 		this.lecturers = lecturers;
 	}
 	
+	/*Copy constructor added by Erhun 17.04.2011*/
+	public Department(Department department){
+		this.departmentId = department.departmentId;
+		this.deptCode = department.deptCode;
+		this.deptDescription = department.deptDescription;
+		this.lecturers = department.lecturers;
+		this.courses = department.courses;
+	}
+	
 	public List<Department> getAllDepartments(){
 		List<Department> departmentList = null;
 		Session session = null;
