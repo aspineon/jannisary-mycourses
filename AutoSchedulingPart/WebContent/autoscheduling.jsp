@@ -549,8 +549,8 @@
 					        <h:panelGrid columns="2">
 					        <h:outputText value="Courses : " style="color:white"/>
 					            
-					            <h:selectOneMenu id="deanCourses"
-								    value="#{deanCourseBean.selectedDeanCourse}" onchange="submit();"
+					            <h:selectOneMenu id="deanCourses" onchange="submit();"
+								    value="#{deanCourseBean.selectedDeanCourse}"
 								    valueChangeListener="#{deanCourseBean.handleValueChange}" style=" width : 194px;">
 								    <f:selectItem itemValue="" itemLabel="Choose Course" />
 								    <f:selectItems value="#{deanCourseBean.deanCourseList}" />
@@ -742,13 +742,12 @@
 		        					</f:facet>
 		        					<h:outputLabel value="#{item}" />	        					
 		        				</rich:column>
-	                			
-	        				        				
+	                				        				        				
 	        				 <rich:column style=" width : 250px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Monday"/>
 	                			</f:facet>
-	                			<h:outputText value=""/>
+	                			<h:outputText value="#{deanCourseBean.selectedDeanLecturer}"/>
 	                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
 	                			                			            			
 	        				 </rich:column>
