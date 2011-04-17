@@ -19,19 +19,26 @@ public class LecturerBean {
 	
 	public void selectionChangedDepartmentEditCombo(ValueChangeEvent  evt) {
 		 String selectedDepartmentCode = (String) evt.getNewValue();
-		 
-		 
-//		 lecturer.setLecturerName(selectedLecturerName);
-		 //Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
 		 department.setDeptCode(selectedDepartmentCode);
-//		 lecturer = new Lecturer(lecturer.getIdByLecturerName().get(0));
 		 
-		 /*if (!selectedLecturerName.equals("")) {
-			 currentItem.setLecturer(lecturer);
-		 }*/
+		 
+		 if (!selectedDepartmentCode.equals("")) {
+			 department = new Department(department.getDepartmentByCode().get(0));
+			 currentItem.setDepartment(department);
+		 }
 	}
 	
-	
+	public void selectionChangedDeparmentAddCombo(ValueChangeEvent  evt) {
+		 String selectedDeptCode = (String) evt.getNewValue();
+
+		 department.setDeptCode(selectedDeptCode);
+		 Integer intDepartmentId = department.getDepartmentByCode().get(0).getDepartmentId();
+		 
+		 if (!selectedDeptCode.equals("")) {
+			 department.setDepartmentId(intDepartmentId);
+			 currentItem.setDepartment(department);
+		 }
+	}
 	
 	public List<Lecturer> getAllLecturerList() {
 		/*
@@ -55,11 +62,53 @@ public class LecturerBean {
 		return allLecturerList;
 	}
 	
-	public String AddLecturer(){
-//		currentItem.setLecturerName(lecturerName);
-//		currentItem.AddLecturer();
+	public void store(){
+		/*try-catch blogu eklenecek*/
+		try{
+			currentItem = allLecturerList.get(currentRow);
+			
+			currentItem.setDepartment(department);
+			currentItem. updateLecturer();
+			//getAllSyllabusList Ã§aÄŸrÄ±larak gÃ¼ncellenen veriler alÄ±nÄ±yor.
+			//getAllSyllabusList();
+			allLecturerList.set(currentRow, currentItem);
+			keys.clear();
+			keys.add(currentRow);
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+	}
+	
+	public void delete(){
+		try{
+		currentItem = allLecturerList.get(currentRow);
+		currentItem.deleteLecturer();
+		allLecturerList.remove(currentItem);
+	
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	public String addLecturer(){
+		try{
+			
+			int size = allLecturerList.size();		
+			Lecturer newlecturer = new Lecturer(currentItem);
+			allLecturerList.add(size,newlecturer);
+			newlecturer.addLecturer();
+			keys.clear();
+			keys.add(allLecturerList.size());
+			/*SysUser.jsp'de yer alan User Name ve User Password alanlarÄ±nÄ± temizle*/
+			//currentItem.
+			//currentItem.setUserPassword("");
+			
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
 		return null;
 	}
+	
 	
 	public Lecturer getCurrentItem() {
 		return currentItem;
@@ -72,6 +121,27 @@ public class LecturerBean {
 	
 	
 	public List<SelectItem> getSelectItemsForDepartments() {
+		
+		synchronized (this) {
+            if (selectItemsForDepartments == null) {
+                    selectItemsForDepartments = new ArrayList<SelectItem>();
+                            try {
+                                    //Department nesnelerini al.
+                                    List<Department> departmentList = department.getAllDepartments();
+                                    int i;
+                                    for(i=0; i<departmentList.size(); i++){
+                                            String strDeptCode = departmentList.get(i).getDeptCode();
+                                            selectItemsForDepartments.add(new SelectItem(strDeptCode));
+                                    }
+                                    
+                            } catch (Exception e) {
+                                    System.out.println("!!!!!!loadAllSyllabus Error: "
+                                                    + e.getMessage());
+                                    e.printStackTrace();
+                            }
+            }
+    }
+		
 		return selectItemsForDepartments;
 	}
 
