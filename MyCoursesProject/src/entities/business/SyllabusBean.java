@@ -73,7 +73,7 @@ public class SyllabusBean {
 			currentItem.setCourse(course);
 			currentItem.setLecturer(lecturer);
 			currentItem.updateSyllabus();
-			//getAllSyllabusList çağrılarak güncellenen veriler alınıyor.
+			//getAllSyllabusList Ã§aÄŸrÄ±larak gÃ¼ncellenen veriler alÄ±nÄ±yor.
 			//getAllSyllabusList();
 			allSyllabusList.set(currentRow, currentItem);
 			keys.clear();
@@ -106,7 +106,7 @@ public class SyllabusBean {
 			syllabus.addSyllabus();
 			keys.clear();
 			keys.add(allSyllabusList.size());
-			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
+			/*SysUser.jsp'de yer alan User Name ve User Password alanlarÄ±nÄ± temizle*/
 			//currentItem.
 			//currentItem.setUserPassword("");
 			
@@ -166,33 +166,33 @@ public class SyllabusBean {
 		this.allSyllabusList = allSyllabusList;
 	}
 	/*Bug:
-	 * Farklı 2 hoca aynı dersi vermesi durumunda aynı ders kodu comboBox içerisinde 2 kez gösteriliyor.
-	 * Course Code 2 kez gösterilmemeli, bug çözülmeli.
-	 * */
-	public ArrayList<SelectItem> getCourseCodeList() {
-		
-		synchronized (this) {
-			if (courseCodeList == null) {
-				courseCodeList = new ArrayList<SelectItem>();
-					try {
-						//Course nesnelerini al.
-						List<Course> courseList = course.getAllCourses();
-						int i;
-						for(i=0; i<courseList.size(); i++){
-							String strCourseCode = courseList.get(i).getCourseCode();
-							courseCodeList.add(new SelectItem(strCourseCode));
-						}
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabus Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
-			}
-		}
-		
-		return courseCodeList;
-	}
+     * Farklı 2 hoca aynı dersi vermesi durumunda aynı ders kodu comboBox içerisinde 2 kez gösteriliyor.
+     * Course Code 2 kez gösterilmemeli, bug çözülmeli.
+     * */
+    public ArrayList<SelectItem> getCourseCodeList() {
+            
+            synchronized (this) {
+                    if (courseCodeList == null) {
+                            courseCodeList = new ArrayList<SelectItem>();
+                                    try {
+                                            //Course nesnelerini al.
+                                            List<Course> courseList = course.getAllCourses();
+                                            int i;
+                                            for(i=0; i<courseList.size(); i++){
+                                                    String strCourseCode = courseList.get(i).getCourseCode();
+                                                    courseCodeList.add(new SelectItem(strCourseCode));
+                                            }
+                                            
+                                    } catch (Exception e) {
+                                            System.out.println("!!!!!!loadAllSyllabus Error: "
+                                                            + e.getMessage());
+                                            e.printStackTrace();
+                                    }
+                    }
+            }
+            
+            return courseCodeList;
+    }
 	public void setCourseCodeList(ArrayList<SelectItem> courseNameList) {
 		this.courseCodeList = courseNameList;
 	}
