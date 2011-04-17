@@ -597,8 +597,8 @@
 						            	<td>
 						            		
 							            		<h:selectOneMenu id="operationTypeComboBox" 
-							            		style=" width : 151px;" onchange="submit()" value="#{deanCourseBean.selectedOperation}"
-							            		valueChangeListener="#{deanCourseBean.handleValueOperationChange}">
+							            		style=" width : 151px;" value="#{deanCourseBean.selectedOperation}"
+							            		>
 									            	<f:selectItem itemValue="Choose Operation" />
 									            	<f:selectItem itemValue="Theory Operation"/>
 									            	<f:selectItem itemValue="Practice Operation" />
@@ -622,7 +622,7 @@
 						            	<td>
 						            		<h:selectOneMenu id="deanDaysComboBox"
 						            			value="#{deanCourseBean.selectedDeanDay}"
-						            		 	onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueDayChange}">
+						            		 	>
 						            			<f:selectItem itemValue="Choose Days" />
 						            			<f:selectItem itemValue="Monday" />
 						            			<f:selectItem itemValue="Tuesday" />
@@ -644,7 +644,7 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanStartHour" value="#{deanCourseBean.selectedStartHour}"
-						            		onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueStartHourChange}">
+						            		>
 						            			<f:selectItem itemValue="Choose Start Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -669,7 +669,7 @@
 					            		</td>
 					            		<td>
 					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" 
-					            			onchange="submit()" valueChangeListener="#{deanCourseBean.handleValueEndHourChange}">
+					            			>
 						            			<f:selectItem itemValue="Choose End Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -694,8 +694,7 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanRoomComboBox" style=" width : 127px;"
-						            		value="#{deanCourseBean.selectedRoom}" 
-						            		valueChangeListener="#{deanCourseBean.handleValueRoomChange}" onchange="submit()">
+						            		value="#{deanCourseBean.selectedRoom}">
 						            			<f:selectItem itemValue="Choose Room"/>
 						            			<f:selectItems value="#{classroomBean.selectItemListClassroom}"/>
 						            		</h:selectOneMenu>

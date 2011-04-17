@@ -249,7 +249,7 @@ public class DeanCourseBean
 		selectedDeanCourse = newValue;
 		loadLecturer();
 	}
-	
+	/*
 	public void handleValueDayChange(ValueChangeEvent event)
 	{
 		System.out.println("Course Code : " + event.getComponent().getId());
@@ -299,7 +299,7 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		selectedRoom = newValue;		
 	}
-	
+	*/
 	private void loadLecturer()
 	{
 		if(selectedDeanCourse == null)
