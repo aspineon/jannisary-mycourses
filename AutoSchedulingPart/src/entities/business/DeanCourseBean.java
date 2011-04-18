@@ -14,7 +14,8 @@ public class DeanCourseBean
 	private Hashtable<String, Integer> dayMapToIndexHash;
 	private Hashtable<String, String> courseInRoomsHash;
 	
-	public String[][] initCourseTable = new String[5][8];
+	public String[][] initCourseTable = new String[8][5];
+
 	
 	String selectedDeanCourse = "";
 	String selectedDeanLecturer;
@@ -87,11 +88,18 @@ public class DeanCourseBean
 		deanCourseList.add(new SelectItem("TAR1002", "Tarih II"));
 		
 		dayMapToIndexHash = new Hashtable<String, Integer>();
-		dayMapToIndexHash.put("Monday", 0);
-		dayMapToIndexHash.put("Tuesday", 1);
-		dayMapToIndexHash.put("Wednesday", 2);
-		dayMapToIndexHash.put("Thursday", 3);
-		dayMapToIndexHash.put("Friday", 4);
+		dayMapToIndexHash.put("Monday", 1);
+		dayMapToIndexHash.put("Tuesday", 2);
+		dayMapToIndexHash.put("Wednesday", 3);
+		dayMapToIndexHash.put("Thursday", 4);
+		dayMapToIndexHash.put("Friday", 5);
+		
+		//initCourseTable[0][1] = "PHY1002(T)";
+		//initCourseTable[1][1] = "PHY1002(T)";
+		//initCourseTable[3][2] = "TAR1002(T)";
+		//initCourseTable[4][2] = "TAR1002(T)";
+		
+		
 		
 	}
 
@@ -189,7 +197,7 @@ public class DeanCourseBean
 						{	
 							if(initCourseTable[dayIndexOnCourseTable][startHourTableStatus] == null)
 							{
-								initCourseTable[dayIndexOnCourseTable][startHourTableStatus++] = selectedDeanCourse + "(T)";
+								initCourseTable[startHourTableStatus++][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
 								System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
 							}
 							else
@@ -218,7 +226,7 @@ public class DeanCourseBean
 						{
 							if(initCourseTable[dayIndexOnCourseTable][startHourTableStatus] == null)
 							{
-								initCourseTable[dayIndexOnCourseTable][startHourTableStatus++] = selectedDeanCourse + "(P)";
+								initCourseTable[startHourTableStatus++][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
 								System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
 							}
 							else 

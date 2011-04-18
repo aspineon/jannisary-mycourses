@@ -730,7 +730,7 @@
 						<rich:panel header="Table" style=" width : 650px; height:350px">						
 						
 						
-							<rich:dataTable id="deanWeekTable" value="#{deanBean.list}" 
+							<rich:dataTable id="deanWeekTable" value="#{deanCourseBean.initCourseTable}" 
 							style="width:600px; height : 53px;" var="item">
 								<f:facet name="header">
 		                			<h:outputText value="Schedule Table" />
@@ -740,14 +740,14 @@
 		        					<f:facet name="header">
 		        						<h:outputText value="Hours / Days" />
 		        					</f:facet>
-		        					<h:outputLabel value="#{item}" />	        					
+		        					<h:outputLabel value="#{item[0]}" />	        					
 		        				</rich:column>
 	                				        				        				
 	        				 <rich:column style=" width : 250px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Monday"/>
 	                			</f:facet>
-	                			<h:outputText value="#{deanCourseBean.selectedDeanLecturer}"/>
+	                			<h:outputText value="#{item[1]}"/>
 	                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
 	                			                			            			
 	        				 </rich:column>
@@ -755,25 +755,25 @@
 	                			<f:facet name="header">
 	                				<h:outputText value="Tuesday"/>
 	                			</f:facet>
-	                			<!--<h:selectBooleanCheckbox value="" />-->
+	                			<h:outputText value="#{item[2]}"/>
 	        				 </rich:column>
 	        				 <rich:column style=" width : 250px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Wednesday"/>
 	                			</f:facet>
-	                			<!--<h:selectBooleanCheckbox value="" />-->
+	                			<h:outputText value="#{item[3]}"/>
 	        				 </rich:column>
 	        				 <rich:column style=" width : 250px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Thursday"/>
 	                			</f:facet>
-	                			<!--<h:selectBooleanCheckbox value="" />-->
+	                			<h:outputText value="#{item[4]}"/>
 	        				 </rich:column>
 	        				 <rich:column style=" width : 400px;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Friday"/>
 	                			</f:facet>
-	                			<!--<h:selectBooleanCheckbox value="" />-->
+	                			<h:outputText value="#{item[5]}"/>
 	        				 </rich:column>
 							</rich:dataTable>
 							
