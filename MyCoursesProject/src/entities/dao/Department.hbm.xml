@@ -26,6 +26,12 @@
             </key>
             <one-to-many class="entities.dao.Lecturer" />
         </set>
+        <set name="classrooms" table="Classroom" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Department_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Classroom" />
+        </set>
     </class>
     
     <sql-query name="getAllDepartments">
