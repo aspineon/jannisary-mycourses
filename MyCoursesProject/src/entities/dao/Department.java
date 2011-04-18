@@ -22,6 +22,7 @@ public class Department implements java.io.Serializable {
 	private String deptDescription;
 	private Set courses = new HashSet(0);
 	private Set lecturers = new HashSet(0);
+	private Set classrooms = new HashSet(0);
 
 	public Department() {
 	}
@@ -31,11 +32,12 @@ public class Department implements java.io.Serializable {
 	}
 
 	public Department(String deptCode, String deptDescription, Set courses,
-			Set lecturers) {
+			Set lecturers, Set classrooms) {
 		this.deptCode = deptCode;
 		this.deptDescription = deptDescription;
 		this.courses = courses;
 		this.lecturers = lecturers;
+		this.classrooms = classrooms;
 	}
 	
 	/*Copy constructor added by Erhun 17.04.2011*/
@@ -45,6 +47,7 @@ public class Department implements java.io.Serializable {
 		this.deptDescription = department.deptDescription;
 		this.lecturers = department.lecturers;
 		this.courses = department.courses;
+		this.classrooms = department.classrooms;
 	}
 	
 	public List<Department> getAllDepartments(){
@@ -125,5 +128,15 @@ public class Department implements java.io.Serializable {
 	public void setLecturers(Set lecturers) {
 		this.lecturers = lecturers;
 	}
+
+	public Set getClassrooms() {
+		return classrooms;
+	}
+
+	public void setClassrooms(Set classrooms) {
+		this.classrooms = classrooms;
+	}
+	
+	
 
 }
