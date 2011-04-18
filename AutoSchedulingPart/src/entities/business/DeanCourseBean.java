@@ -14,7 +14,7 @@ public class DeanCourseBean
 	private Hashtable<String, Integer> dayMapToIndexHash;
 	private Hashtable<String, String> courseInRoomsHash;
 	
-	public String[][] initCourseTable = new String[8][5];
+	public String[][] initCourseTable = new String[8][6];
 
 	
 	String selectedDeanCourse = "";
@@ -94,8 +94,8 @@ public class DeanCourseBean
 		dayMapToIndexHash.put("Thursday", 4);
 		dayMapToIndexHash.put("Friday", 5);
 		
-		//initCourseTable[0][1] = "PHY1002(T)";
-		//initCourseTable[1][1] = "PHY1002(T)";
+		initCourseTable[0][5] = "PHY1002(T)";
+		initCourseTable[1][5] = "PHY1002(T)";
 		//initCourseTable[3][2] = "TAR1002(T)";
 		//initCourseTable[4][2] = "TAR1002(T)";
 		
@@ -189,22 +189,27 @@ public class DeanCourseBean
 						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
 						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);
 						
-						int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
+						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
 						
-						int startHourTableStatus = startHourOfDeanCourse - 1;
+						int startHourT = startHourOfDeanCourse - 1;
+						int endHourT = endHourOfDeanCourse - 1;
 						
-						for(int acc = 0; acc < totalCourseHour + 1; acc++)
-						{	
-							if(initCourseTable[dayIndexOnCourseTable][startHourTableStatus] == null)
+						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
+						//{	
+							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
 							{
-								initCourseTable[startHourTableStatus++][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
-								System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
+								if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+								{
+									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
+									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
+									//System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
+								}
 							}
 							else
 							{
 								System.out.println("Indices are not available");
 							}
-						}
+						//}
 						System.out.println(initCourseTable);
 					}
 				}
@@ -219,21 +224,27 @@ public class DeanCourseBean
 						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
 						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);
 						
-						int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
-						int startHourTableStatus = startHourOfDeanCourse - 1;
+						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
 						
-						for(int acc = 0; acc < totalCourseHour + 1; acc++)
-						{
-							if(initCourseTable[dayIndexOnCourseTable][startHourTableStatus] == null)
+						int startHourT = startHourOfDeanCourse - 1;
+						int endHourT = endHourOfDeanCourse - 1;
+						
+						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
+						//{	
+							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
 							{
-								initCourseTable[startHourTableStatus++][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
-								System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
+								if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+								{
+									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
+									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
+									//System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
+								}
 							}
-							else 
+							else
 							{
-								System.out.println("Secilen indexler dolu!!! *****");
+								System.out.println("Indices are not available");
 							}
-						}
+						//}
 					}
 				}
 			}
