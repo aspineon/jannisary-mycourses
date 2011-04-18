@@ -28,4 +28,19 @@
     	<return alias="TypeofCourse" class="entities.dao.TypeofCourse"/>
     	<![CDATA[CALL GetTypeofCourseByCode(:pTypeofCourseCode)]]>
  	</sql-query>
+ 	
+ 	<sql-query name="addTypeofCourse">
+   <return alias="TypeofCourse" class="entities.dao.TypeofCourse"/>
+   <![CDATA[CALL AddTypeofCourse(:pTypeofCourse)]]>
+ </sql-query>
+ 
+ <sql-query name="updateTypeofCourse">
+ 	<return alias="TypeofCourse" class="entities.dao.TypeofCourse"/>
+ 	<![CDATA[CALL UpdateTypeofCourse(:pTypeofCourseId, :pTypeofCourse)]]>
+ </sql-query>
+ 
+ <sql-query name="deleteTypeofCourse">
+ 	<return alias="TypeofCourse" class="entities.dao.TypeofCourse"/>
+ 	<![CDATA[CALL DeleteTypeofCourse(:pTypeofCourseId)]]>
+ </sql-query>
 </hibernate-mapping>
