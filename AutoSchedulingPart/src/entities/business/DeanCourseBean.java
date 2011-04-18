@@ -94,13 +94,15 @@ public class DeanCourseBean
 		dayMapToIndexHash.put("Thursday", 4);
 		dayMapToIndexHash.put("Friday", 5);
 		
-		//initCourseTable[0][5] = "PHY1002(T)";
-		//initCourseTable[1][5] = "PHY1002(T)";
-		//initCourseTable[3][2] = "TAR1002(T)";
-		//initCourseTable[4][2] = "TAR1002(T)";
-		
-		
-		
+		initCourseTable[0][0] = "1";
+		initCourseTable[1][0] = "2";
+		initCourseTable[2][0] = "3";
+		initCourseTable[3][0] = "4";
+		initCourseTable[4][0] = "5";
+		initCourseTable[5][0] = "6";
+		initCourseTable[6][0] = "7";
+		initCourseTable[7][0] = "8";
+			
 	}
 
 	public List<SelectItem> getDeanCourseList() {
@@ -235,8 +237,8 @@ public class DeanCourseBean
 							{
 								if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
 								{
-									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
-									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
+									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
+									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
 									//System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
 								}
 							}
