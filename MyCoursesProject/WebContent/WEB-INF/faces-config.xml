@@ -47,4 +47,8 @@
   <managed-bean-class>entities.business.ClassroomBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <validator>
+  <validator-id>EmailValidator</validator-id>
+  <validator-class>entities.validator.EmailValidator</validator-class>
+ </validator>
 </faces-config>
