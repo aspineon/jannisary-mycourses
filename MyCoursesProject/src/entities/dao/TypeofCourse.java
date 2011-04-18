@@ -10,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.sun.faces.mgbean.ManagedBeanPreProcessingException.Type;
@@ -25,7 +26,71 @@ public class TypeofCourse implements java.io.Serializable {
 
 	public TypeofCourse() {
 	}
-
+	
+	public TypeofCourse(TypeofCourse toc){
+		this.typeofCourse = toc.typeofCourse;		
+	}
+	
+	public void addTypeofCourse(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			//System.out.println("Lecturer: AddLecturer1");
+			Query query = session.getNamedQuery("addTypeofCourse");
+			//System.out.println("Lecturer: AddLecturer2");
+			query.setParameter("pTypeofCourse", typeofCourse);
+			query.executeUpdate();
+			tx.commit();
+			//System.out.println("Lecturer: AddLecturer3");
+			
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+	}
+	
+	public void updateTypeofCourse() throws Exception{
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("updateTypeofCourse");
+			query.setParameter("pTypeofCourseId", typeofCourseId);
+			query.setParameter("pTypeofCourse", typeofCourse);			
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+			throw new Exception(e);
+		}
+		finally{
+			session.close();
+		}
+	}
+	
+	public void deleteTypeofCourse(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("deleteTypeofCourse");
+			query.setParameter("pTypeofCourseId", typeofCourseId);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
 	public List<TypeofCourse> getAllTypeofCourses(){
 		List<TypeofCourse> typeofCoursesList = null;
 		Session session = null;
