@@ -102,7 +102,29 @@ public class DeanCourseBean
 		initCourseTable[5][0] = "6";
 		initCourseTable[6][0] = "7";
 		initCourseTable[7][0] = "8";
+				
 			
+	}
+	
+	public String clearDeanCourseTable()
+	{
+		try
+		{
+			initCourseTable = new String[8][6];
+			initCourseTable[0][0] = "1";
+			initCourseTable[1][0] = "2";
+			initCourseTable[2][0] = "3";
+			initCourseTable[3][0] = "4";
+			initCourseTable[4][0] = "5";
+			initCourseTable[5][0] = "6";
+			initCourseTable[6][0] = "7";
+			initCourseTable[7][0] = "8";
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+		return null;
 	}
 
 	public List<SelectItem> getDeanCourseList() {

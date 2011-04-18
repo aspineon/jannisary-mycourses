@@ -712,7 +712,7 @@
 						            	</td>
 						            	<td>						            		
 							            	<h:commandButton value="Submit" action="#{deanCourseBean.initDeanCourseTable}" onclick="submit()"></h:commandButton>
-							            	    		
+							            	<h:commandButton value="Reset" action="#{deanCourseBean.clearDeanCourseTable}" onclick="submit()"></h:commandButton>			            	    		
 						            	</td>
 						            	<td>
 						            	</td>
@@ -736,7 +736,7 @@
 		                			<h:outputText value="Schedule Table" />
 		        				</f:facet>
 	        				
-		        				<rich:column style=" width : 180px; height: 19px">
+		        				<rich:column style=" width : 180px; height: 19px; background-color:#FCDFFF">
 		        					<f:facet name="header">
 		        						<h:outputText value="Hours / Days" />
 		        					</f:facet>
@@ -751,7 +751,7 @@
 	                			<!--<h:selectBooleanCheckbox value=""></h:selectBooleanCheckbox>-->
 	                			                			            			
 	        				 </rich:column>
-	        				 <rich:column style=" width : 250px;">
+	        				 <rich:column style=" width : 250px; background-color:#FFF8C6;">
 	                			<f:facet name="header">
 	                				<h:outputText value="Tuesday"/>
 	                			</f:facet>
@@ -763,7 +763,7 @@
 	                			</f:facet>
 	                			<h:outputText value="#{item[3]}"/>
 	        				 </rich:column>
-	        				 <rich:column style=" width : 250px;">
+	        				 <rich:column style=" width : 250px; background-color:#FFF8C6">
 	                			<f:facet name="header">
 	                				<h:outputText value="Thursday"/>
 	                			</f:facet>
