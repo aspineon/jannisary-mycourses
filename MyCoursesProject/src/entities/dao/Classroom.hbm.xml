@@ -8,6 +8,9 @@
             <column name="Classroom_Id" />
             <generator class="identity" />
         </id>
+        <many-to-one class="entities.dao.Department" fetch="select" name="department">
+   			<column name="Department_Id" not-null="true"/>
+  		</many-to-one>
         <property name="classroomCode" type="string">
             <column name="Classroom_Code" length="10" not-null="true" unique="true" />
         </property>
@@ -18,4 +21,25 @@
             <one-to-many class="entities.dao.Schedule" />
         </set>
     </class>
+    
+     <sql-query name="getAllClassroom" callable="true">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL GetAllClassrooms]]>
+    </sql-query>
+    
+    <sql-query name="addClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL AddClassroom(:pClassroomCode, :pDepartmentId)]]>
+    </sql-query>
+    
+    <sql-query name="deleteClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL DeleteClassroom(:pClassroomId)]]>
+    </sql-query>
+    
+    <sql-query name="updateClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL UpdateClassroom(:pClassroomId,:pClassroomCode,:pDepartmentId)]]>
+    </sql-query>
+    
 </hibernate-mapping>
