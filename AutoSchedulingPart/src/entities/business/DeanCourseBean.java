@@ -94,8 +94,8 @@ public class DeanCourseBean
 		dayMapToIndexHash.put("Thursday", 4);
 		dayMapToIndexHash.put("Friday", 5);
 		
-		initCourseTable[0][5] = "PHY1002(T)";
-		initCourseTable[1][5] = "PHY1002(T)";
+		//initCourseTable[0][5] = "PHY1002(T)";
+		//initCourseTable[1][5] = "PHY1002(T)";
 		//initCourseTable[3][2] = "TAR1002(T)";
 		//initCourseTable[4][2] = "TAR1002(T)";
 		
