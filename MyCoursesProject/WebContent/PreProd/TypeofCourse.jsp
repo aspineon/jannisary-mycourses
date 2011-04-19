@@ -152,7 +152,8 @@
     <h:form>
     	        		    	
 	    	<h:inputText  value="#{typeofCourseBean.currentItem.typeofCourse}">
-	    		<f:validateLength minimum="1" maximum="10"/>
+	    		<f:validateLength minimum="1" maximum="30"/>
+	    		<f:validator validatorId="EmailValidatorWithRegex"/>
 	   		</h:inputText>
     		
 	    	<h:commandButton value="Add TypeofCourse" action="#{typeofCourseBean.addTypeofCourse}" style=" width : 110px; height : 20px;">
