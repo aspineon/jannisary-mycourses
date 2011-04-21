@@ -43,4 +43,22 @@
     	<return alias="Department" class="entities.dao.Department"/>
     	<![CDATA[CALL GetDepartmentByCode(:pDepartmentCode)]]>
  	</sql-query>
+ 	
+ 	
+ 	<sql-query name="AddDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL AddDepartment(:pDeptCode, :pDeptDescription)]]>
+    </sql-query>
+    
+    <sql-query name="DeleteDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL DeleteDepartment(:pDepartmentId)]]>
+    </sql-query>
+    
+    <sql-query name="UpdateDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL UpdateDepartment(:pDepartmentId,:pDeptCode,:pDeptDescription)]]>
+    </sql-query>
+ 	
+ 	
 </hibernate-mapping>
