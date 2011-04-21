@@ -10,6 +10,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -89,6 +90,69 @@ public class Department implements java.io.Serializable {
 		
 	}
 
+	public void addDepartment(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("AddDepartment");
+			query.setParameter("pDeptCode", deptCode);
+			query.setParameter("pDeptDescription", deptDescription);
+			query.executeUpdate();
+			tx.commit();
+			
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+			
+		}
+	}
+	
+	public void deleteDepartment(){
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("DeleteDepartment");
+			query.setParameter("pDepartmentId", departmentId);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+
+	public void updateDepartment() throws Exception{
+		Session session=null;
+		try{
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			Query query = session.getNamedQuery("UpdateDepartment");
+			query.setParameter("pDepartmentId", departmentId);
+			query.setParameter("pDeptCode", deptCode);
+			query.setParameter("pDeptDescription", deptDescription);
+			query.executeUpdate();
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+			throw new Exception(e);
+		}
+		finally{
+			session.close();
+		}
+	}
+	
 	public Integer getDepartmentId() {
 		return this.departmentId;
 	}
@@ -136,7 +200,4 @@ public class Department implements java.io.Serializable {
 	public void setClassrooms(Set classrooms) {
 		this.classrooms = classrooms;
 	}
-	
-	
-
 }
