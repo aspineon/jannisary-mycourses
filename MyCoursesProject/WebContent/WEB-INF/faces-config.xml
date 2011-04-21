@@ -52,6 +52,11 @@
   <managed-bean-class>entities.business.TypeofCourseBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>departmentBean</managed-bean-name>
+  <managed-bean-class>entities.business.DepartmentBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <validator>
   <validator-id>EmailValidator</validator-id>
   <validator-class>entities.validator.EmailValidator</validator-class>
