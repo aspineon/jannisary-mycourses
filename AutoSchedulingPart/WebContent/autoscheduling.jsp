@@ -39,18 +39,16 @@
             <table>
             	<tr>
             		<td>
-            			<h:selectManyListbox style="width : 251px; height : 118px;">
-            				<f:selectItem  itemValue="1" itemLabel = "1. Item Value1"/>
-            				<f:selectItem  itemValue="2" itemLabel = "2. Item Value1"/>
-            				<f:selectItem  itemValue="3" itemLabel = "3. Item Value1"/>
-            				<f:selectItem  itemValue="4" itemLabel = "4. Item Value1"/>            				            			
+            			<h:selectManyListbox id="deptCourseListBox" style="width : 251px; height : 118px;" 
+            					title="Freshman Courses" value="#{deanCourseBean.departmentFreshmanCourseList}">
+            				<f:selectItems value="#{deanCourseBean.departmentFreshmanCourseList}"/>	
             			</h:selectManyListbox>
             		</td>
             		<td style=" width : 100px;">
             			
             		</td>
             		<td>
-            			<rich:dataTable id="deanDataTable" value="#{deanBean.list}" var="item" style=" width : 700px;">
+            			<rich:dataTable id="freshmanDataTable" value="#{deanBean.list}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table For Dean Course" />

@@ -50,6 +50,12 @@
     	<return alias="Course" class="entities.dao.Course"/>
     	<![CDATA[CALL getDeanCourses]]>
     </sql-query>
+    
+     <sql-query name="getDeptFreshmanCourseName" callable="true">
+    	<return alias="Course" class="entities.dao.Course"/>
+    	<![CDATA[CALL getDeptFreshmanCourses]]>
+    </sql-query>
+    
     <sql-query name="getLecturerNameByCourseId" callable="true">
     	<return alias="Syllabus" class="entities.dao.Syllabus"/>
     	<![CDATA[CALL getLecturerNameByCourseId(:pCourseId)]]>

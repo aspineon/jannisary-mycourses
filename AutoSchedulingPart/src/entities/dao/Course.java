@@ -65,6 +65,26 @@ public class Course implements java.io.Serializable {
 
 	//**************************************************************
 	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Course> getDepartmentCourseNameList()
+	{
+		Session session = null;
+		ArrayList<Course> departmentCourseNameList = new ArrayList<Course>();
+		try
+		{
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Query query = session.getNamedQuery("getDeptFreshmanCourseName");
+			departmentCourseNameList = (ArrayList<Course>)query.list();
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		
+		return departmentCourseNameList;
+	}
+	
 	public ArrayList<Course> getDeanCourseNameList()
 	{
 		Session session = null;

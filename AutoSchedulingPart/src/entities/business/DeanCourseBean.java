@@ -6,6 +6,8 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.swing.JOptionPane;
 
+import entities.dao.Course;
+
 public class DeanCourseBean 
 {
 	private List<SelectItem> deanCourseList;
@@ -16,6 +18,7 @@ public class DeanCourseBean
 	
 	public String[][] initCourseTable = new String[8][6];
 
+	Course courseObj = new Course();
 	
 	String selectedDeanCourse = "";
 	String selectedDeanLecturer;
@@ -79,17 +82,29 @@ public class DeanCourseBean
 		return null;
 	}
 	
-	ArrayList<String> departmentFreshmanCourseList = null;
-	
-	public ArrayList<String> getDepartmentCourseList()
+	List<SelectItem> departmentFreshmanCourseList = null;
+	List<Course> deptFreshmanCourseList = null;
+	public List<SelectItem> getDepartmentCourseList()
 	{
-		try
+		synchronized (this) 
 		{
-			
-		}
-		catch(Exception ex)
-		{
-			ex.getMessage();
+			if(deptFreshmanCourseList == null)
+			{
+				try
+				{
+					departmentFreshmanCourseList.add(new SelectItem("TEST"));
+					deptFreshmanCourseList = courseObj.getDepartmentCourseNameList();
+					for(int i = 0; i < deptFreshmanCourseList.size(); i++)
+					{
+						String deptCourseName = deptFreshmanCourseList.get(i).getCourseName();
+						departmentFreshmanCourseList.add(new SelectItem(deptCourseName));
+					}
+				}
+				catch(Exception ex)
+				{
+					ex.getMessage();
+				}
+			}
 		}
 		return departmentFreshmanCourseList;
 	}
@@ -232,6 +247,17 @@ public class DeanCourseBean
 		}
 	}
 	
+	
+	
+	public List<SelectItem> getDepartmentFreshmanCourseList() {
+		return departmentFreshmanCourseList;
+	}
+
+	public void setDepartmentFreshmanCourseList(
+			ArrayList<SelectItem> departmentFreshmanCourseList) {
+		this.departmentFreshmanCourseList = departmentFreshmanCourseList;
+	}
+
 	public List<SelectItem> getDeanCourseList() {
 		return deanCourseList;
 	}
