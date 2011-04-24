@@ -83,6 +83,7 @@ public class Course implements java.io.Serializable {
 		return deanCourseNameList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Syllabus> getLecturerNameByCourseId()
 	{
 		Session session = null;
@@ -92,7 +93,7 @@ public class Course implements java.io.Serializable {
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			Query query = session.getNamedQuery("getLecturerNameByCourseId");
-			query.setParameter("pCourseId", 7);//courseId);
+			query.setParameter("pCourseId", courseId);
 			deanLecturerNameList = (ArrayList<Syllabus>)query.list();
 		}
 		catch(Exception ex)

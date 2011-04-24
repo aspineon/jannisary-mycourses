@@ -39,20 +39,12 @@
             <table>
             	<tr>
             		<td>
-            			 <rich:orderingList style=" width : 280px;">
-	            	       	<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecture Name " style="width:30%" />
-					            </f:facet> 
-	                		<h:outputText value="Theory of Automata"></h:outputText>
-	            			</rich:column>
-	            			<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecturer Name "/>
-					            </f:facet> 
-	                			<h:outputText value="Süleyman SEVINC"></h:outputText>
-	            			</rich:column>			   					   		
-            	  		</rich:orderingList>
+            			<h:selectManyListbox style="width : 251px; height : 118px;">
+            				<f:selectItem  itemValue="1" itemLabel = "1. Item Value1"/>
+            				<f:selectItem  itemValue="2" itemLabel = "2. Item Value1"/>
+            				<f:selectItem  itemValue="3" itemLabel = "3. Item Value1"/>
+            				<f:selectItem  itemValue="4" itemLabel = "4. Item Value1"/>            				            			
+            			</h:selectManyListbox>
             		</td>
             		<td style=" width : 100px;">
             			
@@ -779,12 +771,11 @@
 							
 							</rich:panel>
 					</td>
-						
-											
+																	
 					</tr>
 				</table>
 			</rich:panel>
-		</rich:tab>
+		</rich:tab>		
 	</rich:tabPanel>
 	</h:form>
 </f:view>

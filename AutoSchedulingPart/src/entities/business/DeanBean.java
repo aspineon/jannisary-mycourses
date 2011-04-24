@@ -15,6 +15,7 @@ public class DeanBean
 	private ArrayList<Integer> list;
 	private Integer testArray[];
 	@PostConstruct
+	
 	public void init()
 	{
 		list = new ArrayList<Integer>();

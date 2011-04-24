@@ -12,7 +12,7 @@ public class DeanCourseBean
 	private List<SelectItem> deanLecturerList;
 	
 	private Hashtable<String, Integer> dayMapToIndexHash;
-	private Hashtable<String, String> courseInRoomsHash;
+	//private Hashtable<String, String> courseInRoomsHash;
 	
 	public String[][] initCourseTable = new String[8][6];
 
@@ -28,54 +28,6 @@ public class DeanCourseBean
 	
 	Color testColor = Color.green;
 	
-	public String getSelectedRoom() {
-		return selectedRoom;
-	}
-
-	public void setSelectedRoom(String selectedRoom) {
-		this.selectedRoom = selectedRoom;
-	}
-
-	public String getSelectedOperation() {
-		return selectedOperation;
-	}
-
-	public void setSelectedOperation(String selectedOperation) {
-		this.selectedOperation = selectedOperation;
-	}
-
-	public String getSelectedStartHour() {
-		return selectedStartHour;
-	}
-
-	public void setSelectedStartHour(String selectedStartHour) {
-		this.selectedStartHour = selectedStartHour;
-	}
-
-	public String getSelectedEndHour() {
-		return selectedEndHour;
-	}
-
-	public void setSelectedEndHour(String selectedEndHour) {
-		this.selectedEndHour = selectedEndHour;
-	}
-
-	public String getSelectedDeanDay() {
-		return selectedDeanDay;
-	}
-
-	public void setSelectedDeanDay(String selectedDeanDay) {
-		this.selectedDeanDay = selectedDeanDay;
-	}
-
-	public Color getTestColor() {
-		return testColor;
-	}
-
-	public void setTestColor(Color testColor) {
-		this.testColor = testColor;
-	}
-
 	String creditValueTheo;
 	String creditValuePrac;
 	
@@ -126,73 +78,20 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-
-	public List<SelectItem> getDeanCourseList() {
-		return deanCourseList;
-	}
-
-	public void setDeanCourseList(List<SelectItem> deanCourseList) {
-		this.deanCourseList = deanCourseList;
-	}
-
-	public List<SelectItem> getDeanLecturerList() {
-		if(deanLecturerList == null)
-		{
-			loadLecturer();
-		}
-		return deanLecturerList;
-	}
-
-	public String getCreditValueTheo() {
-		return creditValueTheo;
-	}
-
-	public void setCreditValueTheo(String creditValueTheo) {
-		this.creditValueTheo = creditValueTheo;
-	}
-
-	public String getCreditValuePrac() {
-		return creditValuePrac;
-	}
-
-	public void setCreditValuePrac(String creditValuePrac) {
-		this.creditValuePrac = creditValuePrac;
-	}
-
-	public void setDeanLecturerList(List<SelectItem> deanLecturerList) {
-		this.deanLecturerList = deanLecturerList;
-	}
-
-	public String getSelectedDeanCourse() {
-		return selectedDeanCourse;
-	}
-
-	public void setSelectedDeanCourse(String selectedDeanCourse) {
-		this.selectedDeanCourse = selectedDeanCourse;
-	}
-
-	public String getSelectedDeanLecturer() {
-		return selectedDeanLecturer;
-	}
-
-	public void setSelectedDeanLecturer(String selectedDeanLecturer) {
-		this.selectedDeanLecturer = selectedDeanLecturer;
-	}
 	
-	public String[][] getInitCourseTable() {
-		return initCourseTable;
-	}
-
-	public void setInitCourseTable(String[][] initCourseTable) {
-		this.initCourseTable = initCourseTable;
-	}
-
-	public boolean isButtonStatus() {
-		return buttonStatus;
-	}
-
-	public void setButtonStatus(boolean buttonStatus) {
-		this.buttonStatus = buttonStatus;
+	ArrayList<String> departmentFreshmanCourseList = null;
+	
+	public ArrayList<String> getDepartmentCourseList()
+	{
+		try
+		{
+			
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return departmentFreshmanCourseList;
 	}
 	
 	public String initDeanCourseTable()
@@ -292,57 +191,9 @@ public class DeanCourseBean
 		selectedDeanCourse = newValue;
 		loadLecturer();
 	}
-	/*
-	public void handleValueDayChange(ValueChangeEvent event)
-	{
-		System.out.println("Course Code : " + event.getComponent().getId());
-		String oldValue = (String)event.getOldValue();
-		String newValue = (String)event.getNewValue();
-		System.out.println("Old Value : "+oldValue);
-		System.out.println("New Value : "+newValue);
-		selectedDeanDay = newValue;		
-	}
 	
-	public void handleValueOperationChange(ValueChangeEvent event)
-	{
-		System.out.println("Course Code : " + event.getComponent().getId());
-		String oldValue = (String)event.getOldValue();
-		String newValue = (String)event.getNewValue();
-		System.out.println("Old Value : "+oldValue);
-		System.out.println("New Value : "+newValue);
-		selectedOperation = newValue;	
-		buttonStatus = false;
-	}
-	public void handleValueStartHourChange(ValueChangeEvent event)
-	{
-		System.out.println("Course Code : " + event.getComponent().getId());
-		String oldValue = (String)event.getOldValue();
-		String newValue = (String)event.getNewValue();
-		System.out.println("Old Value : "+oldValue);
-		System.out.println("New Value : "+newValue);
-		selectedStartHour = newValue;		
-	}
 	
-	public void handleValueEndHourChange(ValueChangeEvent event)
-	{
-		System.out.println("Course Code : " + event.getComponent().getId());
-		String oldValue = (String)event.getOldValue();
-		String newValue = (String)event.getNewValue();
-		System.out.println("Old Value : "+oldValue);
-		System.out.println("New Value : "+newValue);
-		selectedEndHour = newValue;		
-	}
 	
-	public void handleValueRoomChange(ValueChangeEvent event)
-	{
-		System.out.println("Course Code : " + event.getComponent().getId());
-		String oldValue = (String)event.getOldValue();
-		String newValue = (String)event.getNewValue();
-		System.out.println("Old Value : "+oldValue);
-		System.out.println("New Value : "+newValue);
-		selectedRoom = newValue;		
-	}
-	*/
 	private void loadLecturer()
 	{
 		if(selectedDeanCourse == null)
@@ -379,6 +230,122 @@ public class DeanCourseBean
 			creditValueTheo = "No Selection";
 			creditValuePrac = "No Selection";
 		}
+	}
+	
+	public List<SelectItem> getDeanCourseList() {
+		return deanCourseList;
+	}
+
+	public void setDeanCourseList(List<SelectItem> deanCourseList) {
+		this.deanCourseList = deanCourseList;
+	}
+
+	public List<SelectItem> getDeanLecturerList() {
+		if(deanLecturerList == null)
+		{
+			loadLecturer();
+		}
+		return deanLecturerList;
+	}
+
+	public String getCreditValueTheo() {
+		return creditValueTheo;
+	}
+
+	public void setCreditValueTheo(String creditValueTheo) {
+		this.creditValueTheo = creditValueTheo;
+	}
+
+	public String getCreditValuePrac() {
+		return creditValuePrac;
+	}
+
+	public void setCreditValuePrac(String creditValuePrac) {
+		this.creditValuePrac = creditValuePrac;
+	}
+
+	public void setDeanLecturerList(List<SelectItem> deanLecturerList) {
+		this.deanLecturerList = deanLecturerList;
+	}
+
+	public String getSelectedDeanCourse() {
+		return selectedDeanCourse;
+	}
+
+	public void setSelectedDeanCourse(String selectedDeanCourse) {
+		this.selectedDeanCourse = selectedDeanCourse;
+	}
+
+	public String getSelectedDeanLecturer() {
+		return selectedDeanLecturer;
+	}
+
+	public void setSelectedDeanLecturer(String selectedDeanLecturer) {
+		this.selectedDeanLecturer = selectedDeanLecturer;
+	}
+	
+	public String[][] getInitCourseTable() {
+		return initCourseTable;
+	}
+
+	public void setInitCourseTable(String[][] initCourseTable) {
+		this.initCourseTable = initCourseTable;
+	}
+
+	public boolean isButtonStatus() {
+		return buttonStatus;
+	}
+
+	public void setButtonStatus(boolean buttonStatus) {
+		this.buttonStatus = buttonStatus;
+	}
+	
+	public String getSelectedRoom() {
+		return selectedRoom;
+	}
+
+	public void setSelectedRoom(String selectedRoom) {
+		this.selectedRoom = selectedRoom;
+	}
+
+	public String getSelectedOperation() {
+		return selectedOperation;
+	}
+
+	public void setSelectedOperation(String selectedOperation) {
+		this.selectedOperation = selectedOperation;
+	}
+
+	public String getSelectedStartHour() {
+		return selectedStartHour;
+	}
+
+	public void setSelectedStartHour(String selectedStartHour) {
+		this.selectedStartHour = selectedStartHour;
+	}
+
+	public String getSelectedEndHour() {
+		return selectedEndHour;
+	}
+
+	public void setSelectedEndHour(String selectedEndHour) {
+		this.selectedEndHour = selectedEndHour;
+	}
+
+	public String getSelectedDeanDay() {
+		return selectedDeanDay;
+	}
+
+	public void setSelectedDeanDay(String selectedDeanDay) {
+		this.selectedDeanDay = selectedDeanDay;
+	}
+
+	public Color getTestColor() {
+		return testColor;
+	}
+
+	public void setTestColor(Color testColor) {
+		this.testColor = testColor;
 	}
 	
 }
