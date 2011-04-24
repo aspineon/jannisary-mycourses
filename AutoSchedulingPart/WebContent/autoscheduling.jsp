@@ -40,7 +40,7 @@
             	<tr>
             		<td>
             			<h:selectManyListbox id="deptCourseListBox" style="width : 251px; height : 118px;" 
-            					title="Freshman Courses" value="#{deanCourseBean.departmentFreshmanCourseList}">
+            					title="Freshman Courses" value="#{deanCourseBean.deptFreshmanCourseList}">
             				<f:selectItems value="#{deanCourseBean.departmentFreshmanCourseList}"/>	
             			</h:selectManyListbox>
             		</td>

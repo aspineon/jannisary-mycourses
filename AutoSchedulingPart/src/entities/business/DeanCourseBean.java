@@ -82,7 +82,7 @@ public class DeanCourseBean
 		return null;
 	}
 	
-	List<SelectItem> departmentFreshmanCourseList = null;
+	List<SelectItem> departmentFreshmanCourseList = new ArrayList<SelectItem>();
 	List<Course> deptFreshmanCourseList = null;
 	public List<SelectItem> getDepartmentCourseList()
 	{
@@ -92,7 +92,6 @@ public class DeanCourseBean
 			{
 				try
 				{
-					departmentFreshmanCourseList.add(new SelectItem("TEST"));
 					deptFreshmanCourseList = courseObj.getDepartmentCourseNameList();
 					for(int i = 0; i < deptFreshmanCourseList.size(); i++)
 					{
@@ -249,6 +248,14 @@ public class DeanCourseBean
 	
 	
 	
+	public List<Course> getDeptFreshmanCourseList() {
+		return deptFreshmanCourseList;
+	}
+
+	public void setDeptFreshmanCourseList(List<Course> deptFreshmanCourseList) {
+		this.deptFreshmanCourseList = deptFreshmanCourseList;
+	}
+
 	public List<SelectItem> getDepartmentFreshmanCourseList() {
 		return departmentFreshmanCourseList;
 	}
