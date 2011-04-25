@@ -3,10 +3,13 @@ package entities.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 import org.richfaces.component.Dropzone;
 import org.richfaces.event.DragEvent;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
+import javax.faces.event.ActionEvent;
 
 import entities.dao.Course;
 
@@ -23,15 +26,26 @@ public class DemoDragDropBean {
 	private Object testParam;
 	
 	private List<Course> allCourses = null;
-	
+	private List<SelectItem> listCourseGrade = new ArrayList<SelectItem>();
 	private List<Course> containerCME = new ArrayList<Course>();
 	private List<Course> containerMSI = new ArrayList<Course>();
 	
 	public DemoDragDropBean() {
 		super();
 		
+		listCourseGrade.add(new SelectItem("First Year"));
+		listCourseGrade.add(new SelectItem("Second Year"));
+		listCourseGrade.add(new SelectItem("Third Year"));
+		listCourseGrade.add(new SelectItem("Fourth Year"));
+		
 		types.add("PHP");
 		types.add("JAVA");
+	}
+	
+	public void testAction(ActionEvent ev){
+		System.out.println("My event is:" + ev.getComponent().getId());
+		System.out.println(ev.getSource().toString());
+		
 	}
 	
 	public void processDrop(DropEvent event) {
@@ -86,8 +100,6 @@ public class DemoDragDropBean {
 		return allCourses;
 	}
 	
-	
-	
 	public List<Course> getContainerCME() {
 		return containerCME;
 	}
@@ -116,4 +128,13 @@ public class DemoDragDropBean {
 		this.testParam = testParam;
 		System.out.println("Bean.setTestParam()" + testParam);
 	}
+
+	public List<SelectItem> getListCourseGrade() {
+		return listCourseGrade;
+	}
+
+	public void setListCourseGrade(List<SelectItem> listCourseGrade) {
+		this.listCourseGrade = listCourseGrade;
+	}
+	
 }
