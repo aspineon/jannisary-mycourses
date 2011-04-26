@@ -185,33 +185,32 @@
     
      <h:form>
      <rich:panel>
-   		<h:panelGrid>	    	
+   		<h:panelGrid>
+   			<h:outputText value="Title:" />	    	
 	    	<h:inputText  value="#{lecturerBean.currentItem.title}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
     		    	
+    		<h:outputText value="Lecture Name:" />
 	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
     	
-    	
+    		<h:outputText value="Email:" />
 	    	<h:inputText  value="#{lecturerBean.currentItem.email}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
 	    
-    	
     		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
 			
     	
-    	
+    		<h:outputText value="Telephone No:" />
 	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}">
 	    		<f:validateLength minimum="1" maximum="50"/>
 	   		</h:inputText>
 	    	
-    		
-		
 	</h:panelGrid>
 	
 	</rich:panel>
