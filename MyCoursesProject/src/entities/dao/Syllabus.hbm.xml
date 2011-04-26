@@ -11,6 +11,9 @@
         <many-to-one name="lecturer" class="entities.dao.Lecturer" fetch="select">
             <column name="Lecturer_Id" not-null="true" />
         </many-to-one>
+        <many-to-one name="classroom" class="entities.dao.Classroom" fetch="select">
+            <column name="Classroom_Id" not-null="true" />
+        </many-to-one>
         <many-to-one name="course" class="entities.dao.Course" fetch="select">
             <column name="Course_Id" not-null="true" />
         </many-to-one>
