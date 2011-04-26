@@ -186,51 +186,38 @@
     
     
      <h:form>
-    <table>
-    
-    <tr>
-    	<td>	    	
-	    	<h:inputText  value="#{syllabusBean.currentItem.semester}">
+     <rich:panel>
+     	<h:panelGrid>
+     	<h:outputText value="Semester" />
+     	<h:inputText  value="#{syllabusBean.currentItem.semester}">
 	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
-    	</td>
-    	
-    	<td>	    	
-	    	<h:inputText  value="#{syllabusBean.currentItem.year}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
-    	</td>
-    	
-    	<td>
-    	
-	    	<rich:comboBox id="selectCourseId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
+	   	</h:inputText>
+     	
+     	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
-			</rich:comboBox>
-	    	
-    	</td>
-    	
-    	<td>
-    	
-	    	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
-				<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
-			</rich:comboBox>
-	    	
-    	</td>
-    
-    	<td>
-	    	
-			<h:inputText value="#{syllabusBean.currentItem.sectionNo}">
-	    		<f:validateLength minimum="1" maximum="20"/>
-	    	</h:inputText>
-		</td>
-		
-		<td>	
-	    	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style=" width : 110px; height : 20px;">
-				<a4j:support event="onclick" reRender="table"/>
-			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+		</rich:comboBox>
+     	
+     	<h:outputText value="Year" />
+     	<h:inputText  value="#{syllabusBean.currentItem.year}">
+	    		<f:validateLength minimum="1" maximum="50"/>
+	   	</h:inputText>
+     	
+     	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
+			<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
+		</rich:comboBox>
+     	
+     	<h:outputText value="Section No" />
+     	<h:inputText value="#{syllabusBean.currentItem.sectionNo}">
+	    	<f:validateLength minimum="1" maximum="20"/>
+	    </h:inputText>
+     	
+     	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style=" width : 110px; height : 20px;">
+			<a4j:support event="onclick" reRender="table"/>
+		</h:commandButton>
+     	
+     	</h:panelGrid>
+     
+     </rich:panel>
     </h:form>
     
     
