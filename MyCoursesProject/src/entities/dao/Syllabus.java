@@ -23,6 +23,7 @@ public class Syllabus implements java.io.Serializable {
 	private String semester;
 	private int year;
 	private Integer sectionNo;
+	private Classroom classroom;
 	private Set schedules = new HashSet(0);
 
 	public Syllabus() {
@@ -35,13 +36,13 @@ public class Syllabus implements java.io.Serializable {
 		this.year = year;
 	}
 
-	public Syllabus(Lecturer lecturer, Course course, String semester,
-			int year, Integer sectionNo, Set schedules) {
+	public Syllabus(Lecturer lecturer, Course course, String semester, int year, Integer sectionNo, Classroom classroom, Set schedules) {
 		this.lecturer = lecturer;
 		this.course = course;
 		this.semester = semester;
 		this.year = year;
 		this.sectionNo = sectionNo;
+		this.classroom = classroom;
 		this.schedules = schedules;
 	}
 	
@@ -54,6 +55,7 @@ public class Syllabus implements java.io.Serializable {
 		this.lecturer = syllabus.getLecturer();
 		this.sectionNo = syllabus.getSectionNo();
 		this.schedules = syllabus.getSchedules();
+		this.classroom = syllabus.getClassroom();
 	}
 	
 	public void deleteSyllabus(){
@@ -201,4 +203,13 @@ public void addSyllabus(){
 		this.schedules = schedules;
 	}
 
+	public Classroom getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(Classroom classroom) {
+		this.classroom = classroom;
+	}
+
+	
 }
