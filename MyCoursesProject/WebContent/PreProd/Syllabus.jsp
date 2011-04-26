@@ -187,7 +187,7 @@
     
      <h:form>
      <rich:panel>
-     	<h:panelGrid>
+     	<h:panelGrid columns="3">
      	<h:outputText value="Semester" />
      	<h:inputText  value="#{syllabusBean.currentItem.semester}">
 	    		<f:validateLength minimum="1" maximum="50"/>
