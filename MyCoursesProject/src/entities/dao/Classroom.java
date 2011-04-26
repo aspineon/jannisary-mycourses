@@ -21,6 +21,8 @@ public class Classroom implements java.io.Serializable {
 	private String classroomCode;
 	private Set schedules = new HashSet(0);
 	private Department department;
+	private Set syllabuses = new HashSet(0);
+	
 	public Classroom() {
 	}
 
@@ -28,10 +30,11 @@ public class Classroom implements java.io.Serializable {
 		this.classroomCode = classroomCode;
 	}
 
-	public Classroom(String classroomCode, Set schedules, Department department) {
+	public Classroom(String classroomCode, Set schedules, Department department, Set syllabuses) {
 		this.classroomCode = classroomCode;
 		this.schedules = schedules;
 		this.department = department;
+		this.syllabuses = syllabuses;
 	}
 
 	/*Copy constructor added by Erhun 18.04.2011*/
@@ -39,6 +42,7 @@ public class Classroom implements java.io.Serializable {
 		this.classroomId = classroom.classroomId;
 		this.classroomCode = classroom.classroomCode;
 		this.department = classroom.department;
+		this.syllabuses = classroom.syllabuses;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -158,5 +162,11 @@ public class Classroom implements java.io.Serializable {
 		this.department = department;
 	}
 
-	
+	public Set getSyllabuses() {
+		return syllabuses;
+	}
+
+	public void setSyllabuses(Set syllabuses) {
+		this.syllabuses = syllabuses;
+	}
 }
