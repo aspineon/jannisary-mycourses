@@ -11,39 +11,55 @@ import javax.faces.model.SelectItem;
 import org.richfaces.event.DragEvent;
 import org.richfaces.event.DropEvent;
 
+
 import entities.dao.Course;
-import entities.dao.Department;
 import entities.dao.Schedule;
 import entities.dao.Syllabus;
 
+
+
 public class ManuelSchedulingUtilBean {
+	
+	
+	
 	private int timeof_Course;
 	private int hours;
 	private List<Syllabus> allSyllabuses = null;
 	private int componentIdtoDay;
 	private int componentIdtoHour; 
+	private Syllabus paramSyllabus = new Syllabus();//dao.Syllabus sınıfında sorgu yapabilmek için oluşturuldu.
 	
 	private Schedule[][] firstGradeSchedule = new Schedule[5][8];
 	private Schedule[][] secondGradeSchedule = new Schedule[5][8];
 	private Schedule[][] thirdGradeSchedule = new Schedule[5][8];
 	private Schedule[][] fourthGradeSchedule = new Schedule[5][8];
 	
-	private List<SelectItem> listCourseGrade = new ArrayList<SelectItem>();
-	private int grade;
-	private String semester;
 	
+	private List<SelectItem> listSemester = new ArrayList<SelectItem>();
+	private List<SelectItem> listGrade = new ArrayList<SelectItem>();
+	
+	private int intGrade;
+	private String semester;
+	private String strGrade;
 	private Object dragValue;
 	
 	public ManuelSchedulingUtilBean(){
 		super();
-		listCourseGrade.add(new SelectItem("FirstYear-Fall"));
-		listCourseGrade.add(new SelectItem("FirstYear-Spring"));
-		listCourseGrade.add(new SelectItem("SecondYear-Fall"));
-		listCourseGrade.add(new SelectItem("SecondYear-Spring"));
-		listCourseGrade.add(new SelectItem("ThirdYear-Fall"));
-		listCourseGrade.add(new SelectItem("ThirdYear-Spring"));
-		listCourseGrade.add(new SelectItem("FourthYear-Fall"));
-		listCourseGrade.add(new SelectItem("FourthYear-Spring"));
+		
+		
+		listGrade.add(new SelectItem("FirstYear"));
+		listGrade.add(new SelectItem("SecondYear"));
+		listGrade.add(new SelectItem("ThirdYear"));
+		listGrade.add(new SelectItem("FourthYear"));
+		
+		listSemester.add(new SelectItem("Fall"));
+		listSemester.add(new SelectItem("Spring"));
+		
+		/*Başlangıçta Syllabus verilerini almak için (Course List tablosunu
+		 * doldurmak için) grade ve semester değerleri ilkleniyor.
+		 * */
+		intGrade = 1;
+		semester="Fall";
 	}
 	
 	public void getIdAction(ActionEvent ev){
@@ -54,47 +70,42 @@ public class ManuelSchedulingUtilBean {
 	
 	}
 	
+	public void selectionChangedSemesterCombo(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			semester = selectedValue;
+			if(intGrade != 0){
+				//call getSyllabusBySemesterAndGrade
+			}
+		}
+		
+	    System.out.println(semester);
+	}
+	
 	public void selectionChangedGradeCombo(ValueChangeEvent evt){
 		String selectedValue = (String) evt.getNewValue();
 		
 		
 		 if (!selectedValue.equals("")) {
-			 if(selectedValue.substring(0, 2).equals("Fi")){
-				 grade = 1;
-			 }else if(selectedValue.substring(0, 1).equals("S")){
-				 grade = 2;
-			 }else if(selectedValue.substring(0, 1).equals("T")){
-				 grade = 3;
-			 }else if(selectedValue.substring(0, 1).equals("Fo")){
-				 grade = 4;
+			 if(selectedValue.equals("FirstYear")){
+				 intGrade = 1;
+			 }else if(selectedValue.equals("SecondYear")){
+				 intGrade = 2;
+			 }else if(selectedValue.equals("ThirdYear")){
+				 intGrade = 3;
+			 }else if(selectedValue.equals("FourthYear")){
+				 intGrade = 4;
 			 }
-			 StringTokenizer st = new StringTokenizer(selectedValue, "-");
-			 st.nextToken();
-			 semester = st.nextToken();			 
+			 
+			 if(!semester.equals("")){
+				 
+				 //call getSyllabusBySemesterAndGrade
+			 }
+			 
+			 System.out.println(intGrade);
 		 }
 	}
-	
-	/*public void enumForGrade(Grade grd){
-		switch (grd) {
-			case FirstYear: System.out.println("Mondays are bad.");
-					     break;
-					
-			case SecondYear: System.out.println("Fridays are better.");
-					     break;
-					     
-			case ThirdYear:
-			case FourthYear: System.out.println("Weekends are best.");
-					     break;
-					     
-			default:	 System.out.println("Midweek days are so-so.");
-					     break;
-		}
-				
-	}
-	
-	public enum Grade {
-		FirstYear, SecondYear, ThirdYear, FourthYear
-	}*/
 	
 	public void processDrop(DropEvent event) {
 		System.out.println("Bean.processDrop()");
@@ -129,10 +140,37 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	
+	public List<Syllabus> getSyllabusBySemesterAndGrade() {
+		
+		synchronized (this) {
+			if (allSyllabuses == null) {
+				allSyllabuses = new ArrayList<Syllabus>();
+					try {
+						Course paramCourse= new Course();
+						paramCourse.setGrade(intGrade);
+						paramSyllabus.setCourse(paramCourse);
+						paramSyllabus.setSemester(semester);
+						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSyllabus Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		return allSyllabuses;
+	}
+	
+	
 	//// getters and setters
+	
+	
+	
 	public int getTimeof_Course() {
 		return timeof_Course;
 	}
+
 	public void setTimeof_Course(int timeof_Course) {
 		this.timeof_Course = timeof_Course;
 	}
@@ -143,6 +181,7 @@ public class ManuelSchedulingUtilBean {
 		this.hours = hours;
 	}
 	public List<Syllabus> getAllSyllabuses() {
+		allSyllabuses = getSyllabusBySemesterAndGrade();
 		return allSyllabuses;
 	}
 	public void setAllSyllabuses(List<Syllabus> allSyllabuses) {
@@ -180,6 +219,38 @@ public class ManuelSchedulingUtilBean {
 	public void setDragValue(Object dragValue) {
 		this.dragValue = dragValue;
 	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
 	
+	public List<SelectItem> getListSemester() {
+		return listSemester;
+	}
+
+	public void setListSemester(List<SelectItem> listSemester) {
+		this.listSemester = listSemester;
+	}
+
+	public List<SelectItem> getListGrade() {
+		return listGrade;
+	}
+
+	public void setListGrade(List<SelectItem> listGrade) {
+		this.listGrade = listGrade;
+	}
+
+	public String getStrGrade() {
+		return strGrade;
+	}
+
+	public void setStrGrade(String strGrade) {
+		this.strGrade = strGrade;
+	}
 	
 }
