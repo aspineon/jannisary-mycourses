@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 11, 2011 8:27:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.dao.TypeofCourse" table="typeof_course" catalog="janissary">
+        <id name="typeofCourseId" type="java.lang.Integer">
+            <column name="Typeof_Course_Id" />
+            <generator class="identity" />
+        </id>
+        <property name="typeofCourse" type="string">
+            <column name="Typeof_Course" length="20" not-null="true" />
+        </property>
+        <set name="courses" table="course" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Typeof_Course_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Course" />
+        </set>
+    </class>
+</hibernate-mapping>
