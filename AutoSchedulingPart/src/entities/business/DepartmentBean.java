@@ -10,28 +10,8 @@ public class DepartmentBean
 {
 	Department department = new Department();
 	ArrayList<SelectItem> selectItemList = new ArrayList<SelectItem>();
-	/*
-	public String getDepartmentCode() throws SQLException
-	{
-							
-		String deptCodeVal = department.getDeptCode();
-		departmentList.add(deptCodeVal);
-		
-		return null;
-	}
-	*/
-	/*
-	public void selectionChange(ValueChangeEvent evt)
-	{
-		String selectedValue = (String)evt.getNewValue();
-		if(!selectedValue.equals(""))
-		{
-			department.setDeptCode(selectedValue);
-		}
-	}
-*/
+
 	public ArrayList<SelectItem> getSelectItemList() {
-		System.out.println("asd");
 		synchronized (this) {
 			if(departmentList == null)
 			{
