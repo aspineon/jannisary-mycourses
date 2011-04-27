@@ -33,14 +33,18 @@ public class DemoDragDropBean {
 	public DemoDragDropBean() {
 		super();
 		
-		listCourseGrade.add(new SelectItem("First Year"));
-		listCourseGrade.add(new SelectItem("Second Year"));
-		listCourseGrade.add(new SelectItem("Third Year"));
-		listCourseGrade.add(new SelectItem("Fourth Year"));
+		listCourseGrade.add(new SelectItem("FirstYear-Fall"));
+		listCourseGrade.add(new SelectItem("FirstYear-Spring"));
+		listCourseGrade.add(new SelectItem("SecondYear-Fall"));
+		listCourseGrade.add(new SelectItem("SecondYear-Spring"));
+		listCourseGrade.add(new SelectItem("ThirdYear-Fall"));
+		listCourseGrade.add(new SelectItem("ThirdYear-Spring"));
+		listCourseGrade.add(new SelectItem("FourthYear-Fall"));
+		listCourseGrade.add(new SelectItem("FourthYear-Spring"));
 		
-		types.add("PHP");
-		types.add("JAVA");
 	}
+	
+	
 	
 	public void testAction(ActionEvent ev){
 		System.out.println("My event is:" + ev.getComponent().getId());
