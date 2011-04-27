@@ -14,16 +14,31 @@ import entities.dao.Syllabus;
 
 public class SyllabusBean {
 	
+	public SyllabusBean(){
+		semesterList.add(new SelectItem("Fall"));
+		semesterList.add(new SelectItem("Spring"));
+		
+		yearList.add(new SelectItem("2000"));
+		yearList.add(new SelectItem("2001"));
+		yearList.add(new SelectItem("2002"));
+		yearList.add(new SelectItem("2003"));
+		yearList.add(new SelectItem("2004"));
+		yearList.add(new SelectItem("2005"));
+		yearList.add(new SelectItem("2006"));
+		yearList.add(new SelectItem("2007"));
+		yearList.add(new SelectItem("2008"));
+		yearList.add(new SelectItem("2009"));
+		yearList.add(new SelectItem("2010"));
+		yearList.add(new SelectItem("2011"));
+	}
 	
 	public void selectionChangedLecturerEditCombo(ValueChangeEvent  evt) {
 		 String selectedLecturerName = (String) evt.getNewValue();
 		 
-		 lecturer.setLecturerName(selectedLecturerName);
-		 //Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
-		 
-		 lecturer = new Lecturer(lecturer.getIdByLecturerName().get(0));
 		 
 		 if (!selectedLecturerName.equals("")) {
+			 lecturer.setLecturerName(selectedLecturerName);
+			 lecturer = new Lecturer(lecturer.getIdByLecturerName().get(0));
 			 currentItem.setLecturer(lecturer);
 		 }
 	}
@@ -31,12 +46,10 @@ public class SyllabusBean {
 	public void selectionChangedCourseEditCombo(ValueChangeEvent  evt) {
 		 String selectedCourseCode = (String) evt.getNewValue();
 		 
-		 course.setCourseCode(selectedCourseCode);
-//		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
 
-		 course = new Course(course.getIdByCourseCode().get(0));
-		 
 		 if (!selectedCourseCode.equals("")) {
+			 course.setCourseCode(selectedCourseCode);
+			 course = new Course(course.getIdByCourseCode().get(0));
 			 currentItem.setCourse(course);
 		 }
 	}
@@ -44,10 +57,10 @@ public class SyllabusBean {
 	public void selectionChangedLectureAddCombo(ValueChangeEvent  evt) {
 		 String selectedLectureName = (String) evt.getNewValue();
 
-		 lecturer.setLecturerName(selectedLectureName);
-		 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
 		 
 		 if (!selectedLectureName.equals("")) {
+			 lecturer.setLecturerName(selectedLectureName);
+			 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
 			 lecturer.setLecturerId(intLecturerId);
 			 currentItem.setLecturer(lecturer);
 		 }
@@ -56,15 +69,28 @@ public class SyllabusBean {
 	public void selectionChangedCourseAddCombo(ValueChangeEvent  evt) {
 		 String selectedCourseCode = (String) evt.getNewValue();
 		 
-		 course.setCourseCode(selectedCourseCode);
-		 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
-		 
 		 if (!selectedCourseCode.equals("")) {
-			 course.setCourseId(intCourseId);
-			 currentItem.setCourse(course);
+			 course.setCourseCode(selectedCourseCode);
+			 Course newCourse = new Course(course.getIdByCourseCode().get(0));
+			 currentItem.setCourse(newCourse);
 		 }
 	}
 	
+	public void selectionChangedYearCombo(ValueChangeEvent  evt) {
+		 String selectedYear = (String) evt.getNewValue();
+
+		 if (!selectedYear.equals("")) {
+			 currentItem.setYear(Integer.parseInt(selectedYear));
+		 }
+	}
+	
+	public void selectionChangedSemesterCombo(ValueChangeEvent  evt) {
+		 String selectedSemester = (String) evt.getNewValue();
+		 
+		 if (!selectedSemester.equals("")) {
+			 currentItem.setSemester(selectedSemester);
+		 }
+	}
 	
 	public void store(){
 		/*try-catch blogu eklenecek*/
@@ -106,9 +132,6 @@ public class SyllabusBean {
 			syllabus.addSyllabus();
 			keys.clear();
 			keys.add(allSyllabusList.size());
-			/*SysUser.jsp'de yer alan User Name ve User Password alanlarÄ±nÄ± temizle*/
-			//currentItem.
-			//currentItem.setUserPassword("");
 			
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
@@ -122,18 +145,7 @@ public class SyllabusBean {
 	public void setSyllabusId(Integer syllabusId) {
 		this.syllabusId = syllabusId;
 	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public String getSemester() {
-		return semester;
-	}
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+	
 	public Integer getSectionNo() {
 		return sectionNo;
 	}
@@ -247,11 +259,30 @@ public class SyllabusBean {
 	}
 	
 	
-    private Integer syllabusId;
-    private int year;
-    private String semester;
+	
+    public ArrayList<SelectItem> getSemesterList() {
+		return semesterList;
+	}
+
+	public void setSemesterList(ArrayList<SelectItem> semesterList) {
+		this.semesterList = semesterList;
+	}
+
+	public ArrayList<SelectItem> getYearList() {
+		return yearList;
+	}
+
+	public void setYearList(ArrayList<SelectItem> yearList) {
+		this.yearList = yearList;
+	}
+
+
+
+	private Integer syllabusId;
     private Integer sectionNo;
     
+    private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
+    private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
     private Course course = new Course();
     private Lecturer lecturer = new Lecturer();
     private int currentRow;
