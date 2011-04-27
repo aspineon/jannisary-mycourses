@@ -28,39 +28,57 @@
 <body>
 <f:view>
 <rich:dragIndicator id="indicator"/>
-<h:form id="form">
+
 
  <rich:panel style="pacategorying:0" headerClass="outpanelHeader">
         <f:facet name="header">
             <rich:spacer height="20"/>
         </f:facet>
         <h2 align="center"><h:outputText value="Manual Scheduling" /></h2>
-        <h:panelGrid columns="2" columnClasses="gridContent">
+        <h:panelGrid columns="3" columnClasses="gridContent">
        
-        <rich:panel style="width:133px"> 
-                <h:panelGrid columns="1" style=" width : 86px;">
-                
-                <rich:comboBox id="courseGradeComboBox" value="Select Course Grade" width="113">
-        			<f:selectItems value="#{demoDragDropBean.listCourseGrade}"/>
-        		</rich:comboBox>
-        		
-        		<rich:spacer height="60" style=" width : 112px;"/>
-        		
-                <h:dataTable id="src" value="#{demoDragDropBean.allCourses}" var="category" footerClass="footerClass">
-                    <h:column>
-                        <a4j:outputPanel style="width:100px;border:1px solid gray;pacategorying:2px" layout="block">
-                            <rich:dragSupport dragIndicator=":indicator" dragType="#{category.precondition}" dragValue="#{category}">
-                                <rich:dndParam name="label" value="#{category.courseName}" />
-                            </rich:dragSupport>
-                            <h:outputText value="#{category.courseName}"></h:outputText>
-                        </a4j:outputPanel>
-                    </h:column>
-                </h:dataTable>
-                </h:panelGrid>
-                <f:facet name="header">
-                    <h:outputText value="Course List" />
-                </f:facet>
-        </rich:panel>
+       <h:form>
+        <h:panelGrid columns="2">
+            <a4j:outputPanel id="label">
+                <h:outputText value="Choose Grade:"/>
+            </a4j:outputPanel>  
+            <a4j:outputPanel id="items">
+                <rich:inplaceSelect value="#{manuelSchedulingUtilBean.strGrade}" valueChangeListener="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" defaultLabel="Click here to select">
+                    <f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
+                    <a4j:support event="onviewactivated" reRender="items, label" ajaxSingle="true"/>
+                </rich:inplaceSelect>
+            </a4j:outputPanel>
+             <h:outputText value="Choose Semester:"/>
+            <rich:inplaceSelect value="#{manuelSchedulingUtilBean.semester}" valueChangeListener="#{manuelSchedulingUtilBean.selectionChangedSemesterCombo}" defaultLabel="Click here to select">
+                <f:selectItems value="#{manuelSchedulingUtilBean.listSemester}"/>
+                <a4j:support event="onviewactivated" reRender="items, label" ajaxSingle="true"/>
+            </rich:inplaceSelect>
+        </h:panelGrid>
+    </h:form>
+       
+       <h:form id="form1">
+	        <rich:panel style="width:133px"> 
+	                <h:panelGrid columns="1" style=" width : 86px;">
+	                
+	                	
+	                <h:dataTable id="src" value="#{manuelSchedulingUtilBean.allSyllabuses}" var="category" footerClass="footerClass">
+	                    <h:column>
+	                        <a4j:outputPanel style="width:100px;border:1px solid gray;pacategorying:2px" layout="block">
+	                            <rich:dragSupport dragIndicator=":indicator" dragType="#{category.precondition}" dragValue="#{category}">
+	                                <rich:dndParam name="label" value="#{category.course.courseName}" />
+	                            </rich:dragSupport>
+	                            <h:outputText value="#{category.course.courseName}"></h:outputText>
+	                        </a4j:outputPanel>
+	                    </h:column>
+	                </h:dataTable>
+	                </h:panelGrid>
+	                
+	                <f:facet name="header">
+	                    <h:outputText value="Course List" />
+	                </f:facet>
+	        </rich:panel>
+       </h:form>
+       <h:form id="form">
             <h:panelGrid columns="5" columnClasses="gridContent">
             <rich:panel bodyClass="dropTargetPanel">
             <f:facet name="header">
@@ -348,10 +366,9 @@
             </rich:panel>
             
             </h:panelGrid>
-        
+        </h:form>
         </h:panelGrid>
     </rich:panel>
-</h:form>
 </f:view>
 </body>
 </html>
