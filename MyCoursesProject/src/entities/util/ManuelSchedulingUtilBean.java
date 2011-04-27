@@ -103,9 +103,9 @@ public class ManuelSchedulingUtilBean {
 		
 		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
 		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
-		if(){
+		/*if(){
 			
-		}
+		}*/
 	}
 	
 	public void processDrag(DragEvent dragEvent) {
