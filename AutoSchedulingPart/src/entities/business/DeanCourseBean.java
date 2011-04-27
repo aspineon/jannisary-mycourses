@@ -17,7 +17,6 @@ public class DeanCourseBean
 	private ArrayList<Course> courseList;
 	
 	private Hashtable<String, Integer> dayMapToIndexHash;
-	//private Hashtable<String, String> courseInRoomsHash;
 	
 	public String[][] initCourseTable = new String[8][6];
 
@@ -281,8 +280,6 @@ public class DeanCourseBean
 	public void setCreditValuePrac(String creditValuePrac) {
 		this.creditValuePrac = creditValuePrac;
 	}
-
-	
 //*****************************************************
 // Seçili olan dekanlýk dersinin get-set metodlarý
 	public String getSelectedDeanCourse() {
