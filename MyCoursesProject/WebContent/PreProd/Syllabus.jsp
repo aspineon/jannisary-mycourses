@@ -188,19 +188,18 @@
      <h:form>
      <rich:panel>
      	<h:panelGrid columns="3">
-     	<h:outputText value="Semester" />
-     	<h:inputText  value="#{syllabusBean.currentItem.semester}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   	</h:inputText>
-     	
      	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
 		</rich:comboBox>
      	
-     	<h:outputText value="Year" />
-     	<h:inputText  value="#{syllabusBean.currentItem.year}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   	</h:inputText>
+     	
+     	<rich:comboBox id="selectYearId" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}">
+			<f:selectItems value="#{syllabusBean.yearList}"/>
+		</rich:comboBox>
+     	
+     	<rich:comboBox id="selectSemesterId" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}">
+			<f:selectItems value="#{syllabusBean.semesterList}"/>
+		</rich:comboBox>
      	
      	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
 			<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
