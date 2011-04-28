@@ -1,8 +1,9 @@
 package entities.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
@@ -42,6 +43,7 @@ public class ManuelSchedulingUtilBean {
 	private String semester;
 	private String strGrade;
 	private Object dragValue;
+	public int currentYear;
 	
 	public ManuelSchedulingUtilBean(){
 		super();
@@ -60,6 +62,17 @@ public class ManuelSchedulingUtilBean {
 		 * */
 		intGrade = 1;
 		semester="Fall";
+		currentYear = calculateYear();
+	}
+	
+	public static int calculateYear(){
+		
+		Date d = new Date();
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		int year = c.get(Calendar.YEAR);
+		
+		return year;
 	}
 	
 	public void getIdAction(ActionEvent ev){
@@ -150,6 +163,7 @@ public class ManuelSchedulingUtilBean {
 						paramCourse.setGrade(intGrade);
 						paramSyllabus.setCourse(paramCourse);
 						paramSyllabus.setSemester(semester);
+						paramSyllabus.setYear(currentYear);
 						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
 						
 					} catch (Exception e) {
