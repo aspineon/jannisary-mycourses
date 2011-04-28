@@ -8,26 +8,30 @@ import javax.swing.JOptionPane;
 
 import entities.dao.Course;
 import entities.dao.Lecturer;
+import entities.dao.Syllabus;
 import entities.utility.OrderedTable;
 
 public class DeanCourseBean 
 {
 	private ArrayList<SelectItem> deanCourseList;
-	private ArrayList<SelectItem> deanLecturerList;
+	private ArrayList<SelectItem> deanLecturerList = new ArrayList<SelectItem>();
 	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
 	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
 	
+	private String selectedDeanCourse = "";
+	private String creditValueTheo = "";
+	private String creditValuePrac = "";
+	
 	private ArrayList<Course> courseList;
 	private Hashtable<String, Integer> dayMapToIndexHash;
 	public String[][] initCourseTable = new String[8][6];
 
 	Course courseObj = new Course();
-	Lecturer lecturerObj = new Lecturer();
+	Syllabus syllabusObj = new Syllabus();
 	
-	private String selectedDeanCourse = "";
 	String selectedDeanLecturer;
 	String selectedDeanDay = "";
 	String selectedOperation = "";
@@ -37,9 +41,6 @@ public class DeanCourseBean
 	boolean buttonStatus = false;
 	
 	Color testColor = Color.green;
-	
-	String creditValueTheo;
-	String creditValuePrac;
 	
 	public DeanCourseBean()
 	{
@@ -182,18 +183,18 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedDeanCourse = newValue;
-		loadLecturer();
+		loadFields();
 	}
 	
-	private void loadLecturer()
+	private void loadFields()
 	{
-		ArrayList<Lecturer> lctList = lecturerObj.getLecturerByCourseName(this.selectedDeanCourse);
-		ArrayList<SelectItem> itemList = new ArrayList<SelectItem>();
-		for(int i = 0; i < lctList.size(); i++) {
-			String name = lctList.get(i).getLecturerName();
-			itemList.add(new SelectItem(name));
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedDeanCourse);
+		this.creditValueTheo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.creditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
+		this.deanLecturerList = new ArrayList<SelectItem>();
+		for(int i = 0; i < itemList.size(); i++) {
+			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
-		this.deanLecturerList = itemList;
 	}
 //****************************************************************************
 //Dean Courses bu noktada bean e yükleniyor. Burada iþlem yok. 
@@ -215,10 +216,6 @@ public class DeanCourseBean
 //*****************************************************************************
 // Seçilen dersin hocasýný gösteren listenin get set metodlarý
 	public ArrayList<SelectItem> getDeanLecturerList() {
-		if(deanLecturerList == null)
-		{		
-			loadLecturer();
-		}
 		return deanLecturerList;
 	}
 
