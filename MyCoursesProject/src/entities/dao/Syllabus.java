@@ -126,7 +126,29 @@ public void addSyllabus(){
 		session.close();
 	}
 }
-	
+
+    @SuppressWarnings("unchecked")
+	public List<Syllabus> getSyllabusBySemesterAndGrade(){
+		List<Syllabus> allSyllabus = null;
+		
+         Session session = null;
+         
+         try {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusBySemesterAndGrade");
+                 query.setParameter("pGrade", course.getGrade());
+                 query.setParameter("pSemester", semester);
+                 allSyllabus =(List<Syllabus>) query.list();
+                 
+         } catch (Exception e) {
+                 // TODO: handle exception
+                 e.getMessage();
+         } 
+         return allSyllabus;
+	}
+    
 	@SuppressWarnings("unchecked")
 	public List<Syllabus> getAllSyllabus(){
 		List<Syllabus> allSyllabus = null;
