@@ -56,7 +56,7 @@
     
     <sql-query name="getSyllabusBySemesterAndGrade" callable="true">
    		<return alias="Syllabus" class="entities.dao.Syllabus"/>
-   		<![CDATA[CALL GetSyllabusBySemesterAndGrade(:pSemester,:pGrade)]]>
+   		<![CDATA[CALL GetSyllabusBySemesterAndGrade(:pSemester,:pGrade,:pYear)]]>
  	</sql-query>
     
 </hibernate-mapping>
