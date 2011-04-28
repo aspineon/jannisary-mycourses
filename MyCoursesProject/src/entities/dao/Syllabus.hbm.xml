@@ -54,4 +54,9 @@
         <![CDATA[CALL UpdateSyllabus(:pSyllabusId,:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo)]]>
     </sql-query>
     
+    <sql-query name="getSyllabusBySemesterAndGrade" callable="true">
+   		<return alias="Syllabus" class="entities.dao.Syllabus"/>
+   		<![CDATA[CALL GetSyllabusBySemesterAndGrade(:pSemester,:pGrade)]]>
+ 	</sql-query>
+    
 </hibernate-mapping>
