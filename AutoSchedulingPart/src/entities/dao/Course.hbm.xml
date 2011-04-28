@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 11, 2011 8:27:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.dao.Course" table="course" catalog="janissary">
+        <id name="courseId" type="java.lang.Integer">
+            <column name="Course_Id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="typeofCourse" class="entities.dao.TypeofCourse" fetch="select">
+            <column name="Typeof_Course_Id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="department" class="entities.dao.Department" fetch="select">
+            <column name="Department_Id" not-null="true" />
+        </many-to-one>
+        <property name="courseCode" type="string">
+            <column name="Course_Code" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="courseName" type="string">
+            <column name="Course_Name" not-null="true" />
+        </property>
+        <property name="teoricLectureHours" type="int">
+            <column name="Teoric_Lecture_Hours" not-null="true" />
+        </property>
+        <property name="practiceLectureHourse" type="int">
+            <column name="Practice_Lecture_Hourse" not-null="true" />
+        </property>
+        <property name="attendance" type="boolean">
+            <column name="Attendance" not-null="true" />
+        </property>
+        <property name="grade" type="int">
+            <column name="Grade" not-null="true" />
+        </property>
+        <property name="precondition" type="string">
+            <column name="Precondition" length="10" />
+        </property>
+        <property name="courseDescription" type="string">
+            <column name="Course_Description" length="2000" />
+        </property>
+        <set name="syllabuses" table="syllabus" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Course_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Syllabus" />
+        </set>
+    </class>
+    
+    <sql-query name="getDeanCourseName" callable="true">
+    	<return alias="Course" class="entities.dao.Course"/>
+    	<![CDATA[CALL getDeanCourses]]>
+    </sql-query> 
+    
+    <sql-query name="getLecturerNameByCourseId" callable="true">
+        <return alias="Syllabus" class="entities.dao.Syllabus"/>
+        <![CDATA[CALL getLecturerNameByCourseId(:pCourseId)]]>
+    </sql-query>
+</hibernate-mapping>
