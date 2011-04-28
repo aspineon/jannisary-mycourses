@@ -140,6 +140,7 @@ public void addSyllabus(){
                  Query query = session.getNamedQuery("getSyllabusBySemesterAndGrade");
                  query.setParameter("pGrade", course.getGrade());
                  query.setParameter("pSemester", semester);
+                 query.setParameter("pYear", year);
                  allSyllabus =(List<Syllabus>) query.list();
                  
          } catch (Exception e) {
