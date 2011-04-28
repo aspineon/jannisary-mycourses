@@ -64,7 +64,7 @@
 	                <h:dataTable id="src" value="#{manuelSchedulingUtilBean.allSyllabuses}" var="category" footerClass="footerClass">
 	                    <h:column>
 	                        <a4j:outputPanel style="width:100px;border:1px solid gray;pacategorying:2px" layout="block">
-	                            <rich:dragSupport dragIndicator=":indicator" dragType="#{category.precondition}" dragValue="#{category}">
+	                            <rich:dragSupport dragIndicator=":indicator" dragType="Test" dragValue="#{category}">
 	                                <rich:dndParam name="label" value="#{category.course.courseName}" />
 	                            </rich:dragSupport>
 	                            <h:outputText value="#{category.course.courseName}"></h:outputText>
