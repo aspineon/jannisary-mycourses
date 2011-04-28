@@ -8,16 +8,20 @@ import javax.swing.JOptionPane;
 
 import entities.dao.Course;
 import entities.dao.Lecturer;
+import entities.utility.OrderedTable;
 
 public class DeanCourseBean 
 {
 	private ArrayList<SelectItem> deanCourseList;
 	private ArrayList<SelectItem> deanLecturerList;
+	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
+	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
 	
 	private ArrayList<Course> courseList;
-	
 	private Hashtable<String, Integer> dayMapToIndexHash;
-	
 	public String[][] initCourseTable = new String[8][6];
 
 	Course courseObj = new Course();
@@ -83,32 +87,6 @@ public class DeanCourseBean
 			System.out.println(ex.getMessage());
 		}
 		return null;
-	}
-	
-	List<SelectItem> departmentFreshmanCourseList = new ArrayList<SelectItem>();
-	List<Course> deptFreshmanCourseList = null;
-	public List<SelectItem> getDepartmentCourseList()
-	{
-		synchronized (this) 
-		{
-			if(deptFreshmanCourseList == null)
-			{
-				try
-				{
-					deptFreshmanCourseList = courseObj.getDepartmentCourseNameList();
-					for(int i = 0; i < deptFreshmanCourseList.size(); i++)
-					{
-						String deptCourseName = deptFreshmanCourseList.get(i).getCourseName();
-						departmentFreshmanCourseList.add(new SelectItem(deptCourseName));
-					}
-				}
-				catch(Exception ex)
-				{
-					ex.getMessage();
-				}
-			}
-		}
-		return departmentFreshmanCourseList;
 	}
 	
 	public String initDeanCourseTable()
@@ -217,23 +195,6 @@ public class DeanCourseBean
 		}
 		this.deanLecturerList = itemList;
 	}
-	
-	public List<Course> getDeptFreshmanCourseList() {
-		return deptFreshmanCourseList;
-	}
-
-	public void setDeptFreshmanCourseList(List<Course> deptFreshmanCourseList) {
-		this.deptFreshmanCourseList = deptFreshmanCourseList;
-	}
-
-	public List<SelectItem> getDepartmentFreshmanCourseList() {
-		return departmentFreshmanCourseList;
-	}
-
-	public void setDepartmentFreshmanCourseList(
-			ArrayList<SelectItem> departmentFreshmanCourseList) {
-		this.departmentFreshmanCourseList = departmentFreshmanCourseList;
-	}
 //****************************************************************************
 //Dean Courses bu noktada bean e yükleniyor. Burada iþlem yok. 
 //Course.java da gerçekleþiyor
@@ -272,7 +233,7 @@ public class DeanCourseBean
 	public void setCreditValueTheo(String creditValueTheo) {
 		this.creditValueTheo = creditValueTheo;
 	}
-
+//******************************************************************************
 	public String getCreditValuePrac() {
 		return creditValuePrac;
 	}
@@ -280,7 +241,7 @@ public class DeanCourseBean
 	public void setCreditValuePrac(String creditValuePrac) {
 		this.creditValuePrac = creditValuePrac;
 	}
-//*****************************************************
+//******************************************************************************
 // Seçili olan dekanlýk dersinin get-set metodlarý
 	public String getSelectedDeanCourse() {
 		return selectedDeanCourse;
@@ -289,11 +250,52 @@ public class DeanCourseBean
 	public void setSelectedDeanCourse(String selectedDeanCourse) {
 		this.selectedDeanCourse = selectedDeanCourse;
 	}
-//*****************************************************
+//*****************************************************************************
+//Burdan sonra bulunan dört blokta her tabda bulunan ders listelerindeki verilerin
+//tutulduðu alt alanlarýn get-set metodlarý bulunmaktadýr.
+//*****************************************************************************
+	public ArrayList<SelectItem> getFreshmanCourses() {
+		OrderedTable ort = new OrderedTable();
+		ArrayList<OrderedTable> itemList = ort.getOrderedTableByGrade(1);
+		for(int i = 0; i < itemList.size(); i++) {
+			SelectItem item = new SelectItem(itemList.get(i));
+			this.freshmanCourses.add(item);
+		}
+		return freshmanCourses;
+	}
+
+	public void setFreshmanCourses(ArrayList<SelectItem> freshmanCourses) {
+		this.freshmanCourses = freshmanCourses;
+	}
+//*****************************************************************************
+	public ArrayList<SelectItem> getSophomoreCourses() {
+		return sophomoreCourses;
+	}
+
+	public void setSophomoreCourses(ArrayList<SelectItem> sophomoreCourses) {
+		this.sophomoreCourses = sophomoreCourses;
+	}
+//*******************************************************************************
+	public ArrayList<SelectItem> getJuniorCourses() {
+		return juniorCourses;
+	}
+
+	public void setJuniorCourses(ArrayList<SelectItem> juniorCourses) {
+		this.juniorCourses = juniorCourses;
+	}
+//*******************************************************************************
+	public ArrayList<SelectItem> getSeniorCourses() {
+		return seniorCourses;
+	}
+
+	public void setSeniorCourses(ArrayList<SelectItem> seniorCourses) {
+		this.seniorCourses = seniorCourses;
+	}
+//*********************************************************************************
 	public String getSelectedDeanLecturer() {
 		return selectedDeanLecturer;
 	}
-
+	
 	public void setSelectedDeanLecturer(String selectedDeanLecturer) {
 		this.selectedDeanLecturer = selectedDeanLecturer;
 	}
