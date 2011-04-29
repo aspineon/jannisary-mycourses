@@ -207,6 +207,7 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
 		this.semesterFlag = false;
+		this.semesterList = new ArrayList<SelectItem>();
 		loadSemester();
 	}
 //This is the event which holds the operations when a semester is selected
@@ -230,8 +231,7 @@ public class DeanCourseBean
 		this.clearSubFields();
 		this.loadSubFields();
 	}
-	// This is the event which holds the operation when a freshman course selected in freshman tab!!!!
-	
+// This is the event which holds the operation when a freshman course selected in freshman tab!!!!
 	public void freshmanCourseChange(ValueChangeEvent event)
 	{
 		System.out.println("Freshman course has been changed!!!");
@@ -243,23 +243,13 @@ public class DeanCourseBean
 		this.clearFreshmanSubFields();
 		this.loadFreshmanSubFields();
 	}
-	
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //***************************************************************************************
 	private void loadSemester() {
-		if(this.semesterFlag = false) {	
-			this.semesterList = new ArrayList<SelectItem>();
-			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByYear(Integer.parseInt(this.selectedYear));
-			ArrayList<String> tempList = new ArrayList<String>();
-			for(int i = 0; i < itemList.size(); i++) {
-				String item = itemList.get(i).getSemester();
-				if(this.checkList(tempList, item) == false) {
-					tempList.add(item);
-				}
-			}
-			for(int j = 0; j < tempList.size(); j++) {
-				this.semesterList.add(new SelectItem(tempList.get(j).toString()));
-			}
+		if(this.semesterFlag == false) {	
+			this.semesterList.add(new SelectItem("Fall"));
+			this.semesterList.add(new SelectItem("Spring"));
+			this.semesterList.add(new SelectItem("Summer"));
 			this.semesterFlag = true;
 		}
 	}
@@ -285,7 +275,7 @@ public class DeanCourseBean
 	
 	private void clearFreshmanSubFields()
 	{
-		this.freshmanLecturerList = new ArrayList<SelectItem>();
+		this.freshmanCourses = new ArrayList<SelectItem>();
 		this.freshmanCreditValeuTeo = "";
 		this.freshmanCreditValuePrac = "";
 	}
