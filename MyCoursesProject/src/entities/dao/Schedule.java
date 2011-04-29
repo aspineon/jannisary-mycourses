@@ -13,7 +13,10 @@ public class Schedule implements java.io.Serializable {
 	private String courseType;
 	private int timeofCourse;
 	private int hours;
-
+	
+	//Manual Scheduling de gösterimde kullanılan alan, veritabanında tanımı yoktur.
+	private String courseTheoricOrPraticName;
+	
 	public Schedule() {
 	}
 
@@ -24,6 +27,16 @@ public class Schedule implements java.io.Serializable {
 		this.courseType = courseType;
 		this.timeofCourse = timeofCourse;
 		this.hours = hours;
+	}
+
+	
+	
+	public String getCourseTheoricOrPraticName() {
+		return courseTheoricOrPraticName;
+	}
+
+	public void setCourseTheoricOrPraticName(String courseTheoricOrPraticName) {
+		this.courseTheoricOrPraticName = courseTheoricOrPraticName;
 	}
 
 	public Integer getScheduleId() {
