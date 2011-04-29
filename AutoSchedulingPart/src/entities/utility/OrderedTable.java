@@ -54,11 +54,11 @@ public class OrderedTable {
 	
 //***********************************************************
 	
-    public ArrayList<OrderedTable> getOrderedTableByGrade(int grade) {
+    public ArrayList<OrderedTable> getOrderedTableByGrade(int year, String semester, int grade) {
 		ArrayList<OrderedTable> orderedTableList = new ArrayList<OrderedTable>();
 		
 		Syllabus sItem = new Syllabus();
-		ArrayList<Syllabus> sList = sItem.getSyllabusByGrade(grade);
+		ArrayList<Syllabus> sList = sItem.getSyllabusByGrade(year, semester, grade);
 		for(int i = 0; i < sList.size(); i++) {
 			java.lang.String courseName = sList.get(i).getCourse().getCourseName();
 			java.lang.String lecturerName = sList.get(i).getLecturer().getLecturerName();
