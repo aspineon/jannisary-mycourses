@@ -18,7 +18,39 @@
 	<br/>
 	<br/>
 	<table>
+		<tr>
+		<td>
+			<h:outputLabel value="Year : " style="color:black;font-family:Tahoma;font-style:bold;font-size:small" />
+		</td>
+		<td>
 		
+		</td>
+		<td>			
+			<h:selectOneMenu id="Year" onchange="submit();"
+				value="#{deanCourseBean.selectedYear}"
+				valueChangeListener="#{deanCourseBean.yearValueChange}" style=" width : 194px;">
+					<f:selectItem itemValue=""/>
+					<f:selectItems value="#{deanCourseBean.yearList}" />
+			</h:selectOneMenu>		
+		</td>
+		</tr>
+		
+		<tr>
+		<td>
+			<h:outputLabel value="Semester : " style="color:black;font-family:Tahoma;font-style:bold;font-size:small" />
+		</td>
+		<td>
+		
+		</td>
+		<td>			
+			<h:selectOneMenu id="Semester" onchange="submit();"
+				value="#{deanCourseBean.selectedSemester}"
+				valueChangeListener="#{deanCourseBean.semesterValueChange}" style=" width : 194px;">
+					<f:selectItem itemValue="" />
+					<f:selectItems value="#{deanCourseBean.semesterList}" />
+			</h:selectOneMenu>		
+		</td>
+		</tr>
 	</table>
 	<br/>
 	<rich:tabPanel switchType="Client">
