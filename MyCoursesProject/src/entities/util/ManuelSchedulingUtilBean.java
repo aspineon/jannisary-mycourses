@@ -34,7 +34,10 @@ public class ManuelSchedulingUtilBean {
 	private Schedule[][] secondGradeSchedule = new Schedule[5][8];
 	private Schedule[][] thirdGradeSchedule = new Schedule[5][8];
 	private Schedule[][] fourthGradeSchedule = new Schedule[5][8];
+	 
 	
+	private ArrayList<Schedule> courseList = new ArrayList<Schedule>();
+	private ArrayList<Schedule> labList = new ArrayList<Schedule>();
 	
 	private List<SelectItem> listSemester = new ArrayList<SelectItem>();
 	private List<SelectItem> listGrade = new ArrayList<SelectItem>();
@@ -75,6 +78,13 @@ public class ManuelSchedulingUtilBean {
 		return year;
 	}
 	
+	public String clickGetCoursesButton(){
+		System.out.println("Get Course Button");
+		allSyllabuses = null;
+		allSyllabuses = getSyllabusBySemesterAndGrade();
+		return null;
+	}
+	
 	public void getIdAction(ActionEvent ev){
 		//System.out.println("My event is:" + ev.getComponent().getId());
 		String compId = ev.getSource().toString();
@@ -88,9 +98,6 @@ public class ManuelSchedulingUtilBean {
 		
 		if (!selectedValue.equals("")) {
 			semester = selectedValue;
-			if(intGrade != 0){
-				//call getSyllabusBySemesterAndGrade
-			}
 		}
 		
 	    System.out.println(semester);
@@ -109,11 +116,6 @@ public class ManuelSchedulingUtilBean {
 				 intGrade = 3;
 			 }else if(selectedValue.equals("FourthYear")){
 				 intGrade = 4;
-			 }
-			 
-			 if(!semester.equals("")){
-				 
-				 //call getSyllabusBySemesterAndGrade
 			 }
 			 
 			 System.out.println(intGrade);
@@ -173,18 +175,59 @@ public class ManuelSchedulingUtilBean {
 					}
 			}
 		}
+		
+		SeparateTheoricAndPraticCourse();
+		System.out.println("getSyllabusBySemesterAndGrade");
 		return allSyllabuses;
 	}
 	
+	private void SeparateTheoricAndPraticCourse(){
+		//Listelere sürekli ekleme yapmamak adıan listeleri yeniden oluşturuyoruz.
+		courseList = new ArrayList<Schedule>();
+		labList = new ArrayList<Schedule>();
+		
+		for(int i=0;i<allSyllabuses.size();i++){
+			if(allSyllabuses.get(i).getCourse().getTeoricLectureHours() != 0){
+				Schedule schedule = new Schedule();
+				schedule.setSyllabus(allSyllabuses.get(i));
+				schedule.setCourseType("theoric");
+				String newName = allSyllabuses.get(i).getCourse().getCourseName();
+				newName = newName + " (T)";
+				schedule.setCourseTheoricOrPraticName(newName);
+				courseList.add(schedule);
+				System.out.println("getTeoricLectureHours");
+			}
+			
+			if(allSyllabuses.get(i).getCourse().getPracticeLectureHourse() != 0){
+				
+				Schedule schedule = new Schedule();
+				schedule.setSyllabus(allSyllabuses.get(i));
+				schedule.setCourseType("practice");
+				String newName = allSyllabuses.get(i).getCourse().getCourseName();
+				newName = newName + " (P)";
+				schedule.setCourseTheoricOrPraticName(newName);
+				labList.add(schedule);
+				System.out.println("getPracticeLectureHourse");
+			}
+		}
+	}
 	
 	//// getters and setters
 	
-	
+
+	public ArrayList<Schedule> getLabList() {
+		return labList;
+	}
+
+	public ArrayList<Schedule> getCourseList() {
+		return courseList;
+	}
+
 	
 	public int getTimeof_Course() {
 		return timeof_Course;
 	}
-
+	
 	public void setTimeof_Course(int timeof_Course) {
 		this.timeof_Course = timeof_Course;
 	}
@@ -195,6 +238,7 @@ public class ManuelSchedulingUtilBean {
 		this.hours = hours;
 	}
 	public List<Syllabus> getAllSyllabuses() {
+		
 		allSyllabuses = getSyllabusBySemesterAndGrade();
 		return allSyllabuses;
 	}
