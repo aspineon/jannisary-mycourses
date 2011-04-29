@@ -40,8 +40,8 @@ public class Course implements java.io.Serializable {
 
 
         public Course(TypeofCourse typeofCourse, Department department,
-                        String courseCode, String courseName, int teoricLectureHours,
-                        int practiceLectureHourse, boolean attendance, int grade) {
+                	  String courseCode, String courseName, int teoricLectureHours,
+                	  int practiceLectureHourse, boolean attendance, int grade) {
                 this.typeofCourse = typeofCourse;
                 this.department = department;
                 this.courseCode = courseCode;
@@ -73,7 +73,7 @@ public class Course implements java.io.Serializable {
 
 //****************************************************************************************      
         @SuppressWarnings("unchecked")
-        public ArrayList<Course> getDeanCourses()
+        public ArrayList<Course> getDeanCourses(int year, String semester)
         {
                 Session session = null;
                 ArrayList<Course> deanCourseNameList = null;
@@ -82,6 +82,8 @@ public class Course implements java.io.Serializable {
                         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                         session = sessionFactory.openSession();
                         Query query = session.getNamedQuery("getDeanCourseName");
+                        query.setParameter("pYear", year);
+                        query.setParameter("pSemester", semester);
                         deanCourseNameList = (ArrayList<Course>)query.list();
                 }
                 catch(Exception ex)

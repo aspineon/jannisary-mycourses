@@ -48,7 +48,7 @@
     
     <sql-query name="getDeanCourseName" callable="true">
     	<return alias="Course" class="entities.dao.Course"/>
-    	<![CDATA[CALL getDeanCourses]]>
+    	<![CDATA[CALL getDeanCourses(:pYear, :pSemester)]]>
     </sql-query> 
     
     <sql-query name="getLecturerNameByCourseId" callable="true">

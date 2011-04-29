@@ -33,7 +33,7 @@
     
     <sql-query name="getSyllabusByGrade" callable="true">
     	<return alias="Syllabus" class="entities.dao.Syllabus"/>
-    	<![CDATA[CALL getSyllabusByGrade(:pGrade)]]>
+    	<![CDATA[CALL getSyllabusByGrade(:pYear, :pSemester, :pGrade)]]>
     </sql-query>
     
     <sql-query name="getSyllabusByCourseName" callable="true">

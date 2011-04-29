@@ -47,7 +47,7 @@ public class Syllabus implements java.io.Serializable {
 //Description:		Her bir tabda 1,2,3 ve 4. sýnýf derslerinin gösterilmesi gerekiyor.
 //					Ýlgili procedure parametre verilerek bu durum hallediliyor.
 	@SuppressWarnings("unchecked")
-	public ArrayList<Syllabus> getSyllabusByGrade(int grade)
+	public ArrayList<Syllabus> getSyllabusByGrade(int year, String semester, int grade)
 	{
 		Session session = null;
 		ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
@@ -57,6 +57,8 @@ public class Syllabus implements java.io.Serializable {
 			 session = sessionFactory.openSession();
 			 
 			 Query query = session.getNamedQuery("getSyllabusByGrade");
+			 query.setParameter("pYear", year);
+			 query.setParameter("pSemester", semester);
 			 query.setParameter("pGrade", grade); 
 			 syllabusList = (ArrayList<Syllabus>)query.list();
 		}
