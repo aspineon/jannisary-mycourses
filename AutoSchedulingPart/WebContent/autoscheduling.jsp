@@ -57,9 +57,9 @@
 		<rich:tab label="Freshman">
             <rich:panel style=" height : 450px;">
             <table>
-            	<tr>
+            	<tr style=" height : 167px;">
             		<td>
-            			<h:selectManyListbox id="deptCourseListBox" style="width : 251px; height : 118px;" 
+            			<h:selectManyListbox id="deptCourseListBox" style="width : 293px; background-color:#E0FFFF; height : 173px;" 
             					title="Freshman Courses" value="#{deanCourseBean.freshmanCourses}">
             				<f:selectItems value="#{deanCourseBean.freshmanCourses}"/>	
             			</h:selectManyListbox>
@@ -74,7 +74,7 @@
 	                			<h:outputText value="Schedule Table For Dean Course" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px; height: 19px">
+	        				<rich:column style=" width : 180px; height: 19px; background-color:#FCDFFF;">
 	        					<f:facet name="header">
 	        						<h:outputText value="Hours/Days" />
 	        					</f:facet>
@@ -87,7 +87,7 @@
                 				<h:outputText value="Monday"/>
                 			</f:facet>
         				 </rich:column>
-        				 <rich:column style=" width : 250px;">
+        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -97,7 +97,7 @@
                 				<h:outputText value="Wednesday"/>
                 			</f:facet>
         				 </rich:column>
-        				 <rich:column style=" width : 250px;">
+        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
@@ -111,24 +111,37 @@
             			</rich:dataTable>
             		</td>
             	</tr>
+            	
+            	<!-- Freshman Girislerin yapilacagi yer!!! -->
             	<tr>
             		<td>
             			
             	  <table>
             	  	<tr>
+            	  	
             	  		<td>
-            	  			<h:outputText value="Course Info :"></h:outputText>
+            	  			<h:outputText value="Courses :"></h:outputText>
             	  		</td>
+            	  		<!-- 
             	  		<td>
-            	  			<h:inputText id="courseInfoTextField" disabled="true" style=" width : 251px;"></h:inputText>
+            	  			<h:selectOneMenu id="freshmanCoursesComboBox" onchange="submit()"
+            	  				value="#{deanCourseBean.selectedFreshmanCourse}"
+            	  				valueChangeListener="#{deanCourseBean.freshmanCourseChange}" style=" width : 199px;">
+            	  				<f:selectItem itemValue="Choose Freshman Course"/>
+            	  				<f:selectItems value="#{deanCourseBean.freshmanCourses}"/>
+            	  			</h:selectOneMenu>
             	  		</td>
+            	  		  -->
             	  	</tr>
             	  	<tr>
             	  		<td>
             	  			<h:outputText value="Lecturer :"></h:outputText>
             	  		</td>
             	  		<td>
-            	  			<h:inputText id="lecturerNameTextField" disabled="true"></h:inputText>
+            	  			<h:selectOneMenu id="freshmanLecturerComboBox" value="#{deanCourseBean.selectedFreshmanLecturer}" style=" width : 173px;">
+            	  				<f:selectItem itemValue="Choose Lecturer"/>
+            	  				<f:selectItems  value="#{deanCourseBean.freshmanLecturerList}" />
+            	  			</h:selectOneMenu>
             	  		</td>
             	  	</tr>
             	  	<tr>
@@ -139,13 +152,15 @@
             	  			<table>
             	  				<tr>
             	  				<td>
-            	  					<h:inputText id="theoricCreditTextField" disabled="true" style=" width : 60px;"></h:inputText>
+            	  					<h:inputText disabled="true" style=" width : 60px; background-color:#FFE87C;" 
+            	  								value="#{deanCourseBean.freshmanCreditValeuTeo}"/>
             	  				</td>
             	  				<td>
             	  					<h:outputText value="+"></h:outputText>
             	  				</td>
             	  				<td>
-            	  					<h:inputText id="practiceCreditTextField" disabled="true" style=" width : 58px;"></h:inputText>
+            	  					<h:inputText disabled="true" style=" width : 58px; background-color:#FFF8C6;" 
+            	  							value="#{deanCourseBean.freshmanCreditValuePrac}"/>
             	  				</td>
             	  				</tr>
             	  			</table>
@@ -156,9 +171,9 @@
             	  			<h:outputText value="Room : "></h:outputText>
             	  		</td>
             	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBox" value = "Choose Room" width="99">
-            	  				<f:selectItems id="fresmanRoom" value="#{classroomBean.selectItemListClassroom }"/>
-            	  			</rich:comboBox>
+            	  			<h:selectOneMenu>
+            	  				<f:selectItem itemValue="Choose Room"/>
+            	  			</h:selectOneMenu>
             	  		</td>
             	  		
             	  	</tr>           	  	
