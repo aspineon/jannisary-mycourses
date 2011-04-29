@@ -25,6 +25,8 @@ public class DeanCourseBean
 	private ArrayList<SelectItem> deanLecturerList = new ArrayList<SelectItem>();
 	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
 	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> freshmanLecturerList = new ArrayList<SelectItem>();
+	
 	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
@@ -49,6 +51,20 @@ public class DeanCourseBean
 	boolean buttonStatus = false;
 	
 	Color testColor = Color.green;
+	
+	//******************** Freshman Bilgileri ******************************************
+	
+	private String selectedFreshmanCourse = "";
+	private String selectedFreshmanLecturer;
+	private String selectedFreshmanDay = "";
+	private String selectedFreshmanOperation = "";
+	private String selectedFreshmanStartHour = "";
+	private String selectedFreshmanEndHour = "";
+	private String selectedFreshmanRoom = "";
+	private String freshmanCreditValeuTeo = "";
+	private String freshmanCreditValuePrac = "";
+	
+	//**********************************************************************************
 	
 	public DeanCourseBean()
 	{
@@ -214,6 +230,21 @@ public class DeanCourseBean
 		this.clearSubFields();
 		this.loadSubFields();
 	}
+	// This is the event which holds the operation when a freshman course selected in freshman tab!!!!
+	
+	public void freshmanCourseChange(ValueChangeEvent event)
+	{
+		System.out.println("Freshman course has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedFreshmanCourse = newValue;
+		this.clearFreshmanSubFields();
+		this.loadFreshmanSubFields();
+	}
+	
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //***************************************************************************************
 	private void loadSemester() {
 		if(this.semesterFlag = false) {	
@@ -237,11 +268,11 @@ public class DeanCourseBean
 //temizliyoruz(clearFields). Ardýndan ders seçimiyle birlikte bu alanlarý gerekli veriler
 //ile dolduruyoruz.
 	private void clearSubFields() {
-		this.deanLecturerList = new ArrayList<SelectItem>();
+		this.deanLecturerList = new ArrayList<SelectItem>();		
 		this.creditValueTheo = "";
 		this.creditValuePrac = "";
 	}
-	
+		
 	private void loadSubFields()
 	{
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedDeanCourse);
@@ -249,6 +280,24 @@ public class DeanCourseBean
 		this.creditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++) {
 			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+		}
+	}
+	
+	private void clearFreshmanSubFields()
+	{
+		this.freshmanLecturerList = new ArrayList<SelectItem>();
+		this.freshmanCreditValeuTeo = "";
+		this.freshmanCreditValuePrac = "";
+	}
+	
+	private void loadFreshmanSubFields()
+	{
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanCourse);
+		this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
+		for(int i = 0; i < itemList.size(); i++)
+		{
+			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
 //***************************************************************************************
@@ -463,6 +512,11 @@ public class DeanCourseBean
 	public void setSelectedSemester(String selectedSemester) {
 		this.selectedSemester = selectedSemester;
 	}
+	
+	
+	
+	
+	//======================================================================================	
 //***************************************************************************************
 //******************* UTILITY FUNCTIONS *************************************************	
 //This method checks whether the related data(String item) is contained by related
@@ -478,5 +532,88 @@ public class DeanCourseBean
 		}
 		return breaker;
 	}
-//***************************************************************************************	
+//***************************************************************************************
+	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//**************************** FRESHMAN GET-SET ***************************************
+	public String getSelectedFreshmanCourse() {
+		return selectedFreshmanCourse;
+	}
+
+	public void setSelectedFreshmanCourse(String selectedFreshmanCourse) {
+		this.selectedFreshmanCourse = selectedFreshmanCourse;
+	}
+
+	public String getSelectedFreshmanLecturer() {
+		return selectedFreshmanLecturer;
+	}
+
+	public void setSelectedFreshmanLecturer(String selectedFreshmanLecturer) {
+		this.selectedFreshmanLecturer = selectedFreshmanLecturer;
+	}
+
+	public String getSelectedFreshmanDay() {
+		return selectedFreshmanDay;
+	}
+
+	public void setSelectedFreshmanDay(String selectedFreshmanDay) {
+		this.selectedFreshmanDay = selectedFreshmanDay;
+	}
+
+	public String getSelectedFreshmanOperation() {
+		return selectedFreshmanOperation;
+	}
+
+	public void setSelectedFreshmanOperation(String selectedFreshmanOperation) {
+		this.selectedFreshmanOperation = selectedFreshmanOperation;
+	}
+
+	public String getSelectedFreshmanStartHour() {
+		return selectedFreshmanStartHour;
+	}
+
+	public void setSelectedFreshmanStartHour(String selectedFreshmanStartHour) {
+		this.selectedFreshmanStartHour = selectedFreshmanStartHour;
+	}
+
+	public String getSelectedFreshmanEndHour() {
+		return selectedFreshmanEndHour;
+	}
+
+	public void setSelectedFreshmanEndHour(String selectedFreshmanEndHour) {
+		this.selectedFreshmanEndHour = selectedFreshmanEndHour;
+	}
+
+	public String getSelectedFreshmanRoom() {
+		return selectedFreshmanRoom;
+	}
+
+	public void setSelectedFreshmanRoom(String selectedFreshmanRoom) {
+		this.selectedFreshmanRoom = selectedFreshmanRoom;
+	}
+
+	public String getFreshmanCreditValeuTeo() {
+		return freshmanCreditValeuTeo;
+	}
+
+	public void setFreshmanCreditValeuTeo(String freshmanCreditValeuTeo) {
+		this.freshmanCreditValeuTeo = freshmanCreditValeuTeo;
+	}
+
+	public String getFreshmanCreditValuePrac() {
+		return freshmanCreditValuePrac;
+	}
+
+	public void setFreshmanCreditValuePrac(String freshmanCreditValuePrac) {
+		this.freshmanCreditValuePrac = freshmanCreditValuePrac;
+	}
+
+	public ArrayList<SelectItem> getFreshmanLecturerList() {
+		return freshmanLecturerList;
+	}
+
+	public void setFreshmanLecturerList(ArrayList<SelectItem> freshmanLecturerList) {
+		this.freshmanLecturerList = freshmanLecturerList;
+	}
+	
+	 
 }
