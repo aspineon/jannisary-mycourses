@@ -88,6 +88,47 @@ public class Syllabus implements java.io.Serializable {
 		return syllabusList;
 	}
 //***************************************************************************************	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Syllabus> getSyllabusAll()
+	{
+		Session session = null;
+		ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+		try
+		{
+			 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			 session = sessionFactory.openSession();
+			 
+			 Query query = session.getNamedQuery("getSyllabusAll");
+			 syllabusList = (ArrayList<Syllabus>)query.list();
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}		
+		return syllabusList;
+	}	
+//***************************************************************************************
+	@SuppressWarnings("unchecked")
+	public ArrayList<Syllabus> getSyllabusByYear(int year)
+	{
+		Session session = null;
+		ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+		try
+		{
+			 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			 session = sessionFactory.openSession();
+			 
+			 Query query = session.getNamedQuery("getSyllabusByYear");
+			 query.setParameter("pYear", year);
+			 syllabusList = (ArrayList<Syllabus>)query.list();
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}		
+		return syllabusList;
+	}	
+//***************************************************************************************	
 	public Integer getSyllabusId() {
 		return this.syllabusId;
 	}
