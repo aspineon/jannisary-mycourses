@@ -136,13 +136,13 @@
                     <h:outputText value="08:00-09:00" />
                 </f:facet>
                 
-                <rich:dropSupport id="MondayDropSupportId00" acceptedTypes="Test" dropValue="Test" action="#{demoDragDropBean.dropAction}"
-                    dropListener="#{demoDragDropBean.processDrop}" reRender="phptable, src" actionListener="#{demoDragDropBean.testAction}">
+                <rich:dropSupport id="MondayDropSupportId00" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="phptable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="phptable" value="#{demoDragDropBean.containerCME}"  var="category">
+                <h:dataTable id="phptable" value="#{manuelSchedulingUtilBean}"  var="category">
                     <h:column>
-                        <h:outputText value="#{category.courseName}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt11}"></h:outputText>
                     </h:column>
                 </h:dataTable>
             </rich:panel>
@@ -152,13 +152,13 @@
                     <h:outputText value="08:00-09:00" />
                 </f:facet>
                     
-                <rich:dropSupport id="TuesdayDropSupportId01" acceptedTypes="Test" dropValue="Test" action="#{demoDragDropBean.dropAction}"
-                    dropListener="#{demoDragDropBean.processDrop}" reRender="TuesdayTable, src">
+                <rich:dropSupport id="TuesdayDropSupportId10" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable" value="#{demoDragDropBean.containerCME}" var="category">
+                <h:dataTable id="TuesdayTable" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{category.courseName}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt12}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
