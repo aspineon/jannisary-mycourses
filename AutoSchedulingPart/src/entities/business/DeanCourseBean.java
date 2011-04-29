@@ -1,11 +1,15 @@
 package entities.business;
 import java.awt.Color;
 import java.util.*;
-import java.util.List;
 import java.lang.Integer;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.swing.JOptionPane;
+
+import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import entities.dao.Course;
 import entities.dao.Lecturer;
@@ -16,11 +20,13 @@ public class DeanCourseBean
 {
 	private String selectedYear = "";
 	private String selectedSemester = "";
+	
 	private boolean yearFlag = false;
 	private boolean semesterFlag = false;
 	
 	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
+	
 	private ArrayList<SelectItem> deanCourseList = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> deanLecturerList = new ArrayList<SelectItem>();
 	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
@@ -28,7 +34,9 @@ public class DeanCourseBean
 	private ArrayList<SelectItem> freshmanLecturerList = new ArrayList<SelectItem>();
 	
 	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
+	
 	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
+	
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
 	
 	private String selectedDeanCourse = "";
@@ -200,15 +208,17 @@ public class DeanCourseBean
 	}
 //This is the event which holds the operations when a year is selected
 	public void yearValueChange(ValueChangeEvent event) {
-		System.out.println("Course Code : " + event.getComponent().getId());
+		System.out.println("Year Code : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
-		this.semesterFlag = false;
-		this.semesterList = new ArrayList<SelectItem>();
-		loadSemester();
+		if((this.selectedYear != "Choose Year") && (this.selectedYear != null)) {
+			this.semesterFlag = false;
+			this.clearAllComponents();
+			this.loadSemester();	
+		}
 	}
 //This is the event which holds the operations when a semester is selected
 	public void semesterValueChange(ValueChangeEvent event) {
@@ -218,6 +228,9 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSemester = newValue;
+		if((this.selectedSemester != "Choose Semester") && (this.selectedSemester != null)) {
+			this.loadAllLists(this.selectedYear, this.selectedSemester);
+		}
 	}
 //This is the event which holds the operations when a course selected in dean tab	
 	public void handleValueChange(ValueChangeEvent event)
@@ -244,9 +257,72 @@ public class DeanCourseBean
 		this.loadFreshmanSubFields();
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	private void clearAllComponents() {
+		this.semesterList = new ArrayList<SelectItem>();
+		this.freshmanCourses = new ArrayList<SelectItem>();
+		this.sophomoreCourses = new ArrayList<SelectItem>();
+		this.juniorCourses = new ArrayList<SelectItem>();
+		this.seniorCourses = new ArrayList<SelectItem>();
+	}
+	
+	private void loadAllLists(String year, String semester) {
+		try
+		{
+			int yearOfSyllabus = Integer.parseInt(year);
+			this.loadDeanCourses(yearOfSyllabus, semester);
+			this.loadCoursesByGrade(yearOfSyllabus, semester);
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+	}
+//***************************************************************************************
+	private void loadDeanCourses(int year, String semester) {
+		this.deanCourseList = null;
+		this.courseList = courseObj.getDeanCourses(year, semester);
+		ArrayList<SelectItem> itemList = new ArrayList<SelectItem>();
+		for(int i = 0; i < this.courseList.size(); i++) {
+			String name = this.courseList.get(i).getCourseName();
+			itemList.add(new SelectItem(name));
+		}
+		this.deanCourseList = itemList;
+	}
+//***************************************************************************************
+	private void loadCoursesByGrade(int year, String semester) {
+		OrderedTable ort = new OrderedTable();
+		//First Year(Freshman) Courses are loaded
+		ArrayList<OrderedTable> itemList = ort.getOrderedTableByGrade(year, semester, 1);
+		for(int i = 0; i < itemList.size(); i++) {
+			String courseName = itemList.get(i).getCourseName();
+			String lecturerName = itemList.get(i).getLecturerName();
+			String item = courseName + " : " + lecturerName;
+			SelectItem sItem = new SelectItem(item);
+			this.freshmanCourses.add(sItem);
+		}
+		//Second Year(Sophomore) Courses are loaded
+		itemList = ort.getOrderedTableByGrade(year, semester, 2);
+		for(int i = 0; i < itemList.size(); i++) {
+			SelectItem item = new SelectItem(itemList.get(i));
+			this.sophomoreCourses.add(item);
+		}
+		//Third Year(Junior) Courses are loaded
+		itemList = ort.getOrderedTableByGrade(year, semester, 3);
+		for(int i = 0; i < itemList.size(); i++) {
+			SelectItem item = new SelectItem(itemList.get(i));
+			this.juniorCourses.add(item);
+		}
+		//Fourth Year(Senior) Courses are loaded
+		itemList = ort.getOrderedTableByGrade(year, semester, 4);
+		for(int i = 0; i < itemList.size(); i++) {
+			SelectItem item = new SelectItem(itemList.get(i));
+			this.seniorCourses.add(item);
+		}
+	}
 //***************************************************************************************
 	private void loadSemester() {
 		if(this.semesterFlag == false) {	
+			this.semesterList.add(new SelectItem("Choose Semester"));
 			this.semesterList.add(new SelectItem("Fall"));
 			this.semesterList.add(new SelectItem("Spring"));
 			this.semesterList.add(new SelectItem("Summer"));
@@ -272,7 +348,7 @@ public class DeanCourseBean
 			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
-	
+//***************************************************************************************	
 	private void clearFreshmanSubFields()
 	{
 		this.freshmanCourses = new ArrayList<SelectItem>();
@@ -292,8 +368,13 @@ public class DeanCourseBean
 	}
 //***************************************************************************************
 //************************* GETTER-SETTER METHODS ***************************************	
+// Onur Özey (Finished 29.04)
+// This getter method returns the list of years(YEARLÝST) which are contained in syllabus 
+// table. Via of 'checkList' utility method, duplication of year data is averted.
 	public ArrayList<SelectItem> getYearList() {
 		if(this.yearFlag == false)	{
+			SelectItem stm = new SelectItem("Choose Year");
+			this.yearList.add(stm);
 			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusAll();
 			ArrayList<String> tempList = new ArrayList<String>();
 			for(int i = 0; i < itemList.size(); i++) {
@@ -309,11 +390,13 @@ public class DeanCourseBean
 		}
 		return this.yearList;
 	}
-
+// Set method of 'YEARLÝST' subfield	
 	public void setYearList(ArrayList<SelectItem> yearList) {
 		this.yearList = yearList;
 	}
-
+//***************************************************************************************
+// Onur Özey (Finished 29.04)
+// Get-Set Methods of 'SEMESTERLÝST' subfield 
 	public ArrayList<SelectItem> getSemesterList() {
 		return semesterList;
 	}
@@ -326,13 +409,6 @@ public class DeanCourseBean
 //Dean Courses bu noktada bean e yükleniyor. Burada iþlem yok. 
 //Course.java da gerçekleþiyor
 	public ArrayList<SelectItem> getDeanCourseList() {
-		this.courseList = courseObj.getDeanCourses();
-		ArrayList<SelectItem> itemList = new ArrayList<SelectItem>();
-		for(int i = 0; i < this.courseList.size(); i++) {
-			String name = this.courseList.get(i).getCourseName();
-			itemList.add(new SelectItem(name));
-		}
-		this.deanCourseList = itemList;
 		return this.deanCourseList;
 	}
 
@@ -378,12 +454,6 @@ public class DeanCourseBean
 //tutulduðu alt alanlarýn get-set metodlarý bulunmaktadýr.
 //*****************************************************************************
 	public ArrayList<SelectItem> getFreshmanCourses() {
-		OrderedTable ort = new OrderedTable();
-		ArrayList<OrderedTable> itemList = ort.getOrderedTableByGrade(1);
-		for(int i = 0; i < itemList.size(); i++) {
-			SelectItem item = new SelectItem(itemList.get(i));
-			this.freshmanCourses.add(item);
-		}
 		return freshmanCourses;
 	}
 
@@ -502,15 +572,13 @@ public class DeanCourseBean
 	public void setSelectedSemester(String selectedSemester) {
 		this.selectedSemester = selectedSemester;
 	}
-	
-	
-	
-	
-	//======================================================================================	
+		
+//======================================================================================	
 //***************************************************************************************
 //******************* UTILITY FUNCTIONS *************************************************	
-//This method checks whether the related data(String item) is contained by related
-//ArrayList(ArrayList<String> itemList).
+// Onur Özey (Finished 29.04)
+// This method checks whether the related data(String item) is contained by related
+// ArrayList(ArrayList<String> itemList).
 	private boolean checkList(ArrayList<String> itemList, String item) {
 		boolean breaker = false;
 		int i = 0;
@@ -523,8 +591,8 @@ public class DeanCourseBean
 		return breaker;
 	}
 //***************************************************************************************
-	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//**************************** FRESHMAN GET-SET ***************************************
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//**************************** FRESHMAN GET-SET ***************************************
 	public String getSelectedFreshmanCourse() {
 		return selectedFreshmanCourse;
 	}
