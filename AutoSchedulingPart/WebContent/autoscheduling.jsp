@@ -29,7 +29,6 @@
 			<h:selectOneMenu id="Year" onchange="submit();"
 				value="#{deanCourseBean.selectedYear}"
 				valueChangeListener="#{deanCourseBean.yearValueChange}" style=" width : 194px;">
-					<f:selectItem itemValue=""/>
 					<f:selectItems value="#{deanCourseBean.yearList}" />
 			</h:selectOneMenu>		
 		</td>
@@ -46,23 +45,23 @@
 			<h:selectOneMenu id="Semester" onchange="submit();"
 				value="#{deanCourseBean.selectedSemester}"
 				valueChangeListener="#{deanCourseBean.semesterValueChange}" style=" width : 194px;">
-					<f:selectItem itemValue="" />
 					<f:selectItems value="#{deanCourseBean.semesterList}" />
 			</h:selectOneMenu>		
 		</td>
 		</tr>
 	</table>
 	<br/>
-	<rich:tabPanel switchType="Client">
-		<rich:tab label="Freshman">
+	</h:form>
+	<h:form>
+	<rich:tabPanel switchType="Client" selectedTab="dc">
+		<rich:tab label="Freshman" id="fr">
             <rich:panel style=" height : 450px;">
             <table>
             	<tr style=" height : 167px;">
             		<td>
-            			<h:selectManyListbox id="deptCourseListBox" style="width : 293px; background-color:#E0FFFF; height : 173px;" 
-            					title="Freshman Courses" value="#{deanCourseBean.selectedFreshmanCourse}">
+            			<h:selectOneListbox id="freshmanListBox" style=" width : 300px;" value="#{deanCourseBean.selectedFreshmanCourse}">
             				<f:selectItems value="#{deanCourseBean.freshmanCourses}"/>	
-            			</h:selectManyListbox>
+            			</h:selectOneListbox>
             		</td>
             		<td style=" width : 100px;">
             			
@@ -184,7 +183,7 @@
         	  
 	      </rich:panel>
         </rich:tab>
-        <rich:tab label="Sophomore">
+        <rich:tab label="Sophomore" id="sp">
             <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
@@ -309,7 +308,7 @@
             </table>			    				   	
             </rich:panel>
         </rich:tab>
-        <rich:tab label="Junior">
+        <rich:tab label="Junior" id="jr">
             <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
@@ -434,7 +433,7 @@
             </table>			    				   	
             </rich:panel>
         </rich:tab>
-        <rich:tab label="Senior">
+        <rich:tab label="Senior" id="sr">
             <rich:panel style=" height : 450px;">
             	   <table>
             	<tr>
@@ -561,7 +560,7 @@
             </rich:panel>
         </rich:tab>
 			
-		<rich:tab label="Dean Courses">
+		<rich:tab label="Dean Courses" id="dc">
 			<rich:panel style=" height : 450px;">
 				<table style="background-color: gray; height : 178px;">
 					<tr style=" height : 12px;">
