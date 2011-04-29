@@ -1,7 +1,8 @@
 package entities.business;
 import java.awt.Color;
 import java.util.*;
-
+import java.util.List;
+import java.lang.Integer;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.swing.JOptionPane;
@@ -13,7 +14,14 @@ import entities.utility.OrderedTable;
 
 public class DeanCourseBean 
 {
-	private ArrayList<SelectItem> deanCourseList;
+	private String selectedYear = "";
+	private String selectedSemester = "";
+	private boolean yearFlag = false;
+	private boolean semesterFlag = false;
+	
+	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> deanCourseList = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> deanLecturerList = new ArrayList<SelectItem>();
 	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
 	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
@@ -174,7 +182,27 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-	
+//This is the event which holds the operations when a year is selected
+	public void yearValueChange(ValueChangeEvent event) {
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedYear = newValue;
+		this.semesterFlag = false;
+		loadSemester();
+	}
+//This is the event which holds the operations when a semester is selected
+	public void semesterValueChange(ValueChangeEvent event) {
+		System.out.println("Course Code : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedSemester = newValue;
+	}
+//This is the event which holds the operations when a course selected in dean tab	
 	public void handleValueChange(ValueChangeEvent event)
 	{
 		System.out.println("Course Code : " + event.getComponent().getId());
@@ -183,20 +211,38 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedDeanCourse = newValue;
-		this.clearFields();
-		this.loadFields();
+		this.clearSubFields();
+		this.loadSubFields();
+	}
+//***************************************************************************************
+	private void loadSemester() {
+		if(this.semesterFlag = false) {	
+			this.semesterList = new ArrayList<SelectItem>();
+			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByYear(Integer.parseInt(this.selectedYear));
+			ArrayList<String> tempList = new ArrayList<String>();
+			for(int i = 0; i < itemList.size(); i++) {
+				String item = itemList.get(i).getSemester();
+				if(this.checkList(tempList, item) == false) {
+					tempList.add(item);
+				}
+			}
+			for(int j = 0; j < tempList.size(); j++) {
+				this.semesterList.add(new SelectItem(tempList.get(j).toString()));
+			}
+			this.semesterFlag = true;
+		}
 	}
 //***************************************************************************************
 //Alt alanlar önce temizlenmeli bu yüzden course seçimi ile dolacak olan componentleri
 //temizliyoruz(clearFields). Ardýndan ders seçimiyle birlikte bu alanlarý gerekli veriler
 //ile dolduruyoruz.
-	private void clearFields() {
+	private void clearSubFields() {
 		this.deanLecturerList = new ArrayList<SelectItem>();
 		this.creditValueTheo = "";
 		this.creditValuePrac = "";
 	}
 	
-	private void loadFields()
+	private void loadSubFields()
 	{
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedDeanCourse);
 		this.creditValueTheo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
@@ -205,6 +251,38 @@ public class DeanCourseBean
 			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
+//***************************************************************************************
+//************************* GETTER-SETTER METHODS ***************************************	
+	public ArrayList<SelectItem> getYearList() {
+		if(this.yearFlag == false)	{
+			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusAll();
+			ArrayList<String> tempList = new ArrayList<String>();
+			for(int i = 0; i < itemList.size(); i++) {
+				String item = Integer.toString(itemList.get(i).getYear());
+				if(this.checkList(tempList, item) == false) {
+					tempList.add(item);
+				}
+			}
+			for(int j = 0; j < tempList.size(); j++) {
+				this.yearList.add(new SelectItem(tempList.get(j).toString()));
+			}
+			this.yearFlag = true; 
+		}
+		return this.yearList;
+	}
+
+	public void setYearList(ArrayList<SelectItem> yearList) {
+		this.yearList = yearList;
+	}
+
+	public ArrayList<SelectItem> getSemesterList() {
+		return semesterList;
+	}
+
+	public void setSemesterList(ArrayList<SelectItem> semesterList) {
+		this.semesterList = semesterList;
+	}
+	
 //***************************************************************************************
 //Dean Courses bu noktada bean e yükleniyor. Burada iþlem yok. 
 //Course.java da gerçekleþiyor
@@ -369,7 +447,36 @@ public class DeanCourseBean
 	public void setTestColor(Color testColor) {
 		this.testColor = testColor;
 	}
-	//*********************************************
+//***************************************************************************************	
+	public String getSelectedYear() {
+		return selectedYear;
+	}
 
-	//***********************************************
+	public void setSelectedYear(String selectedYear) {
+		this.selectedYear = selectedYear;
+	}
+//***************************************************************************************
+	public String getSelectedSemester() {
+		return selectedSemester;
+	}
+
+	public void setSelectedSemester(String selectedSemester) {
+		this.selectedSemester = selectedSemester;
+	}
+//***************************************************************************************
+//******************* UTILITY FUNCTIONS *************************************************	
+//This method checks whether the related data(String item) is contained by related
+//ArrayList(ArrayList<String> itemList).
+	private boolean checkList(ArrayList<String> itemList, String item) {
+		boolean breaker = false;
+		int i = 0;
+		while((breaker != true) && (i < itemList.size())) {
+			if(itemList.get(i).equals(item)) {
+				breaker = true;
+			}
+			i++;
+		}
+		return breaker;
+	}
+//***************************************************************************************	
 }
