@@ -30,12 +30,24 @@
             <one-to-many class="entities.dao.Schedule" />
         </set>
     </class>
+    
     <sql-query name="getSyllabusByGrade" callable="true">
     	<return alias="Syllabus" class="entities.dao.Syllabus"/>
     	<![CDATA[CALL getSyllabusByGrade(:pGrade)]]>
     </sql-query>
+    
     <sql-query name="getSyllabusByCourseName" callable="true">
     	<return alias="Syllabus" class="entities.dao.Syllabus"/>
     	<![CDATA[CALL getSyllabusByCourseName(:pCourseName)]]>
+    </sql-query>
+    
+    <sql-query name="getSyllabusAll" callable="true">
+    	<return alias="Syllabus" class="entities.dao.Syllabus"/>
+    	<![CDATA[CALL getSyllabusAll()]]>
+    </sql-query>
+    
+    <sql-query name="getSyllabusByYear" callable="true">
+    	<return alias="Syllabus" class="entities.dao.Syllabus"/>
+    	<![CDATA[CALL getSyllabusYear(:pYear)]]>
     </sql-query>
 </hibernate-mapping>
