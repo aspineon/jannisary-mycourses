@@ -142,7 +142,7 @@
             			
             		</td>
             		<td>
-            			<rich:panel header="Table" style=" width : 650px; height:350px">
+            			
             			<rich:dataTable id="freshmanDataTable" value="#{deanCourseBean.initFreshmanCourseTable}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
@@ -188,7 +188,7 @@
                 			<h:outputText value="#{item[5]}" />
         				 </rich:column>    				
             			</rich:dataTable>
-            			</rich:panel>
+            			
             		</td>
             	</tr>
             	
@@ -207,121 +207,138 @@
             	   <table>
             	<tr>
             		<td>
-            			 <rich:orderingList style=" width : 280px;">
-	            	       	<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecture Name " style="width:30%" />
-					            </f:facet> 
-	                		<h:outputText value="Theory of Automata"></h:outputText>
-	            			</rich:column>
-	            			<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecturer Name "/>
-					            </f:facet> 
-	                			<h:outputText value="Süleyman SEVINC"></h:outputText>
-	            			</rich:column>			   					   		
-            	  		</rich:orderingList>
+            			<h:form prependId="false">
+	            			 <h:selectOneListbox id="sophomoreListBox" style=" width : 281px;"
+	            			 					value="#{deanCourseBean.selectedSophomoreCourse}"
+	            			 					valueChangeListener="#{deanCourseBean.sophomoreSplitChange}"
+	            			 					onchange="submit()">	            			 					
+	            			 	<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>
+	            			 </h:selectOneListbox>
+	            			 <br/><br/>
+	            			 <h:inputText disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+	            			 			value="#{deanCourseBean.selectedSophomoreSplitCourse}"/>
+	            			 			<br/>
+	            			 <h:inputText disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+	            			 			value="#{deanCourseBean.selectedSophomoreSplitLecturer}" />
+	            			 			<br/>
+	            			 <h:inputText disabled="true" style="background-color:#FFF8C6;width : 50px;"
+	            			 			value="#{deanCourseBean.sophomoreCreditValeuTeo}"/>
+	            			 			<br/>
+	            			 <h:inputText disabled="true" style="background-color:#FFF8C6;width : 50px;"
+	            			 			value="#{deanCourseBean.sophomoreCreditValuePrac}"/>
+	            			 		<br/>
+	            			 		<h:selectOneMenu id="sophomoreOperationTypeComboBox" 
+							            		style=" width : 151px;"
+							            		value="#{deanCourseBean.selectedSophomoreOperation}">
+									            	<f:selectItem itemValue="Choose Operation" />
+									            	<f:selectItem itemValue="Theory Operation"/>
+									            	<f:selectItem itemValue="Practice Operation" />
+								    </h:selectOneMenu>
+								    <br/>
+								    <h:selectOneMenu id="sophomoreDaysComboBox"
+						            			value="#{deanCourseBean.selectedSophomoreDay}"
+						            		 	>
+						            			<f:selectItem itemValue="Choose Days" />
+						            			<f:selectItem itemValue="Monday" />
+						            			<f:selectItem itemValue="Tuesday" />
+						            			<f:selectItem itemValue="Wednesday" />
+						            			<f:selectItem itemValue="Thursday" />
+						            			<f:selectItem itemValue="Friday" />
+						            		</h:selectOneMenu>
+								        <br/>
+								        <h:selectOneMenu id="sophomoreStartHourComboBox" 
+		            							value="#{deanCourseBean.selectedSophomoreStartHour}">            				
+				            				<f:selectItem itemValue="Choose Start Hour"/>
+										    <f:selectItem itemValue="1"/>
+										    <f:selectItem itemValue="2"/>
+										    <f:selectItem itemValue="3"/>
+										    <f:selectItem itemValue="4"/>
+										    <f:selectItem itemValue="5"/>
+										    <f:selectItem itemValue="6"/>
+										    <f:selectItem itemValue="7"/>
+										    <f:selectItem itemValue="8"/>        			
+				            			</h:selectOneMenu>
+		            			<br/>
+		            			<h:selectOneMenu id="sophomoreEndHourComboBox" 
+		            							value="#{deanCourseBean.selectedSophomoreEndHour}">            				
+		            				<f:selectItem itemValue="Choose End Hour"/>
+								    <f:selectItem itemValue="1"/>
+								    <f:selectItem itemValue="2"/>
+								    <f:selectItem itemValue="3"/>
+								    <f:selectItem itemValue="4"/>
+								    <f:selectItem itemValue="5"/>
+								    <f:selectItem itemValue="6"/>
+								    <f:selectItem itemValue="7"/>
+								    <f:selectItem itemValue="8"/>        			
+		            			</h:selectOneMenu>
+		            			<br/>
+		            			<h:selectOneMenu id="sophomoreRoomComboBox" value="#{deanCourseBean.selectedSophomoreRoom}">
+		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
+		            			</h:selectOneMenu>
+		            			<br/>
+		            			<h:commandButton value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
+            					<br/>
+            			</h:form>
             		</td>
             		<td style=" width : 100px;">
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTableSomophore" value="#{deanBean.list}" var="item" style=" width : 700px;">
-            				
-	        				<f:facet name="header">
-	                			<h:outputText value="Schedule Table" />
-	        				</f:facet>
-        				
-	        				<rich:column style=" width : 180px; height: 19px">
-	        					<f:facet name="header">
-	        						<h:outputText value="Hours/Days " />
-	        					</f:facet>
-	        					<h:outputText style="font-align:center;" value="#{item}" />	
-	        					
-	        				</rich:column>
-                			
-        				        				
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Monday"/>
-                			</f:facet>
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Tuesday"/>
-                			</f:facet>
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Wednesday"/>
-                			</f:facet>
-        				 </rich:column>
-        				 <rich:column style=" width : 250px;">
-                			<f:facet name="header">
-                				<h:outputText value="Thursday"/>
-                			</f:facet>
-        				 </rich:column>
-        				 <rich:column style=" width : 500px;">
-                			<f:facet name="header">
-                				<h:outputText value="Friday"/>
-                			</f:facet>
-        				 </rich:column>
+            			
+		            			<rich:dataTable id="sophomoreDataTable" value="#{deanCourseBean.initSophomoreCourseTable}" var="item" style=" width : 700px;">
+		            				
+			        				<f:facet name="header">
+			                			<h:outputText value="Schedule Table" />
+			        				</f:facet>
+		        				
+			        				<rich:column style=" width : 180px; height: 19px;background-color:#FCDFFF;">
+			        					<f:facet name="header">
+			        						<h:outputText value="Hours/Days " />
+			        					</f:facet>
+			        					<h:outputText style="font-align:center;" value="#{item[0]}" />	
+			        					
+			        				</rich:column>
+		                			
+		        				        				
+		        				 <rich:column style=" width : 250px;">
+		                			<f:facet name="header">
+		                				<h:outputText value="Monday"/>
+		                			</f:facet>
+		                			<h:outputText style="font-align:center;" value="#{item[1]}" />
+		        				 </rich:column>
+		        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+		                			<f:facet name="header">
+		                				<h:outputText value="Tuesday"/>
+		                			</f:facet>
+		                			<h:outputText style="font-align:center;" value="#{item[2]}" />
+		        				 </rich:column>
+		        				 <rich:column style=" width : 250px;">
+		                			<f:facet name="header">
+		                				<h:outputText value="Wednesday"/>
+		                			</f:facet>
+		                			<h:outputText style="font-align:center;" value="#{item[3]}" />
+		        				 </rich:column>
+		        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
+		                			<f:facet name="header">
+		                				<h:outputText value="Thursday"/>
+		                			</f:facet>
+		                			<h:outputText style="font-align:center;" value="#{item[4]}" />
+		        				 </rich:column>
+		        				 <rich:column style=" width : 500px;">
+		                			<f:facet name="header">
+		                				<h:outputText value="Friday"/>
+		                			</f:facet>
+		                			<h:outputText style="font-align:center;" value="#{item[5]}" />
+		        				 </rich:column>
       				
             			</rich:dataTable>
+            			
             		</td>
             	</tr>
             	<tr>
             		<td>
-            			
-            	  <table>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Course Info :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="courseInfoTextFieldSomophore" disabled="true" style=" width : 251px;"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Lecturer :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="lecturerNameTextFieldSomophore" disabled="true"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Credits :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<table>
-            	  				<tr>
-            	  				<td>
-            	  					<h:inputText id="theoricCreditTextFieldSomophore" disabled="true" style=" width : 60px;"></h:inputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:outputText value="+"></h:outputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:inputText id="practiceCreditTextFieldSomophore" disabled="true" style=" width : 58px;"></h:inputText>
-            	  				</td>
-            	  				</tr>
-            	  			</table>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Room : "></h:outputText>
-            	  		</td>
-            	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxSomophore" value = "Choose Room" width="99">
-            	  				<f:selectItems id="somophoreRoom" value="#{classroomBean.selectItemListClassroom}"/>
-            	  			</rich:comboBox>
-            	  		</td>
-            	  		
-            	  	</tr>           	  	
-            	  </table>
+
             		</td>
             	</tr>
             </table>			    				   	
