@@ -349,36 +349,100 @@
             	   <table>
             	<tr>
             		<td>
-            			 <rich:orderingList style=" width : 280px; ">
-	            	       	<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecture Name " style="width:30%" />
-					            </f:facet> 
-	                		<h:outputText value="Theory of Automata"></h:outputText>
-	            			</rich:column>
-	            			<rich:column  width="300">
-					            <f:facet name="header">
-					                <h:outputText value="Lecturer Name "/>
-					            </f:facet> 
-	                			<h:outputText value="Süleyman SEVINC"></h:outputText>
-	            			</rich:column>			   					   		
-            	  		</rich:orderingList>
+            			 <h:form prependId="false">
+            			 		<h:selectOneListbox id="juniorListBox" style=" width : 219px;" 
+		            					value="#{deanCourseBean.selectedJuniorCourse}"
+		            					valueChangeListener="#{deanCourseBean.juniorSplitChange}"
+		            					onchange="submit()">
+		            				<f:selectItems value="#{deanCourseBean.juniorCourses}"/>	           					
+		            			</h:selectOneListbox>
+            			 	<br/><br/>
+            			 	<h:inputText id="juniorCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            						 value="#{deanCourseBean.selectedJuniorSplitCourse}"></h:inputText>
+		            						 <br/>
+		            		<h:inputText id="juniorLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            						 value="#{deanCourseBean.selectedJuniorSplitLecturer}"></h:inputText>
+		            		<br/>
+		            		<h:inputText id="juniorTeoCreditTextField" disabled="true" 
+		            					style="background-color:#FFF8C6;width : 50px;"
+		            					value="#{deanCourseBean.juniorCreditValueTeo}"></h:inputText>
+		            			<br/>
+		            			
+		            			<h:inputText id= "juniorPracCreditTextField" disabled="true" 
+		            						style="background-color:#FFF8C6; width:50px;"
+		            						value="#{deanCourseBean.juniorCreditValuePrac}"/>
+		            			<br/>
+		            			<h:selectOneMenu id="juniorOperationTypeComboBox" 
+							            		style=" width : 151px;"
+							            		value="#{deanCourseBean.selectedJuniorOperation}">
+									            	<f:selectItem itemValue="Choose Operation" />
+									            	<f:selectItem itemValue="Theory Operation"/>
+									            	<f:selectItem itemValue="Practice Operation" />
+								</h:selectOneMenu>
+		            			<br/>
+		            			<h:selectOneMenu id="juniorDaysComboBox"
+						            			value="#{deanCourseBean.selectedJuniorDay}"
+						            		 	>
+						            			<f:selectItem itemValue="Choose Days" />
+						            			<f:selectItem itemValue="Monday" />
+						            			<f:selectItem itemValue="Tuesday" />
+						            			<f:selectItem itemValue="Wednesday" />
+						            			<f:selectItem itemValue="Thursday" />
+						            			<f:selectItem itemValue="Friday" />
+						            		</h:selectOneMenu>
+		            			<br/>
+		            			
+		            			<h:selectOneMenu id="juniorStartHourComboBox" 
+		            							value="#{deanCourseBean.selectedJuniorStartHour}">            				
+		            				<f:selectItem itemValue="Choose Start Hour"/>
+								    <f:selectItem itemValue="1"/>
+								    <f:selectItem itemValue="2"/>
+								    <f:selectItem itemValue="3"/>
+								    <f:selectItem itemValue="4"/>
+								    <f:selectItem itemValue="5"/>
+								    <f:selectItem itemValue="6"/>
+								    <f:selectItem itemValue="7"/>
+								    <f:selectItem itemValue="8"/>        			
+		            			</h:selectOneMenu>
+		            			<br/>
+		            			<h:selectOneMenu id="juniorEndHourComboBox" 
+		            							value="#{deanCourseBean.selectedJuniorEndHour}">            				
+		            				<f:selectItem itemValue="Choose End Hour"/>
+								    <f:selectItem itemValue="1"/>
+								    <f:selectItem itemValue="2"/>
+								    <f:selectItem itemValue="3"/>
+								    <f:selectItem itemValue="4"/>
+								    <f:selectItem itemValue="5"/>
+								    <f:selectItem itemValue="6"/>
+								    <f:selectItem itemValue="7"/>
+								    <f:selectItem itemValue="8"/>        			
+		            			</h:selectOneMenu>
+		            			<br/>
+		            			<h:selectOneMenu id="juniorRoomComboBox" value="#{deanCourseBean.selectedJuniorRoom}">
+		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
+		            			</h:selectOneMenu>
+		            			<br/>
+		            			
+		            			<h:commandButton value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton value="Reset" action="#{deanCourseBean.clearDeanCourseTable}" onclick="submit()"></h:commandButton>
+            					<br/>
+            			 </h:form>
             		</td>
             		<td style=" width : 100px;">
             			
             		</td>
             		<td>
-            			<rich:dataTable id="myDataTableJunior" value="#{deanBean.list}" var="item" style=" width : 700px;">
+            			<rich:dataTable id="myDataTableJunior" value="#{deanCourseBean.initJuniorCourseTable}" var="item" style=" width : 700px;">
             				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
-	        				<rich:column style=" width : 180px; height: 19px">
+	        				<rich:column style=" width : 180px; height: 19px;background-color:#FCDFFF;">
 	        					<f:facet name="header">
 	        						<h:outputText value="Hours/Days " />
 	        					</f:facet>
-	        					<h:outputText style="font-align:center;" value="#{item}" />	
+	        					<h:outputText style="font-align:center;" value="#{item[0]}" />	
 	        					
 	        				</rich:column>
                 			
@@ -387,83 +451,38 @@
                 			<f:facet name="header">
                 				<h:outputText value="Monday"/>
                 			</f:facet>
+                			<h:outputText style="font-align:center;" value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;">
+        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
+                			<h:outputText style="font-align:center;" value="#{item[2]}" />
         				 </rich:column>
         				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Wednesday"/>
                 			</f:facet>
+                			<h:outputText style="font-align:center;" value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;">
+        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
+                			<h:outputText style="font-align:center;" value="#{item[4]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 500px;">
+        				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Friday"/>
                 			</f:facet>
-        				 </rich:column>
-      				
+                			<h:outputText style="font-align:center;" value="#{item[5]}" />
+        				 </rich:column>     				
             			</rich:dataTable>
             		</td>
             	</tr>
             	<tr>
             		<td>
-            			
-            	  <table>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Course Info :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="courseInfoTextFieldJunior" disabled="true" style=" width : 251px;"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Lecturer :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="lecturerNameTextFieldJunior" disabled="true"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Credits :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<table>
-            	  				<tr>
-            	  				<td>
-            	  					<h:inputText id="theoricCreditTextFieldJunior" disabled="true" style=" width : 60px;"></h:inputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:outputText value="+"></h:outputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:inputText id="practiceCreditTextFieldJunior" disabled="true" style=" width : 58px;"></h:inputText>
-            	  				</td>
-            	  				</tr>
-            	  			</table>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Room : "></h:outputText>
-            	  		</td>
-            	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxJunior" value = "Choose Room" width="99">
-            	  				<f:selectItems id="juniorRoom" value="#{classroomBean.selectItemListClassroom}"/>
-            	  			</rich:comboBox>
-            	  		</td>
-            	  		
-            	  	</tr>           	  	
-            	  </table>
+            			            	  
             		</td>
             	</tr>
             </table>			    				   	
