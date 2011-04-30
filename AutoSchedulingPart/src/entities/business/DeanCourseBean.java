@@ -45,8 +45,15 @@ public class DeanCourseBean
 	
 	private ArrayList<Course> courseList;
 	private Hashtable<String, Integer> dayMapToIndexHash;
+	
+	//****************** MATRICES *************************************************
 	public String[][] initCourseTable = new String[8][6];
-
+	public String[][] initFreshmanCourseTable = new String[8][6];
+	public String[][] initSophomoreCourseTable = new String[8][6];
+	public String[][] initJuniorCourseTable = new String[8][6];
+	public String[][] initSeniorCourseTable = new String[8][6];
+	
+	//****************************************************************************
 	Course courseObj = new Course();
 	Syllabus syllabusObj = new Syllabus();
 	
@@ -63,6 +70,8 @@ public class DeanCourseBean
 	//******************** Freshman Bilgileri ******************************************
 	
 	private String selectedFreshmanCourse = "";
+	private String selectedFreshmanSplitCourse = "";
+	private String selectedFreshmanSplitLecturer = "";
 	private String selectedFreshmanLecturer;
 	private String selectedFreshmanDay = "";
 	private String selectedFreshmanOperation = "";
@@ -96,11 +105,19 @@ public class DeanCourseBean
 		initCourseTable[4][0] = "5";
 		initCourseTable[5][0] = "6";
 		initCourseTable[6][0] = "7";
-		initCourseTable[7][0] = "8";
-				
+		initCourseTable[7][0] = "8";	
+		
+		initFreshmanCourseTable[0][0] = "1";
+		initFreshmanCourseTable[1][0] = "2";
+		initFreshmanCourseTable[2][0] = "3";
+		initFreshmanCourseTable[3][0] = "4";
+		initFreshmanCourseTable[4][0] = "5";
+		initFreshmanCourseTable[5][0] = "6";
+		initFreshmanCourseTable[6][0] = "7";
+		initFreshmanCourseTable[7][0] = "8";
 			
 	}
-	
+	// ******************* TABLO TEMIZLEME ***********************************************
 	public String clearDeanCourseTable()
 	{
 		try
@@ -122,6 +139,67 @@ public class DeanCourseBean
 		return null;
 	}
 	
+	public String clearFreshmanCourseTable()
+	{
+		try
+		{
+			initFreshmanCourseTable = new String[8][6];
+			initFreshmanCourseTable[0][0] = "1";
+			initFreshmanCourseTable[1][0] = "2";
+			initFreshmanCourseTable[2][0] = "3";
+			initFreshmanCourseTable[3][0] = "4";
+			initFreshmanCourseTable[4][0] = "5";
+			initFreshmanCourseTable[5][0] = "6";
+			initFreshmanCourseTable[6][0] = "7";
+			initFreshmanCourseTable[7][0] = "8";
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		
+		return null;
+	}
+	public String clearSophomoreCourseTable()
+	{
+		try
+		{
+			initSophomoreCourseTable = new String[8][6];
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	public String clearJuniorCourseTable()
+	{
+		try
+		{
+			initJuniorCourseTable = new String[8][6];
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	public String clearSeniorCourseTable()
+	{
+		try
+		{
+			initSeniorCourseTable = new String[8][6];
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+
+	
+	//********************************************************************************************
+	// ******************** dekanlik tablo initialize etme ***************************************
 	public String initDeanCourseTable()
 	{
 		try
@@ -206,6 +284,83 @@ public class DeanCourseBean
 		}
 		return null;
 	}
+	
+	//**************************************************************************************************
+	
+	//***************************FRESHMAN ve DIGER SINIFLAR TABLO INIT YAPMA FONKSIYONU ****************
+	
+	public String initFreshmanCourseTableEvent()
+	{
+		try
+		{
+			if(selectedFreshmanOperation.equals("Theory Operation"))
+			{
+				if(!selectedFreshmanDay.equals("Choose Days"))
+				{
+					if(!selectedFreshmanStartHour.equals("Choose Start Hour")
+							&& !selectedFreshmanEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedFreshmanDay);
+						int startHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanStartHour);
+						int endHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanEndHour);
+						
+						int startHourT = startHourOfFreshmanCourse - 1;
+						int endHourT = endHourOfFreshmanCourse - 1;
+						
+						if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";
+								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}
+						
+					}
+				}
+			}
+			else if(selectedFreshmanOperation.equals("Practice Operation"))
+			{
+				if(!selectedFreshmanDay.equals("Choose Days"))
+				{
+					if(!selectedFreshmanStartHour.equals("Choose Start Hour")
+							&& !selectedFreshmanEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedFreshmanDay);
+						int startHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanStartHour);
+						int endHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanEndHour);
+						
+						int startHourT = startHourOfFreshmanCourse - 1;
+						int endHourT = endHourOfFreshmanCourse - 1;
+						
+						if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";
+								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}						
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	
+	//============================??????????????*******************************************************
 //This is the event which holds the operations when a year is selected
 	public void yearValueChange(ValueChangeEvent event) {
 		System.out.println("Year Code : " + event.getComponent().getId());
@@ -245,6 +400,7 @@ public class DeanCourseBean
 		this.loadSubFields();
 	}
 // This is the event which holds the operation when a freshman course selected in freshman tab!!!!
+	// ****************** FRESHMAN FUNCTIONS ********************************************************
 	public void freshmanCourseChange(ValueChangeEvent event)
 	{
 		System.out.println("Freshman course has been changed!!!");
@@ -255,6 +411,20 @@ public class DeanCourseBean
 		this.selectedFreshmanCourse = newValue;
 		this.clearFreshmanSubFields();
 		this.loadFreshmanSubFields();
+	}
+	
+	public void freshmanSplitChange(ValueChangeEvent event)
+	{
+		System.out.println("Freshman course has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedFreshmanCourse = newValue;
+		this.selectedFreshmanSplitCourse = newValue.split(":")[0];
+		this.selectedFreshmanSplitLecturer = newValue.split(":")[1];
+		this.loadFreshmanSubFields();
+		//this.clearFreshmanSubFields();	
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	private void clearAllComponents() {
@@ -358,7 +528,7 @@ public class DeanCourseBean
 	
 	private void loadFreshmanSubFields()
 	{
-		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanCourse);
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanSplitCourse);
 		this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++)
@@ -671,6 +841,30 @@ public class DeanCourseBean
 
 	public void setFreshmanLecturerList(ArrayList<SelectItem> freshmanLecturerList) {
 		this.freshmanLecturerList = freshmanLecturerList;
+	}
+
+	public String getSelectedFreshmanSplitCourse() {
+		return selectedFreshmanSplitCourse;
+	}
+
+	public void setSelectedFreshmanSplitCourse(String selectedFreshmanSplitCourse) {
+		this.selectedFreshmanSplitCourse = selectedFreshmanSplitCourse;
+	}
+
+	public String getSelectedFreshmanSplitLecturer() 
+	{
+		return selectedFreshmanSplitLecturer;
+	}
+
+	public void setSelectedFreshmanSplitLecturer(
+			String selectedFreshmanSplitLecturer) {
+		this.selectedFreshmanSplitLecturer = selectedFreshmanSplitLecturer;
+	}
+	public String[][] getInitFreshmanCourseTable() {
+		return initFreshmanCourseTable;
+	}
+	public void setInitFreshmanCourseTable(String[][] initFreshmanCourseTable) {
+		this.initFreshmanCourseTable = initFreshmanCourseTable;
 	}
 	
 	 
