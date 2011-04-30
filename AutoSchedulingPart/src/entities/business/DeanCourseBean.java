@@ -92,8 +92,22 @@ public class DeanCourseBean
 	private String selectedSophomoreStartHour = "";
 	private String selectedSophomoreEndHour = "";
 	private String selectedSophomoreRoom = "";
-	private String sophomoreCreditValueTeo = "";
+	private String sophomoreCreditValeuTeo = "";
 	private String sophomoreCreditValuePrac = "";
+	
+	//*********************** Junior Bilgileri *****************************************
+	
+	private String selectedJuniorCourse = "";
+	private String selectedJuniorSplitCourse = "";
+	private String selectedJuniorSplitLecturer = "";
+	private String selectedJuniorLecturer;
+	private String selectedJuniorDay = "";
+	private String selectedJuniorOperation = "";
+	private String selectedJuniorStartHour = "";
+	private String selectedJuniorEndHour = "";
+	private String selectedJuniorRoom = "";
+	private String juniorCreditValueTeo = "";
+	private String juniorCreditValuePrac = "";	
 	
 	//**********************************************************************************
 	
@@ -498,7 +512,65 @@ public class DeanCourseBean
 	{
 		try
 		{
-			
+				if(selectedJuniorOperation.equals("Theory Operation"))
+				{
+					if(!selectedJuniorDay.equals("Choose Days"))
+					{
+						if(!selectedJuniorStartHour.equals("Choose Start Hour")
+								&& !selectedJuniorEndHour.equals("Choose End Hour"))
+						{
+							int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedJuniorDay);
+							int startHourOfJuniorCourse = Integer.parseInt(selectedJuniorStartHour);
+							int endHourOfJuniorCourse = Integer.parseInt(selectedJuniorEndHour);
+							
+							int startHourT = startHourOfJuniorCourse - 1;
+							int endHourT = endHourOfJuniorCourse - 1;
+							
+							if(initJuniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
+							{
+								if(initJuniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
+								{
+									initJuniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(T)";
+									initJuniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(T)";							
+								}
+							}
+							else
+							{
+								System.out.println("Indices are not available");
+							}
+							
+						}
+					}
+				}
+				else if(selectedJuniorOperation.equals("Practice Operation"))
+				{
+					if(!selectedJuniorDay.equals("Choose Days"))
+					{
+						if(!selectedJuniorStartHour.equals("Choose Start Hour")
+								&& !selectedJuniorEndHour.equals("Choose End Hour"))
+						{
+							int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedJuniorDay);
+							int startHourOfJuniorCourse = Integer.parseInt(selectedJuniorStartHour);
+							int endHourOfJuniorCourse = Integer.parseInt(selectedJuniorEndHour);
+							
+							int startHourT = startHourOfJuniorCourse - 1;
+							int endHourT = endHourOfJuniorCourse - 1;
+							
+							if(initJuniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
+							{
+								if(initJuniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
+								{
+									initJuniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(P)";
+									initJuniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(P)";							
+								}
+							}
+							else
+							{
+								System.out.println("Indices are not available");
+							}						
+						}
+					}
+				}
 		}
 		catch(Exception ex)
 		{
@@ -602,7 +674,22 @@ public class DeanCourseBean
 		//this.clearSophomoreSubFields();
 	}
 	
-	//******************************************************************************************
+	//************************** JUNIOR FONKSIYONLARI *******************************************
+	
+	public void juniorSplitChange(ValueChangeEvent event)
+	{
+		System.out.println("Junior course has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedJuniorCourse = newValue;
+		this.selectedJuniorSplitCourse = newValue.split(":")[0];
+		this.selectedJuniorSplitLecturer = newValue.split(":")[1];
+		this.loadJuniorSubFields();
+		//this.clearJuniorSubFields();
+	}
+	
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	private void clearAllComponents() {
 		this.semesterList = new ArrayList<SelectItem>();
@@ -716,14 +803,31 @@ public class DeanCourseBean
 	private void clearSophomoreSubFields()
 	{
 		this.sophomoreCourses = new ArrayList<SelectItem>();
-		this.sophomoreCreditValueTeo = "";
+		this.sophomoreCreditValeuTeo = "";
 		this.sophomoreCreditValuePrac = "";
 	}	
 	private void loadSophomoreSubFields()
 	{
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedSophomoreSplitCourse);
-		this.sophomoreCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.sophomoreCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.sophomoreCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
+		for(int i = 0; i < itemList.size(); i++)
+		{
+			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+		}
+	}
+	
+	private void clearJuniorSubFields()
+	{
+		this.juniorCourses = new ArrayList<SelectItem>();
+		this.juniorCreditValuePrac = "";
+		this.juniorCreditValueTeo = "";
+	}
+	private void loadJuniorSubFields()
+	{
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedJuniorSplitCourse);
+		this.juniorCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.juniorCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++)
 		{
 			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
@@ -1124,10 +1228,10 @@ public class DeanCourseBean
 		this.selectedSophomoreRoom = selectedSophomoreRoom;
 	}
 	public String getSophomoreCreditValeuTeo() {
-		return sophomoreCreditValueTeo;
+		return sophomoreCreditValeuTeo;
 	}
 	public void setSophomoreCreditValeuTeo(String sophomoreCreditValeuTeo) {
-		this.sophomoreCreditValueTeo = sophomoreCreditValeuTeo;
+		this.sophomoreCreditValeuTeo = sophomoreCreditValeuTeo;
 	}
 	public String getSophomoreCreditValuePrac() {
 		return sophomoreCreditValuePrac;
@@ -1135,6 +1239,83 @@ public class DeanCourseBean
 	public void setSophomoreCreditValuePrac(String sophomoreCreditValuePrac) {
 		this.sophomoreCreditValuePrac = sophomoreCreditValuePrac;
 	}
+	
+	
+	//***************************** JUNIOR GET SET METHODS *********************************************
+	
+	public String[][] getInitJuniorCourseTable() {
+		return initJuniorCourseTable;
+	}
+	public void setInitJuniorCourseTable(String[][] initJuniorCourseTable) {
+		this.initJuniorCourseTable = initJuniorCourseTable;
+	}
+	public String getSelectedJuniorCourse() {
+		return selectedJuniorCourse;
+	}
+	public void setSelectedJuniorCourse(String selectedJuniorCourse) {
+		this.selectedJuniorCourse = selectedJuniorCourse;
+	}
+	public String getSelectedJuniorSplitCourse() {
+		return selectedJuniorSplitCourse;
+	}
+	public void setSelectedJuniorSplitCourse(String selectedJuniorSplitCourse) {
+		this.selectedJuniorSplitCourse = selectedJuniorSplitCourse;
+	}
+	public String getSelectedJuniorSplitLecturer() {
+		return selectedJuniorSplitLecturer;
+	}
+	public void setSelectedJuniorSplitLecturer(String selectedJuniorSplitLecturer) {
+		this.selectedJuniorSplitLecturer = selectedJuniorSplitLecturer;
+	}
+	public String getSelectedJuniorLecturer() {
+		return selectedJuniorLecturer;
+	}
+	public void setSelectedJuniorLecturer(String selectedJuniorLecturer) {
+		this.selectedJuniorLecturer = selectedJuniorLecturer;
+	}
+	public String getSelectedJuniorDay() {
+		return selectedJuniorDay;
+	}
+	public void setSelectedJuniorDay(String selectedJuniorDay) {
+		this.selectedJuniorDay = selectedJuniorDay;
+	}
+	public String getSelectedJuniorOperation() {
+		return selectedJuniorOperation;
+	}
+	public void setSelectedJuniorOperation(String selectedJuniorOperation) {
+		this.selectedJuniorOperation = selectedJuniorOperation;
+	}
+	public String getSelectedJuniorStartHour() {
+		return selectedJuniorStartHour;
+	}
+	public void setSelectedJuniorStartHour(String selectedJuniorStartHour) {
+		this.selectedJuniorStartHour = selectedJuniorStartHour;
+	}
+	public String getSelectedJuniorEndHour() {
+		return selectedJuniorEndHour;
+	}
+	public void setSelectedJuniorEndHour(String selectedJuniorEndHour) {
+		this.selectedJuniorEndHour = selectedJuniorEndHour;
+	}
+	public String getSelectedJuniorRoom() {
+		return selectedJuniorRoom;
+	}
+	public void setSelectedJuniorRoom(String selectedJuniorRoom) {
+		this.selectedJuniorRoom = selectedJuniorRoom;
+	}
+	public String getJuniorCreditValueTeo() {
+		return juniorCreditValueTeo;
+	}
+	public void setJuniorCreditValueTeo(String juniorCreditValueTeo) {
+		this.juniorCreditValueTeo = juniorCreditValueTeo;
+	}
+	public String getJuniorCreditValuePrac() {
+		return juniorCreditValuePrac;
+	}
+	public void setJuniorCreditValuePrac(String juniorCreditValuePrac) {
+		this.juniorCreditValuePrac = juniorCreditValuePrac;
+	}
+	
 	
 	//******************************************************************************************************************
 	 
