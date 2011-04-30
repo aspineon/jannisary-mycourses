@@ -34,10 +34,13 @@ public class DeanCourseBean
 	private ArrayList<SelectItem> freshmanLecturerList = new ArrayList<SelectItem>();
 	
 	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> sophomoreLecturerList = new ArrayList<SelectItem>();
 	
 	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> juniorLecturerList = new ArrayList<SelectItem>();
 	
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> seniorLecturerList = new ArrayList<SelectItem>();
 	
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
@@ -109,7 +112,21 @@ public class DeanCourseBean
 	private String juniorCreditValueTeo = "";
 	private String juniorCreditValuePrac = "";	
 	
-	//**********************************************************************************
+	//*************************Senior Bilgileri ******************************************
+	
+	private String selectedSeniorCourse = "";
+	private String selectedSeniorSplitCourse = "";
+	private String selectedSeniorSplitLecturer = "";
+	private String selectedSeniorLecturer;
+	private String selectedSeniorDay = "";
+	private String selectedSeniorOperation = "";
+	private String selectedSeniorStartHour = "";
+	private String selectedSeniorEndHour = "";
+	private String selectedSeniorRoom = "";
+	private String seniorCreditValueTeo = "";
+	private String seniorCreditValuePrac = "";
+	
+	//************************************************************************************
 	
 	public DeanCourseBean()
 	{
@@ -192,8 +209,7 @@ public class DeanCourseBean
 			System.out.println(ex.getMessage());
 		}
 		return null;
-	}
-	
+	}	
 	public String clearFreshmanCourseTable()
 	{
 		try
@@ -281,8 +297,7 @@ public class DeanCourseBean
 	public String initDeanCourseTable()
 	{
 		try
-		{			
-			
+		{						
 			if(selectedOperation.equals("Theory Operation"))
 			{
 				System.out.println("Function 2*****");
@@ -583,7 +598,65 @@ public class DeanCourseBean
 	{
 		try
 		{
-			
+			if(selectedSeniorOperation.equals("Theory Operation"))
+			{
+				if(!selectedSeniorDay.equals("Choose Days"))
+				{
+					if(!selectedSeniorStartHour.equals("Choose Start Hour")
+							&& !selectedSeniorEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSeniorDay);
+						int startHourOfSeniorCourse = Integer.parseInt(selectedSeniorStartHour);
+						int endHourOfSeniorCourse = Integer.parseInt(selectedSeniorEndHour);
+						
+						int startHourT = startHourOfSeniorCourse - 1;
+						int endHourT = endHourOfSeniorCourse - 1;
+						
+						if(initSeniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initSeniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initSeniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(T)";
+								initSeniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(T)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}
+						
+					}
+				}
+			}
+			else if(selectedSeniorOperation.equals("Practice Operation"))
+			{
+				if(!selectedSeniorDay.equals("Choose Days"))
+				{
+					if(!selectedSeniorStartHour.equals("Choose Start Hour")
+							&& !selectedSeniorEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSeniorDay);
+						int startHourOfSeniorCourse = Integer.parseInt(selectedSeniorStartHour);
+						int endHourOfSeniorCourse = Integer.parseInt(selectedSeniorEndHour);
+						
+						int startHourT = startHourOfSeniorCourse - 1;
+						int endHourT = endHourOfSeniorCourse - 1;
+						
+						if(initSeniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initSeniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initSeniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(P)";
+								initSeniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(P)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}						
+					}
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -687,6 +760,22 @@ public class DeanCourseBean
 		this.selectedJuniorSplitCourse = newValue.split(":")[0];
 		this.selectedJuniorSplitLecturer = newValue.split(":")[1];
 		this.loadJuniorSubFields();
+		//this.clearJuniorSubFields();
+	}
+	
+	//************************ SENIOR FONKSIYONLARI *********************************************
+	
+	public void seniorSplitChange(ValueChangeEvent event)
+	{
+		System.out.println("Junior course has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedSeniorCourse = newValue;
+		this.selectedSeniorSplitCourse = newValue.split(":")[0];
+		this.selectedSeniorSplitLecturer = newValue.split(":")[1];
+		this.loadSeniorSubFields();
 		//this.clearJuniorSubFields();
 	}
 	
@@ -813,7 +902,7 @@ public class DeanCourseBean
 		this.sophomoreCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++)
 		{
-			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+			this.sophomoreLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
 	
@@ -830,7 +919,25 @@ public class DeanCourseBean
 		this.juniorCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++)
 		{
-			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+			this.juniorLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+		}
+	}
+	
+	private void clearSeniorSubFields()
+	{
+		this.seniorCourses = new ArrayList<SelectItem>();
+		this.seniorCreditValuePrac = "";
+		this.seniorCreditValueTeo = "";
+		
+	}
+	private void loadSeniorSubFields()
+	{
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedSeniorSplitCourse);
+		this.seniorCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.seniorCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
+		for(int i = 0; i < itemList.size(); i++)
+		{
+			this.seniorLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
 //***************************************************************************************
@@ -1316,6 +1423,80 @@ public class DeanCourseBean
 		this.juniorCreditValuePrac = juniorCreditValuePrac;
 	}
 	
+	// *********************** SENIOR GET-SET METHODS **************************************************
+	
+	public String[][] getInitSeniorCourseTable() {
+		return initSeniorCourseTable;
+	}
+	public void setInitSeniorCourseTable(String[][] initSeniorCourseTable) {
+		this.initSeniorCourseTable = initSeniorCourseTable;
+	}
+	public String getSelectedSeniorCourse() {
+		return selectedSeniorCourse;
+	}
+	public void setSelectedSeniorCourse(String selectedSeniorCourse) {
+		this.selectedSeniorCourse = selectedSeniorCourse;
+	}
+	public String getSelectedSeniorSplitCourse() {
+		return selectedSeniorSplitCourse;
+	}
+	public void setSelectedSeniorSplitCourse(String selectedSeniorSplitCourse) {
+		this.selectedSeniorSplitCourse = selectedSeniorSplitCourse;
+	}
+	public String getSelectedSeniorSplitLecturer() {
+		return selectedSeniorSplitLecturer;
+	}
+	public void setSelectedSeniorSplitLecturer(String selectedSeniorSplitLecturer) {
+		this.selectedSeniorSplitLecturer = selectedSeniorSplitLecturer;
+	}
+	public String getSelectedSeniorLecturer() {
+		return selectedSeniorLecturer;
+	}
+	public void setSelectedSeniorLecturer(String selectedSeniorLecturer) {
+		this.selectedSeniorLecturer = selectedSeniorLecturer;
+	}
+	public String getSelectedSeniorDay() {
+		return selectedSeniorDay;
+	}
+	public void setSelectedSeniorDay(String selectedSeniorDay) {
+		this.selectedSeniorDay = selectedSeniorDay;
+	}
+	public String getSelectedSeniorOperation() {
+		return selectedSeniorOperation;
+	}
+	public void setSelectedSeniorOperation(String selectedSeniorOperation) {
+		this.selectedSeniorOperation = selectedSeniorOperation;
+	}
+	public String getSelectedSeniorStartHour() {
+		return selectedSeniorStartHour;
+	}
+	public void setSelectedSeniorStartHour(String selectedSeniorStartHour) {
+		this.selectedSeniorStartHour = selectedSeniorStartHour;
+	}
+	public String getSelectedSeniorEndHour() {
+		return selectedSeniorEndHour;
+	}
+	public void setSelectedSeniorEndHour(String selectedSeniorEndHour) {
+		this.selectedSeniorEndHour = selectedSeniorEndHour;
+	}
+	public String getSelectedSeniorRoom() {
+		return selectedSeniorRoom;
+	}
+	public void setSelectedSeniorRoom(String selectedSeniorRoom) {
+		this.selectedSeniorRoom = selectedSeniorRoom;
+	}
+	public String getSeniorCreditValueTeo() {
+		return seniorCreditValueTeo;
+	}
+	public void setSeniorCreditValueTeo(String seniorCreditValueTeo) {
+		this.seniorCreditValueTeo = seniorCreditValueTeo;
+	}
+	public String getSeniorCreditValuePrac() {
+		return seniorCreditValuePrac;
+	}
+	public void setSeniorCreditValuePrac(String seniorCreditValuePrac) {
+		this.seniorCreditValuePrac = seniorCreditValuePrac;
+	}
 	
 	//******************************************************************************************************************
 	 
