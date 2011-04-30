@@ -81,6 +81,20 @@ public class DeanCourseBean
 	private String freshmanCreditValeuTeo = "";
 	private String freshmanCreditValuePrac = "";
 	
+	//**************** Sophomore Bilgileri *********************************************
+	
+	private String selectedSophomoreCourse = "";
+	private String selectedSophomoreSplitCourse = "";
+	private String selectedSophomoreSplitLecturer = "";
+	private String selectedSophomoreLecturer;
+	private String selectedSophomoreDay = "";
+	private String selectedSophomoreOperation = "";
+	private String selectedSophomoreStartHour = "";
+	private String selectedSophomoreEndHour = "";
+	private String selectedSophomoreRoom = "";
+	private String sophomoreCreditValueTeo = "";
+	private String sophomoreCreditValuePrac = "";
+	
 	//**********************************************************************************
 	
 	public DeanCourseBean()
@@ -115,6 +129,33 @@ public class DeanCourseBean
 		initFreshmanCourseTable[5][0] = "6";
 		initFreshmanCourseTable[6][0] = "7";
 		initFreshmanCourseTable[7][0] = "8";
+		
+		initSophomoreCourseTable[0][0] = "1";
+		initSophomoreCourseTable[1][0] = "2";
+		initSophomoreCourseTable[2][0] = "3";
+		initSophomoreCourseTable[3][0] = "4";
+		initSophomoreCourseTable[4][0] = "5";
+		initSophomoreCourseTable[5][0] = "6";
+		initSophomoreCourseTable[6][0] = "7";
+		initSophomoreCourseTable[7][0] = "8";
+		
+		initJuniorCourseTable[0][0] = "1";
+		initJuniorCourseTable[1][0] = "2";
+		initJuniorCourseTable[2][0] = "3";
+		initJuniorCourseTable[3][0] = "4";
+		initJuniorCourseTable[4][0] = "5";
+		initJuniorCourseTable[5][0] = "6";
+		initJuniorCourseTable[6][0] = "7";
+		initJuniorCourseTable[7][0] = "8";
+		
+		initSeniorCourseTable[0][0] = "1";
+		initSeniorCourseTable[1][0] = "2";
+		initSeniorCourseTable[2][0] = "3";
+		initSeniorCourseTable[3][0] = "4";
+		initSeniorCourseTable[4][0] = "5";
+		initSeniorCourseTable[5][0] = "6";
+		initSeniorCourseTable[6][0] = "7";
+		initSeniorCourseTable[7][0] = "8";
 			
 	}
 	// ******************* TABLO TEMIZLEME ***********************************************
@@ -165,6 +206,14 @@ public class DeanCourseBean
 		try
 		{
 			initSophomoreCourseTable = new String[8][6];
+			initSophomoreCourseTable[0][0] = "1";
+			initSophomoreCourseTable[1][0] = "2";
+			initSophomoreCourseTable[2][0] = "3";
+			initSophomoreCourseTable[3][0] = "4";
+			initSophomoreCourseTable[4][0] = "5";
+			initSophomoreCourseTable[5][0] = "6";
+			initSophomoreCourseTable[6][0] = "7";
+			initSophomoreCourseTable[7][0] = "8";
 		}
 		catch(Exception ex)
 		{
@@ -177,6 +226,14 @@ public class DeanCourseBean
 		try
 		{
 			initJuniorCourseTable = new String[8][6];
+			initJuniorCourseTable[0][0] = "1";
+			initJuniorCourseTable[1][0] = "2";
+			initJuniorCourseTable[2][0] = "3";
+			initJuniorCourseTable[3][0] = "4";
+			initJuniorCourseTable[4][0] = "5";
+			initJuniorCourseTable[5][0] = "6";
+			initJuniorCourseTable[6][0] = "7";
+			initJuniorCourseTable[7][0] = "8";
 		}
 		catch(Exception ex)
 		{
@@ -189,6 +246,14 @@ public class DeanCourseBean
 		try
 		{
 			initSeniorCourseTable = new String[8][6];
+			initSeniorCourseTable[0][0] = "1";
+			initSeniorCourseTable[1][0] = "2";
+			initSeniorCourseTable[2][0] = "3";
+			initSeniorCourseTable[3][0] = "4";
+			initSeniorCourseTable[4][0] = "5";
+			initSeniorCourseTable[5][0] = "6";
+			initSeniorCourseTable[6][0] = "7";
+			initSeniorCourseTable[7][0] = "8";
 		}
 		catch(Exception ex)
 		{
@@ -196,7 +261,6 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-
 	
 	//********************************************************************************************
 	// ******************** dekanlik tablo initialize etme ***************************************
@@ -285,8 +349,7 @@ public class DeanCourseBean
 		return null;
 	}
 	
-	//**************************************************************************************************
-	
+	//**************************************************************************************************	
 	//***************************FRESHMAN ve DIGER SINIFLAR TABLO INIT YAPMA FONKSIYONU ****************
 	
 	public String initFreshmanCourseTableEvent()
@@ -307,9 +370,9 @@ public class DeanCourseBean
 						int startHourT = startHourOfFreshmanCourse - 1;
 						int endHourT = endHourOfFreshmanCourse - 1;
 						
-						if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						if(initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] == null)
 						{
-							if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							if(initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] == null)
 							{
 								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";
 								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";							
@@ -337,9 +400,9 @@ public class DeanCourseBean
 						int startHourT = startHourOfFreshmanCourse - 1;
 						int endHourT = endHourOfFreshmanCourse - 1;
 						
-						if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						if(initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] == null)
 						{
-							if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							if(initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] == null)
 							{
 								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";
 								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";							
@@ -352,6 +415,103 @@ public class DeanCourseBean
 					}
 				}
 			}
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	
+	public String initSophomoreCourseTableEvent()
+	{
+		try
+		{
+			if(selectedSophomoreOperation.equals("Theory Operation"))
+			{
+				if(!selectedSophomoreDay.equals("Choose Days"))
+				{
+					if(!selectedSophomoreStartHour.equals("Choose Start Hour")
+							&& !selectedSophomoreEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSophomoreDay);
+						int startHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreStartHour);
+						int endHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreEndHour);
+						
+						int startHourT = startHourOfSophomoreCourse - 1;
+						int endHourT = endHourOfSophomoreCourse - 1;
+						
+						if(initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(T)";
+								initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(T)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}
+						
+					}
+				}
+			}
+			else if(selectedSophomoreOperation.equals("Practice Operation"))
+			{
+				if(!selectedSophomoreDay.equals("Choose Days"))
+				{
+					if(!selectedSophomoreStartHour.equals("Choose Start Hour")
+							&& !selectedSophomoreEndHour.equals("Choose End Hour"))
+					{
+						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSophomoreDay);
+						int startHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreStartHour);
+						int endHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreEndHour);
+						
+						int startHourT = startHourOfSophomoreCourse - 1;
+						int endHourT = endHourOfSophomoreCourse - 1;
+						
+						if(initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] == null)
+						{
+							if(initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] == null)
+							{
+								initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(P)";
+								initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(P)";							
+							}
+						}
+						else
+						{
+							System.out.println("Indices are not available");
+						}						
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	
+	public String initJuniorCourseTableEvent()
+	{
+		try
+		{
+			
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+		return null;
+	}
+	
+	public String initSeniorCourseTableEvent()
+	{
+		try
+		{
+			
 		}
 		catch(Exception ex)
 		{
@@ -426,6 +586,23 @@ public class DeanCourseBean
 		this.loadFreshmanSubFields();
 		//this.clearFreshmanSubFields();	
 	}
+	//****************************** SOPHOMORE FONKSIYONLARI ***********************************
+	
+	public void sophomoreSplitChange(ValueChangeEvent event)
+	{
+		System.out.println("Sophomore course has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedSophomoreCourse = newValue;
+		this.selectedSophomoreSplitCourse = newValue.split(":")[0];
+		this.selectedSophomoreSplitLecturer = newValue.split(":")[1];
+		this.loadSophomoreSubFields();
+		//this.clearSophomoreSubFields();
+	}
+	
+	//******************************************************************************************
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	private void clearAllComponents() {
 		this.semesterList = new ArrayList<SelectItem>();
@@ -531,6 +708,22 @@ public class DeanCourseBean
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanSplitCourse);
 		this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
+		for(int i = 0; i < itemList.size(); i++)
+		{
+			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+		}
+	}
+	private void clearSophomoreSubFields()
+	{
+		this.sophomoreCourses = new ArrayList<SelectItem>();
+		this.sophomoreCreditValueTeo = "";
+		this.sophomoreCreditValuePrac = "";
+	}	
+	private void loadSophomoreSubFields()
+	{
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedSophomoreSplitCourse);
+		this.sophomoreCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
+		this.sophomoreCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++)
 		{
 			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
@@ -867,5 +1060,82 @@ public class DeanCourseBean
 		this.initFreshmanCourseTable = initFreshmanCourseTable;
 	}
 	
+	
+	//*********************************** SOPHOMORE GET_SET METHODSSS ***************************************************
+	public String[][] getInitSophomoreCourseTable() {
+		return initSophomoreCourseTable;
+	}
+	public void setInitSophomoreCourseTable(String[][] initSophomoreCourseTable) {
+		this.initSophomoreCourseTable = initSophomoreCourseTable;
+	}
+	public String getSelectedSophomoreCourse() {
+		return selectedSophomoreCourse;
+	}
+	public void setSelectedSophomoreCourse(String selectedSophomoreCourse) {
+		this.selectedSophomoreCourse = selectedSophomoreCourse;
+	}
+	public String getSelectedSophomoreSplitCourse() {
+		return selectedSophomoreSplitCourse;
+	}
+	public void setSelectedSophomoreSplitCourse(String selectedSophomoreSplitCourse) {
+		this.selectedSophomoreSplitCourse = selectedSophomoreSplitCourse;
+	}
+	public String getSelectedSophomoreSplitLecturer() {
+		return selectedSophomoreSplitLecturer;
+	}
+	public void setSelectedSophomoreSplitLecturer(
+			String selectedSophomoreSplitLecturer) {
+		this.selectedSophomoreSplitLecturer = selectedSophomoreSplitLecturer;
+	}
+	public String getSelectedSophomoreLecturer() {
+		return selectedSophomoreLecturer;
+	}
+	public void setSelectedSophomoreLecturer(String selectedSophomoreLecturer) {
+		this.selectedSophomoreLecturer = selectedSophomoreLecturer;
+	}
+	public String getSelectedSophomoreDay() {
+		return selectedSophomoreDay;
+	}
+	public void setSelectedSophomoreDay(String selectedSophomoreDay) {
+		this.selectedSophomoreDay = selectedSophomoreDay;
+	}
+	public String getSelectedSophomoreOperation() {
+		return selectedSophomoreOperation;
+	}
+	public void setSelectedSophomoreOperation(String selectedSophomoreOperation) {
+		this.selectedSophomoreOperation = selectedSophomoreOperation;
+	}
+	public String getSelectedSophomoreStartHour() {
+		return selectedSophomoreStartHour;
+	}
+	public void setSelectedSophomoreStartHour(String selectedSophomoreStartHour) {
+		this.selectedSophomoreStartHour = selectedSophomoreStartHour;
+	}
+	public String getSelectedSophomoreEndHour() {
+		return selectedSophomoreEndHour;
+	}
+	public void setSelectedSophomoreEndHour(String selectedSophomoreEndHour) {
+		this.selectedSophomoreEndHour = selectedSophomoreEndHour;
+	}
+	public String getSelectedSophomoreRoom() {
+		return selectedSophomoreRoom;
+	}
+	public void setSelectedSophomoreRoom(String selectedSophomoreRoom) {
+		this.selectedSophomoreRoom = selectedSophomoreRoom;
+	}
+	public String getSophomoreCreditValeuTeo() {
+		return sophomoreCreditValueTeo;
+	}
+	public void setSophomoreCreditValeuTeo(String sophomoreCreditValeuTeo) {
+		this.sophomoreCreditValueTeo = sophomoreCreditValeuTeo;
+	}
+	public String getSophomoreCreditValuePrac() {
+		return sophomoreCreditValuePrac;
+	}
+	public void setSophomoreCreditValuePrac(String sophomoreCreditValuePrac) {
+		this.sophomoreCreditValuePrac = sophomoreCreditValuePrac;
+	}
+	
+	//******************************************************************************************************************
 	 
 }
