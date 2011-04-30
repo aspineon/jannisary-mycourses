@@ -52,7 +52,7 @@ public class ManuelSchedulingUtilBean {
 	private Object dragValue;
 	public int currentYear;
 	
-	/////// Datatable values
+/////// Datatable values
 	private String valueForDt11;
 	private String valueForDt12;
 	private String valueForDt13;
@@ -95,6 +95,7 @@ public class ManuelSchedulingUtilBean {
 	private String valueForDt58;
 	///////
 	
+
 	public ManuelSchedulingUtilBean(){
 		super();
 		
@@ -410,7 +411,8 @@ public class ManuelSchedulingUtilBean {
 		this.intGrade = intGrade;
 	}
 	
-	// Getters and setters for the 40 datatable values
+
+// Getters and setters for the 40 datatable values
 	
 	public String getValueForDt11() {
 			if(intGrade == 1){
@@ -422,7 +424,11 @@ public class ManuelSchedulingUtilBean {
 			}else if(intGrade == 2){
 				valueForDt11 = secondGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
 			}else if(intGrade == 3){
-				valueForDt11 = thirdGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
+				if(thirdGradeSchedule[0][0] == null){
+					valueForDt11 = "";
+				}else{
+					valueForDt11 = thirdGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
+				}
 			}else if(intGrade == 4){
 				valueForDt11 = fourthGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
 			}
@@ -443,7 +449,11 @@ public class ManuelSchedulingUtilBean {
 			}else if(intGrade == 2){
 				valueForDt12 = secondGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
 			}else if(intGrade == 3){
-				valueForDt12 = thirdGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
+				if(thirdGradeSchedule[0][1] == null){
+					valueForDt12 = "";
+				}else{
+					valueForDt12 = thirdGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
+				}
 			}else if(intGrade == 4){
 				valueForDt12 = fourthGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
 			}
@@ -1103,5 +1113,4 @@ public class ManuelSchedulingUtilBean {
 	public void setValueForDt58(String valueForDt58) {
 		this.valueForDt58 = valueForDt58;
 	}
-	
 }
