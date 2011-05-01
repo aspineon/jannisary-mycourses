@@ -20,6 +20,17 @@ public class Schedule implements java.io.Serializable {
 	public Schedule() {
 	}
 
+	public Schedule(Schedule schedule){
+		
+		this.scheduleId = schedule.getScheduleId();
+		this.classroom = schedule.getClassroom();
+		this.syllabus = schedule.getSyllabus();
+		this.courseType = schedule.getCourseType();
+		this.timeofCourse = schedule.getTimeofCourse();
+		this.hours = schedule.getHours();
+		
+	}
+	
 	public Schedule(Classroom classroom, Syllabus syllabus, String courseType,
 			int timeofCourse, int hours) {
 		this.classroom = classroom;
