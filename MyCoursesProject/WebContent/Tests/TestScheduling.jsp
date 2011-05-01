@@ -158,7 +158,7 @@
 
                 <h:dataTable id="TuesdayTable" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt12}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt21}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -175,7 +175,7 @@
 
                 <h:dataTable id="WednesdayTable" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt13}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt31}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -192,7 +192,7 @@
 
                 <h:dataTable id="ThursdayTable" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt14}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt41}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -210,7 +210,7 @@
 
                 <h:dataTable id="FridayTable" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt15}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt51}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -227,7 +227,7 @@
 
                 <h:dataTable id="MondayTable1" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt21}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt12}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -261,7 +261,7 @@
 
                 <h:dataTable id="WednesdayTable1" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt23}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt32}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -278,7 +278,7 @@
 
                 <h:dataTable id="ThursdayTable1" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt24}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt42}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -295,7 +295,7 @@
 
                 <h:dataTable id="FridayTable1" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt25}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt52}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -313,7 +313,7 @@
 
                 <h:dataTable id="MondayTable2" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt31}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt13}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -331,7 +331,7 @@
 
                 <h:dataTable id="TuesdayTable2" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt32}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt23}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -367,7 +367,7 @@
 
                 <h:dataTable id="ThursdayTable2" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt34}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt43}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -385,7 +385,7 @@
 
                 <h:dataTable id="FridayTable2" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt35}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt53}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -402,7 +402,7 @@
 
                 <h:dataTable id="MondayTable3" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt41}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt14}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -420,7 +420,7 @@
 
                 <h:dataTable id="TuesdayTable3" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt42}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt24}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -438,7 +438,7 @@
 
                 <h:dataTable id="WednesdayTable3" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt43}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt34}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -474,7 +474,7 @@
 
                 <h:dataTable id="FridayTable3" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt45}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt54}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -491,7 +491,7 @@
 
                 <h:dataTable id="MondayTable4" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt51}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt15}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -509,7 +509,7 @@
 
                 <h:dataTable id="TuesdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt52}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt25}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -527,7 +527,7 @@
 
                 <h:dataTable id="WednesdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt53}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt35}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -545,7 +545,7 @@
 
                 <h:dataTable id="ThursdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
-                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt54}"></h:outputText>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt45}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
@@ -564,6 +564,273 @@
                 <h:dataTable id="FridayTable4" value="#{manuelSchedulingUtilBean}" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt55}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+             <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="14:00-15:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="MondayDropSupportId05" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="MondayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt16}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="14:00-15:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="TuesdayDropSupportId15" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="TuesdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt26}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="14:00-15:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="WednesdayDropSupportId25" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="WednesdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt36}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="14:00-15:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="ThursdayDropSupportId35" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="ThursdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt46}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="14:00-15:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="FridayDropSupportId45" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="FridayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt56}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="15:00-16:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="MondayDropSupportId06" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="MondayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt17}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="15:00-16:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="TuesdayDropSupportId16" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="TuesdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt27}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="15:00-16:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="WednesdayDropSupportId26" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="WednesdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt37}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="15:00-16:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="ThursdayDropSupportId36" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="ThursdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt47}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="15:00-16:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="FridayDropSupportId46" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="FridayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt57}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="16:00-17:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="MondayDropSupportId07" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="MondayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt18}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="16:00-17:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="TuesdayDropSupportId17" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="TuesdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt28}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="16:00-17:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="WednesdayDropSupportId27" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="WednesdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt38}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="16:00-17:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="ThursdayDropSupportId37" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="ThursdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt48}"></h:outputText>
+                    </h:column>
+                </h:dataTable>
+                    
+            </rich:panel>
+            
+            <rich:panel bodyClass="dropTargetPanel">
+            
+                <f:facet name="header">
+                    <h:outputText value="16:00-17:00" />
+                </f:facet>
+                    
+                    <rich:dropSupport id="FridayDropSupportId47" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                </rich:dropSupport>
+
+                <h:dataTable id="FridayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                    <h:column>
+                        <h:outputText value="#{manuelSchedulingUtilBean.valueForDt58}"></h:outputText>
                     </h:column>
                 </h:dataTable>
                     
