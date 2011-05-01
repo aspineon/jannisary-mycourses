@@ -16,7 +16,9 @@ import org.richfaces.event.DropEvent;
 
 
 
+import entities.dao.Classroom;
 import entities.dao.Course;
+import entities.dao.Lecturer;
 import entities.dao.Schedule;
 import entities.dao.Syllabus;
 
@@ -114,6 +116,30 @@ public class ManuelSchedulingUtilBean {
 		intGrade = 1;
 		semester="Fall";
 		currentYear = calculateYear();
+		
+		fillMatrix();
+	}
+	
+	public void fillMatrix(){
+		Classroom cls = new Classroom();
+		cls.setClassroomId(-1);
+		Lecturer lct = new Lecturer();
+		lct.setLecturerName("Lecturer");
+		Syllabus syl = new Syllabus();
+		syl.setClassroom(cls);
+		syl.setLecturer(lct);
+		Schedule sch = new Schedule();
+		sch.setSyllabus(syl);
+		
+		for(int i=0;i<5;i++){
+			for(int j=0;j<8;j++){
+				firstGradeSchedule[i][j] = sch;
+				secondGradeSchedule[i][j] = sch;
+				thirdGradeSchedule[i][j] = sch;
+				fourthGradeSchedule[i][j] = sch;
+			}
+		}
+		
 	}
 	
 	public static int calculateYear(){
@@ -172,11 +198,44 @@ public class ManuelSchedulingUtilBean {
 		 }
 	}
 	
+	private Schedule findScheduleByIdInList(int syllabusId){
+		Schedule returnSchedule = new Schedule();
+		int intTempSyllabusId = -1;
+		try{
+			for(int i=0;i<courseList.size();i++){
+				intTempSyllabusId = courseList.get(i).getSyllabus().getSyllabusId();
+				if(intTempSyllabusId == syllabusId){
+					returnSchedule = new Schedule(courseList.get(i));
+					break;
+				}
+			}//end of courseList for
+			
+			if(returnSchedule.getCourseTheoricOrPraticName() == null){
+				for(int i=0;i<labList.size();i++){
+					intTempSyllabusId = labList.get(i).getSyllabus().getSyllabusId();
+					if(intTempSyllabusId == syllabusId){
+						returnSchedule = new Schedule(labList.get(i));
+						break;
+					}
+				}//end of labList for
+			}//end of if
+			
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+		return returnSchedule;
+	}//end of findScheduleByIdInCourseList method
+	
+	
+	
 	private Schedule tempSchedule = new Schedule();
 	public void processDrop(DropEvent event) {
 		System.out.println("Bean.processDrop()");
 		this.dragValue = (Schedule) event.getDragValue();
 		tempSchedule = (Schedule) dragValue;
+		
+		int intSyllabusId = tempSchedule.getSyllabus().getSyllabusId();
+		tempSchedule = new Schedule(findScheduleByIdInList(intSyllabusId));
 		
 		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
 		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
@@ -191,28 +250,65 @@ public class ManuelSchedulingUtilBean {
 		System.out.println("Bean.dragAction()");
 		return null;
 	}
-
+	
+	private String errorLabel;
 	public String dropAction() {
 		try {
 			System.out.println("Bean.dropAction()");
-			/*Course crs = (Course) dragValue;
-			if(crs.getPrecondition().equals("Test")){
-				this.containerCME.add(crs);
-			}else if(crs.getPrecondition().equals("asd")){
-				this.containerMSI.add(crs);
-			}*/
 			int timeofCourse = componentIdtoDay*8 + componentIdtoHour;
 			tempSchedule.setTimeofCourse(timeofCourse);
 			tempSchedule.setHours(1);
 			
+			
+			
 			if(intGrade == 1){
-				firstGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule; 
+				if(tempSchedule.getSyllabus().getClassroom().getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+				   tempSchedule.getSyllabus().getClassroom().getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+				   tempSchedule.getSyllabus().getClassroom().getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+				   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+				   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+				   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()))
+					{
+						firstGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule; 
+					}else{
+						errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with first class lesson";
+					}
 			}else if(intGrade == 2){
-				secondGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+				if(tempSchedule.getSyllabus().getClassroom().getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId()&&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()))
+						{
+							secondGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+						}else{
+							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with second class lesson";
+						}
 			}else if(intGrade == 3){
-				thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+				if(tempSchedule.getSyllabus().getClassroom().getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId()&&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()))
+						{
+							thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+						}else{
+							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with third class lesson";
+						}
 			}else if(intGrade == 4){
-				fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+				if(tempSchedule.getSyllabus().getClassroom().getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId() &&
+					tempSchedule.getSyllabus().getClassroom().getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getClassroom().getClassroomId()&&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()) &&
+					   !tempSchedule.getSyllabus().getLecturer().getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getSyllabus().getLecturer().getLecturerName()))
+						{
+							fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = tempSchedule;
+						}else{
+							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with fourth class lesson";
+						}
 			}
 			
 		} catch (Exception e) {
@@ -250,14 +346,33 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	private void SeparateTheoricAndPraticCourse(){
-		//Listelere sürekli ekleme yapmamak adıan listeleri yeniden oluşturuyoruz.
+		//Listelere sürekli ekleme yapmamak adına listeleri yeniden oluşturuyoruz.
 		courseList = new ArrayList<Schedule>();
 		labList = new ArrayList<Schedule>();
 		
 		for(int i=0;i<allSyllabuses.size();i++){
 			if(allSyllabuses.get(i).getCourse().getTeoricLectureHours() != 0){
 				Schedule schedule = new Schedule();
-				schedule.setSyllabus(allSyllabuses.get(i));
+				
+				String strLectureName = "";
+				Integer intClassroomId;
+				
+				strLectureName = allSyllabuses.get(i).getLecturer().getLecturerName();
+				intClassroomId = allSyllabuses.get(i).getClassroom().getClassroomId();
+				Integer intSyllabusId = allSyllabuses.get(i).getSyllabusId();
+				
+				Lecturer newLecturer = new Lecturer();
+				Classroom newClassroom = new Classroom();
+				
+				newLecturer.setLecturerName(strLectureName);
+				newClassroom.setClassroomId(intClassroomId);
+				
+				Syllabus newSyllabus = new Syllabus();
+				newSyllabus.setClassroom(newClassroom);
+				newSyllabus.setLecturer(newLecturer);
+				newSyllabus.setSyllabusId(intSyllabusId);
+				
+				schedule.setSyllabus(newSyllabus);
 				schedule.setCourseType("theoric");
 				String newName = allSyllabuses.get(i).getCourse().getCourseName();
 				newName = newName + " (T)";
@@ -411,31 +526,38 @@ public class ManuelSchedulingUtilBean {
 		this.intGrade = intGrade;
 	}
 	
+	public String getErrorLabel() {
+		return errorLabel;
+	}
 
-// Getters and setters for the 40 datatable values
+	public void setErrorLabel(String errorLabel) {
+		this.errorLabel = errorLabel;
+	}
 	
+	// Getters and setters for the 40 datatable values
+
 	public String getValueForDt11() {
 			if(intGrade == 1){
-				if(firstGradeSchedule[0][0] == null){
+				if(firstGradeSchedule[0][0].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt11 = "";
 				}else{
 					valueForDt11 = firstGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
 				}
 			}else if(intGrade == 2){
-				if(secondGradeSchedule[0][0] == null){
+				if(secondGradeSchedule[0][0].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt11 = "";
 				}else{
 					valueForDt11 = secondGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
 				}
 				
 			}else if(intGrade == 3){
-				if(thirdGradeSchedule[0][0] == null){
+				if(thirdGradeSchedule[0][0].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt11 = "";
 				}else{
 					valueForDt11 = thirdGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
 				}
 			}else if(intGrade == 4){
-				if(fourthGradeSchedule[0][0] == null){
+				if(fourthGradeSchedule[0][0].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt11 = "";
 				}else{
 					valueForDt11 = fourthGradeSchedule[0][0].getSyllabus().getCourse().getCourseName();
@@ -450,26 +572,26 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt12() {
 			if(intGrade == 1){
-				if(firstGradeSchedule[0][1] == null){
+				if(firstGradeSchedule[0][1].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt12 = "";
 				}else{
 					valueForDt12 = firstGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
 				}
 			}else if(intGrade == 2){
-				if(secondGradeSchedule[0][1] == null){
+				if(secondGradeSchedule[0][1].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt12 = "";
 				}else{
 					valueForDt12 = secondGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
 				}
 				
 			}else if(intGrade == 3){
-				if(thirdGradeSchedule[0][1] == null){
+				if(thirdGradeSchedule[0][1].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt12 = "";
 				}else{
 					valueForDt12 = thirdGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
 				}
 			}else if(intGrade == 4){
-				if(fourthGradeSchedule[0][1] == null){
+				if(fourthGradeSchedule[0][1].getSyllabus().getClassroom().getClassroomId() == -1){
 					valueForDt12 = "";
 				}else{
 					valueForDt12 = fourthGradeSchedule[0][1].getSyllabus().getCourse().getCourseName();
@@ -484,25 +606,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt13() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][2] == null){
+			if(firstGradeSchedule[0][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt13 = "";
 			}else{
 				valueForDt13 = firstGradeSchedule[0][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][2] == null){
+			if(secondGradeSchedule[0][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt13 = "";
 			}else{
 				valueForDt13 = secondGradeSchedule[0][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][2] == null){
+			if(thirdGradeSchedule[0][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt13 = "";
 			}else{
 				valueForDt13 = thirdGradeSchedule[0][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][2] == null){
+			if(fourthGradeSchedule[0][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt13 = "";
 			}else{
 				valueForDt13 = fourthGradeSchedule[0][2].getSyllabus().getCourse().getCourseName();
@@ -517,25 +639,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt14() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][3] == null){
+			if(firstGradeSchedule[0][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt14 = "";
 			}else{
 				valueForDt14 = firstGradeSchedule[0][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][3] == null){
+			if(secondGradeSchedule[0][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt14 = "";
 			}else{
 				valueForDt14 = secondGradeSchedule[0][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][3] == null){
+			if(thirdGradeSchedule[0][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt14 = "";
 			}else{
 				valueForDt14 = thirdGradeSchedule[0][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][3] == null){
+			if(fourthGradeSchedule[0][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt14 = "";
 			}else{
 				valueForDt14 = fourthGradeSchedule[0][3].getSyllabus().getCourse().getCourseName();
@@ -550,25 +672,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt15() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][4] == null){
+			if(firstGradeSchedule[0][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt15 = "";
 			}else{
 				valueForDt15 = firstGradeSchedule[0][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][4] == null){
+			if(secondGradeSchedule[0][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt15 = "";
 			}else{
 				valueForDt15 = secondGradeSchedule[0][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][4] == null){
+			if(thirdGradeSchedule[0][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt15 = "";
 			}else{
 				valueForDt15 = thirdGradeSchedule[0][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][4] == null){
+			if(fourthGradeSchedule[0][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt15 = "";
 			}else{
 				valueForDt15 = fourthGradeSchedule[0][4].getSyllabus().getCourse().getCourseName();
@@ -583,25 +705,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt16() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][5] == null){
+			if(firstGradeSchedule[0][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt16 = "";
 			}else{
 				valueForDt16 = firstGradeSchedule[0][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][5] == null){
+			if(secondGradeSchedule[0][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt16 = "";
 			}else{
 				valueForDt16 = secondGradeSchedule[0][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][5] == null){
+			if(thirdGradeSchedule[0][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt16 = "";
 			}else{
 				valueForDt16 = thirdGradeSchedule[0][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][5] == null){
+			if(fourthGradeSchedule[0][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt16 = "";
 			}else{
 				valueForDt16 = fourthGradeSchedule[0][5].getSyllabus().getCourse().getCourseName();
@@ -616,25 +738,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt17() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][6] == null){
+			if(firstGradeSchedule[0][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt17 = "";
 			}else{
 				valueForDt17 = firstGradeSchedule[0][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][6] == null){
+			if(secondGradeSchedule[0][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt17 = "";
 			}else{
 				valueForDt17 = secondGradeSchedule[0][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][6] == null){
+			if(thirdGradeSchedule[0][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt17 = "";
 			}else{
 				valueForDt17 = thirdGradeSchedule[0][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][6] == null){
+			if(fourthGradeSchedule[0][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt17 = "";
 			}else{
 				valueForDt17 = fourthGradeSchedule[0][6].getSyllabus().getCourse().getCourseName();
@@ -649,25 +771,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt18() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[0][7] == null){
+			if(firstGradeSchedule[0][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt18 = "";
 			}else{
 				valueForDt18 = firstGradeSchedule[0][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[0][7] == null){
+			if(secondGradeSchedule[0][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt18 = "";
 			}else{
 				valueForDt18 = secondGradeSchedule[0][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[0][7] == null){
+			if(thirdGradeSchedule[0][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt18 = "";
 			}else{
 				valueForDt18 = thirdGradeSchedule[0][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[0][7] == null){
+			if(fourthGradeSchedule[0][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt18 = "";
 			}else{
 				valueForDt18 = fourthGradeSchedule[0][7].getSyllabus().getCourse().getCourseName();
@@ -682,26 +804,26 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt21() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][0] == null){
+			if(firstGradeSchedule[1][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt21 = "";
 			}else{
 				valueForDt21 = firstGradeSchedule[1][0].getSyllabus().getCourse().getCourseName();
 			}
 			
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][0] == null){
+			if(secondGradeSchedule[1][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt21 = "";
 			}else{
 				valueForDt21 = secondGradeSchedule[1][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][0] == null){
+			if(thirdGradeSchedule[1][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt21 = "";
 			}else{
 				valueForDt21 = thirdGradeSchedule[1][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][0] == null){
+			if(fourthGradeSchedule[1][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt21 = "";
 			}else{
 				valueForDt21 = fourthGradeSchedule[1][0].getSyllabus().getCourse().getCourseName();
@@ -716,25 +838,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt22() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][1] == null){
+			if(firstGradeSchedule[1][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt22 = "";
 			}else{
 				valueForDt22 = firstGradeSchedule[1][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][1] == null){
+			if(secondGradeSchedule[1][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt22 = "";
 			}else{
 				valueForDt22 = secondGradeSchedule[1][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][1] == null){
+			if(thirdGradeSchedule[1][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt22 = "";
 			}else{
 				valueForDt22 = thirdGradeSchedule[1][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][1] == null){
+			if(fourthGradeSchedule[1][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt22 = "";
 			}else{
 				valueForDt22 = fourthGradeSchedule[1][1].getSyllabus().getCourse().getCourseName();
@@ -749,25 +871,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt23() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][2] == null){
+			if(firstGradeSchedule[1][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt23 = "";
 			}else{
 				valueForDt23 = firstGradeSchedule[1][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][2] == null){
+			if(secondGradeSchedule[1][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt23 = "";
 			}else{
 				valueForDt23 = secondGradeSchedule[1][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][2] == null){
+			if(thirdGradeSchedule[1][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt23 = "";
 			}else{
 				valueForDt23 = thirdGradeSchedule[1][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][2] == null){
+			if(fourthGradeSchedule[1][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt23 = "";
 			}else{
 				valueForDt23 = fourthGradeSchedule[1][2].getSyllabus().getCourse().getCourseName();
@@ -782,25 +904,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt24() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][3] == null){
+			if(firstGradeSchedule[1][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt24 = "";
 			}else{
 				valueForDt24 = firstGradeSchedule[1][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][3] == null){
+			if(secondGradeSchedule[1][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt24 = "";
 			}else{
 				valueForDt24 = secondGradeSchedule[1][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][3] == null){
+			if(thirdGradeSchedule[1][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt24 = "";
 			}else{
 				valueForDt24 = thirdGradeSchedule[1][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][3] == null){
+			if(fourthGradeSchedule[1][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt24 = "";
 			}else{
 				valueForDt24 = fourthGradeSchedule[1][3].getSyllabus().getCourse().getCourseName();
@@ -815,25 +937,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt25() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][4] == null){
+			if(firstGradeSchedule[1][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt25 = "";
 			}else{
 				valueForDt25 = firstGradeSchedule[1][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][4] == null){
+			if(secondGradeSchedule[1][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt25 = "";
 			}else{
 				valueForDt25 = secondGradeSchedule[1][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][4] == null){
+			if(thirdGradeSchedule[1][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt25 = "";
 			}else{
 				valueForDt25 = thirdGradeSchedule[1][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][4] == null){
+			if(fourthGradeSchedule[1][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt25 = "";
 			}else{
 				valueForDt25 = fourthGradeSchedule[1][4].getSyllabus().getCourse().getCourseName();
@@ -848,25 +970,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt26() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][5] == null){
+			if(firstGradeSchedule[1][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt26 = "";
 			}else{
 				valueForDt26 = firstGradeSchedule[1][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][5] == null){
+			if(secondGradeSchedule[1][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt26 = "";
 			}else{
 				valueForDt26 = secondGradeSchedule[1][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][5] == null){
+			if(thirdGradeSchedule[1][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt26 = "";
 			}else{
 				valueForDt26 = thirdGradeSchedule[1][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][5] == null){
+			if(fourthGradeSchedule[1][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt26 = "";
 			}else{
 				valueForDt26 = fourthGradeSchedule[1][5].getSyllabus().getCourse().getCourseName();
@@ -881,25 +1003,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt27() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][6] == null){
+			if(firstGradeSchedule[1][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt27 = "";
 			}else{
 				valueForDt27 = firstGradeSchedule[1][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][6] == null){
+			if(secondGradeSchedule[1][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt27 = "";
 			}else{
 				valueForDt27 = secondGradeSchedule[1][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][6] == null){
+			if(thirdGradeSchedule[1][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt27 = "";
 			}else{
 				valueForDt27 = thirdGradeSchedule[1][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][6] == null){
+			if(fourthGradeSchedule[1][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt27 = "";
 			}else{
 				valueForDt27 = fourthGradeSchedule[1][6].getSyllabus().getCourse().getCourseName();
@@ -914,25 +1036,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt28() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[1][7] == null){
+			if(firstGradeSchedule[1][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt28 = "";
 			}else{
 				valueForDt28 = firstGradeSchedule[1][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[1][7] == null){
+			if(secondGradeSchedule[1][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt28 = "";
 			}else{
 				valueForDt28 = secondGradeSchedule[1][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[1][7] == null){
+			if(thirdGradeSchedule[1][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt28 = "";
 			}else{
 				valueForDt28 = thirdGradeSchedule[1][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[1][7] == null){
+			if(fourthGradeSchedule[1][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt28 = "";
 			}else{
 				valueForDt28 = fourthGradeSchedule[1][7].getSyllabus().getCourse().getCourseName();
@@ -947,25 +1069,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt31() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][0] == null){
+			if(firstGradeSchedule[2][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt31 = "";
 			}else{
 				valueForDt31 = firstGradeSchedule[2][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][0] == null){
+			if(secondGradeSchedule[2][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt31 = "";
 			}else{
 				valueForDt31 = secondGradeSchedule[2][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][0] == null){
+			if(thirdGradeSchedule[2][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt31 = "";
 			}else{
 				valueForDt31 = thirdGradeSchedule[2][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][0] == null){
+			if(fourthGradeSchedule[2][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt31 = "";
 			}else{
 				valueForDt31 = fourthGradeSchedule[2][0].getSyllabus().getCourse().getCourseName();
@@ -980,25 +1102,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt32() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][1] == null){
+			if(firstGradeSchedule[2][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt32 = "";
 			}else{
 				valueForDt32 = firstGradeSchedule[2][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][1] == null){
+			if(secondGradeSchedule[2][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt32 = "";
 			}else{
 				valueForDt32 = secondGradeSchedule[2][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][1] == null){
+			if(thirdGradeSchedule[2][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt32 = "";
 			}else{
 				valueForDt32 = thirdGradeSchedule[2][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][1] == null){
+			if(fourthGradeSchedule[2][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt32 = "";
 			}else{
 				valueForDt32 = fourthGradeSchedule[2][1].getSyllabus().getCourse().getCourseName();
@@ -1013,25 +1135,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt33() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][2] == null){
+			if(firstGradeSchedule[2][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt33 = "";
 			}else{
 				valueForDt33 = firstGradeSchedule[2][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][2] == null){
+			if(secondGradeSchedule[2][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt33 = "";
 			}else{
 				valueForDt33 = secondGradeSchedule[2][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][2] == null){
+			if(thirdGradeSchedule[2][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt33 = "";
 			}else{
 				valueForDt33 = thirdGradeSchedule[2][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(firstGradeSchedule[2][2] == null){
+			if(firstGradeSchedule[2][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt33 = "";
 			}else{
 				valueForDt33 = fourthGradeSchedule[2][2].getSyllabus().getCourse().getCourseName();
@@ -1046,25 +1168,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt34() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][3] == null){
+			if(firstGradeSchedule[2][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt34 = "";
 			}else{
 				valueForDt34 = firstGradeSchedule[2][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][3] == null){
+			if(secondGradeSchedule[2][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt34 = "";
 			}else{
 				valueForDt34 = secondGradeSchedule[2][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][3] == null){
+			if(thirdGradeSchedule[2][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt34 = "";
 			}else{
 				valueForDt34 = thirdGradeSchedule[2][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][3] == null){
+			if(fourthGradeSchedule[2][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt34 = "";
 			}else{
 				valueForDt34 = fourthGradeSchedule[2][3].getSyllabus().getCourse().getCourseName();
@@ -1079,25 +1201,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt35() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][4] == null){
+			if(firstGradeSchedule[2][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt35 = "";
 			}else{
 				valueForDt35 = firstGradeSchedule[2][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][4] == null){
+			if(secondGradeSchedule[2][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt35 = "";
 			}else{
 				valueForDt35 = secondGradeSchedule[2][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][4] == null){
+			if(thirdGradeSchedule[2][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt35 = "";
 			}else{
 				valueForDt35 = thirdGradeSchedule[2][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][4] == null){
+			if(fourthGradeSchedule[2][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt35 = "";
 			}else{
 				valueForDt35 = fourthGradeSchedule[2][4].getSyllabus().getCourse().getCourseName();
@@ -1112,25 +1234,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt36() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][5] == null){
+			if(firstGradeSchedule[2][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt36 = "";
 			}else{
 				valueForDt36 = firstGradeSchedule[2][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][5] == null){
+			if(secondGradeSchedule[2][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt36 = "";
 			}else{
 				valueForDt36 = secondGradeSchedule[2][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][5] == null){
+			if(thirdGradeSchedule[2][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt36 = "";
 			}else{
 				valueForDt36 = thirdGradeSchedule[2][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][5] == null){
+			if(fourthGradeSchedule[2][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt36 = "";
 			}else{
 				valueForDt36 = fourthGradeSchedule[2][5].getSyllabus().getCourse().getCourseName();
@@ -1145,25 +1267,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt37() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][6] == null){
+			if(firstGradeSchedule[2][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt37 = "";
 			}else{
 				valueForDt37 = firstGradeSchedule[2][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][6] == null){
+			if(secondGradeSchedule[2][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt37 = "";
 			}else{
 				valueForDt37 = secondGradeSchedule[2][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][6] == null){
+			if(thirdGradeSchedule[2][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt37 = "";
 			}else{
 				valueForDt37 = thirdGradeSchedule[2][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][6] == null){
+			if(fourthGradeSchedule[2][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt37 = "";
 			}else{
 				valueForDt37 = fourthGradeSchedule[2][6].getSyllabus().getCourse().getCourseName();
@@ -1178,25 +1300,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt38() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[2][7] == null){
+			if(firstGradeSchedule[2][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt38 = "";
 			}else{
 				valueForDt38 = firstGradeSchedule[2][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[2][7] == null){
+			if(secondGradeSchedule[2][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt38 = "";
 			}else{
 				valueForDt38 = secondGradeSchedule[2][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[2][7] == null){
+			if(thirdGradeSchedule[2][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt38 = "";
 			}else{
 				valueForDt38 = thirdGradeSchedule[2][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[2][7] == null){
+			if(fourthGradeSchedule[2][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt38 = "";
 			}else{
 				valueForDt38 = fourthGradeSchedule[2][7].getSyllabus().getCourse().getCourseName();
@@ -1211,25 +1333,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt41() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][0] == null){
+			if(firstGradeSchedule[3][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt41 = "";
 			}else{
 				valueForDt41 = firstGradeSchedule[3][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][0] == null){
+			if(secondGradeSchedule[3][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt41 = "";
 			}else{
 				valueForDt41 = secondGradeSchedule[3][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][0] == null){
+			if(thirdGradeSchedule[3][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt41 = "";
 			}else{
 				valueForDt41 = thirdGradeSchedule[3][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][0] == null){
+			if(fourthGradeSchedule[3][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt41 = "";
 			}else{
 				valueForDt41 = fourthGradeSchedule[3][0].getSyllabus().getCourse().getCourseName();
@@ -1244,25 +1366,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt42() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][1] == null){
+			if(firstGradeSchedule[3][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt42 = "";
 			}else{
 				valueForDt42 = firstGradeSchedule[3][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][1] == null){
+			if(secondGradeSchedule[3][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt42 = "";
 			}else{
 				valueForDt42 = secondGradeSchedule[3][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][1] == null){
+			if(thirdGradeSchedule[3][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt42 = "";
 			}else{
 				valueForDt42 = thirdGradeSchedule[3][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][1] == null){
+			if(fourthGradeSchedule[3][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt42 = "";
 			}else{
 				valueForDt42 = fourthGradeSchedule[3][1].getSyllabus().getCourse().getCourseName();
@@ -1277,25 +1399,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt43() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][2] == null){
+			if(firstGradeSchedule[3][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt43 = "";
 			}else{
 				valueForDt43 = firstGradeSchedule[3][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][2] == null){
+			if(secondGradeSchedule[3][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt43 = "";
 			}else{
 				valueForDt43 = secondGradeSchedule[3][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][2] == null){
+			if(thirdGradeSchedule[3][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt43 = "";
 			}else{
 				valueForDt43 = thirdGradeSchedule[3][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][2] == null){
+			if(fourthGradeSchedule[3][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt43 = "";
 			}else{
 				valueForDt43 = fourthGradeSchedule[3][2].getSyllabus().getCourse().getCourseName();
@@ -1310,25 +1432,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt44() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][3] == null){
+			if(firstGradeSchedule[3][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt44 = "";
 			}else{
 				valueForDt44 = firstGradeSchedule[3][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][3] == null){
+			if(secondGradeSchedule[3][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt44 = "";
 			}else{
 				valueForDt44 = secondGradeSchedule[3][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][3] == null){
+			if(thirdGradeSchedule[3][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt44 = "";
 			}else{
 				valueForDt44 = thirdGradeSchedule[3][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][3] == null){
+			if(fourthGradeSchedule[3][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt44 = "";
 			}else{
 				valueForDt44 = fourthGradeSchedule[3][3].getSyllabus().getCourse().getCourseName();
@@ -1343,25 +1465,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt45() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][4] == null){
+			if(firstGradeSchedule[3][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt45 = "";
 			}else{
 				valueForDt45 = firstGradeSchedule[3][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][4] == null){
+			if(secondGradeSchedule[3][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt45 = "";
 			}else{
 				valueForDt45 = secondGradeSchedule[3][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][4] == null){
+			if(thirdGradeSchedule[3][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt45 = "";
 			}else{
 				valueForDt45 = thirdGradeSchedule[3][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][4] == null){
+			if(fourthGradeSchedule[3][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt45 = "";
 			}else{
 				valueForDt45 = fourthGradeSchedule[3][4].getSyllabus().getCourse().getCourseName();
@@ -1376,25 +1498,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt46() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][5] == null){
+			if(firstGradeSchedule[3][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt46 = "";
 			}else{
 				valueForDt46 = firstGradeSchedule[3][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][5] == null){
+			if(secondGradeSchedule[3][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt46 = "";
 			}else{
 				valueForDt46 = secondGradeSchedule[3][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][5] == null){
+			if(thirdGradeSchedule[3][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt46 = "";
 			}else{
 				valueForDt46 = thirdGradeSchedule[3][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][5] == null){
+			if(fourthGradeSchedule[3][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt46 = "";
 			}else{
 				valueForDt46 = fourthGradeSchedule[3][5].getSyllabus().getCourse().getCourseName();
@@ -1409,25 +1531,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt47() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][6] == null){
+			if(firstGradeSchedule[3][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt47 = "";
 			}else{
 				valueForDt47 = firstGradeSchedule[3][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][6] == null){
+			if(secondGradeSchedule[3][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt47 = "";
 			}else{
 				valueForDt47 = secondGradeSchedule[3][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][6] == null){
+			if(thirdGradeSchedule[3][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt47 = "";
 			}else{
 				valueForDt47 = thirdGradeSchedule[3][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][6] == null){
+			if(fourthGradeSchedule[3][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt47 = "";
 			}else{
 				valueForDt47 = fourthGradeSchedule[3][6].getSyllabus().getCourse().getCourseName();
@@ -1442,25 +1564,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt48() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[3][7] == null){
+			if(firstGradeSchedule[3][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt48 = "";
 			}else{
 				valueForDt48 = firstGradeSchedule[3][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[3][7] == null){
+			if(secondGradeSchedule[3][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt48 = "";
 			}else{
 				valueForDt48 = secondGradeSchedule[3][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[3][7] == null){
+			if(thirdGradeSchedule[3][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt48 = "";
 			}else{
 				valueForDt48 = thirdGradeSchedule[3][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[3][7] == null){
+			if(fourthGradeSchedule[3][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt48 = "";
 			}else{
 				valueForDt48 = fourthGradeSchedule[3][7].getSyllabus().getCourse().getCourseName();
@@ -1475,25 +1597,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt51() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][0] == null){
+			if(firstGradeSchedule[4][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt51 = "";
 			}else{
 				valueForDt51 = firstGradeSchedule[4][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][0] == null){
+			if(secondGradeSchedule[4][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt51 = "";
 			}else{
 				valueForDt51 = secondGradeSchedule[4][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][0] == null){
+			if(thirdGradeSchedule[4][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt51 = "";
 			}else{
 				valueForDt51 = thirdGradeSchedule[4][0].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][0] == null){
+			if(fourthGradeSchedule[4][0].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt51 = "";
 			}else{
 				valueForDt51 = fourthGradeSchedule[4][0].getSyllabus().getCourse().getCourseName();
@@ -1508,25 +1630,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt52() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][1] == null){
+			if(firstGradeSchedule[4][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt52 = "";
 			}else{
 				valueForDt52 = firstGradeSchedule[4][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][1] == null){
+			if(secondGradeSchedule[4][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt52 = "";
 			}else{
 				valueForDt52 = secondGradeSchedule[4][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][1] == null){
+			if(thirdGradeSchedule[4][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt52 = "";
 			}else{
 				valueForDt52 = thirdGradeSchedule[4][1].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][1] == null){
+			if(fourthGradeSchedule[4][1].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt52 = "";
 			}else{
 				valueForDt52 = fourthGradeSchedule[4][1].getSyllabus().getCourse().getCourseName();
@@ -1541,25 +1663,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt53() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][2] == null){
+			if(firstGradeSchedule[4][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt53 = "";
 			}else{
 				valueForDt53 = firstGradeSchedule[4][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][2] == null){
+			if(secondGradeSchedule[4][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt53 = "";
 			}else{
 				valueForDt53 = secondGradeSchedule[4][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][2] == null){
+			if(thirdGradeSchedule[4][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt53 = "";
 			}else{
 				valueForDt53 = thirdGradeSchedule[4][2].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][2] == null){
+			if(fourthGradeSchedule[4][2].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt53 = "";
 			}else{
 				valueForDt53 = fourthGradeSchedule[4][2].getSyllabus().getCourse().getCourseName();
@@ -1574,25 +1696,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt54() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][3] == null){
+			if(firstGradeSchedule[4][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt54 = "";
 			}else{
 				valueForDt54 = firstGradeSchedule[4][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][3] == null){
+			if(secondGradeSchedule[4][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt54 = "";
 			}else{
 				valueForDt54 = secondGradeSchedule[4][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][3] == null){
+			if(thirdGradeSchedule[4][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt54 = "";
 			}else{
 				valueForDt54 = thirdGradeSchedule[4][3].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][3] == null){
+			if(fourthGradeSchedule[4][3].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt54 = "";
 			}else{
 				valueForDt54 = fourthGradeSchedule[4][3].getSyllabus().getCourse().getCourseName();
@@ -1607,25 +1729,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt55() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][4] == null){
+			if(firstGradeSchedule[4][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt55 = "";
 			}else{
 				valueForDt55 = firstGradeSchedule[4][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][4] == null){
+			if(secondGradeSchedule[4][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt55 = "";
 			}else{
 				valueForDt55 = secondGradeSchedule[4][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][4] == null){
+			if(thirdGradeSchedule[4][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt55 = "";
 			}else{
 				valueForDt55 = thirdGradeSchedule[4][4].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][4] == null){
+			if(fourthGradeSchedule[4][4].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt55 = "";
 			}else{
 				valueForDt55 = fourthGradeSchedule[4][4].getSyllabus().getCourse().getCourseName();
@@ -1640,25 +1762,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt56() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][5] == null){
+			if(firstGradeSchedule[4][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt56 = "";
 			}else{
 				valueForDt56 = firstGradeSchedule[4][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][5] == null){
+			if(secondGradeSchedule[4][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt56 = "";
 			}else{
 				valueForDt56 = secondGradeSchedule[4][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][5] == null){
+			if(thirdGradeSchedule[4][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt56 = "";
 			}else{
 				valueForDt56 = thirdGradeSchedule[4][5].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][5] == null){
+			if(fourthGradeSchedule[4][5].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt56 = "";
 			}else{
 				valueForDt56 = fourthGradeSchedule[4][5].getSyllabus().getCourse().getCourseName();
@@ -1673,25 +1795,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt57() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][6] == null){
+			if(firstGradeSchedule[4][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt57 = "";
 			}else{
 				valueForDt57 = firstGradeSchedule[4][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][6] == null){
+			if(secondGradeSchedule[4][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt57 = "";
 			}else{
 				valueForDt57 = secondGradeSchedule[4][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][6] == null){
+			if(thirdGradeSchedule[4][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt57 = "";
 			}else{
 				valueForDt57 = thirdGradeSchedule[4][6].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][6] == null){
+			if(fourthGradeSchedule[4][6].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt57 = "";
 			}else{
 				valueForDt57 = fourthGradeSchedule[4][6].getSyllabus().getCourse().getCourseName();
@@ -1706,25 +1828,25 @@ public class ManuelSchedulingUtilBean {
 
 	public String getValueForDt58() {
 		if(intGrade == 1){
-			if(firstGradeSchedule[4][7] == null){
+			if(firstGradeSchedule[4][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt58 = "";
 			}else{
 				valueForDt58 = firstGradeSchedule[4][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 2){
-			if(secondGradeSchedule[4][7] == null){
+			if(secondGradeSchedule[4][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt58 = "";
 			}else{
 				valueForDt58 = secondGradeSchedule[4][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 3){
-			if(thirdGradeSchedule[4][7] == null){
+			if(thirdGradeSchedule[4][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt58 = "";
 			}else{
 				valueForDt58 = thirdGradeSchedule[4][7].getSyllabus().getCourse().getCourseName();
 			}
 		}else if(intGrade == 4){
-			if(fourthGradeSchedule[4][7] == null){
+			if(fourthGradeSchedule[4][7].getSyllabus().getClassroom().getClassroomId() == -1){
 				valueForDt58 = "";
 			}else{
 				valueForDt58 = fourthGradeSchedule[4][7].getSyllabus().getCourse().getCourseName();
