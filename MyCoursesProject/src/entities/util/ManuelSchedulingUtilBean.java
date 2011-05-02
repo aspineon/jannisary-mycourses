@@ -293,12 +293,12 @@ public class ManuelSchedulingUtilBean {
 			
 			if(intGrade == 1){
 				System.out.println("in first grade if!!");
-				if(tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-					tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-					tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-				   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-				   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-				   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()))
+				if(tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+					tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+					tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+				   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+				   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+				   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 					{
 					System.out.println("success in first grade if");
 						firstGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem; 
@@ -306,36 +306,36 @@ public class ManuelSchedulingUtilBean {
 						errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with first class lesson";
 					}
 			}else if(intGrade == 2){
-				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId()&&
-					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()))
+				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId()&&
+					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
 							secondGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with second class lesson";
 						}
 			}else if(intGrade == 3){
-				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId()&&
-					   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()))
+				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId()&&
+					   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
 							thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with third class lesson";
 						}
 			}else if(intGrade == 4){
-				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId() &&
-						tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoHour][componentIdtoDay].getClassroomId()&&
-					   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()) &&
-					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoHour][componentIdtoDay].getLecturerName()))
+				if(tempBasicScheduleItem.getClassroomId() != firstGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId() &&
+						tempBasicScheduleItem.getClassroomId() != secondGradeSchedule[componentIdtoDay][componentIdtoHour].getClassroomId()&&
+					   !tempBasicScheduleItem.getLecturerName().equals(secondGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
+					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
 							fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
