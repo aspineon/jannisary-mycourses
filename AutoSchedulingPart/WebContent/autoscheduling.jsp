@@ -85,26 +85,18 @@
 		            						style="background-color:#FFF8C6; width:50px;"
 		            						value="#{deanCourseBean.freshmanCreditValuePrac}"/>
 		            			<br/>
-		            			<h:outputText value="Operation : " />
+		            			<h:outputText value="Course Type : " />
 		            					<h:selectOneMenu id="freshmanOperationTypeComboBox" 
 							            		style=" width : 151px;"
-							            		value="#{deanCourseBean.selectedFreshmanOperation}">
-									            	<f:selectItem itemValue="Choose Operation" />
-									            	<f:selectItem itemValue="Theory Operation"/>
-									            	<f:selectItem itemValue="Practice Operation" />
+							            		value="#{deanCourseBean.selectedFreshmanOperation}"
+							            		valueChangeListener="#{deanCourseBean.freshmanOperationChange}">
+									            	<f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
 								        </h:selectOneMenu>
 		            			<br/>
 		            			<h:outputText value="Days : " />
-		            			<h:selectOneMenu id="freshmanDaysComboBox"
-						            			value="#{deanCourseBean.selectedFreshmanDay}"
-						            		 	>
-						            			<f:selectItem itemValue="Choose Days" />
-						            			<f:selectItem itemValue="Monday" />
-						            			<f:selectItem itemValue="Tuesday" />
-						            			<f:selectItem itemValue="Wednesday" />
-						            			<f:selectItem itemValue="Thursday" />
-						            			<f:selectItem itemValue="Friday" />
-						            		</h:selectOneMenu>
+		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}">
+						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
+						           	</h:selectOneMenu>
 		            			<br/>
 		            			<h:outputText value="Start Hour : " />
 		            			<h:selectOneMenu id="freshmanStartHourComboBox" 
@@ -134,13 +126,8 @@
 								    <f:selectItem itemValue="8"/>        			
 		            			</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="Room : " />
-		            			<h:selectOneMenu id="freshmanRoomComboBox" value="#{deanCourseBean.selectedFreshmanRoom}">
-		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
-		            			</h:selectOneMenu>
-		            			<br/>
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
-							            	<h:commandButton value="Reset" action="#{deanCourseBean.clearDeanCourseTable}" onclick="submit()"></h:commandButton>
+							            	<h:commandButton value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
             			</h:form>
             		</td>
@@ -285,11 +272,7 @@
 								    <f:selectItem itemValue="7"/>
 								    <f:selectItem itemValue="8"/>        			
 		            			</h:selectOneMenu>
-		            			<br/>
-		            			<h:outputText value="Room : " />
-		            			<h:selectOneMenu id="sophomoreRoomComboBox" value="#{deanCourseBean.selectedSophomoreRoom}">
-		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
-		            			</h:selectOneMenu>
+		            			
 		            			<br/>
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
@@ -439,11 +422,7 @@
 								    <f:selectItem itemValue="7"/>
 								    <f:selectItem itemValue="8"/>        			
 		            			</h:selectOneMenu>
-		            			<br/>
-		            			<h:outputText value="Room : " />
-		            			<h:selectOneMenu id="juniorRoomComboBox" value="#{deanCourseBean.selectedJuniorRoom}">
-		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
-		            			</h:selectOneMenu>
+		            			
 		            			<br/>
 		            			
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
@@ -590,11 +569,7 @@
 								    <f:selectItem itemValue="7"/>
 								    <f:selectItem itemValue="8"/>        			
 		            			</h:selectOneMenu>
-		            			<br/>
-		            			<h:outputText value="Room : " />
-		            			<h:selectOneMenu id="seniorRoomComboBox" value="#{deanCourseBean.selectedSeniorRoom}">
-		            				<f:selectItem itemLabel="Choose Room" itemValue="Choose Room"/>
-		            			</h:selectOneMenu>
+		            			
 		            			<br/>
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initSeniorCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton value="Reset" action="#{deanCourseBean.clearSeniorCourseTable}" onclick="submit()"></h:commandButton>
@@ -653,61 +628,6 @@
         				 </rich:column>
       				
             			</rich:dataTable>
-            		</td>
-            	</tr>
-            	
-            	<tr>
-            		<td>
-            			
-            	  <table>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Course Info :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="courseInfoTextFieldSenior" disabled="true" style=" width : 251px;"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Lecturer :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<h:inputText id="lecturerNameTextFieldSenior" disabled="true"></h:inputText>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Credits :"></h:outputText>
-            	  		</td>
-            	  		<td>
-            	  			<table>
-            	  				<tr>
-            	  				<td>
-            	  					<h:inputText id="theoricCreditTextFieldSenior" disabled="true" style=" width : 60px;"></h:inputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:outputText value="+"></h:outputText>
-            	  				</td>
-            	  				<td>
-            	  					<h:inputText id="practiceCreditTextFieldSenior" disabled="true" style=" width : 58px;"></h:inputText>
-            	  				</td>
-            	  				</tr>
-            	  			</table>
-            	  		</td>
-            	  	</tr>
-            	  	<tr>
-            	  		<td>
-            	  			<h:outputText value="Room : "></h:outputText>
-            	  		</td>
-            	  		<td style=" width : 146px;">
-            	  			<rich:comboBox  id="roomComboBoxSenior" value = "Choose Room" width="99">
-            	  				<f:selectItems id="seniorRooms" value="#{classroomBean.selectItemListClassroom}"/>
-            	  			</rich:comboBox>
-            	  		</td>
-            	  		
-            	  	</tr>           	  	
-            	  </table>
             		</td>
             	</tr>
             </table>			    				   	
@@ -860,24 +780,8 @@
 						            		</h:selectOneMenu>
 					            		</td>
 					            	</tr>
-					            	<tr style=" height : 7px;">
-						            	<td>
-						            	</td>
-					            	</tr>
-					            	<tr>
-						            	<td>
-						            	</td>
-						            	<td>
-						            		<h:outputLabel value="Rooms :" style="color:white;"></h:outputLabel>
-						            	</td>
-						            	<td>
-						            		<h:selectOneMenu id="deanRoomComboBox" style=" width : 127px;"
-						            		value="#{deanCourseBean.selectedRoom}">
-						            			<f:selectItem itemValue="Choose Room"/>
-						            			<f:selectItems value="#{classroomBean.selectItemListClassroom}"/>
-						            		</h:selectOneMenu>
-						            	</td>
-					            	</tr>
+					           
+					            	
 					            	<tr style=" height : 16px;">
 						            	<td>
 						            	</td>
