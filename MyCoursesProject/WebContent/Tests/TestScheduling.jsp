@@ -10,6 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
   <style>
+  
         .panelc {
             width:25%;
             vertical-align:top;         
@@ -23,7 +24,15 @@
             text-align: center;
             pacategorying-top: 5px;
         }
-
+        
+          .div_near_spacer {
+                border-top-width: 0px;
+                border-left-width: 0px;
+                font-size: 0px;
+                border-bottom-width: 0px;
+                height: 2px;
+                border-right-width: 0px
+		}
     </style>
 </head>
 <body>
@@ -60,6 +69,12 @@
         		</h:panelGrid>
    	 		</h:form>
        </rich:panel>
+       <!--
+       		Paneller arasına boşluklar eklendi.
+       -->
+       <div class="div_near_spacer" ></div>
+         	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
+        <div class="div_near_spacer" ></div>
        
 	        <rich:panel id="courseListPanel" style="width:133px"> 
 	                <h:panelGrid columns="1" style=" width : 86px;">
@@ -81,6 +96,13 @@
 	                </f:facet>
 	        </rich:panel>
        </h:form>
+        <!--
+       		Paneller arasına boşluklar eklendi.
+       -->
+        <div class="div_near_spacer" ></div>
+         	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
+        <div class="div_near_spacer" ></div>
+       
        <h:form id="form2">
 	        <rich:panel id="labListPanel" style="width:133px"> 
 	                <h:panelGrid columns="1" style=" width : 86px;">
@@ -146,7 +168,8 @@
                     </h:column>
                 </h:dataTable>
             </rich:panel>
-            
+          
+        	
             <rich:panel bodyClass="dropTargetPanel">
                 <f:facet name="header">
                     <h:outputText value="08:00-09:00" />
