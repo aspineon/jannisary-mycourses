@@ -8,7 +8,6 @@ package entities.dao;
 public class Schedule implements java.io.Serializable {
 
 	private Integer scheduleId;
-	private Classroom classroom;
 	private Syllabus syllabus;
 	private String courseType;
 	private int timeofCourse;
@@ -23,7 +22,6 @@ public class Schedule implements java.io.Serializable {
 	public Schedule(Schedule schedule){
 		
 		this.scheduleId = schedule.getScheduleId();
-		this.classroom = schedule.getClassroom();
 		this.syllabus = schedule.getSyllabus();
 		this.courseType = schedule.getCourseType();
 		this.timeofCourse = schedule.getTimeofCourse();
@@ -31,16 +29,12 @@ public class Schedule implements java.io.Serializable {
 		
 	}
 	
-	public Schedule(Classroom classroom, Syllabus syllabus, String courseType,
-			int timeofCourse, int hours) {
-		this.classroom = classroom;
+	public Schedule(Syllabus syllabus, String courseType, int timeofCourse, int hours) {
 		this.syllabus = syllabus;
 		this.courseType = courseType;
 		this.timeofCourse = timeofCourse;
 		this.hours = hours;
 	}
-
-	
 	
 	public String getCourseTheoricOrPraticName() {
 		return courseTheoricOrPraticName;
@@ -56,14 +50,6 @@ public class Schedule implements java.io.Serializable {
 
 	public void setScheduleId(Integer scheduleId) {
 		this.scheduleId = scheduleId;
-	}
-
-	public Classroom getClassroom() {
-		return this.classroom;
-	}
-
-	public void setClassroom(Classroom classroom) {
-		this.classroom = classroom;
 	}
 
 	public Syllabus getSyllabus() {
