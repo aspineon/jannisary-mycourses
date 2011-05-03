@@ -41,7 +41,7 @@
     
     <sql-query name="AddSyllabus">
     <return alias="Syllabus" class="entities.dao.Syllabus"/>
-        <![CDATA[CALL AddSyllabus(:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo)]]>
+        <![CDATA[CALL AddSyllabus(:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo, :pClassroomId)]]>
     </sql-query>
     
     <sql-query name="DeleteSyllabus">
@@ -51,7 +51,7 @@
     
     <sql-query name="UpdateSyllabus">
     <return alias="Syllabus" class="entities.dao.Syllabus"/>
-        <![CDATA[CALL UpdateSyllabus(:pSyllabusId,:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo)]]>
+        <![CDATA[CALL UpdateSyllabus(:pSyllabusId,:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo, :pClassroomId)]]>
     </sql-query>
     
     <sql-query name="getSyllabusBySemesterAndGrade" callable="true">
