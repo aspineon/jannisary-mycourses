@@ -64,6 +64,27 @@ public class Classroom implements java.io.Serializable {
          return allClassroom;
 	}
 	
+	public List<Classroom> getIdByClassroomCode(){
+		List<Classroom> classroomCodeList = null;
+		
+        Session session = null;
+        
+        try {
+                SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                session = sessionFactory.openSession();
+                
+                Query query = session.getNamedQuery("getIdByClassroomCode");
+                
+                query.setParameter("pClassroomCode", classroomCode);
+                classroomCodeList = (List<Classroom>) query.list();
+                
+        } catch (Exception e) {
+                // TODO: handle exception
+                e.getMessage();
+        } 
+        return classroomCodeList;
+	}
+	
 	public void addClassroom(){
 		Session session=null;
 		try{
