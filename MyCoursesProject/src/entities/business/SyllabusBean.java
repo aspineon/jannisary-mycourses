@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import entities.dao.Classroom;
 import entities.dao.Course;
 import entities.dao.Lecturer;
 import entities.dao.Syllabus;
@@ -49,8 +50,32 @@ public class SyllabusBean {
 
 		 if (!selectedCourseCode.equals("")) {
 			 course.setCourseCode(selectedCourseCode);
-			 course = new Course(course.getIdByCourseCode().get(0));
+			 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
+			 course.setCourseId(intCourseId);
 			 currentItem.setCourse(course);
+		 }
+	}
+	
+	public void selectionChangedClassroomEditCombo(ValueChangeEvent  evt) {
+		String selectedClassroomCode = (String) evt.getNewValue();
+		 
+
+		 if (!selectedClassroomCode.equals("")) {
+			 classroom.setClassroomCode(selectedClassroomCode);
+			 classroom = new Classroom(classroom.getIdByClassroomCode().get(0));
+			 currentItem.setClassroom(classroom);
+		 }
+	}
+	
+	public void selectionChangedClassroomAddCombo(ValueChangeEvent  evt) {
+		String selectedClassroomCode = (String) evt.getNewValue();
+		 
+
+		 if (!selectedClassroomCode.equals("")) {
+			 classroom.setClassroomCode(selectedClassroomCode);
+			 Integer intClassroomId = classroom.getIdByClassroomCode().get(0).getClassroomId();
+			 classroom.setClassroomId(intClassroomId);
+			 currentItem.setClassroom(classroom);
 		 }
 	}
 	
@@ -71,8 +96,9 @@ public class SyllabusBean {
 		 
 		 if (!selectedCourseCode.equals("")) {
 			 course.setCourseCode(selectedCourseCode);
-			 Course newCourse = new Course(course.getIdByCourseCode().get(0));
-			 currentItem.setCourse(newCourse);
+			 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
+			 course.setCourseId(intCourseId);
+			 currentItem.setCourse(course);
 		 }
 	}
 	
@@ -92,12 +118,15 @@ public class SyllabusBean {
 		 }
 	}
 	
+	
+	
 	public void store(){
 		/*try-catch blogu eklenecek*/
 		try{
 			currentItem = allSyllabusList.get(currentRow);
 			currentItem.setCourse(course);
 			currentItem.setLecturer(lecturer);
+			currentItem.setClassroom(classroom);
 			currentItem.updateSyllabus();
 			//getAllSyllabusList Ã§aÄŸrÄ±larak gÃ¼ncellenen veriler alÄ±nÄ±yor.
 			//getAllSyllabusList();
@@ -230,6 +259,30 @@ public class SyllabusBean {
 		
 		return lecturerNameList;
 	}
+	
+	public ArrayList<SelectItem> getClassroomList() {
+		List<Classroom> classroomCodeList = classroom.getAllClassroom();
+		synchronized (this) {
+			if (classroomList == null) {
+				classroomList = new ArrayList<SelectItem>();
+					try {
+						int i;
+						for(i=0; i<classroomCodeList.size(); i++){
+							String strClassroomCode = classroomCodeList.get(i).getClassroomCode();
+							classroomList.add(new SelectItem(strClassroomCode));
+						}
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSyllabusBean:getClassroomList Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		
+		return classroomList;
+	}
+	
 	public void setLecturerNameList(ArrayList<SelectItem> lecturerNameList) {
 		this.lecturerNameList = lecturerNameList;
 	}
@@ -280,6 +333,7 @@ public class SyllabusBean {
 
 	private Integer syllabusId;
     private Integer sectionNo;
+    private Classroom classroom = new Classroom();
     
     private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
     private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
@@ -291,4 +345,5 @@ public class SyllabusBean {
     private List<Syllabus> allSyllabusList = null;
     private ArrayList<SelectItem> courseCodeList = null;
     private ArrayList<SelectItem> lecturerNameList = null;
+    private ArrayList<SelectItem> classroomList = null;
 }
