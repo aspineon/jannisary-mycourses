@@ -62,6 +62,14 @@
                     </f:facet>
                     <h:outputText value="#{category.lecturer.lecturerName}" />
                 </rich:column>
+                
+                <rich:column>
+                    <f:facet name="header">
+                        <h:outputText value="Classroom" />
+                    </f:facet>
+                    <h:outputText value="#{category.classroom.classroomCode}" />
+                </rich:column>
+                
                 <rich:column>
                     <f:facet name="header">
                         <h:outputText value="SectionNo" />
@@ -128,6 +136,11 @@
                         <h:outputText value="Lecture Name" />
                         <rich:comboBox id="lecturerEditId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLecturerEditCombo}">
                         	<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
+                        </rich:comboBox>
+                        
+                        <h:outputText value="Classroom Code" />
+                        <rich:comboBox id="classroomEditId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomEditCombo}">
+                        	<f:selectItems value="#{syllabusBean.classroomList}"/>
                         </rich:comboBox>
                         
                         <h:outputText value="SectionNo" />
@@ -209,6 +222,10 @@
      	<h:inputText value="#{syllabusBean.currentItem.sectionNo}">
 	    	<f:validateLength minimum="1" maximum="20"/>
 	    </h:inputText>
+	    
+	    <rich:comboBox id="selectClassroomId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomAddCombo}">
+			<f:selectItems value="#{syllabusBean.classroomList}"/>
+		</rich:comboBox>
      	
      	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style=" width : 110px; height : 20px;">
 			<a4j:support event="onclick" reRender="table"/>
