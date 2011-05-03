@@ -93,6 +93,7 @@ public void updateSyllabus(){
 			query.setParameter("pCourseId", this.getCourse().getCourseId());
 			query.setParameter("pLecturerId", this.getLecturer().getLecturerId());
 			query.setParameter("pSectionNo", sectionNo);
+			query.setParameter("pClassroomId", this.getClassroom().getClassroomId());
 			query.executeUpdate();
 			tx.commit();
 		}catch(Exception e){
@@ -117,6 +118,7 @@ public void addSyllabus(){
 		query.setParameter("pCourseId", course.getCourseId());
 		query.setParameter("pLecturerId", lecturer.getLecturerId());
 		query.setParameter("pSectionNo", sectionNo);
+		query.setParameter("pClassroomId", this.getClassroom().getClassroomId());
 		query.executeUpdate();
 		tx.commit();
 	}catch(Exception e){
