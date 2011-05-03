@@ -124,6 +124,21 @@
 	                    <h:outputText value="Lab List" />
 	                </f:facet>
 	        	</rich:panel>
+	        	
+	        	<!--
+       		Paneller arasına boşluklar eklendi.
+       -->
+        <div class="div_near_spacer" ></div>
+         	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
+        <div class="div_near_spacer" ></div>
+	     <h:form id="form3">  	
+	        	<rich:panel id="errorPanel">
+	        		<rich:messages for="form" layout="list">
+                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>
+                        	<h:graphicImage value="/images/modal/error.gif"/>   
+                   </rich:messages>
+	        	</rich:panel>
+	     </h:form>
        		</h:form>
        </h:panelGrid>
        <h:form id="form">
@@ -159,7 +174,7 @@
                 </f:facet>
                 
                 <rich:dropSupport id="MondayDropSupportId00" acceptedTypes="Test" dropValue="Test" action="#{manuelSchedulingUtilBean.dropAction}"
-                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="phptable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
+                    dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="phptable, src, errorPanel" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
                 <h:dataTable id="phptable" value="#{manuelSchedulingUtilBean}"  var="category">
