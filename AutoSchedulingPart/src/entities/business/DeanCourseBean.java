@@ -12,24 +12,31 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import entities.dao.Course;
-import entities.dao.Lecturer;
 import entities.dao.Syllabus;
-import entities.utility.OrderedTable;
+import entities.utility.ScheduleAtomic;
 
 public class DeanCourseBean 
 {
+//************************** SUBFIELDS *************************************************	
+// For general usage, these object are created. By passing them methods, related data
+// is taken from these classes.
+	Course courseObj = new Course();
+	Syllabus syllabusObj = new Syllabus();
+// When year and semester values are selected, they will be attached to these subfields. 	
 	private String selectedYear = "";
 	private String selectedSemester = "";
-	
+// These subfields holds the actions state when selecting year and semester.
 	private boolean yearFlag = false;
 	private boolean semesterFlag = false;
-	
+// Year and semester data are hold in these subfields.
 	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
-	
+// 'Dean Course' type courses in selected year and semester are stored in this subfield.	
 	private ArrayList<SelectItem> deanCourseList = new ArrayList<SelectItem>();
+// After selection of dean course, lecturers of this course are stored in this subfield
 	private ArrayList<SelectItem> deanLecturerList = new ArrayList<SelectItem>();
-	//bu dört alt alan her bir tab için ilgili tablonun verilerini tutmakta
+//***************************************************************************************
+// This eight subfields holds the data about courses in four grade.
 	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> freshmanLecturerList = new ArrayList<SelectItem>();
 	
@@ -41,25 +48,36 @@ public class DeanCourseBean
 	
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> seniorLecturerList = new ArrayList<SelectItem>();
-	
+//**************************************************************************************	
+// These subfields holds data about the scheduling operations
+	private ArrayList<ScheduleAtomic> freshmanSchedules = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> sophomoreSchedules = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> juniorSchedules = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> seniorSchedules = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> deanSchedules = new ArrayList<ScheduleAtomic>();
+//**************************************************************************************	
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
 	private String creditValuePrac = "";
+//******************************************************************************
+	private ArrayList<SelectItem> freshmanOperations = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> sophomoreOperations = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> juniorOperations = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> seniorOperations = new ArrayList<SelectItem>();
 	
-	private ArrayList<Course> courseList;
-	private Hashtable<String, Integer> dayMapToIndexHash;
+	private ArrayList<SelectItem> freshmanDays = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> sophomoreDays = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> juniorDays = new ArrayList<SelectItem>();
+	private ArrayList<SelectItem> seniorDays = new ArrayList<SelectItem>();
 	
-	//****************** MATRICES *************************************************
+	private Hashtable<String, Integer> dayMapToIndexHash;	
+//******************* MATRICES *************************************************
 	public String[][] initCourseTable = new String[8][6];
 	public String[][] initFreshmanCourseTable = new String[8][6];
 	public String[][] initSophomoreCourseTable = new String[8][6];
 	public String[][] initJuniorCourseTable = new String[8][6];
 	public String[][] initSeniorCourseTable = new String[8][6];
-	
-	//****************************************************************************
-	Course courseObj = new Course();
-	Syllabus syllabusObj = new Syllabus();
-	
+//******************************************************************************
 	private String selectedDeanLecturer;
 	String selectedDeanDay = "";
 	String selectedOperation = "";
@@ -69,9 +87,7 @@ public class DeanCourseBean
 	boolean buttonStatus = false;
 	
 	Color testColor = Color.green;
-	
-	//******************** Freshman Bilgileri ******************************************
-	
+//**************** Freshman Subfields ***********************************************
 	private String selectedFreshmanCourse = "";
 	private String selectedFreshmanSplitCourse = "";
 	private String selectedFreshmanSplitLecturer = "";
@@ -83,9 +99,7 @@ public class DeanCourseBean
 	private String selectedFreshmanRoom = "";
 	private String freshmanCreditValeuTeo = "";
 	private String freshmanCreditValuePrac = "";
-	
-	//**************** Sophomore Bilgileri *********************************************
-	
+//**************** Sophomore Subfields **********************************************
 	private String selectedSophomoreCourse = "";
 	private String selectedSophomoreSplitCourse = "";
 	private String selectedSophomoreSplitLecturer = "";
@@ -97,9 +111,7 @@ public class DeanCourseBean
 	private String selectedSophomoreRoom = "";
 	private String sophomoreCreditValeuTeo = "";
 	private String sophomoreCreditValuePrac = "";
-	
-	//*********************** Junior Bilgileri *****************************************
-	
+//**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
 	private String selectedJuniorSplitCourse = "";
 	private String selectedJuniorSplitLecturer = "";
@@ -111,9 +123,7 @@ public class DeanCourseBean
 	private String selectedJuniorRoom = "";
 	private String juniorCreditValueTeo = "";
 	private String juniorCreditValuePrac = "";	
-	
-	//*************************Senior Bilgileri ******************************************
-	
+//**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
 	private String selectedSeniorSplitCourse = "";
 	private String selectedSeniorSplitLecturer = "";
@@ -125,17 +135,10 @@ public class DeanCourseBean
 	private String selectedSeniorRoom = "";
 	private String seniorCreditValueTeo = "";
 	private String seniorCreditValuePrac = "";
-	
-	//************************************************************************************
-	
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
-	{
-		deanCourseList = new ArrayList<SelectItem>();
-		deanCourseList.add(new SelectItem("PHY1002", "Physics II"));
-		deanCourseList.add(new SelectItem("MAT1002", "Calculus II"));
-		deanCourseList.add(new SelectItem("TUR2002", "Turk Dili"));
-		deanCourseList.add(new SelectItem("TAR1002", "Tarih II"));
-		
+	{	
 		dayMapToIndexHash = new Hashtable<String, Integer>();
 		dayMapToIndexHash.put("Monday", 1);
 		dayMapToIndexHash.put("Tuesday", 2);
@@ -186,10 +189,10 @@ public class DeanCourseBean
 		initSeniorCourseTable[4][0] = "5";
 		initSeniorCourseTable[5][0] = "6";
 		initSeniorCourseTable[6][0] = "7";
-		initSeniorCourseTable[7][0] = "8";
-			
+		initSeniorCourseTable[7][0] = "8";		
 	}
-	// ******************* TABLO TEMIZLEME ***********************************************
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//******************** TABLE CLEANING ************************************************
 	public String clearDeanCourseTable()
 	{
 		try
@@ -210,6 +213,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}	
+	
 	public String clearFreshmanCourseTable()
 	{
 		try
@@ -228,9 +232,9 @@ public class DeanCourseBean
 		{
 			ex.getMessage();
 		}
-		
 		return null;
 	}
+	
 	public String clearSophomoreCourseTable()
 	{
 		try
@@ -251,6 +255,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}
+	
 	public String clearJuniorCourseTable()
 	{
 		try
@@ -271,6 +276,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}
+	
 	public String clearSeniorCourseTable()
 	{
 		try
@@ -291,9 +297,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-	
-	//********************************************************************************************
-	// ******************** dekanlik tablo initialize etme ***************************************
+// ******************** INITIALIZING DEAN COURSES TAB ***********************************
 	public String initDeanCourseTable()
 	{
 		try
@@ -302,20 +306,15 @@ public class DeanCourseBean
 			{
 				System.out.println("Function 2*****");
 				if(!selectedDeanDay.equals("Choose Days"))
-				{
-					
+				{	
 					if(!selectedStartHour.equals("Choose Start Hour") && !selectedEndHour.equals("Choose End Hour"))
-					{
-						
+					{		
 						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedDeanDay);
 						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
-						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);
-						
-						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
-						
+						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);	
+						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;					
 						int startHourT = startHourOfDeanCourse - 1;
 						int endHourT = endHourOfDeanCourse - 1;
-						
 						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
 						//{	
 							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
@@ -345,12 +344,9 @@ public class DeanCourseBean
 						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedDeanDay);
 						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
 						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);
-						
 						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
-						
 						int startHourT = startHourOfDeanCourse - 1;
 						int endHourT = endHourOfDeanCourse - 1;
-						
 						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
 						//{	
 							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
@@ -377,10 +373,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-	
-	//**************************************************************************************************	
-	//***************************FRESHMAN ve DIGER SINIFLAR TABLO INIT YAPMA FONKSIYONU ****************
-	
+//********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
 	{
 		try
@@ -410,8 +403,7 @@ public class DeanCourseBean
 						else
 						{
 							System.out.println("Indices are not available");
-						}
-						
+						}	
 					}
 				}
 			}
@@ -482,7 +474,6 @@ public class DeanCourseBean
 						{
 							System.out.println("Indices are not available");
 						}
-						
 					}
 				}
 			}
@@ -553,7 +544,6 @@ public class DeanCourseBean
 							{
 								System.out.println("Indices are not available");
 							}
-							
 						}
 					}
 				}
@@ -624,7 +614,6 @@ public class DeanCourseBean
 						{
 							System.out.println("Indices are not available");
 						}
-						
 					}
 				}
 			}
@@ -664,9 +653,11 @@ public class DeanCourseBean
 		}
 		return null;
 	}
-	
-	//============================??????????????*******************************************************
-//This is the event which holds the operations when a year is selected
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+//********************** EVENTS **********************************************************
+// Onur Özey (Finished 03.05)
+// This is the event which holds the operations when a year is selected. According to year
+// selected, semester data will be loaded to the related subfield.
 	public void yearValueChange(ValueChangeEvent event) {
 		System.out.println("Year Code : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
@@ -674,13 +665,23 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
-		if((this.selectedYear != "Choose Year") && (this.selectedYear != null)) {
-			this.semesterFlag = false;
+		if((!this.selectedYear.equals("Choose Year")) && (this.selectedYear != null)) {
+			if(this.semesterFlag == true) {
+				this.clearAllComponents();
+				this.loadAllLists(selectedYear, selectedSemester);
+			}
+			else {
+				this.semesterList = new ArrayList<SelectItem>();
+				this.loadSemester();
+			}		
+		}
+		else {
 			this.clearAllComponents();
-			this.loadSemester();	
 		}
 	}
-//This is the event which holds the operations when a semester is selected
+// Onur Özey (Finished 03.05)
+// This is the event which holds the operations when a semester is selected. Via of 
+// selected semester value, all the subfield which must be initialized after this event
 	public void semesterValueChange(ValueChangeEvent event) {
 		System.out.println("Course Code : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
@@ -688,53 +689,59 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSemester = newValue;
-		if((this.selectedSemester != "Choose Semester") && (this.selectedSemester != null)) {
+		if((!this.selectedSemester.equals("Choose Semester")) && (this.selectedSemester != null)) {
+			this.clearAllComponents();
 			this.loadAllLists(this.selectedYear, this.selectedSemester);
+			this.semesterFlag = true;
+		}
+		else { 
+			this.semesterFlag = false;
+			this.clearAllComponents();
 		}
 	}
 //This is the event which holds the operations when a course selected in dean tab	
-	public void handleValueChange(ValueChangeEvent event)
-	{
+	public void handleValueChange(ValueChangeEvent event) {
 		System.out.println("Course Code : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedDeanCourse = newValue;
-		this.clearSubFields();
-		this.loadSubFields();
+		this.clearDeanSubFields();
+		this.loadDeanSubFields();
 	}
-// This is the event which holds the operation when a freshman course selected in freshman tab!!!!
-	// ****************** FRESHMAN FUNCTIONS ********************************************************
-	public void freshmanCourseChange(ValueChangeEvent event)
-	{
+// ****************** 4(Freshman, Sophomore, Junior, Senior) GRADE EVENTS ***************
+//******************* FRESHMAN EVENTS ***************************************************
+	public void freshmanSplitChange(ValueChangeEvent event) {
 		System.out.println("Freshman course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedFreshmanCourse = newValue;
+		this.selectedFreshmanCourse = newValue;	
 		this.clearFreshmanSubFields();
-		this.loadFreshmanSubFields();
+		this.clearFreshmanTimeValues();
+		if(!this.selectedFreshmanCourse.equals("Course Selection")) {
+			this.selectedFreshmanSplitCourse = newValue.split(":")[0];
+			this.selectedFreshmanSplitLecturer = newValue.split(":")[1];
+			this.loadFreshmanSubFields();
+		}
 	}
 	
-	public void freshmanSplitChange(ValueChangeEvent event)
-	{
+	public void freshmanOperationChange(ValueChangeEvent event) {
 		System.out.println("Freshman course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedFreshmanCourse = newValue;
-		this.selectedFreshmanSplitCourse = newValue.split(":")[0];
-		this.selectedFreshmanSplitLecturer = newValue.split(":")[1];
-		this.loadFreshmanSubFields();
-		//this.clearFreshmanSubFields();	
+		this.selectedFreshmanOperation = newValue;
+		this.clearFreshmanTimeValues();
+		this.freshmanDays = this.loadDays();
+		
+
 	}
-	//****************************** SOPHOMORE FONKSIYONLARI ***********************************
-	
-	public void sophomoreSplitChange(ValueChangeEvent event)
-	{
+//******************* SOPHOMORE EVENTS **************************************************
+	public void sophomoreSplitChange(ValueChangeEvent event) {
 		System.out.println("Sophomore course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
@@ -743,14 +750,15 @@ public class DeanCourseBean
 		this.selectedSophomoreCourse = newValue;
 		this.selectedSophomoreSplitCourse = newValue.split(":")[0];
 		this.selectedSophomoreSplitLecturer = newValue.split(":")[1];
-		this.loadSophomoreSubFields();
-		//this.clearSophomoreSubFields();
+		this.clearSophomoreSubFields();
+		this.loadSophomoreSubFields();	
 	}
 	
-	//************************** JUNIOR FONKSIYONLARI *******************************************
-	
-	public void juniorSplitChange(ValueChangeEvent event)
-	{
+	public void sophomoreOperationChange() {
+		
+	}
+//******************* JUNIOR EVENTS *****************************************************
+	public void juniorSplitChange(ValueChangeEvent event) {
 		System.out.println("Junior course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
@@ -759,15 +767,16 @@ public class DeanCourseBean
 		this.selectedJuniorCourse = newValue;
 		this.selectedJuniorSplitCourse = newValue.split(":")[0];
 		this.selectedJuniorSplitLecturer = newValue.split(":")[1];
+		this.clearJuniorSubFields();
 		this.loadJuniorSubFields();
-		//this.clearJuniorSubFields();
 	}
 	
-	//************************ SENIOR FONKSIYONLARI *********************************************
-	
-	public void seniorSplitChange(ValueChangeEvent event)
-	{
-		System.out.println("Junior course has been changed!!!");
+	public void juniorOperationChange() {
+		
+	}
+//******************* SENIOR EVENTS *****************************************************
+	public void seniorSplitChange(ValueChangeEvent event) {
+		System.out.println("Senior course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
@@ -775,19 +784,32 @@ public class DeanCourseBean
 		this.selectedSeniorCourse = newValue;
 		this.selectedSeniorSplitCourse = newValue.split(":")[0];
 		this.selectedSeniorSplitLecturer = newValue.split(":")[1];
+		this.clearSeniorSubFields();
 		this.loadSeniorSubFields();
-		//this.clearJuniorSubFields();
 	}
 	
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	public void seniorOperationChange() {
+		
+	}
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//******************* LOAD & CLEAR METHODS **********************************************	
+// Onur Özey (Finished 01.05)
+// This method clears the all components when year value is changed. It's a kind of
+// refresh operation for system components
 	private void clearAllComponents() {
-		this.semesterList = new ArrayList<SelectItem>();
 		this.freshmanCourses = new ArrayList<SelectItem>();
 		this.sophomoreCourses = new ArrayList<SelectItem>();
 		this.juniorCourses = new ArrayList<SelectItem>();
 		this.seniorCourses = new ArrayList<SelectItem>();
+		this.deanCourseList = new ArrayList<SelectItem>();
+		this.clearFreshmanSubFields();
+		this.clearFreshmanTimeValues();
 	}
-	
+//***************************************************************************************
+// Onur Özey (Finished 01.05)
+// This method provides the all data needed for all components which are filled after 
+// selecting the year and semester values. Try catch block, catches error which can be
+// thrown during the convert of string to an integer.
 	private void loadAllLists(String year, String semester) {
 		try
 		{
@@ -801,68 +823,100 @@ public class DeanCourseBean
 		}
 	}
 //***************************************************************************************
+// Onur Özey (Finished 03.05)
+// This method returns the all dean courses in related year and semester. The subfield of
+// bean class which holds the data about dean courses filled with the related data here.
 	private void loadDeanCourses(int year, String semester) {
 		this.deanCourseList = null;
-		this.courseList = courseObj.getDeanCourses(year, semester);
+		ArrayList<Syllabus> sList = syllabusObj.getDeanCourses(year, semester);
+		this.deanSchedules = this.generateAtomic(sList);
 		ArrayList<SelectItem> itemList = new ArrayList<SelectItem>();
-		for(int i = 0; i < this.courseList.size(); i++) {
-			String name = this.courseList.get(i).getCourseName();
+		for(int i = 0; i < sList.size(); i++) {
+			String name = sList.get(i).getCourse().getCourseName();
 			itemList.add(new SelectItem(name));
 		}
 		this.deanCourseList = itemList;
 	}
 //***************************************************************************************
+// Onur Özey (Finished 03.05)
+// This method filled the related subfields of class with the expected data which are
+// determined by the year and semester values. Each subfield of four grade filled in here.
 	private void loadCoursesByGrade(int year, String semester) {
-		OrderedTable ort = new OrderedTable();
 		//First Year(Freshman) Courses are loaded
-		ArrayList<OrderedTable> itemList = ort.getOrderedTableByGrade(year, semester, 1);
+		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByGrade(year, semester, 1);
+		this.freshmanSchedules = this.generateAtomic(itemList);
+		this.freshmanCourses.add(new SelectItem("Course Selection"));
 		for(int i = 0; i < itemList.size(); i++) {
-			String courseName = itemList.get(i).getCourseName();
-			String lecturerName = itemList.get(i).getLecturerName();
+			String courseName = itemList.get(i).getCourse().getCourseName();
+			String lecturerName = itemList.get(i).getLecturer().getLecturerName();
 			String item = courseName + " : " + lecturerName;
-			SelectItem sItem = new SelectItem(item);
-			this.freshmanCourses.add(sItem);
+			this.freshmanCourses.add(new SelectItem(item));
 		}
 		//Second Year(Sophomore) Courses are loaded
-		itemList = ort.getOrderedTableByGrade(year, semester, 2);
+		itemList = syllabusObj.getSyllabusByGrade(year, semester, 2);
+		this.sophomoreSchedules = this.generateAtomic(itemList);
+		this.sophomoreCourses.add(new SelectItem("Course Selection"));
 		for(int i = 0; i < itemList.size(); i++) {
-			SelectItem item = new SelectItem(itemList.get(i));
-			this.sophomoreCourses.add(item);
+			String courseName = itemList.get(i).getCourse().getCourseName();
+			String lecturerName = itemList.get(i).getLecturer().getLecturerName();
+			String item = courseName + " : " + lecturerName;
+			this.sophomoreCourses.add(new SelectItem(item));
 		}
 		//Third Year(Junior) Courses are loaded
-		itemList = ort.getOrderedTableByGrade(year, semester, 3);
+		itemList = syllabusObj.getSyllabusByGrade(year, semester, 3);
+		this.juniorSchedules = this.generateAtomic(itemList);
+		this.juniorCourses.add(new SelectItem("Course Selection"));
 		for(int i = 0; i < itemList.size(); i++) {
-			SelectItem item = new SelectItem(itemList.get(i));
-			this.juniorCourses.add(item);
+			String courseName = itemList.get(i).getCourse().getCourseName();
+			String lecturerName = itemList.get(i).getLecturer().getLecturerName();
+			String item = courseName + " : " + lecturerName;
+			this.juniorCourses.add(new SelectItem(item));
 		}
 		//Fourth Year(Senior) Courses are loaded
-		itemList = ort.getOrderedTableByGrade(year, semester, 4);
+		itemList = syllabusObj.getSyllabusByGrade(year, semester, 4);
+		this.seniorSchedules = this.generateAtomic(itemList);
+		this.seniorCourses.add(new SelectItem("Course Selection"));
 		for(int i = 0; i < itemList.size(); i++) {
-			SelectItem item = new SelectItem(itemList.get(i));
-			this.seniorCourses.add(item);
+			String courseName = itemList.get(i).getCourse().getCourseName();
+			String lecturerName = itemList.get(i).getLecturer().getLecturerName();
+			String item = courseName + " : " + lecturerName;
+			this.seniorCourses.add(new SelectItem(item));
 		}
 	}
 //***************************************************************************************
-	private void loadSemester() {
-		if(this.semesterFlag == false) {	
-			this.semesterList.add(new SelectItem("Choose Semester"));
-			this.semesterList.add(new SelectItem("Fall"));
-			this.semesterList.add(new SelectItem("Spring"));
-			this.semesterList.add(new SelectItem("Summer"));
-			this.semesterFlag = true;
-		}
+// Onur Özey (Finished 03.05)
+// This method loads the 'semesterList' subfield which holds the data of semester combobox
+// with the related data below.
+	private void loadSemester() {	
+		this.semesterList.add(new SelectItem("Choose Semester"));
+		this.semesterList.add(new SelectItem("Fall"));
+		this.semesterList.add(new SelectItem("Spring"));
+		this.semesterList.add(new SelectItem("Summer"));
 	}
 //***************************************************************************************
-//Alt alanlar önce temizlenmeli bu yüzden course seçimi ile dolacak olan componentleri
-//temizliyoruz(clearFields). Ardýndan ders seçimiyle birlikte bu alanlarý gerekli veriler
-//ile dolduruyoruz.
-	private void clearSubFields() {
+	private ArrayList<SelectItem> loadDays() {
+		ArrayList<SelectItem> sList = new ArrayList<SelectItem>();
+		sList.add(new SelectItem("Choose Day"));
+		sList.add(new SelectItem("Monday"));
+		sList.add(new SelectItem("Tuesday"));
+		sList.add(new SelectItem("Wednesday"));
+		sList.add(new SelectItem("Thursday"));
+		sList.add(new SelectItem("Friday"));
+		return sList;
+	}
+//***************************************************************************************
+// Onur Özey (Finished 31.04)
+// When selection of dean course changed, then all information contained in sub-components
+// must be cleared and updated again. This method clears the all fields related with.
+	private void clearDeanSubFields() {
 		this.deanLecturerList = new ArrayList<SelectItem>();		
 		this.creditValueTheo = "";
 		this.creditValuePrac = "";
 	}
-		
-	private void loadSubFields()
+// Onur Özey (Finished 03.05)
+// According to 'selected dean course' this method loads the related components with 
+// related data 
+	private void loadDeanSubFields()
 	{
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedDeanCourse);
 		this.creditValueTheo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
@@ -871,16 +925,8 @@ public class DeanCourseBean
 			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
-//***************************************************************************************	
-	private void clearFreshmanSubFields()
-	{
-		this.freshmanCourses = new ArrayList<SelectItem>();
-		this.freshmanCreditValeuTeo = "";
-		this.freshmanCreditValuePrac = "";
-	}
-	
-	private void loadFreshmanSubFields()
-	{
+//****************** FIELD CLEAR & LOAD METHODS OF GRADES ******************************
+	private void loadFreshmanSubFields() {
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanSplitCourse);
 		this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
@@ -888,15 +934,25 @@ public class DeanCourseBean
 		{
 			this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
+		this.freshmanOperations.add(new SelectItem("Choose Course Type"));
+		this.freshmanOperations.add(new SelectItem("Theoretical"));
+		this.freshmanOperations.add(new SelectItem("Practice"));
 	}
-	private void clearSophomoreSubFields()
-	{
-		this.sophomoreCourses = new ArrayList<SelectItem>();
-		this.sophomoreCreditValeuTeo = "";
-		this.sophomoreCreditValuePrac = "";
-	}	
-	private void loadSophomoreSubFields()
-	{
+	
+	private void clearFreshmanSubFields() {
+		this.selectedFreshmanSplitCourse = "";
+		this.selectedFreshmanSplitLecturer = "";
+		this.freshmanLecturerList = new ArrayList<SelectItem>();
+		this.freshmanCreditValeuTeo = "";
+		this.freshmanCreditValuePrac = "";
+		this.freshmanOperations = new ArrayList<SelectItem>(); 
+	}
+	
+	private void clearFreshmanTimeValues() {
+		this.freshmanDays = new ArrayList<SelectItem>();
+	}
+	
+	private void loadSophomoreSubFields() {
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedSophomoreSplitCourse);
 		this.sophomoreCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.sophomoreCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
@@ -906,14 +962,13 @@ public class DeanCourseBean
 		}
 	}
 	
-	private void clearJuniorSubFields()
-	{
-		this.juniorCourses = new ArrayList<SelectItem>();
-		this.juniorCreditValuePrac = "";
-		this.juniorCreditValueTeo = "";
+	private void clearSophomoreSubFields() {
+		this.sophomoreLecturerList = new ArrayList<SelectItem>();
+		this.sophomoreCreditValeuTeo = "";
+		this.sophomoreCreditValuePrac = "";
 	}
-	private void loadJuniorSubFields()
-	{
+	
+	private void loadJuniorSubFields() {
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedJuniorSplitCourse);
 		this.juniorCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.juniorCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
@@ -923,15 +978,13 @@ public class DeanCourseBean
 		}
 	}
 	
-	private void clearSeniorSubFields()
-	{
-		this.seniorCourses = new ArrayList<SelectItem>();
-		this.seniorCreditValuePrac = "";
-		this.seniorCreditValueTeo = "";
-		
+	private void clearJuniorSubFields() {
+		this.juniorLecturerList = new ArrayList<SelectItem>();
+		this.juniorCreditValueTeo = "";
+		this.juniorCreditValuePrac = "";
 	}
-	private void loadSeniorSubFields()
-	{
+	
+	private void loadSeniorSubFields() {
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedSeniorSplitCourse);
 		this.seniorCreditValueTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 		this.seniorCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
@@ -940,6 +993,50 @@ public class DeanCourseBean
 			this.seniorLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
 		}
 	}
+	
+	private void clearSeniorSubFields() {
+		this.seniorLecturerList = new ArrayList<SelectItem>();
+		this.seniorCreditValueTeo = "";
+		this.seniorCreditValuePrac = "";
+	}
+	
+//***************************************************************************************	
+//*********************** UTILITY METHODS ***********************************************
+// Onur Özey (Finished 29.04)
+// This function has ability to detect duplication of an item in a list. We can not use
+// DISTINCT operation in our stored procedures. That's why we have to eliminate duplicated
+// data. This method called in 'getYearList()'.
+	private boolean checkList(ArrayList<String> itemList, String item) {
+		boolean breaker = false;
+		int i = 0;
+		while((breaker != true) && (i < itemList.size())) {
+			if(itemList.get(i).equals(item)) {
+				breaker = true;
+			}
+			i++;
+		}
+		return breaker;
+	}
+//***************************************************************************************
+// Onur Özey (Finished 03.05)
+// This function generates Schedule Automatic objects from Syllabus objects. In another
+// way we can say a syllabus list is converted to a scheduleAtomic list. 
+	private ArrayList<ScheduleAtomic> generateAtomic(ArrayList<Syllabus> sList) {
+		ArrayList<ScheduleAtomic> retList = new ArrayList<ScheduleAtomic>();
+		for(int i = 0; i < sList.size(); i++) {
+			Syllabus sItem = sList.get(i);
+			int tHour = sItem.getCourse().getTeoricLectureHours();
+			if(tHour != 0) {
+				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour));
+			}
+			int pHour = sItem.getCourse().getPracticeLectureHourse();
+			if(pHour != 0) {
+				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour));
+			}
+		}
+		return retList;
+	}
+	
 //***************************************************************************************
 //************************* GETTER-SETTER METHODS ***************************************	
 // Onur Özey (Finished 29.04)
@@ -964,13 +1061,12 @@ public class DeanCourseBean
 		}
 		return this.yearList;
 	}
+	
 // Set method of 'YEARLÝST' subfield	
 	public void setYearList(ArrayList<SelectItem> yearList) {
 		this.yearList = yearList;
 	}
 //***************************************************************************************
-// Onur Özey (Finished 29.04)
-// Get-Set Methods of 'SEMESTERLÝST' subfield 
 	public ArrayList<SelectItem> getSemesterList() {
 		return semesterList;
 	}
@@ -978,10 +1074,24 @@ public class DeanCourseBean
 	public void setSemesterList(ArrayList<SelectItem> semesterList) {
 		this.semesterList = semesterList;
 	}
-	
+//***************************************************************************************	
+	public String getSelectedYear() {
+		return selectedYear;
+	}
+
+	public void setSelectedYear(String selectedYear) {
+		this.selectedYear = selectedYear;
+	}
 //***************************************************************************************
-//Dean Courses bu noktada bean e yükleniyor. Burada iþlem yok. 
-//Course.java da gerçekleþiyor
+	public String getSelectedSemester() {
+		return selectedSemester;
+	}
+
+	public void setSelectedSemester(String selectedSemester) {
+		this.selectedSemester = selectedSemester;
+	}
+//***************************************************************************************
+//************************ DEAN GET SET *************************************************
 	public ArrayList<SelectItem> getDeanCourseList() {
 		return this.deanCourseList;
 	}
@@ -989,8 +1099,7 @@ public class DeanCourseBean
 	public void setDeanCourseList(ArrayList<SelectItem> deanCourseList) {
 		this.deanCourseList = deanCourseList;
 	}
-//*****************************************************************************
-// Seçilen dersin hocasýný gösteren listenin get set metodlarý
+
 	public ArrayList<SelectItem> getDeanLecturerList() {
 		return deanLecturerList;
 	}
@@ -998,7 +1107,7 @@ public class DeanCourseBean
 	public void setDeanLecturerList(ArrayList<SelectItem> deanLecturerList) {
 		this.deanLecturerList = deanLecturerList;
 	}
-//******************************************************************************	
+	
 	public String getCreditValueTheo() {
 		return creditValueTheo;
 	}
@@ -1006,7 +1115,7 @@ public class DeanCourseBean
 	public void setCreditValueTheo(String creditValueTheo) {
 		this.creditValueTheo = creditValueTheo;
 	}
-//******************************************************************************
+	
 	public String getCreditValuePrac() {
 		return creditValuePrac;
 	}
@@ -1014,8 +1123,7 @@ public class DeanCourseBean
 	public void setCreditValuePrac(String creditValuePrac) {
 		this.creditValuePrac = creditValuePrac;
 	}
-//******************************************************************************
-// Seçili olan dekanlýk dersinin get-set metodlarý
+
 	public String getSelectedDeanCourse() {
 		return selectedDeanCourse;
 	}
@@ -1023,42 +1131,7 @@ public class DeanCourseBean
 	public void setSelectedDeanCourse(String selectedDeanCourse) {
 		this.selectedDeanCourse = selectedDeanCourse;
 	}
-//*****************************************************************************
-//Burdan sonra bulunan dört blokta her tabda bulunan ders listelerindeki verilerin
-//tutulduðu alt alanlarýn get-set metodlarý bulunmaktadýr.
-//*****************************************************************************
-	public ArrayList<SelectItem> getFreshmanCourses() {
-		return freshmanCourses;
-	}
 
-	public void setFreshmanCourses(ArrayList<SelectItem> freshmanCourses) {
-		this.freshmanCourses = freshmanCourses;
-	}
-//*****************************************************************************
-	public ArrayList<SelectItem> getSophomoreCourses() {
-		return sophomoreCourses;
-	}
-
-	public void setSophomoreCourses(ArrayList<SelectItem> sophomoreCourses) {
-		this.sophomoreCourses = sophomoreCourses;
-	}
-//*******************************************************************************
-	public ArrayList<SelectItem> getJuniorCourses() {
-		return juniorCourses;
-	}
-
-	public void setJuniorCourses(ArrayList<SelectItem> juniorCourses) {
-		this.juniorCourses = juniorCourses;
-	}
-//*******************************************************************************
-	public ArrayList<SelectItem> getSeniorCourses() {
-		return seniorCourses;
-	}
-
-	public void setSeniorCourses(ArrayList<SelectItem> seniorCourses) {
-		this.seniorCourses = seniorCourses;
-	}
-//*********************************************************************************
 	public String getSelectedDeanLecturer() {
 		return selectedDeanLecturer;
 	}
@@ -1066,7 +1139,7 @@ public class DeanCourseBean
 	public void setSelectedDeanLecturer(String selectedDeanLecturer) {
 		this.selectedDeanLecturer = selectedDeanLecturer;
 	}
-	
+
 	public String[][] getInitCourseTable() {
 		return initCourseTable;
 	}
@@ -1082,7 +1155,7 @@ public class DeanCourseBean
 	public void setButtonStatus(boolean buttonStatus) {
 		this.buttonStatus = buttonStatus;
 	}
-	
+
 	public String getSelectedRoom() {
 		return selectedRoom;
 	}
@@ -1130,47 +1203,18 @@ public class DeanCourseBean
 	public void setTestColor(Color testColor) {
 		this.testColor = testColor;
 	}
-//***************************************************************************************	
-	public String getSelectedYear() {
-		return selectedYear;
+//**************************** FRESHMAN GET-SET *************************************
+	public ArrayList<SelectItem> getFreshmanCourses() {
+		return freshmanCourses;
 	}
 
-	public void setSelectedYear(String selectedYear) {
-		this.selectedYear = selectedYear;
+	public void setFreshmanCourses(ArrayList<SelectItem> freshmanCourses) {
+		this.freshmanCourses = freshmanCourses;
 	}
-//***************************************************************************************
-	public String getSelectedSemester() {
-		return selectedSemester;
-	}
-
-	public void setSelectedSemester(String selectedSemester) {
-		this.selectedSemester = selectedSemester;
-	}
-		
-//======================================================================================	
-//***************************************************************************************
-//******************* UTILITY FUNCTIONS *************************************************	
-// Onur Özey (Finished 29.04)
-// This method checks whether the related data(String item) is contained by related
-// ArrayList(ArrayList<String> itemList).
-	private boolean checkList(ArrayList<String> itemList, String item) {
-		boolean breaker = false;
-		int i = 0;
-		while((breaker != true) && (i < itemList.size())) {
-			if(itemList.get(i).equals(item)) {
-				breaker = true;
-			}
-			i++;
-		}
-		return breaker;
-	}
-//***************************************************************************************
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//**************************** FRESHMAN GET-SET ***************************************
+	
 	public String getSelectedFreshmanCourse() {
 		return selectedFreshmanCourse;
 	}
-
 	public void setSelectedFreshmanCourse(String selectedFreshmanCourse) {
 		this.selectedFreshmanCourse = selectedFreshmanCourse;
 	}
@@ -1264,240 +1308,418 @@ public class DeanCourseBean
 			String selectedFreshmanSplitLecturer) {
 		this.selectedFreshmanSplitLecturer = selectedFreshmanSplitLecturer;
 	}
+	
 	public String[][] getInitFreshmanCourseTable() {
 		return initFreshmanCourseTable;
 	}
+	
 	public void setInitFreshmanCourseTable(String[][] initFreshmanCourseTable) {
 		this.initFreshmanCourseTable = initFreshmanCourseTable;
+	}	
+//********************** SOPHOMORE GET_SET METHODSSS ***********************************	
+	public ArrayList<SelectItem> getSophomoreCourses() {
+		return sophomoreCourses;
+	}
+
+	public void setSophomoreCourses(ArrayList<SelectItem> sophomoreCourses) {
+		this.sophomoreCourses = sophomoreCourses;
 	}
 	
-	
-	//*********************************** SOPHOMORE GET_SET METHODSSS ***************************************************
 	public String[][] getInitSophomoreCourseTable() {
 		return initSophomoreCourseTable;
 	}
+	
 	public void setInitSophomoreCourseTable(String[][] initSophomoreCourseTable) {
 		this.initSophomoreCourseTable = initSophomoreCourseTable;
 	}
+	
 	public String getSelectedSophomoreCourse() {
 		return selectedSophomoreCourse;
 	}
+	
 	public void setSelectedSophomoreCourse(String selectedSophomoreCourse) {
 		this.selectedSophomoreCourse = selectedSophomoreCourse;
 	}
+	
 	public String getSelectedSophomoreSplitCourse() {
 		return selectedSophomoreSplitCourse;
 	}
+	
 	public void setSelectedSophomoreSplitCourse(String selectedSophomoreSplitCourse) {
 		this.selectedSophomoreSplitCourse = selectedSophomoreSplitCourse;
 	}
+	
 	public String getSelectedSophomoreSplitLecturer() {
 		return selectedSophomoreSplitLecturer;
 	}
+	
 	public void setSelectedSophomoreSplitLecturer(
 			String selectedSophomoreSplitLecturer) {
 		this.selectedSophomoreSplitLecturer = selectedSophomoreSplitLecturer;
 	}
+	
 	public String getSelectedSophomoreLecturer() {
 		return selectedSophomoreLecturer;
 	}
+	
 	public void setSelectedSophomoreLecturer(String selectedSophomoreLecturer) {
 		this.selectedSophomoreLecturer = selectedSophomoreLecturer;
 	}
+	
 	public String getSelectedSophomoreDay() {
 		return selectedSophomoreDay;
 	}
+	
 	public void setSelectedSophomoreDay(String selectedSophomoreDay) {
 		this.selectedSophomoreDay = selectedSophomoreDay;
 	}
+	
 	public String getSelectedSophomoreOperation() {
 		return selectedSophomoreOperation;
 	}
+	
 	public void setSelectedSophomoreOperation(String selectedSophomoreOperation) {
 		this.selectedSophomoreOperation = selectedSophomoreOperation;
 	}
+	
 	public String getSelectedSophomoreStartHour() {
 		return selectedSophomoreStartHour;
 	}
+	
 	public void setSelectedSophomoreStartHour(String selectedSophomoreStartHour) {
 		this.selectedSophomoreStartHour = selectedSophomoreStartHour;
 	}
+	
 	public String getSelectedSophomoreEndHour() {
 		return selectedSophomoreEndHour;
 	}
+	
 	public void setSelectedSophomoreEndHour(String selectedSophomoreEndHour) {
 		this.selectedSophomoreEndHour = selectedSophomoreEndHour;
 	}
+	
 	public String getSelectedSophomoreRoom() {
 		return selectedSophomoreRoom;
 	}
+
 	public void setSelectedSophomoreRoom(String selectedSophomoreRoom) {
 		this.selectedSophomoreRoom = selectedSophomoreRoom;
 	}
+	
 	public String getSophomoreCreditValeuTeo() {
 		return sophomoreCreditValeuTeo;
 	}
+	
 	public void setSophomoreCreditValeuTeo(String sophomoreCreditValeuTeo) {
 		this.sophomoreCreditValeuTeo = sophomoreCreditValeuTeo;
 	}
+	
 	public String getSophomoreCreditValuePrac() {
 		return sophomoreCreditValuePrac;
 	}
+	
 	public void setSophomoreCreditValuePrac(String sophomoreCreditValuePrac) {
 		this.sophomoreCreditValuePrac = sophomoreCreditValuePrac;
 	}
-	
-	
-	//***************************** JUNIOR GET SET METHODS *********************************************
+//******************** JUNIOR GET SET METHODS ******************************************
+	public ArrayList<SelectItem> getJuniorCourses() {
+		return juniorCourses;
+	}
+
+	public void setJuniorCourses(ArrayList<SelectItem> juniorCourses) {
+		this.juniorCourses = juniorCourses;
+	}
 	
 	public String[][] getInitJuniorCourseTable() {
 		return initJuniorCourseTable;
 	}
+	
 	public void setInitJuniorCourseTable(String[][] initJuniorCourseTable) {
 		this.initJuniorCourseTable = initJuniorCourseTable;
 	}
+	
 	public String getSelectedJuniorCourse() {
 		return selectedJuniorCourse;
 	}
+	
 	public void setSelectedJuniorCourse(String selectedJuniorCourse) {
 		this.selectedJuniorCourse = selectedJuniorCourse;
 	}
+	
 	public String getSelectedJuniorSplitCourse() {
 		return selectedJuniorSplitCourse;
 	}
+	
 	public void setSelectedJuniorSplitCourse(String selectedJuniorSplitCourse) {
 		this.selectedJuniorSplitCourse = selectedJuniorSplitCourse;
 	}
+	
 	public String getSelectedJuniorSplitLecturer() {
 		return selectedJuniorSplitLecturer;
 	}
+	
 	public void setSelectedJuniorSplitLecturer(String selectedJuniorSplitLecturer) {
 		this.selectedJuniorSplitLecturer = selectedJuniorSplitLecturer;
 	}
+	
 	public String getSelectedJuniorLecturer() {
 		return selectedJuniorLecturer;
 	}
+	
 	public void setSelectedJuniorLecturer(String selectedJuniorLecturer) {
 		this.selectedJuniorLecturer = selectedJuniorLecturer;
 	}
+	
 	public String getSelectedJuniorDay() {
 		return selectedJuniorDay;
 	}
+	
 	public void setSelectedJuniorDay(String selectedJuniorDay) {
 		this.selectedJuniorDay = selectedJuniorDay;
 	}
+	
 	public String getSelectedJuniorOperation() {
 		return selectedJuniorOperation;
 	}
+	
 	public void setSelectedJuniorOperation(String selectedJuniorOperation) {
 		this.selectedJuniorOperation = selectedJuniorOperation;
 	}
+	
 	public String getSelectedJuniorStartHour() {
 		return selectedJuniorStartHour;
 	}
+	
 	public void setSelectedJuniorStartHour(String selectedJuniorStartHour) {
 		this.selectedJuniorStartHour = selectedJuniorStartHour;
 	}
+	
 	public String getSelectedJuniorEndHour() {
 		return selectedJuniorEndHour;
 	}
+	
 	public void setSelectedJuniorEndHour(String selectedJuniorEndHour) {
 		this.selectedJuniorEndHour = selectedJuniorEndHour;
 	}
+	
 	public String getSelectedJuniorRoom() {
 		return selectedJuniorRoom;
 	}
+	
 	public void setSelectedJuniorRoom(String selectedJuniorRoom) {
 		this.selectedJuniorRoom = selectedJuniorRoom;
 	}
+	
 	public String getJuniorCreditValueTeo() {
 		return juniorCreditValueTeo;
 	}
+	
 	public void setJuniorCreditValueTeo(String juniorCreditValueTeo) {
 		this.juniorCreditValueTeo = juniorCreditValueTeo;
 	}
+	
 	public String getJuniorCreditValuePrac() {
 		return juniorCreditValuePrac;
 	}
+	
 	public void setJuniorCreditValuePrac(String juniorCreditValuePrac) {
 		this.juniorCreditValuePrac = juniorCreditValuePrac;
 	}
 	
-	// *********************** SENIOR GET-SET METHODS **************************************************
+//******************* SENIOR GET-SET METHODS *****************************************
+	public ArrayList<SelectItem> getSeniorCourses() {
+		return seniorCourses;
+	}
+
+	public void setSeniorCourses(ArrayList<SelectItem> seniorCourses) {
+		this.seniorCourses = seniorCourses;
+	}
 	
 	public String[][] getInitSeniorCourseTable() {
 		return initSeniorCourseTable;
 	}
+	
 	public void setInitSeniorCourseTable(String[][] initSeniorCourseTable) {
 		this.initSeniorCourseTable = initSeniorCourseTable;
 	}
+	
 	public String getSelectedSeniorCourse() {
 		return selectedSeniorCourse;
 	}
+	
 	public void setSelectedSeniorCourse(String selectedSeniorCourse) {
 		this.selectedSeniorCourse = selectedSeniorCourse;
 	}
+	
 	public String getSelectedSeniorSplitCourse() {
 		return selectedSeniorSplitCourse;
 	}
+	
 	public void setSelectedSeniorSplitCourse(String selectedSeniorSplitCourse) {
 		this.selectedSeniorSplitCourse = selectedSeniorSplitCourse;
 	}
+	
 	public String getSelectedSeniorSplitLecturer() {
 		return selectedSeniorSplitLecturer;
 	}
+	
 	public void setSelectedSeniorSplitLecturer(String selectedSeniorSplitLecturer) {
 		this.selectedSeniorSplitLecturer = selectedSeniorSplitLecturer;
 	}
+	
 	public String getSelectedSeniorLecturer() {
 		return selectedSeniorLecturer;
 	}
+	
 	public void setSelectedSeniorLecturer(String selectedSeniorLecturer) {
 		this.selectedSeniorLecturer = selectedSeniorLecturer;
 	}
+	
 	public String getSelectedSeniorDay() {
 		return selectedSeniorDay;
 	}
+	
 	public void setSelectedSeniorDay(String selectedSeniorDay) {
 		this.selectedSeniorDay = selectedSeniorDay;
 	}
+	
 	public String getSelectedSeniorOperation() {
 		return selectedSeniorOperation;
 	}
+	
 	public void setSelectedSeniorOperation(String selectedSeniorOperation) {
 		this.selectedSeniorOperation = selectedSeniorOperation;
 	}
+	
 	public String getSelectedSeniorStartHour() {
 		return selectedSeniorStartHour;
 	}
+	
 	public void setSelectedSeniorStartHour(String selectedSeniorStartHour) {
 		this.selectedSeniorStartHour = selectedSeniorStartHour;
 	}
+	
 	public String getSelectedSeniorEndHour() {
 		return selectedSeniorEndHour;
 	}
+	
 	public void setSelectedSeniorEndHour(String selectedSeniorEndHour) {
 		this.selectedSeniorEndHour = selectedSeniorEndHour;
 	}
+	
 	public String getSelectedSeniorRoom() {
 		return selectedSeniorRoom;
 	}
+	
 	public void setSelectedSeniorRoom(String selectedSeniorRoom) {
 		this.selectedSeniorRoom = selectedSeniorRoom;
 	}
+	
 	public String getSeniorCreditValueTeo() {
 		return seniorCreditValueTeo;
 	}
+	
 	public void setSeniorCreditValueTeo(String seniorCreditValueTeo) {
 		this.seniorCreditValueTeo = seniorCreditValueTeo;
 	}
+	
 	public String getSeniorCreditValuePrac() {
 		return seniorCreditValuePrac;
 	}
+	
 	public void setSeniorCreditValuePrac(String seniorCreditValuePrac) {
 		this.seniorCreditValuePrac = seniorCreditValuePrac;
 	}
+//**************************************************************************************	 
+//*********** GETTER-SETTER METHODS OF SUBFIELDS RELATED WITH SCHEDULE *****************	
+	public ArrayList<ScheduleAtomic> getFreshmanSchedules() {
+		return freshmanSchedules;
+	}
 	
-	//******************************************************************************************************************
-	 
+	public void setFreshmanSchedules(ArrayList<ScheduleAtomic> freshmanSchedules) {
+		this.freshmanSchedules = freshmanSchedules;
+	}
+	
+	public ArrayList<ScheduleAtomic> getSophomoreSchedules() {
+		return sophomoreSchedules;
+	}
+	
+	public void setSophomoreSchedules(ArrayList<ScheduleAtomic> sophomoreSchedules) {
+		this.sophomoreSchedules = sophomoreSchedules;
+	}
+	
+	public ArrayList<ScheduleAtomic> getJuniorSchedules() {
+		return juniorSchedules;
+	}
+	
+	public void setJuniorSchedules(ArrayList<ScheduleAtomic> juniorSchedules) {
+		this.juniorSchedules = juniorSchedules;
+	}
+	
+	public ArrayList<ScheduleAtomic> getSeniorSchedules() {
+		return seniorSchedules;
+	}
+	
+	public void setSeniorSchedules(ArrayList<ScheduleAtomic> seniorSchedules) {
+		this.seniorSchedules = seniorSchedules;
+	}
+	
+	public ArrayList<ScheduleAtomic> getDeanSchedules() {
+		return deanSchedules;
+	}
+	
+	public void setDeanSchedules(ArrayList<ScheduleAtomic> deanSchedules) {
+		this.deanSchedules = deanSchedules;
+	}
+//************************************************************************************	
+	public ArrayList<SelectItem> getFreshmanOperations() {
+		return freshmanOperations;
+	}
+	public void setFreshmanOperations(ArrayList<SelectItem> freshmanOperations) {
+		this.freshmanOperations = freshmanOperations;
+	}
+	public ArrayList<SelectItem> getSophomoreOperations() {
+		return sophomoreOperations;
+	}
+	public void setSophomoreOperations(ArrayList<SelectItem> sophomoreOperations) {
+		this.sophomoreOperations = sophomoreOperations;
+	}
+	public ArrayList<SelectItem> getJuniorOperations() {
+		return juniorOperations;
+	}
+	public void setJuniorOperations(ArrayList<SelectItem> juniorOperations) {
+		this.juniorOperations = juniorOperations;
+	}
+	public ArrayList<SelectItem> getSeniorOperations() {
+		return seniorOperations;
+	}
+	public void setSeniorOperations(ArrayList<SelectItem> seniorOperations) {
+		this.seniorOperations = seniorOperations;
+	}
+//************************************************************************************	
+	public ArrayList<SelectItem> getFreshmanDays() {
+		return freshmanDays;
+	}
+	public void setFreshmanDays(ArrayList<SelectItem> freshmanDays) {
+		this.freshmanDays = freshmanDays;
+	}
+	public ArrayList<SelectItem> getSophomoreDays() {
+		return sophomoreDays;
+	}
+	public void setSophomoreDays(ArrayList<SelectItem> sophomoreDays) {
+		this.sophomoreDays = sophomoreDays;
+	}
+	public ArrayList<SelectItem> getJuniorDays() {
+		return juniorDays;
+	}
+	public void setJuniorDays(ArrayList<SelectItem> juniorDays) {
+		this.juniorDays = juniorDays;
+	}
+	public ArrayList<SelectItem> getSeniorDays() {
+		return seniorDays;
+	}
+	public void setSeniorDays(ArrayList<SelectItem> seniorDays) {
+		this.seniorDays = seniorDays;
+	}
+//***************************************************************************************
 }
