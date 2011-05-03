@@ -8,9 +8,6 @@
             <column name="Schedule_Id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="classroom" class="entities.dao.Classroom" fetch="select">
-            <column name="Classroom_Id" not-null="true" />
-        </many-to-one>
         <many-to-one name="syllabus" class="entities.dao.Syllabus" fetch="select">
             <column name="Syllabus_Id" not-null="true" />
         </many-to-one>
