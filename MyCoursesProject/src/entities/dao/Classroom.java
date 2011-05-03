@@ -19,7 +19,6 @@ public class Classroom implements java.io.Serializable {
 
 	private Integer classroomId;
 	private String classroomCode;
-	private Set schedules = new HashSet(0);
 	private Department department;
 	private Set syllabuses = new HashSet(0);
 	
@@ -30,9 +29,8 @@ public class Classroom implements java.io.Serializable {
 		this.classroomCode = classroomCode;
 	}
 
-	public Classroom(String classroomCode, Set schedules, Department department, Set syllabuses) {
+	public Classroom(String classroomCode, Department department, Set syllabuses) {
 		this.classroomCode = classroomCode;
-		this.schedules = schedules;
 		this.department = department;
 		this.syllabuses = syllabuses;
 	}
@@ -144,14 +142,6 @@ public class Classroom implements java.io.Serializable {
 
 	public void setClassroomCode(String classroomCode) {
 		this.classroomCode = classroomCode;
-	}
-
-	public Set getSchedules() {
-		return this.schedules;
-	}
-
-	public void setSchedules(Set schedules) {
-		this.schedules = schedules;
 	}
 
 	public Department getDepartment() {
