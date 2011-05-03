@@ -12,16 +12,7 @@ import javax.faces.model.SelectItem;
 import org.richfaces.event.DragEvent;
 import org.richfaces.event.DropEvent;
 
-import com.sun.swing.internal.plaf.basic.resources.basic;
-
-
-
-
-
-import entities.dao.Classroom;
 import entities.dao.Course;
-import entities.dao.Lecturer;
-import entities.dao.Schedule;
 import entities.dao.Syllabus;
 
 
@@ -30,34 +21,45 @@ public class ManuelSchedulingUtilBean {
 	
 	
 	
-	private int timeof_Course;
-	private int hours;
-	private List<Syllabus> allSyllabuses = null;
-	private List<BasicScheduleUtilBean> allBasicScheduleItems = new ArrayList<BasicScheduleUtilBean>();
-	private int componentIdtoDay;
-	private int componentIdtoHour; 
+	private int hours;//Schedule tablosunun Hours ile ilgili alanına veri atmayı sağlayan değişken.
+	private int componentIdtoDay;// Sürükle-Bırak işlemi sırasında Schedule tablosunun Timeof_Course alanına atılacak verinin hesaplanması için gün bilgisini belirlendiği değişken
+	private int componentIdtoHour;// Sürükle-Bırak işlemi sırasında Schedule tablosunun Timeof_Course alanına atılacak verinin hesaplanması için saat bilgisini belirlendiği değişken
 	private Syllabus paramSyllabus = new Syllabus();//dao.Syllabus sınıfında sorgu yapabilmek için oluşturuldu.
 	
+	/*
+	 ************************* 1.,2.,3.,4. sınıflar için matris tanımları *****************
+	 */
 	private BasicScheduleUtilBean[][] firstGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] secondGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
 	 
-	
+	/* Ara yüzde dersler Theorik ve pratik olarak 2 ayrı listede gösteriliyor. Bu dersleri arkaplan da tuttuğumuz listeler.
+	 *  */
 	private ArrayList<BasicScheduleUtilBean> courseList = new ArrayList<BasicScheduleUtilBean>();
 	private ArrayList<BasicScheduleUtilBean> labList = new ArrayList<BasicScheduleUtilBean>();
 	
 	
+	private List<Syllabus> allSyllabuses = null;
+	private List<BasicScheduleUtilBean> allBasicScheduleItems = new ArrayList<BasicScheduleUtilBean>();
+	
+	/* Semester ve Grade combobox ları için tutulan listeler */
 	private List<SelectItem> listSemester = new ArrayList<SelectItem>();
 	private List<SelectItem> listGrade = new ArrayList<SelectItem>();
 	
-	private int intGrade;
-	private String semester;
-	private String strGrade;
-	private Object dragValue;
-	public int currentYear;
 	
-/////// Datatable values
+	private int intGrade; //intGrade storeProcedure'a parametre olarak geçirilen sınıf değişkeni.
+	private String semester; //semeter storeProcedure'e parametre olarak geçirilen sınıf değişkeni.
+	private String strGrade; //strGrade comboboxdan String olarak gelen verilerin karşılaştırmasının yapılması ne intGrade'e seçimin yansıtılmasını sağlayan değişken.
+	private Object dragValue; //Sürükle bırak işleminde sürüklenen nesnenin bilgilerini tutan nesne.
+	public int currentYear; //İlgili yıl bilgilerinin edinildiği alt alan
+	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
+	
+    /*
+     * Arayüzde yer alan herbir saat dilimi hücresinde sürükle bırak işlemi ardından etkilenen isim alanlarını
+     * gösteren değişkenler.
+     *  */
+	
 	private String valueForDt11;
 	private String valueForDt12;
 	private String valueForDt13;
@@ -128,29 +130,40 @@ public class ManuelSchedulingUtilBean {
 		bs.setClassroomId(-1);
 		bs.setLecturerName("Lecturer");
 		
-		for(int i=0;i<5;i++){
-			for(int j=0;j<8;j++){
-				firstGradeSchedule[i][j] = bs;
-				secondGradeSchedule[i][j] = bs;
-				thirdGradeSchedule[i][j] = bs;
-				fourthGradeSchedule[i][j] = bs;
+		try {
+			for(int i=0;i<5;i++){
+				for(int j=0;j<8;j++){
+					firstGradeSchedule[i][j] = bs;
+					secondGradeSchedule[i][j] = bs;
+					thirdGradeSchedule[i][j] = bs;
+					fourthGradeSchedule[i][j] = bs;
+				}
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
 	
 	
-	public static int calculateYear(){
+	public int calculateYear(){
+		int year=-1;
 		
-		Date d = new Date();
-		Calendar c = Calendar.getInstance();
-		c.setTime(d);
-		int year = c.get(Calendar.YEAR);
+		try {
+			Date d = new Date();
+			Calendar c = Calendar.getInstance();
+			c.setTime(d);
+			year = c.get(Calendar.YEAR);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		return year;
 	}
 	
-	public String clickGetCoursesButton(){
+	public String clickGetCoursesButton() throws Exception{
 		System.out.println("Get Course Button");
 		allSyllabuses = null;
 		allBasicScheduleItems = null;
@@ -279,7 +292,9 @@ public class ManuelSchedulingUtilBean {
 		return null;
 	}
 	
-	private String errorLabel;
+	
+	
+	/*Sürüklenen verinin ilgili saat hücresinde sınıf ve hoca kontrolleri yapıldıktan sonra matrislere atıldığı metod tanımı*/
 	public String dropAction() {
 		try {
 			System.out.println("Bean.dropAction()");
@@ -432,15 +447,7 @@ public class ManuelSchedulingUtilBean {
 	public ArrayList<BasicScheduleUtilBean> getCourseList() {
 		return courseList;
 	}
-
 	
-	public int getTimeof_Course() {
-		return timeof_Course;
-	}
-	
-	public void setTimeof_Course(int timeof_Course) {
-		this.timeof_Course = timeof_Course;
-	}
 	public int getHours() {
 		return hours;
 	}
@@ -554,6 +561,9 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	public String getErrorLabel() {
+		if(errorLabel==null){
+			errorLabel = " ";
+		}
 		return errorLabel;
 	}
 
