@@ -42,4 +42,9 @@
         <![CDATA[CALL UpdateClassroom(:pClassroomId,:pClassroomCode,:pDepartmentId)]]>
     </sql-query>
     
+    <sql-query callable="true" name="getIdByClassroomCode">
+ 	<return alias="Classroom" class="entities.dao.Classroom"/>
+ 	<![CDATA[CALL GetIdByClassroomCode(:pClassroomCode)]]>
+ </sql-query>
+    
 </hibernate-mapping>
