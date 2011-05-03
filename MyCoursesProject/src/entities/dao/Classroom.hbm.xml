@@ -14,12 +14,6 @@
         <property name="classroomCode" type="string">
             <column name="Classroom_Code" length="10" not-null="true" unique="true" />
         </property>
-        <set name="schedules" table="Schedule" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="Classroom_Id" not-null="true" />
-            </key>
-            <one-to-many class="entities.dao.Schedule" />
-        </set>
         <set name="syllabuses" table="Syllabus" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="Course_Id" not-null="true" />
