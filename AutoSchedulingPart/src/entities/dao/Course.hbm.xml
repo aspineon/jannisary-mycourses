@@ -46,11 +46,6 @@
         </set>
     </class>
     
-    <sql-query name="getDeanCourseName" callable="true">
-    	<return alias="Course" class="entities.dao.Course"/>
-    	<![CDATA[CALL getDeanCourses(:pYear, :pSemester)]]>
-    </sql-query> 
-    
     <sql-query name="getLecturerNameByCourseId" callable="true">
         <return alias="Syllabus" class="entities.dao.Syllabus"/>
         <![CDATA[CALL getLecturerNameByCourseId(:pCourseId)]]>

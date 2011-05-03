@@ -68,30 +68,7 @@ public class Course implements java.io.Serializable {
                 this.precondition = precondition;
                 this.courseDescription = courseDescription;
                 this.syllabuses = syllabuses;
-        }
-
-
-//****************************************************************************************      
-        @SuppressWarnings("unchecked")
-        public ArrayList<Course> getDeanCourses(int year, String semester)
-        {
-                Session session = null;
-                ArrayList<Course> deanCourseNameList = null;
-                try
-                {
-                        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
-                        session = sessionFactory.openSession();
-                        Query query = session.getNamedQuery("getDeanCourseName");
-                        query.setParameter("pYear", year);
-                        query.setParameter("pSemester", semester);
-                        deanCourseNameList = (ArrayList<Course>)query.list();
-                }
-                catch(Exception ex)
-                {
-                        ex.getMessage();
-                }
-                return deanCourseNameList;
-        }
+        }   
 //**************************************************************************************         
         @SuppressWarnings("unchecked")
         public ArrayList<Syllabus> getLecturerNameByCourseId()
@@ -111,8 +88,7 @@ public class Course implements java.io.Serializable {
                         ex.getMessage();
                 }
                 return deanLecturerNameList;
-        }
-        
+        }    
 //****************************************************************************************
         
         public Integer getCourseId() {

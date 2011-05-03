@@ -131,6 +131,27 @@ public class Syllabus implements java.io.Serializable {
 		return syllabusList;
 	}	
 //***************************************************************************************	
+	@SuppressWarnings("unchecked")
+    public ArrayList<Syllabus> getDeanCourses(int year, String semester)
+    {
+		 Session session = null;
+         ArrayList<Syllabus> deanCourseNameList = null;
+         try
+         {
+        	 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+             session = sessionFactory.openSession();
+             Query query = session.getNamedQuery("getDeanCourses");
+             query.setParameter("pYear", year);
+             query.setParameter("pSemester", semester);
+             deanCourseNameList = (ArrayList<Syllabus>)query.list();
+         }
+         catch(Exception ex)
+         {
+             ex.getMessage();
+         }
+         return deanCourseNameList;
+     }
+//**************************************************************************************	
 	public Integer getSyllabusId() {
 		return this.syllabusId;
 	}

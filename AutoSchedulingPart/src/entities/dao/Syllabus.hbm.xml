@@ -50,4 +50,9 @@
     	<return alias="Syllabus" class="entities.dao.Syllabus"/>
     	<![CDATA[CALL getSyllabusYear(:pYear)]]>
     </sql-query>
+    
+    <sql-query name="getDeanCourses" callable="true">
+    	<return alias="Syllabus" class="entities.dao.Syllabus"/>
+    	<![CDATA[CALL getDeanCourses(:pYear, :pSemester)]]>
+    </sql-query> 
 </hibernate-mapping>
