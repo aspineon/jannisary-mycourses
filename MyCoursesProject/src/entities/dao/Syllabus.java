@@ -6,6 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.validator.Length;
+import org.hibernate.validator.Max;
+import org.hibernate.validator.Min;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.NotNull;
+import org.hibernate.validator.Pattern;
 
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
@@ -20,10 +26,27 @@ public class Syllabus implements java.io.Serializable {
 	private Integer syllabusId;
 	private Lecturer lecturer;
 	private Course course;
+	
+	@NotEmpty
+    @Pattern(regex=".*[^\\s].*", message="This string contain only spaces")
+    @Length(min=3,max=12)
 	private String semester;
+	
+	@NotEmpty
+    @Pattern(regex="^[-+]?[0-9]*\\.?[0-9]+$", message="Input must be numeric!")
+    @Length(min=4,max=4)
 	private int year;
+	
+	
+	@NotNull
+    @Min(0)
+    @Max(8)
+    @Pattern(regex="^[-+]?[0-9]*\\.?[0-9]+$", message="Input must be numeric!")
 	private Integer sectionNo;
+	
 	private Classroom classroom;
+	
+	
 	private Set schedules = new HashSet(0);
 
 	public Syllabus() {
