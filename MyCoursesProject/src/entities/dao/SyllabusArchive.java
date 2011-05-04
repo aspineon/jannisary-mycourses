@@ -11,6 +11,7 @@ public class SyllabusArchive implements java.io.Serializable {
 	private String semester;
 	private int year;
 	private String filePath;
+	private String versionName;
 
 	public SyllabusArchive() {
 	}
@@ -53,4 +54,11 @@ public class SyllabusArchive implements java.io.Serializable {
 		this.filePath = filePath;
 	}
 
+	public void setVersionName(String versionName) {
+		this.versionName = versionName;
+	}
+
+	public String getVersionName() {
+		return versionName;
+	}
 }
