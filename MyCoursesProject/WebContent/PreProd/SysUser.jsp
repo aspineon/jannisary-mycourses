@@ -165,9 +165,10 @@
     
     <tr>
     	<td>	    	
-	    	<h:inputText  value="#{sysUserBean.currentItem.userName}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="userName" />
     	</td>
     	
     	<td>
@@ -180,9 +181,10 @@
     
     	<td>
 	    	
-			<h:inputText value="#{sysUserBean.currentItem.userPassword}">
-	    		<f:validateLength minimum="1" maximum="20"/>
+			<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
+	    		<rich:ajaxValidator event="onblur"/>
 	    	</h:inputText>
+	    	<rich:message for="userPass" />
 		</td>
 		
 		<td>	
@@ -193,10 +195,6 @@
 	</tr>
 	</table>
     </h:form>
-        
-    <rich:messages>
-    
-    </rich:messages>
 
 </f:view>
 </body>
