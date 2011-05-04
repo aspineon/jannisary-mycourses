@@ -1,5 +1,14 @@
 package entities.dao;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import entities.util.BasicScheduleUtilBean;
+
+
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -8,13 +17,21 @@ package entities.dao;
 public class Schedule implements java.io.Serializable {
 
 	private Integer scheduleId;
-	private Syllabus syllabus;
+	
+	private Syllabus syllabus=new Syllabus();
+
 	private String courseType;
 	private int timeofCourse;
 	private int hours;
 	
 	//Manual Scheduling de gösterimde kullanılan alan, veritabanında tanımı yoktur.
 	private String courseTheoricOrPraticName;
+	
+	private BasicScheduleUtilBean[][] firstGradeSchedule = new BasicScheduleUtilBean[5][8];
+	private BasicScheduleUtilBean[][] secondGradeSchedule = new BasicScheduleUtilBean[5][8];
+	private BasicScheduleUtilBean[][] thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
+	private BasicScheduleUtilBean[][] fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
+	
 	
 	public Schedule() {
 	}
@@ -29,11 +46,106 @@ public class Schedule implements java.io.Serializable {
 		
 	}
 	
-	public Schedule(Syllabus syllabus, String courseType, int timeofCourse, int hours) {
-		this.syllabus = syllabus;
-		this.courseType = courseType;
-		this.timeofCourse = timeofCourse;
-		this.hours = hours;
+public void addSchedule(){
+		
+		Session session=null;
+		try{
+			
+			
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			
+			
+			for(int i = 0; i < 5;i++){
+				for(int j = 0;j < 8 ;j++){
+					//Kontrol diğer if lerde de uyugulanmalaı.
+					if(!firstGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+						
+						syllabus.setSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
+						courseType = firstGradeSchedule[i][j].getCourseType();
+						timeofCourse = firstGradeSchedule[i][j].getTimeofCourse();
+						hours = firstGradeSchedule[i][j].getHours();
+						
+						Query query = session.getNamedQuery("AddSchedule");
+						query.setParameter("pCourseType", courseType);
+						query.setParameter("pTimeofCourse", timeofCourse);
+						query.setParameter("pHours", hours);
+						query.setParameter("pSyllabusId", syllabus);
+						query.executeUpdate();
+						
+						
+				    }
+					
+					if(!secondGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+						
+						syllabus = new Syllabus();
+						courseType="";
+					    timeofCourse = -1;
+					    hours = -1;
+						
+						syllabus.setSyllabusId(secondGradeSchedule[i][j].getSyllabusId());
+						courseType = secondGradeSchedule[i][j].getCourseType();
+						timeofCourse = secondGradeSchedule[i][j].getTimeofCourse();
+						hours = secondGradeSchedule[i][j].getHours();
+						
+						Query query = session.getNamedQuery("AddSchedule");
+						query.setParameter("pCourseType", courseType);
+						query.setParameter("pTimeofCourse", timeofCourse);
+						query.setParameter("pHours", hours);
+						query.setParameter("pSyllabusId", syllabus);
+						query.executeUpdate();
+					}
+					
+					if(!thirdGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+						
+						syllabus = new Syllabus();
+						courseType="";
+					    timeofCourse = -1;
+					    hours = -1;
+						
+						syllabus.setSyllabusId(thirdGradeSchedule[i][j].getSyllabusId());
+						courseType = thirdGradeSchedule[i][j].getCourseType();
+						timeofCourse = thirdGradeSchedule[i][j].getTimeofCourse();
+						hours = thirdGradeSchedule[i][j].getHours();
+						
+						Query query = session.getNamedQuery("AddSchedule");
+						query.setParameter("pCourseType", courseType);
+						query.setParameter("pTimeofCourse", timeofCourse);
+						query.setParameter("pHours", hours);
+						query.setParameter("pSyllabusId", syllabus);
+						query.executeUpdate();
+					}
+					
+					if(!fourthGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+						
+						syllabus = new Syllabus();
+						courseType="";
+					    timeofCourse = -1;
+					    hours = -1;
+						
+						syllabus.setSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
+						courseType = fourthGradeSchedule[i][j].getCourseType();
+						timeofCourse = fourthGradeSchedule[i][j].getTimeofCourse();
+						hours = fourthGradeSchedule[i][j].getHours();
+						
+						Query query = session.getNamedQuery("AddSchedule");
+						query.setParameter("pCourseType", courseType);
+						query.setParameter("pTimeofCourse", timeofCourse);
+						query.setParameter("pHours", hours);
+						query.setParameter("pSyllabusId", syllabus);
+						query.executeUpdate();
+					}
+				}
+			}
+			
+			tx.commit();
+		}catch(Exception e){
+			System.err.print(e.getMessage());
+		}
+		finally{
+			session.close();
+		}
 	}
 	
 	public String getCourseTheoricOrPraticName() {
@@ -84,4 +196,21 @@ public class Schedule implements java.io.Serializable {
 		this.hours = hours;
 	}
 
+	public void setFirstGradeSchedule(BasicScheduleUtilBean[][] firstGradeSchedule) {
+		this.firstGradeSchedule = firstGradeSchedule;
+	}
+
+	public void setSecondGradeSchedule(BasicScheduleUtilBean[][] secondGradeSchedule) {
+		this.secondGradeSchedule = secondGradeSchedule;
+	}
+
+	public void setThirdGradeSchedule(BasicScheduleUtilBean[][] thirdGradeSchedule) {
+		this.thirdGradeSchedule = thirdGradeSchedule;
+	}
+
+	public void setFourthGradeSchedule(BasicScheduleUtilBean[][] fourthGradeSchedule) {
+		this.fourthGradeSchedule = fourthGradeSchedule;
+	}
+
+	
 }
