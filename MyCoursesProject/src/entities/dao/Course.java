@@ -8,6 +8,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.validator.Length;
+import org.hibernate.validator.Max;
+import org.hibernate.validator.Min;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.NotNull;
+import org.hibernate.validator.Pattern;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
@@ -21,13 +27,38 @@ public class Course implements java.io.Serializable {
 	private Integer courseId;
 	private TypeofCourse typeofCourse;
 	private Department department;
+	
+	@NotEmpty
+    @Length(min=3,max=30)
 	private String courseCode;
+	
+	@NotEmpty
+    @Length(min=3,max=30)
 	private String courseName;
+	
+	@NotNull
+    @Min(8)
+    @Max(8)
 	private int teoricLectureHours;
+	
+	@NotNull
+    @Min(8)
+    @Max(8)
 	private int practiceLectureHourse;
+	
 	private boolean attendance;
+	
+	@NotNull
+    @Min(1)
+    @Max(4)
 	private int grade;
+	
+	@NotEmpty
+    @Length(min=3,max=20)
 	private String precondition;
+	
+	@NotEmpty
+    @Length(min=5,max=200)
 	private String courseDescription;
 	private Set syllabuses = new HashSet(0);
 
