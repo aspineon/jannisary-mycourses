@@ -21,4 +21,8 @@
             <column name="Hours" not-null="true" />
         </property>
     </class>
+    <sql-query name="AddSchedule">
+    		<return alias="Schedule" class="entities.dao.Schedule"/>
+        	<![CDATA[CALL AddSchedule(:pCourseType,:pTimeofCourse,:pHours,:pSyllabusId)]]>
+    </sql-query>
 </hibernate-mapping>
