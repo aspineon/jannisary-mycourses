@@ -162,7 +162,7 @@ public void addSyllabus(){
                  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                  session = sessionFactory.openSession();
                  
-                 Query query = session.getNamedQuery("getSyllabusBySemesterAndGrade");
+                 Query query = session.getNamedQuery("GetSyllabusBySemesterAndGrade");
                  query.setParameter("pGrade", course.getGrade());
                  query.setParameter("pSemester", semester);
                  query.setParameter("pYear", year);
@@ -185,7 +185,7 @@ public void addSyllabus(){
                  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                  session = sessionFactory.openSession();
                  
-                 Query query = session.getNamedQuery("getAllSyllabus");
+                 Query query = session.getNamedQuery("GetAllSyllabus");
                  allSyllabus =(List<Syllabus>) query.list();
                  
          } catch (Exception e) {
