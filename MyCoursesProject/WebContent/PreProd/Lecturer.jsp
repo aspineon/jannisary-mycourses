@@ -187,19 +187,22 @@
      <rich:panel>
    		<h:panelGrid>
    			<h:outputText value="Title:" />	    	
-	    	<h:inputText  value="#{lecturerBean.currentItem.title}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{lecturerBean.currentItem.title}" id="titleText">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="titleText" />
     		    	
     		<h:outputText value="Lecture Name:" />
-	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}" id="lecturerName">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerName" />
     	
     		<h:outputText value="Email:" />
-	    	<h:inputText  value="#{lecturerBean.currentItem.email}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{lecturerBean.currentItem.email}" id="lecturerEmail">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerEmail" />
 	    
     		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
@@ -207,9 +210,10 @@
 			
     	
     		<h:outputText value="Telephone No:" />
-	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}" id="lecturerTelephone">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerTelephone" />
 	    	
 	</h:panelGrid>
 	
@@ -221,11 +225,6 @@
 	
 	
     </h:form>
-    
-    
-    <rich:messages>
-    
-    </rich:messages>
 
 </f:view>
 </body>
