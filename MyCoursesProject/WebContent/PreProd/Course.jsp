@@ -224,34 +224,38 @@
     <tr>
     	<td>	   
     		<h:outputLabel for="Course Code" value="Course Code"></h:outputLabel> 	
-	    	<h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode">
+	    		<rich:ajaxValidator event="onblur"/>
+	   		</h:inputText>
+	   		<rich:message for="courseCode" />
+    	</td>
+    	<td>	    	
+	    	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName">
+	    		<rich:ajaxValidator event="onblur"/>
+	   		</h:inputText>
+	   		<rich:message for="courseName" />
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture">
+	    		<rich:ajaxValidator event="onblur"/>
+	   		</h:inputText>
+	   		<rich:message for="teoricLecture" />
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture">
+	    		<rich:ajaxValidator event="onblur"/>
+	   		</h:inputText>
+	   		<rich:message for="practiceLecture" />
+    	</td>
+    	<td>	    	
+	    	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
 	   		</h:inputText>
     	</td>
     	<td>	    	
-	    	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.attendance}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.grade}">
-	    		<f:validateLength minimum="1" maximum="50"/>
-	   		</h:inputText>
+	   		<rich:message for="gradeText" />
     	</td>
     	
     	<td>
@@ -269,14 +273,16 @@
 	    	
     	</td>
     	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.precondition}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="preconditionText" />
     	</td>
     	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.courseDescription}">
-	    		<f:validateLength minimum="1" maximum="50"/>
+	    	<h:inputText  value="#{courseBean.currentItem.courseDescription}" id="courseDesc">
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="courseDesc" />
     	</td>
 		
 		<td>	
@@ -288,10 +294,6 @@
 	</table>
     </h:form>
         
-    <rich:messages>
-    
-    </rich:messages>
-
 </f:view>
 </body>
 </html>
