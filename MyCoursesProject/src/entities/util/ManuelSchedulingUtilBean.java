@@ -12,9 +12,9 @@ import javax.faces.model.SelectItem;
 import org.richfaces.event.DragEvent;
 import org.richfaces.event.DropEvent;
 
+import entities.business.ScheduleBean;
 import entities.dao.Course;
 import entities.dao.Syllabus;
-
 
 public class ManuelSchedulingUtilBean {
 	
@@ -32,7 +32,7 @@ public class ManuelSchedulingUtilBean {
 	private BasicScheduleUtilBean[][] secondGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
-	 
+	
 	/* Ara yüzde dersler Theorik ve pratik olarak 2 ayrı listede gösteriliyor. Bu dersleri arkaplan da tuttuğumuz listeler.
 	 *  */
 	private ArrayList<BasicScheduleUtilBean> courseList = new ArrayList<BasicScheduleUtilBean>();
@@ -190,6 +190,7 @@ public class ManuelSchedulingUtilBean {
 			int timeofCourse = componentIdtoDay*8 + componentIdtoHour;
 			tempBasicScheduleItem.setTimeofCourse(timeofCourse);
 			tempBasicScheduleItem.setHours(1);
+			
 			System.out.println(tempBasicScheduleItem.getClassroomId());
 			System.out.println(tempBasicScheduleItem.getLecturerName());
 			System.out.println(tempBasicScheduleItem.getSyllabusId());
@@ -408,7 +409,6 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
-					bs.setCourseType(allBasicScheduleItems.get(i).getCourseType());
 					bs.setLecturerName(allBasicScheduleItems.get(i).getLecturerName());
 					bs.setSyllabusId(allBasicScheduleItems.get(i).getSyllabusId());
 					courseList.add(bs);
@@ -423,7 +423,6 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
-					bs.setCourseType(allBasicScheduleItems.get(i).getCourseType());
 					bs.setLecturerName(allBasicScheduleItems.get(i).getLecturerName());
 					bs.setSyllabusId(allBasicScheduleItems.get(i).getSyllabusId());
 					labList.add(bs);
@@ -450,7 +449,49 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	private void saveMatrix(){
-		
+		ScheduleBean scheduleBean = new ScheduleBean();
+		scheduleBean.addSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
+		/*for(int i = 0; i < 5;i++){
+			for(int j = 0;j < 8 ;j++){
+				//Kontrol diğer if lerde de uyugulanmalaı.
+				if(!firstGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+					
+					scheduleBean.setpSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
+					scheduleBean.setpCourseType(firstGradeSchedule[i][j].getCourseType());
+					scheduleBean.setpTimeOfCourse(firstGradeSchedule[i][j].getTimeofCourse());
+					scheduleBean.setpHours(firstGradeSchedule[i][j].getHours());
+					
+					scheduleBean.addSchedule();
+			    }
+				
+				if(secondGradeSchedule[i][j] != null){
+					scheduleBean.setpSyllabusId(secondGradeSchedule[i][j].getSyllabusId());
+					scheduleBean.setpCourseType(secondGradeSchedule[i][j].getCourseType());
+					scheduleBean.setpTimeOfCourse(secondGradeSchedule[i][j].getTimeofCourse());
+					scheduleBean.setpHours(secondGradeSchedule[i][j].getHours());
+					
+					scheduleBean.addSchedule();
+				}
+				
+				if(thirdGradeSchedule[i][j] != null){
+					scheduleBean.setpSyllabusId(thirdGradeSchedule[i][j].getSyllabusId());
+					scheduleBean.setpCourseType(thirdGradeSchedule[i][j].getCourseType());
+					scheduleBean.setpTimeOfCourse(thirdGradeSchedule[i][j].getTimeofCourse());
+					scheduleBean.setpHours(thirdGradeSchedule[i][j].getHours());
+					
+					scheduleBean.addSchedule();
+				}
+				
+				if(fourthGradeSchedule[i][j] != null){
+					scheduleBean.setpSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
+					scheduleBean.setpCourseType(fourthGradeSchedule[i][j].getCourseType());
+					scheduleBean.setpTimeOfCourse(fourthGradeSchedule[i][j].getTimeofCourse());
+					scheduleBean.setpHours(fourthGradeSchedule[i][j].getHours());
+				
+					scheduleBean.addSchedule();
+				}
+			}
+		}*/
 	}
 	
 	/* Sınıf alt lanlarının Getters and Setters*/
