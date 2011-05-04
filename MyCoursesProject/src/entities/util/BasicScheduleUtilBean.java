@@ -1,5 +1,7 @@
 package entities.util;
 
+import entities.dao.Syllabus;
+
 public class BasicScheduleUtilBean {
 	private String courseName;
 	private int teoricHours;
@@ -11,6 +13,23 @@ public class BasicScheduleUtilBean {
 	private String courseTheoricOrPraticName;
 	private int timeofCourse;
 	private int hours;
+	
+	public BasicScheduleUtilBean(){
+		
+	}
+	
+	public BasicScheduleUtilBean(BasicScheduleUtilBean bs){
+		this.courseName = bs.getCourseName();
+		this.teoricHours = bs.getTeoricHours();
+		this.practiceHours = bs.getPracticeHours();
+		this.lecturerName = bs.getLecturerName();
+		this.classroomId = bs.getClassroomId();
+		this.syllabusId = bs.getSyllabusId();
+		this.courseType = bs.getCourseType();
+		this.courseTheoricOrPraticName = bs.getCourseTheoricOrPraticName();
+		this.timeofCourse = bs.getTimeofCourse();
+		this.hours = bs.getHours();
+	}
 	
 	public String getCourseName() {
 		return courseName;
@@ -73,8 +92,4 @@ public class BasicScheduleUtilBean {
 	public void setHours(int hours) {
 		this.hours = hours;
 	}
-	
-	
-	
-	
 }
