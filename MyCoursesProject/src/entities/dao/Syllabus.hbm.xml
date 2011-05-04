@@ -34,7 +34,7 @@
         </set>
     </class>
     
-    <sql-query name="getAllSyllabus" callable="true">
+    <sql-query name="GetAllSyllabus" callable="true">
     <return alias="Syllabus" class="entities.dao.Syllabus"/>
         <![CDATA[CALL GetAllSyllabus]]>
     </sql-query>
@@ -54,7 +54,7 @@
         <![CDATA[CALL UpdateSyllabus(:pSyllabusId,:pSemester,:pYear,:pCourseId,:pLecturerId,:pSectionNo, :pClassroomId)]]>
     </sql-query>
     
-    <sql-query name="getSyllabusBySemesterAndGrade" callable="true">
+    <sql-query name="GetSyllabusBySemesterAndGrade" callable="true">
    		<return alias="Syllabus" class="entities.dao.Syllabus"/>
    		<![CDATA[CALL GetSyllabusBySemesterAndGrade(:pSemester,:pGrade,:pYear)]]>
  	</sql-query>
