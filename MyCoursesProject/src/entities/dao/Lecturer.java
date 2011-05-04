@@ -6,6 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.validator.Email;
+import org.hibernate.validator.Length;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.Pattern;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.HashSet;
@@ -19,10 +23,26 @@ public class Lecturer implements java.io.Serializable {
 
 	private Integer lecturerId;
 	private Department department;
+	
+	@NotEmpty
+    @Pattern(regex=".*[^\\s].*", message="This string contain only spaces")
+    @Length(min=3,max=12)
 	private String lecturerName;
+	
+	@NotEmpty
+    @Pattern(regex=".*[^\\s].*", message="This string contain only spaces")
+    @Length(min=3,max=12)
 	private String title;
+	
+	@Email
+    @NotEmpty
+    @Pattern(regex="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Invalid Email Address")
 	private String email;
+	
+	// pattern regex doldurulacak
+    @NotEmpty
 	private String telephone;
+    
 	private Set syllabuses = new HashSet(0);
 
 	public Lecturer() {
