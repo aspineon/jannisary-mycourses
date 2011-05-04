@@ -36,14 +36,17 @@ public class Course implements java.io.Serializable {
     @Length(min=3,max=30)
 	private String courseName;
 	
+	
 	@NotNull
-    @Min(8)
+    @Min(0)
     @Max(8)
+    @Pattern(regex="^[-+]?[0-9]*\\.?[0-9]+$", message="Input must be numeric!")
 	private int teoricLectureHours;
 	
 	@NotNull
-    @Min(8)
+    @Min(0)
     @Max(8)
+    @Pattern(regex="^[-+]?[0-9]*\\.?[0-9]+$", message="Input must be numeric!")
 	private int practiceLectureHourse;
 	
 	private boolean attendance;
@@ -51,6 +54,7 @@ public class Course implements java.io.Serializable {
 	@NotNull
     @Min(1)
     @Max(4)
+    @Pattern(regex="^[-+]?[0-9]*\\.?[0-9]+$", message="Input must be numeric!")
 	private int grade;
 	
 	@NotEmpty
