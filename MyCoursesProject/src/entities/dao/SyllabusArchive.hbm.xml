@@ -11,6 +11,9 @@
         <property name="semester" type="string">
             <column name="Semester" length="20" not-null="true" />
         </property>
+        <property name="versionName" type="string">
+            <column name="versionName" length="25" not-null="true" />
+        </property>
         <property name="year" type="int">
             <column name="Year" not-null="true" />
         </property>
