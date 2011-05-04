@@ -84,12 +84,13 @@
 		            			<h:inputText id= "freshmanPracCreditTextField" disabled="true" 
 		            						style="background-color:#FFF8C6; width:50px;"
 		            						value="#{deanCourseBean.freshmanCreditValuePrac}"/>
+		            			
 		            			<br/>
 		            			<h:outputText value="Course Type : " />
 		            					<h:selectOneMenu id="freshmanOperationTypeComboBox" 
 							            		style=" width : 151px;"
 							            		value="#{deanCourseBean.selectedFreshmanOperation}"
-							            		valueChangeListener="#{deanCourseBean.freshmanOperationChange}">
+							            		valueChangeListener="#{deanCourseBean.freshmanOperationChange}" onchange="submit()">
 									            	<f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
 								        </h:selectOneMenu>
 		            			<br/>
@@ -98,36 +99,24 @@
 						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
 						           	</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="Start Hour : " />
-		            			<h:selectOneMenu id="freshmanStartHourComboBox" 
+		            			
+		            			<h:outputText value="Credit : " />
+		            				<h:selectOneMenu id="freshmanCreditComboBox" 
+		            							value="#{deanCourseBean.selectedFreshmanCredit}">            				
+		            				<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
+		            			</h:selectOneMenu>
+		            			
+		            			<br/>
+		            			<h:outputText value="StartHour : " />
+		            				<h:selectOneMenu id="freshmanStartHourComboBox" 
 		            							value="#{deanCourseBean.selectedFreshmanStartHour}">            				
-		            				<f:selectItem itemValue="Choose Start Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
+		            				<f:selectItems  value="#{deanCourseBean.freshmanHours}"/>        			
 		            			</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="End Hour : " />
-		            			<h:selectOneMenu id="freshmanEndHourComboBox" 
-		            							value="#{deanCourseBean.selectedFreshmanEndHour}">            				
-		            				<f:selectItem itemValue="Choose End Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
-		            			</h:selectOneMenu>
-		            			<br/>
+		            			
+		            			
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
-							            	<h:commandButton value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
+							    <h:commandButton value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
             			</h:form>
             		</td>
