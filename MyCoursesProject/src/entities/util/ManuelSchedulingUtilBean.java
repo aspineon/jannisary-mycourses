@@ -298,8 +298,9 @@ public class ManuelSchedulingUtilBean {
 	private List<BasicScheduleUtilBean> transformSyllabusesToBasicScheduleItems(){
 		try {
 			int sizeofAllSyllabusesList = allSyllabuses.size();
-			BasicScheduleUtilBean bsub = new BasicScheduleUtilBean();
+			
 			for(int i=0;i<sizeofAllSyllabusesList;i++){
+				BasicScheduleUtilBean bsub = new BasicScheduleUtilBean();
 				bsub.setCourseName(allSyllabuses.get(i).getCourse().getCourseName());
 				bsub.setPracticeHours(allSyllabuses.get(i).getCourse().getPracticeLectureHourse());
 				bsub.setTeoricHours(allSyllabuses.get(i).getCourse().getTeoricLectureHours());
