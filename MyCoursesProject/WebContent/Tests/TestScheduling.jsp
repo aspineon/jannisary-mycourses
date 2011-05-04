@@ -132,16 +132,12 @@
          	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
         <div class="div_near_spacer" ></div>
 	     <h:form id="form3">  	
-	        	<rich:panel id="errorPanel">
-	        		<rich:messages for="form" layout="list">
-                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>
-                        	<h:graphicImage value="/images/modal/error.gif"/>   
-                   </rich:messages>
-	        	</rich:panel>
+	        	
 	     </h:form>
        		</h:form>
        </h:panelGrid>
        <h:form id="form">
+       <h:panelGrid>
             <h:panelGrid columns="5" columnClasses="gridContent">
             <rich:panel bodyClass="dropTargetPanel">
             <f:facet name="header">
@@ -873,6 +869,19 @@
                 </h:dataTable>
                     
             </rich:panel>
+            
+            	</h:panelGrid>
+            	<rich:panel id="errorPanel">
+	        		<rich:messages for="form" layout="list">
+                        	<h:panelGrid columns="2">
+	                        	<h:graphicImage value="/images/modal/error.gif"/> 
+	                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>
+	                        	<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
+									<a4j:support event="onclick" reRender="form"/>
+								</h:commandButton>
+                        	</h:panelGrid>
+                   </rich:messages>
+	        	</rich:panel>
             </h:panelGrid>
         </h:form>
         </h:panelGrid>
