@@ -169,9 +169,11 @@
     	</td>
     	<td>
     	
-	    	<h:inputText  value="#{classroomBean.currentItem.classroomCode}">
+	    	<h:inputText  value="#{classroomBean.currentItem.classroomCode}" id="classroomCode">
 	    		<f:validateLength minimum="1" maximum="10"/>
+	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="classroomCode" />
 	    	
     	</td>
 		
@@ -183,11 +185,7 @@
 	</tr>
 	</table>
     </h:form>
-        
-        
-    <rich:messages>
-    
-    </rich:messages>
+
 
 </f:view>
 </body>
