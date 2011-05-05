@@ -2,6 +2,7 @@ package entities.dao;
 
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -60,7 +61,27 @@ public class Department implements java.io.Serializable {
 		this.courses = department.courses;
 		this.classrooms = department.classrooms;
 	}
-	
+	/*******************Project Second Part SP****************/
+	 @SuppressWarnings("unchecked")
+     public ArrayList<Department> getDepartmentNameList()
+     {
+             Session session = null;
+             ArrayList<Department> nameList = new ArrayList<Department>();
+             try
+             {
+                     SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                      session = sessionFactory.openSession();
+                      Query query = session.getNamedQuery("getDepartmentName");
+                      nameList = (ArrayList<Department>)query.list();
+             }
+             catch(Exception ex)
+             {
+                     ex.getMessage();
+             }
+             
+             return nameList;
+     }
+	/***************************Second Part SP end***************************/
 	public List<Department> getAllDepartments(){
 		List<Department> departmentList = null;
 		Session session = null;
