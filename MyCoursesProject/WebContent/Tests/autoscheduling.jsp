@@ -98,17 +98,20 @@
 									            	<f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
 								        </h:selectOneMenu>
 		            			<br/>
+		            			
+		            			<h:outputText value="Credit : " />
+		            				<h:selectOneMenu id="freshmanCreditComboBox" 
+		            						value="#{deanCourseBean.selectedFreshmanCredit}">            				
+		            							<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
+		            			</h:selectOneMenu>
+		            			
+		            			<br/>
+		            			
 		            			<h:outputText value="Days : " />
 		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}">
 						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
 						           	</h:selectOneMenu>
 		            			<br/>
-		            			
-		            			<h:outputText value="Credit : " />
-		            				<h:selectOneMenu id="freshmanCreditComboBox" 
-		            							value="#{deanCourseBean.selectedFreshmanCredit}">            				
-		            				<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
-		            			</h:selectOneMenu>
 		            			
 		            			<br/>
 		            			<h:outputText value="StartHour : " />
