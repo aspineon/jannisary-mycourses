@@ -5,11 +5,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.validator.Email;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.Pattern;
+
 import entities.dao.Course;
 import entities.dao.TypeofCourse;
 
 public class TypeofCourseBean {
 	private Integer typeofCourseId;
+	
+	
 	private String typeofCourse;
 	
 	public Integer getTypeofCourseId() {
