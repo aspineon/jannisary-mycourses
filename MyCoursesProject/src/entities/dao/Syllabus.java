@@ -15,6 +15,7 @@ import org.hibernate.validator.Pattern;
 
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -151,6 +152,112 @@ public void addSyllabus(){
 		session.close();
 	}
 }
+/***************Project Second Part SP***********/
+@SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getSyllabusByGrade(int year, String semester, int grade)
+{
+        Session session = null;
+        ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+        try
+        {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusByGrade");
+                 query.setParameter("pYear", year);
+                 query.setParameter("pSemester", semester);
+                 query.setParameter("pGrade", grade); 
+                 syllabusList = (ArrayList<Syllabus>)query.list();
+        }
+        catch(Exception ex)
+        {
+                ex.getMessage();
+        }                
+        return syllabusList;
+}
+
+@SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
+{
+        Session session = null;
+        ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+        try
+        {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusByCourseName");
+                 query.setParameter("pCourseName", courseName);
+                 syllabusList = (ArrayList<Syllabus>)query.list();
+        }
+        catch(Exception ex)
+        {
+                ex.getMessage();
+        }                
+        return syllabusList;
+}
+
+@SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getSyllabusAll()
+{
+        Session session = null;
+        ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+        try
+        {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusAll");
+                 syllabusList = (ArrayList<Syllabus>)query.list();
+        }
+        catch(Exception ex)
+        {
+                ex.getMessage();
+        }                
+        return syllabusList;
+}
+
+@SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getSyllabusByYear(int year)
+{
+        Session session = null;
+        ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+        try
+        {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusByYear");
+                 query.setParameter("pYear", year);
+                 syllabusList = (ArrayList<Syllabus>)query.list();
+        }
+        catch(Exception ex)
+        {
+                ex.getMessage();
+        }                
+        return syllabusList;
+}
+
+@SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getDeanCourses(int year, String semester)
+{
+             Session session = null;
+     ArrayList<Syllabus> deanCourseNameList = new ArrayList<Syllabus>();
+     try
+     {
+             SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+         session = sessionFactory.openSession();
+         Query query = session.getNamedQuery("getDeanCourses");
+         query.setParameter("pYear", year);
+         query.setParameter("pSemester", semester);
+         deanCourseNameList = (ArrayList<Syllabus>)query.list();
+     }
+     catch(Exception ex)
+     {
+         ex.getMessage();
+     }
+     return deanCourseNameList;
+ }
 
     @SuppressWarnings("unchecked")
 	public List<Syllabus> getSyllabusBySemesterAndGrade(){
@@ -174,7 +281,7 @@ public void addSyllabus(){
          } 
          return allSyllabus;
 	}
-    
+    /****************************Second Part SP end*********************/
 	@SuppressWarnings("unchecked")
 	public List<Syllabus> getAllSyllabus(){
 		List<Syllabus> allSyllabus = null;
