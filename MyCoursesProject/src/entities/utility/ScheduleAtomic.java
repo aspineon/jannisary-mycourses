@@ -7,15 +7,16 @@ public class ScheduleAtomic {
 	private Syllabus syllabus;
 	private String courseType;
 	private String day;
-	private int startHour;
-	private int credit;
+	private int startHour = 0;
+	private int credit = 0;
 	private ArrayList<Integer> knowledge;
 	
 	public ScheduleAtomic() {
-		
+		super();
 	}
 	
 	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit) {
+		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
 		this.day = pDay;
@@ -23,6 +24,55 @@ public class ScheduleAtomic {
 		this.credit = pCredit;
 		this.knowledge = this.generateKnowledge(pCredit);
 	}
+	//Copy Constructor
+	public ScheduleAtomic(ScheduleAtomic sItem) {
+		super();
+		this.syllabus = sItem.syllabus;
+		this.courseType = sItem.courseType;
+		this.day = sItem.day;
+		this.startHour = sItem.startHour;
+		this.credit = sItem.credit;
+		this.knowledge = sItem.knowledge;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (this.getClass() != obj.getClass())
+            return false;
+        final ScheduleAtomic other = (ScheduleAtomic) obj;
+        if (this.syllabus.getSyllabusId() == null) {
+            if (other.syllabus.getSyllabusId() != null)
+                return false;
+        } else if (this.syllabus.getSyllabusId() != other.syllabus.getSyllabusId())
+            return false;
+        if (this.courseType == null) {
+            if (other.courseType != null)
+                return false;
+        } else if (!this.courseType.equals(other.courseType))
+            return false;
+        if (this.day == null) {
+        	if (other.day != null)
+        		return false;
+        } else if (!this.day.equals(other.day))
+        	return false;
+        if (this.startHour == 0) {
+        	if (other.startHour != 0)
+        		return false;
+        } else if (this.startHour != other.startHour)
+        	return false;
+        if (this.credit == 0) {
+        	if (other.credit != 0)
+        		return false;
+        } else if (this.credit != other.credit)
+        	return false;
+        
+        
+        return true;
+    }
 	
 	private ArrayList<Integer> generateKnowledge(int credit) {
 		ArrayList<Integer> retList = new ArrayList<Integer>();
@@ -95,6 +145,7 @@ public class ScheduleAtomic {
 
 	public void setCredit(int credit) {
 		this.credit = credit;
+		this.knowledge = this.generateKnowledge(credit);
 	}
 
 	public ArrayList<Integer> getKnowledge() {
