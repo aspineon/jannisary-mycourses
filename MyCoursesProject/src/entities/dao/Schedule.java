@@ -1,5 +1,7 @@
 package entities.dao;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -146,6 +148,28 @@ public void addSchedule(){
 		finally{
 			session.close();
 		}
+	}
+
+	public List<Schedule> getScheduleBySemesterAndGradeAndYear(){
+		List<Schedule> allSchedules = null;
+		
+	     Session session = null;
+	     
+	     try {
+	             SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	             session = sessionFactory.openSession();
+	             
+	             Query query = session.getNamedQuery("getScheduleBySemesterAndGradeAndYear");
+	             query.setParameter("pGrade", syllabus.getCourse().getGrade());
+	             query.setParameter("pSemester", syllabus.getSemester());
+	             query.setParameter("pYear", syllabus.getYear());
+	             allSchedules =(List<Schedule>) query.list();
+	             
+	     } catch (Exception e) {
+	             // TODO: handle exception
+	             e.getMessage();
+	     } 
+	     return allSchedules;
 	}
 	
 	public String getCourseTheoricOrPraticName() {
