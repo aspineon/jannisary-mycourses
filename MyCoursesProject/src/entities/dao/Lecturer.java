@@ -39,8 +39,10 @@ public class Lecturer implements java.io.Serializable {
     @Pattern(regex="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Invalid Email Address")
 	private String email;
 	
+	
 	// pattern regex doldurulacak
     @NotEmpty
+    @Pattern(regex="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid Phone Number")
 	private String telephone;
     
 	private Set syllabuses = new HashSet(0);
