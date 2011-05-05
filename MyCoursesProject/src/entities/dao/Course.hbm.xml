@@ -76,4 +76,10 @@
  	<return alias="Course" class="entities.dao.Course"/>
  	<![CDATA[CALL DeleteCourse(:pCourseId)]]>
  </sql-query>
+ 
+ <sql-query name="getLecturerNameByCourseId" callable="true">
+     <return alias="Syllabus" class="entities.dao.Syllabus"/>
+     <![CDATA[CALL getLecturerNameByCourseId(:pCourseId)]]>
+ </sql-query>
+ 
 </hibernate-mapping>
