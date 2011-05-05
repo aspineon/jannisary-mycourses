@@ -24,6 +24,8 @@ import java.util.Set;
  */
 public class Syllabus implements java.io.Serializable {
 
+	private static final long serialVersionUID = 282648810302091391L;
+
 	private Integer syllabusId;
 	private Lecturer lecturer;
 	private Course course;

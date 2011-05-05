@@ -18,6 +18,8 @@ import entities.util.BasicScheduleUtilBean;
  */
 public class Schedule implements java.io.Serializable {
 
+	private static final long serialVersionUID = -7396140986296435245L;
+
 	private Integer scheduleId;
 	
 	private Syllabus syllabus=new Syllabus();

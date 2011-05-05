@@ -7,6 +7,8 @@ package entities.dao;
  */
 public class SyllabusArchive implements java.io.Serializable {
 
+	private static final long serialVersionUID = 7984451947877817956L;
+	
 	private Integer syllabusArchiveId;
 	private String semester;
 	private int year;

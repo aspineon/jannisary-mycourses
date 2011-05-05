@@ -21,6 +21,8 @@ import java.util.Set;
  */
 public class Lecturer implements java.io.Serializable {
 
+	private static final long serialVersionUID = 5548990349013448087L;
+
 	private Integer lecturerId;
 	private Department department;
 	

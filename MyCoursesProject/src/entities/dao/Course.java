@@ -25,6 +25,8 @@ import java.util.Set;
  */
 public class Course implements java.io.Serializable {
 
+	private static final long serialVersionUID = -9098842035690180608L;
+	
 	private Integer courseId;
 	private TypeofCourse typeofCourse;
 	private Department department;

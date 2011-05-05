@@ -23,6 +23,8 @@ import com.sun.faces.mgbean.ManagedBeanPreProcessingException.Type;
  */
 public class TypeofCourse implements java.io.Serializable {
 
+	private static final long serialVersionUID = 3766846453975325388L;
+
 	private Integer typeofCourseId;
 	
 	@Email

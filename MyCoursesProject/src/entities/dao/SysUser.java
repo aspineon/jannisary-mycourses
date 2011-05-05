@@ -15,6 +15,8 @@ import org.hibernate.validator.Pattern;
  */
 public class SysUser implements java.io.Serializable {
 
+	private static final long serialVersionUID = 9116323682170367873L;
+
 	private Integer userId;
 	
 	@NotEmpty

@@ -22,6 +22,8 @@ import org.hibernate.validator.Pattern;
  */
 public class Department implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1458093062595757575L;
+
 	private Integer departmentId;
 	
 	@NotEmpty
