@@ -225,9 +225,9 @@
     	<td>	   
     		<h:outputLabel for="Course Code" value="Course Code"></h:outputLabel> 	
 	    	<h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode">
-	    		<rich:ajaxValidator event="onblur"/>
+	    		
 	   		</h:inputText>
-	   		<rich:message for="courseCode" />
+	   		
     	</td>
     	<td>	    	
 	    	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName">
@@ -237,15 +237,11 @@
     	</td>
     	<td>	    	
 	    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture">
-	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="teoricLecture" />
     	</td>
     	<td>	    	
 	    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture">
-	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="practiceLecture" />
     	</td>
     	<td>	    	
 	    	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
@@ -253,9 +249,7 @@
     	</td>
     	<td>	    	
 	    	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText">
-	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="gradeText" />
     	</td>
     	
     	<td>
