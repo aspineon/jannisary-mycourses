@@ -84,6 +84,7 @@ public class Department implements java.io.Serializable {
              return nameList;
      }
 	/***************************Second Part SP end***************************/
+	@SuppressWarnings("unchecked")
 	public List<Department> getAllDepartments(){
 		List<Department> departmentList = null;
 		Session session = null;
@@ -101,6 +102,7 @@ public class Department implements java.io.Serializable {
 		return departmentList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Department> getDepartmentByCode(){
 		List<Department> departmentList = null;
 		

@@ -155,6 +155,7 @@ public void addSyllabus(){
 	}
 }
 /***************Project Second Part SP***********/
+//AutoScheduling Part
 @SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getSyllabusByGrade(int year, String semester, int grade)
 {
@@ -177,7 +178,7 @@ public ArrayList<Syllabus> getSyllabusByGrade(int year, String semester, int gra
         }                
         return syllabusList;
 }
-
+//AutoScheduling Part
 @SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
 {
@@ -198,7 +199,7 @@ public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
         }                
         return syllabusList;
 }
-
+//AutoScheduling Part
 @SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getSyllabusAll()
 {
@@ -218,7 +219,7 @@ public ArrayList<Syllabus> getSyllabusAll()
         }                
         return syllabusList;
 }
-
+//AutoScheduling Part
 @SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getSyllabusByYear(int year)
 {
@@ -239,7 +240,7 @@ public ArrayList<Syllabus> getSyllabusByYear(int year)
         }                
         return syllabusList;
 }
-
+//AutoScheduling Part
 @SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getDeanCourses(int year, String semester)
 {

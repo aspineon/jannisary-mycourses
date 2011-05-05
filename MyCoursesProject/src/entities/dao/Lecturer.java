@@ -101,6 +101,7 @@ public class Lecturer implements java.io.Serializable {
         return lecturerNameList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Lecturer> getAllLecturer(){
 		List<Lecturer> allLecturerList = null;
 		Session session = null;

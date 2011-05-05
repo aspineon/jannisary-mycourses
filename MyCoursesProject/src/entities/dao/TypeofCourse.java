@@ -101,6 +101,7 @@ public class TypeofCourse implements java.io.Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<TypeofCourse> getAllTypeofCourses(){
 		List<TypeofCourse> typeofCoursesList = null;
 		Session session = null;
@@ -118,6 +119,7 @@ public class TypeofCourse implements java.io.Serializable {
 		return typeofCoursesList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<TypeofCourse> getTypeofCourseByCode(){
 		List<TypeofCourse> tocList = null;
 		

@@ -195,7 +195,7 @@ public class Course implements java.io.Serializable {
 			session.close();
 		}
 	}
-	
+	//AutoScheduling Part
 	@SuppressWarnings("unchecked")
 	   public ArrayList<Syllabus> getLecturerNameByCourseId()
 	   {
@@ -240,6 +240,7 @@ public class Course implements java.io.Serializable {
         return courseCodeList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Course> getAllCourses(){
 		List<Course> allCoursesList = null;
 		Session session = null;

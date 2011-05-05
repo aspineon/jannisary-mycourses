@@ -102,6 +102,7 @@ public class Classroom implements java.io.Serializable {
          return allClassroom;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Classroom> getIdByClassroomCode(){
 		List<Classroom> classroomCodeList = null;
 		

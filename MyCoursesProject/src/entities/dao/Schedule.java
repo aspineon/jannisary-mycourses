@@ -152,6 +152,7 @@ public void addSchedule(){
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Schedule> getScheduleBySemesterAndGradeAndYear(){
 		List<Schedule> allSchedules = null;
 		
