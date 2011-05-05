@@ -148,23 +148,28 @@
         </f:facet>
         <h:outputText value="Wait Please..." />
     </rich:modalPanel>
-    
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
     <h:form>
     	        		    	
-	    	<h:inputText  value="#{typeofCourseBean.currentItem.typeofCourse}">
-	    		<f:validateLength minimum="1" maximum="30"/>
-	    		<f:validator validatorId="EmailValidatorWithRegex"/>
+	    	<h:inputText  value="#{typeofCourseBean.currentItem.typeofCourse}" id="id1">
+	    		<f:validateLength minimum="3" maximum="12"/>
+                <rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+    		<rich:message for="id1" />
     		
 	    	<h:commandButton value="Add TypeofCourse" action="#{typeofCourseBean.addTypeofCourse}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
 		
     </h:form>
+    </ui:composition>
         
-    <rich:messages>
-    
-    </rich:messages>
+
 
 </f:view>
 </body>
