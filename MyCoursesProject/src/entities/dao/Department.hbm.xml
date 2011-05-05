@@ -60,5 +60,9 @@
         <![CDATA[CALL UpdateDepartment(:pDepartmentId,:pDeptCode,:pDeptDescription)]]>
     </sql-query>
  	
+ 	<sql-query name="getDepartmentName" callable="true">
+           <return alias="Department" class="entities.dao.Department"/>
+           <![CDATA[CALL getDepartmentName]]>
+   </sql-query>
  	
 </hibernate-mapping>
