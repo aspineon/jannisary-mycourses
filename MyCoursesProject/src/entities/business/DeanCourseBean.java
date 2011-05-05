@@ -4,12 +4,6 @@ import java.util.*;
 import java.lang.Integer;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-import javax.swing.JOptionPane;
-
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import entities.dao.Course;
 import entities.dao.Syllabus;
@@ -39,16 +33,9 @@ public class DeanCourseBean
 //***************************************************************************************
 // This eight subfields holds the data about courses in four grade.
 	private ArrayList<SelectItem> freshmanCourses = new ArrayList<SelectItem>();
-	private ArrayList<SelectItem> freshmanLecturerList = new ArrayList<SelectItem>();
-	
 	private ArrayList<SelectItem> sophomoreCourses = new ArrayList<SelectItem>();
-	private ArrayList<SelectItem> sophomoreLecturerList = new ArrayList<SelectItem>();
-	
 	private ArrayList<SelectItem> juniorCourses = new ArrayList<SelectItem>();
-	private ArrayList<SelectItem> juniorLecturerList = new ArrayList<SelectItem>();
-	
 	private ArrayList<SelectItem> seniorCourses = new ArrayList<SelectItem>();
-	private ArrayList<SelectItem> seniorLecturerList = new ArrayList<SelectItem>();
 //**************************************************************************************	
 // These subfields holds data about the scheduling operations
 	private ArrayList<ScheduleAtomic> freshmanSchedules = new ArrayList<ScheduleAtomic>();
@@ -673,7 +660,7 @@ public class DeanCourseBean
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 //********************** EVENTS **********************************************************
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // This is the event which holds the operations when a year is selected. According to year
 // selected, semester data will be loaded to the related subfield.
 	public void yearValueChange(ValueChangeEvent event) {
@@ -697,7 +684,7 @@ public class DeanCourseBean
 			this.clearAllComponents();
 		}
 	}
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // This is the event which holds the operations when a semester is selected. Via of 
 // selected semester value, all the subfield which must be initialized after this event
 	public void semesterValueChange(ValueChangeEvent event) {
@@ -764,7 +751,6 @@ public class DeanCourseBean
 				credit = Integer.parseInt(this.freshmanCreditValuePrac);
 			}
 			if(credit != 0) {
-				this.freshmanDays = this.loadDays();
 				this.freshmanCredits = this.loadCredits(credit);
 			}
 		}
@@ -826,7 +812,7 @@ public class DeanCourseBean
 	
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************* LOAD & CLEAR METHODS **********************************************	
-// Onur Özey (Finished 01.05)
+// Onur (Finished 01.05)
 // This method clears the all components when year value is changed. It's a kind of
 // refresh operation for system components
 	private void clearAllComponents() {
@@ -839,7 +825,7 @@ public class DeanCourseBean
 		this.clearTimeValues("Freshman");
 	}
 //***************************************************************************************
-// Onur Özey (Finished 01.05)
+// Onur (Finished 01.05)
 // This method provides the all data needed for all components which are filled after 
 // selecting the year and semester values. Try catch block, catches error which can be
 // thrown during the convert of string to an integer.
@@ -856,7 +842,7 @@ public class DeanCourseBean
 		}
 	}
 //***************************************************************************************
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // This method returns the all dean courses in related year and semester. The subfield of
 // bean class which holds the data about dean courses filled with the related data here.
 	private void loadDeanCourses(int year, String semester) {
@@ -873,7 +859,7 @@ public class DeanCourseBean
 		this.deanCourseList = new ArrayList<SelectItem>();
 	}
 //***************************************************************************************
-// Onur Özey (Finished 04.05)
+// Onur (Finished 04.05)
 // This method filled the related subfields of class with the expected data which are
 // determined by the year and semester values. Each subfield of four grade filled in here.
 	private void loadCoursesByGrade(int year, String semester) {
@@ -927,7 +913,7 @@ public class DeanCourseBean
 		}
 	}
 //***************************************************************************************
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // This method loads the 'semesterList' subfield which holds the data of semester combobox
 // with the related data below.
 	private void loadSemester() {	
@@ -959,7 +945,7 @@ public class DeanCourseBean
 		return sList;
 	}
 //***************************************************************************************
-// Onur Özey (Finished 31.04)
+// Onur (Finished 31.04)
 // When selection of dean course changed, then all information contained in sub-components
 // must be cleared and updated again. This method clears the all fields related with.
 	private void clearDeanSubFields() {
@@ -967,7 +953,7 @@ public class DeanCourseBean
 		this.creditValueTheo = "";
 		this.creditValuePrac = "";
 	}
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // According to 'selected dean course' this method loads the related components with 
 // related data 
 	private void loadDeanSubFields()
@@ -983,13 +969,10 @@ public class DeanCourseBean
 //****************** FIELD CLEAR & LOAD METHODS OF GRADES ******************************
 	private void loadSubFields(String grade) {
 		if(grade.equals("Freshman")) {
-			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseName(this.selectedFreshmanSplitCourse);
+			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseAndLecturer(this.selectedFreshmanSplitCourse, this.selectedFreshmanSplitLecturer);
 			this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
 			this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
-			for(int i = 0; i < itemList.size(); i++)
-			{
-				this.freshmanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
-			}
+
 			this.freshmanOperations.add(new SelectItem("Choose Course Type"));
 			this.freshmanOperations.add(new SelectItem("Theoretical"));
 			this.freshmanOperations.add(new SelectItem("Practice"));
@@ -1004,7 +987,6 @@ public class DeanCourseBean
 		if(grade.equals("Freshman")) {
 			this.selectedFreshmanSplitCourse = "";
 			this.selectedFreshmanSplitLecturer = "";
-			this.freshmanLecturerList.clear();
 			this.freshmanCreditValeuTeo = "";
 			this.freshmanCreditValuePrac = "";
 			this.freshmanOperations.clear();
@@ -1017,9 +999,9 @@ public class DeanCourseBean
 	
 	private void clearTimeValues(String grade) {
 		if(grade.equals("Freshman")) {
+			this.freshmanCredits.clear();
 			this.freshmanDays.clear();
 			this.freshmanHours.clear();
-			this.freshmanCredits.clear();
 		}
 		if(grade.equals("Sophomore")) { }
 		if(grade.equals("Junior")) { }
@@ -1029,7 +1011,7 @@ public class DeanCourseBean
 
 //***************************************************************************************	
 //*********************** UTILITY METHODS ***********************************************
-// Onur Özey (Finished 29.04)
+// Onur (Finished 29.04)
 // This function has ability to detect duplication of an item in a list. We can not use
 // DISTINCT operation in our stored procedures. That's why we have to eliminate duplicated
 // data. This method called in 'getYearList()'.
@@ -1045,7 +1027,7 @@ public class DeanCourseBean
 		return breaker;
 	}
 //***************************************************************************************
-// Onur Özey (Finished 03.05)
+// Onur (Finished 03.05)
 // This function generates Schedule Automatic objects from Syllabus objects. In another
 // way we can say a syllabus list is converted to a scheduleAtomic list. 
 	private ArrayList<ScheduleAtomic> generateAtomic(ArrayList<Syllabus> sList) {
@@ -1084,8 +1066,8 @@ public class DeanCourseBean
 //***************************************************************************************
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
-// Onur Özey (Finished 29.04)
-// This getter method returns the list of years(YEARLÝST) which are contained in syllabus 
+// Onur (Finished 29.04)
+// This getter method returns the list of years(YEARLIST) which are contained in syllabus 
 // table. Via of 'checkList' utility method, duplication of year data is averted.
 	public ArrayList<SelectItem> getYearList() {
 		if(this.yearFlag == false)	{
@@ -1106,7 +1088,7 @@ public class DeanCourseBean
 		}
 		return this.yearList;
 	}
-// Set method of 'YEARLÝST' subfield	
+// Set method of 'YEARLIST' subfield	
 	public void setYearList(ArrayList<SelectItem> yearList) {
 		this.yearList = yearList;
 	}
@@ -1317,14 +1299,6 @@ public class DeanCourseBean
 
 	public void setFreshmanCreditValuePrac(String freshmanCreditValuePrac) {
 		this.freshmanCreditValuePrac = freshmanCreditValuePrac;
-	}
-
-	public ArrayList<SelectItem> getFreshmanLecturerList() {
-		return freshmanLecturerList;
-	}
-
-	public void setFreshmanLecturerList(ArrayList<SelectItem> freshmanLecturerList) {
-		this.freshmanLecturerList = freshmanLecturerList;
 	}
 
 	public String getSelectedFreshmanSplitCourse() {
