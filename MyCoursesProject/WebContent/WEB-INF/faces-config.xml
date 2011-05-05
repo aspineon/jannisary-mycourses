@@ -52,6 +52,16 @@
   <managed-bean-class>entities.util.ManuelSchedulingUtilBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>deanBean</managed-bean-name>
+  <managed-bean-class>entities.business.DeanBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>deanCourseBean</managed-bean-name>
+  <managed-bean-class>entities.business.DeanCourseBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <validator>
   <validator-id>EmailValidator</validator-id>
   <validator-class>entities.validator.EmailValidator</validator-class>
