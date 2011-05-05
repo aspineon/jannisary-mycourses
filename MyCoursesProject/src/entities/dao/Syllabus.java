@@ -201,6 +201,28 @@ public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
 }
 //AutoScheduling Part
 @SuppressWarnings("unchecked")
+public ArrayList<Syllabus> getSyllabusByCourseAndLecturer(String courseName, String lecturerName)
+{
+        Session session = null;
+        ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
+        try
+        {
+                 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+                 session = sessionFactory.openSession();
+                 
+                 Query query = session.getNamedQuery("getSyllabusByCourseAndLecturer");
+                 query.setParameter("pCourseName", courseName);
+                 query.setParameter("pLecturerName", lecturerName);
+                 syllabusList = (ArrayList<Syllabus>)query.list();
+        }
+        catch(Exception ex)
+        {
+                ex.getMessage();
+        }                
+        return syllabusList;
+}
+//AutoScheduling Part
+@SuppressWarnings("unchecked")
 public ArrayList<Syllabus> getSyllabusAll()
 {
         Session session = null;
