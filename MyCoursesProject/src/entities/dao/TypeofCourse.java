@@ -12,6 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.validator.Email;
+import org.hibernate.validator.NotEmpty;
+import org.hibernate.validator.Pattern;
 
 import com.sun.faces.mgbean.ManagedBeanPreProcessingException.Type;
 
@@ -21,7 +24,12 @@ import com.sun.faces.mgbean.ManagedBeanPreProcessingException.Type;
 public class TypeofCourse implements java.io.Serializable {
 
 	private Integer typeofCourseId;
+	
+	@Email
+    @NotEmpty
+    @Pattern(regex="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Invalid Email Address")
 	private String typeofCourse;
+	
 	private Set courses = new HashSet(0);
 
 	public TypeofCourse() {
