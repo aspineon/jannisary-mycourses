@@ -14,6 +14,7 @@ import org.richfaces.event.DropEvent;
 
 import entities.business.ScheduleBean;
 import entities.dao.Course;
+import entities.dao.Schedule;
 import entities.dao.Syllabus;
 
 public class ManuelSchedulingUtilBean {
@@ -24,6 +25,7 @@ public class ManuelSchedulingUtilBean {
 	private int componentIdtoDay;// Sürükle-Bırak işlemi sırasında Schedule tablosunun Timeof_Course alanına atılacak verinin hesaplanması için gün bilgisini belirlendiği değişken
 	private int componentIdtoHour;// Sürükle-Bırak işlemi sırasında Schedule tablosunun Timeof_Course alanına atılacak verinin hesaplanması için saat bilgisini belirlendiği değişken
 	private Syllabus paramSyllabus = new Syllabus();//dao.Syllabus sınıfında sorgu yapabilmek için oluşturuldu.
+	private Schedule paramSchedule = new Schedule();
 	private BasicScheduleUtilBean tempBasicScheduleItem = new BasicScheduleUtilBean();
 	/*
 	 ************************* 1.,2.,3.,4. sınıflar için matris tanımları *****************
@@ -40,15 +42,18 @@ public class ManuelSchedulingUtilBean {
 	
 	private List<Syllabus> allSyllabuses = null;
 	private List<BasicScheduleUtilBean> allBasicScheduleItems = new ArrayList<BasicScheduleUtilBean>();
+	private List<Schedule> allRealScheduleItems = null;
 	
 	/* Semester ve Grade combobox ları için tutulan listeler */
 	private List<SelectItem> listSemester = new ArrayList<SelectItem>();
 	private List<SelectItem> listGrade = new ArrayList<SelectItem>();
+	private List<SelectItem> listYear = new ArrayList<SelectItem>();
 	
 	private int intGrade; //intGrade storeProcedure'a parametre olarak geçirilen sınıf değişkeni.
 	private String semester; //semeter storeProcedure'e parametre olarak geçirilen sınıf değişkeni.
 	private String strGrade; //strGrade comboboxdan String olarak gelen verilerin karşılaştırmasının yapılması ne intGrade'e seçimin yansıtılmasını sağlayan değişken.
 	private Object dragValue; //Sürükle bırak işleminde sürüklenen nesnenin bilgilerini tutan nesne.
+	private int selectedYearForEdit;// Edit yapmak istediğinde bu değişkeni kullanacağız
 	public int currentYear; //İlgili yıl bilgilerinin edinildiği alt alan
 	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
 	
@@ -101,7 +106,7 @@ public class ManuelSchedulingUtilBean {
 	/******Sınıf yapıcı metodu*************/
 	public ManuelSchedulingUtilBean(){
 		super();
-		
+		currentYear = calculateYear();
 		listGrade.add(new SelectItem("FirstYear"));
 		listGrade.add(new SelectItem("SecondYear"));
 		listGrade.add(new SelectItem("ThirdYear"));
@@ -110,12 +115,24 @@ public class ManuelSchedulingUtilBean {
 		listSemester.add(new SelectItem("Fall"));
 		listSemester.add(new SelectItem("Spring"));
 		
+		listYear.add(new SelectItem(Integer.toString(currentYear)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-1)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-2)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-3)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-4)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-5)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-6)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-7)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-8)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-9)));
+		listYear.add(new SelectItem(Integer.toString(currentYear-10)));
+		
 		/*Başlangıçta Syllabus verilerini almak için (Course List tablosunu
 		 * doldurmak için) grade ve semester değerleri ilkleniyor.
 		 * */
 		intGrade = 1;
 		semester="Fall";
-		currentYear = calculateYear();
+		
 		
 		fillMatrix();
 	}
@@ -136,7 +153,19 @@ public class ManuelSchedulingUtilBean {
 		System.out.println("Get Course Button");
 		allSyllabuses = null;
 		allBasicScheduleItems = null;
+		allRealScheduleItems = null;
 		allSyllabuses = getSyllabusBySemesterAndGrade();
+		return null;
+	}
+	
+	public String clickGetCoursesButtonForEdit() throws Exception{
+		System.out.println("Get Course Button For Edit");
+		allSyllabuses = null;
+		allBasicScheduleItems = null;
+		allRealScheduleItems = null;
+		allSyllabuses = getSyllabusBySemesterAndGradeAndYear();
+		allRealScheduleItems = getScheduleBySemesterAndGradeAndYear();
+		this.fillMatrixForEditOperation();
 		return null;
 	}
 
@@ -150,6 +179,16 @@ public class ManuelSchedulingUtilBean {
 		
 		if (!selectedValue.equals("")) {
 			semester = selectedValue;
+		}
+		
+	    System.out.println(semester);
+	}
+	
+	public void selectionChangedYearComboForEdit(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			selectedYearForEdit = Integer.parseInt(selectedValue);
 		}
 		
 	    System.out.println(semester);
@@ -279,6 +318,99 @@ public class ManuelSchedulingUtilBean {
 		
 	}
 	
+	private void fillMatrixForEditOperation(){
+		if(allRealScheduleItems.size() != 0){
+			int quotient;
+			int remainder;
+			BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
+			if(intGrade==1){
+				for(int i=0;i<allRealScheduleItems.size();i++){
+					quotient = allRealScheduleItems.get(i).getTimeofCourse();
+					remainder = quotient % 8;
+					quotient = (int) Math.floor(quotient/8);
+					bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
+					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
+					bs.setHours(1);
+					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+					}
+					if(remainder == 0){
+						firstGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						firstGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}
+			}else if(intGrade==2){
+				for(int i=0;i<allRealScheduleItems.size();i++){
+					quotient = allRealScheduleItems.get(i).getTimeofCourse();
+					remainder = quotient % 8;
+					quotient = (int) Math.floor(quotient/8);
+					bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
+					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
+					bs.setHours(1);
+					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+					}
+					if(remainder == 0){
+						secondGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						secondGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}
+			}if(intGrade==3){
+				for(int i=0;i<allRealScheduleItems.size();i++){
+					quotient = allRealScheduleItems.get(i).getTimeofCourse();
+					remainder = quotient % 8;
+					quotient = (int) Math.floor(quotient/8);
+					bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
+					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
+					bs.setHours(1);
+					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+					}
+					if(remainder == 0){
+						thirdGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						thirdGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}
+			}else if(intGrade==4){
+				for(int i=0;i<allRealScheduleItems.size();i++){
+					quotient = allRealScheduleItems.get(i).getTimeofCourse();
+					remainder = quotient % 8;
+					quotient = (int) Math.floor(quotient/8);
+					bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
+					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
+					bs.setHours(1);
+					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+					}
+					if(remainder == 0){
+						fourthGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						fourthGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}//end of for
+			}//end of else if
+		}//end of first if
+	}
+	
 	private int calculateYear(){
 		int year=-1;
 		
@@ -337,36 +469,7 @@ public class ManuelSchedulingUtilBean {
 		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
 		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
 		
-	}
-	
-/*	private Schedule findScheduleByIdInList(int syllabusId){
-		Schedule returnSchedule = new Schedule();
-		int intTempSyllabusId = -1;
-		try{
-			for(int i=0;i<courseList.size();i++){
-				intTempSyllabusId = courseList.get(i).getSyllabus().getSyllabusId();
-				if(intTempSyllabusId == syllabusId){
-					returnSchedule = new Schedule(courseList.get(i));
-					break;
-				}
-			}//end of courseList for
-			
-			if(returnSchedule.getCourseTheoricOrPraticName() == null){
-				for(int i=0;i<labList.size();i++){
-					intTempSyllabusId = labList.get(i).getSyllabus().getSyllabusId();
-					if(intTempSyllabusId == syllabusId){
-						returnSchedule = new Schedule(labList.get(i));
-						break;
-					}
-				}//end of labList for
-			}//end of if
-			
-		}catch(Exception ex){
-			System.err.println(ex.getMessage());
-		}
-		return returnSchedule;
-	}//end of findScheduleByIdInCourseList method
-*/	
+	}	
 		
 	public List<Syllabus> getSyllabusBySemesterAndGrade() {
 		
@@ -393,6 +496,57 @@ public class ManuelSchedulingUtilBean {
 		separateTheoricAndPraticCourse();
 		System.out.println("getSyllabusBySemesterAndGrade");
 		return allSyllabuses;
+	}
+	
+	public List<Syllabus> getSyllabusBySemesterAndGradeAndYear() {
+		
+		synchronized (this) {
+			if (allSyllabuses == null) {
+				allSyllabuses = new ArrayList<Syllabus>();
+				allBasicScheduleItems = new ArrayList<BasicScheduleUtilBean>();
+					try {
+						Course paramCourse= new Course();
+						paramCourse.setGrade(intGrade);
+						paramSyllabus.setCourse(paramCourse);
+						paramSyllabus.setSemester(semester);
+						paramSyllabus.setYear(selectedYearForEdit);
+						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSyllabus Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		transformSyllabusesToBasicScheduleItems();
+		separateTheoricAndPraticCourse();
+		System.out.println("getSyllabusBySemesterAndGrade");
+		return allSyllabuses;
+	}
+	
+	public List<Schedule> getScheduleBySemesterAndGradeAndYear() {
+		
+		synchronized (this) {
+			if (allRealScheduleItems == null) {
+				allRealScheduleItems = new ArrayList<Schedule>();
+					try {
+						Course paramCourse= new Course();
+						paramCourse.setGrade(intGrade);
+						paramSyllabus.setCourse(paramCourse);
+						paramSyllabus.setSemester(semester);
+						paramSyllabus.setYear(selectedYearForEdit);
+						paramSchedule.setSyllabus(paramSyllabus);
+						allRealScheduleItems = paramSchedule.getScheduleBySemesterAndGradeAndYear();
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSchedules Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		return allRealScheduleItems;
 	}
 	
 	private void separateTheoricAndPraticCourse(){
@@ -627,7 +781,18 @@ public class ManuelSchedulingUtilBean {
 		this.errorLabel = errorLabel;
 	}
 	
+	public List<SelectItem> getListYear() {
+		return listYear;
+	}
+
+	public void setListYear(List<SelectItem> listYear) {
+		this.listYear = listYear;
+	}
+	
+	
 	// Getters and setters for the 40 datatable values
+
+	
 
 	public String getValueForDt11() {
 			if(intGrade == 1){
