@@ -45,16 +45,17 @@
             <rich:spacer height="20"/>
         </f:facet>
         <h2 align="center"><h:outputText value="Manual Scheduling" /></h2>
+        <h:outputText value="#{manuelSchedulingUtilBean.errorLabel}" />
         <h:panelGrid columns="4" columnClasses="gridContent">
        
        
-       <h:panelGrid>
+       <h:panelGrid bgcolor="Navy">
        <h:form id="form1">
        
-       <rich:panel  id="PanelGradeAndSemesterSelectPanel" style="width:133px">
+       <rich:panel  id="PanelGradeAndSemesterSelectPanel" style="width:130px">
        		<h:form id="FormGradeAndSemesterSelectPanel" >
         		<h:panelGrid columns="1">
-            
+            		<h:outputText value="Add Operation" />
             		<rich:comboBox id="courseGradeComboBoxId" value="Select Course Grade" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" width="110">
 	        				<f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
 	        				<a4j:support event="onselect" ajaxSingle="true"/>
@@ -67,7 +68,8 @@
 						<a4j:support event="onclick" reRender="outputPanelLabListId,outPutPanelCourseListId"/>
 					</h:commandButton>
         		</h:panelGrid>
-   	 		</h:form>
+        	</h:form>
+        		
        </rich:panel>
        <!--
        		Paneller arasına boşluklar eklendi.
@@ -75,8 +77,33 @@
        <div class="div_near_spacer" ></div>
          	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
         <div class="div_near_spacer" ></div>
+       </h:form>
+       <h:form>
+       		<rich:panel>
+       			<h:form id="FormGradeAndSemesterSelectPanel2" >
+	        	<h:panelGrid>
+	        		<h:outputText value="Edit Operation" />
+		       		<rich:comboBox id="yearComboBoxIdForEdit" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedYearComboForEdit}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listYear}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        </rich:comboBox>
+			        <rich:comboBox id="semesterComboBoxIdForEdit" value="Select Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSemesterCombo}" width="110">
+			        		<f:selectItems value="#{manuelSchedulingUtilBean.listSemester}"/>
+			        		<a4j:support event="onselect" ajaxSingle="true"/>
+			        </rich:comboBox>
+			        <rich:comboBox id="gradeComboBoxIdForEdit" value="Select Grade" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        </rich:comboBox>
+			        <h:commandButton id="buttonForEditSchedule" value="Start Editing" action="#{manuelSchedulingUtilBean.clickGetCoursesButtonForEdit}" style=" width : 110px; height : 20px;">
+								<a4j:support event="onclick" reRender="outputPanelLabListId,outPutPanelCourseListId"/>
+					</h:commandButton>
+		       </h:panelGrid>
+   	 		</h:form>
+       		</rich:panel>
+       </h:form>
        
-	        <rich:panel id="courseListPanel" style="width:133px"> 
+       <rich:panel id="courseListPanel" style="width:133px"> 
 	                <h:panelGrid columns="1" style=" width : 86px;">
 	                
 	                <h:dataTable id="src" value="#{manuelSchedulingUtilBean.courseList}" var="courseList" footerClass="footerClass">
@@ -95,7 +122,6 @@
 	                    <h:outputText value="Course List" />
 	                </f:facet>
 	        </rich:panel>
-       </h:form>
         <!--
        		Paneller arasına boşluklar eklendi.
        -->
@@ -136,6 +162,9 @@
 	     </h:form>
        		</h:form>
        </h:panelGrid>
+       
+      
+       
        <h:form id="form">
        <h:panelGrid>
             <h:panelGrid columns="5" columnClasses="gridContent">
@@ -883,6 +912,9 @@
                    </rich:messages>
 	        	</rich:panel>
             </h:panelGrid>
+            
+            
+            
         </h:form>
         </h:panelGrid>
     </rich:panel>
