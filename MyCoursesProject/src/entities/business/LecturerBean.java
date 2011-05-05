@@ -8,12 +8,7 @@ import java.util.Set;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import entities.dao.Course;
-import entities.dao.Department;
-import entities.dao.Lecturer;
-import entities.dao.Syllabus;
-import entities.dao.SysUser;
-import entities.dao.TypeofCourse;
+import entities.dao.*;
 
 public class LecturerBean {
 	
