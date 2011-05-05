@@ -16,6 +16,7 @@ import org.hibernate.validator.NotNull;
 import org.hibernate.validator.Pattern;
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -192,6 +193,28 @@ public class Course implements java.io.Serializable {
 			session.close();
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	   public ArrayList<Syllabus> getLecturerNameByCourseId()
+	   {
+	           Session session = null;
+	           ArrayList<Syllabus> deanLecturerNameList = new ArrayList<Syllabus>();
+	           try
+	           {
+	                   SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	                   session = sessionFactory.openSession();
+	                   Query query = session.getNamedQuery("getLecturerNameByCourseId");
+	                   query.setParameter("pCourseId", courseId);
+	                   deanLecturerNameList = (ArrayList<Syllabus>)query.list();
+	           }
+	           catch(Exception ex)
+	           {
+	                   ex.getMessage();
+	           }
+	           return deanLecturerNameList;
+	   }
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Course> getIdByCourseCode(){
