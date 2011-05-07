@@ -68,10 +68,7 @@ public class TypeofCourseBean {
 			typeofCourse.addTypeofCourse();
 			keys.clear();
 			keys.add(allTypeofCourses.size());
-			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
-			
-			/*currentItem.setUserName("");
-			currentItem.setUserPassword("");*/
+			allTypeofCourses = typeofCourse.getAllTypeofCourses();
 			
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
