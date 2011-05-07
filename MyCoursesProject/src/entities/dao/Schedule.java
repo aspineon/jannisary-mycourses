@@ -51,7 +51,7 @@ public class Schedule implements java.io.Serializable {
 		this.hours = schedule.getHours();
 		
 	}
-	
+	/*07.05.2011 AutoScheduling tamamlandıktan sonra Scheduling tablosuna veri ekeleyen metod (Erhun) */
 	public void addScheduleList(){
 		Session session=null;
 		try{
