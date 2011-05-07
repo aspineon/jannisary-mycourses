@@ -2,11 +2,12 @@ package entities.utility;
 
 import entities.dao.Syllabus;
 import java.util.ArrayList;
+import javax.faces.model.SelectItem;
 
 public class ScheduleAtomic {
 	private Syllabus syllabus;
 	private String courseType;
-	private String day;
+	private String day = "";
 	private int startHour = 0;
 	private int credit = 0;
 	private ArrayList<Integer> knowledge;
@@ -74,6 +75,42 @@ public class ScheduleAtomic {
         return true;
     }
 	
+	public ArrayList<SelectItem> getKnowledgeByDay(String day) {
+		ArrayList<SelectItem> retList = new ArrayList<SelectItem>();
+		int bottom = 0; 
+		int top = 0;
+		if(day.equals("Monday")) {
+			bottom = 0; 
+			top = 9;
+		}
+		if(day.equals("Tuesday")) {
+			bottom = 8;
+			top = 17;
+		}
+		if(day.equals("Wednesday")) {
+			bottom = 16;
+			top = 25;
+		}
+		if(day.equals("Thursday")) {
+			bottom = 24;
+			top = 33;
+		}
+		if(day.equals("Friday")) {
+			bottom = 32;
+			top = 41;
+		}
+		
+		if(top == 0) { return retList; }
+		for(int i = 0; i < this.knowledge.size(); i++) {
+			if(this.knowledge.get(i) > bottom && this.knowledge.get(i) < top) {
+				int retVal = this.knowledge.get(i) % 8;
+				if(retVal == 0) { retVal = 8;}
+				SelectItem sItem = new SelectItem(Integer.toString(retVal));
+				retList.add(sItem);
+			}
+		}
+		return retList;
+	}
 	private ArrayList<Integer> generateKnowledge(int credit) {
 		ArrayList<Integer> retList = new ArrayList<Integer>();
 		if(credit == 1) {
