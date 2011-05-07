@@ -69,9 +69,9 @@
            <![CDATA[CALL getSyllabusByCourseName(:pCourseName)]]>
    </sql-query>
    
-   <sql-query name="getSyllabusByCourseAndLecturer" callable="true">
+   <sql-query name="getSyllabusByCourseCode" callable="true">
            <return alias="Syllabus" class="entities.dao.Syllabus"/>
-           <![CDATA[CALL getSyllabusByCourseAndLecturer(:pCourseName, pLecturerName)]]>
+           <![CDATA[CALL getSyllabusByCourseCode(:pYear, :pSemester, :pCourseCode)]]>
    </sql-query>
    
    <sql-query name="getSyllabusAll" callable="true">
