@@ -20,5 +20,11 @@
         <property name="filePath" type="string">
             <column name="File_Path" length="100" not-null="true" />
         </property>
+        <set name="schedules" table="Schedule" inverse="true" lazy="true" fetch="select">
+        	<key>
+        		<column name="Syllabus_Archive_Id" not-null="true" />
+        	</key>
+        	<one-to-many class="entities.dao.Schedule" />
+        </set>
     </class>
 </hibernate-mapping>
