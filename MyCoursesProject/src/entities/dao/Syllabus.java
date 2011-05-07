@@ -201,7 +201,7 @@ public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
 }
 //AutoScheduling Part
 @SuppressWarnings("unchecked")
-public ArrayList<Syllabus> getSyllabusByCourseAndLecturer(String courseName, String lecturerName)
+public ArrayList<Syllabus> getSyllabusByCourseCode(int year, String semester, String courseCode)
 {
         Session session = null;
         ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
@@ -210,9 +210,11 @@ public ArrayList<Syllabus> getSyllabusByCourseAndLecturer(String courseName, Str
                  SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
                  session = sessionFactory.openSession();
                  
-                 Query query = session.getNamedQuery("getSyllabusByCourseAndLecturer");
-                 query.setParameter("pCourseName", courseName);
-                 query.setParameter("pLecturerName", lecturerName);
+                 Query query = session.getNamedQuery("getSyllabusByCourseCode");
+                 query.setParameter("pYear", year);
+                 query.setParameter("pSemester", semester);
+                 query.setParameter("pCourseCode", courseCode);
+              
                  syllabusList = (ArrayList<Syllabus>)query.list();
         }
         catch(Exception ex)
