@@ -23,7 +23,7 @@ public class Schedule implements java.io.Serializable {
 	private Integer scheduleId;
 	
 	private Syllabus syllabus=new Syllabus();
-
+	private SyllabusArchive syllabusArchive = new SyllabusArchive();
 	private String courseType;
 	private int timeofCourse;
 	private int hours;
@@ -237,6 +237,14 @@ public void addSchedule(){
 
 	public void setFourthGradeSchedule(BasicScheduleUtilBean[][] fourthGradeSchedule) {
 		this.fourthGradeSchedule = fourthGradeSchedule;
+	}
+
+	public void setSyllabusArchive(SyllabusArchive syllabusArchive) {
+		this.syllabusArchive = syllabusArchive;
+	}
+
+	public SyllabusArchive getSyllabusArchive() {
+		return syllabusArchive;
 	}
 
 	
