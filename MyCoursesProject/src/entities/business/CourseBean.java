@@ -186,10 +186,7 @@ public class CourseBean {
 			course.AddCourse();
 			keys.clear();
 			keys.add(allCourses.size());
-			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
-			
-			/*currentItem.setUserName("");
-			currentItem.setUserPassword("");*/
+			allCourses = course.getAllCourses();
 			
 			
 			
