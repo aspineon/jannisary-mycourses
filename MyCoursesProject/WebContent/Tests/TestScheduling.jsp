@@ -13,7 +13,7 @@
   
         .panelc {
             width:25%;
-            vertical-align:top;         
+            vertical-align:top;
         }
         
         .dropTargetPanel {
@@ -96,6 +96,27 @@
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        </rich:comboBox>
 			        <h:commandButton id="buttonForEditSchedule" value="Start Editing" action="#{manuelSchedulingUtilBean.clickGetCoursesButtonForEdit}" style=" width : 110px; height : 20px;">
+								<a4j:support event="onclick" reRender="outputPanelLabListId,outPutPanelCourseListId"/>
+					</h:commandButton>
+		       </h:panelGrid>
+   	 		</h:form>
+       		</rich:panel>
+       </h:form>
+       
+       <h:form>
+       		<rich:panel>
+       			<h:form id="FormGradeAndSemesterSelectPanel3">
+	        	<h:panelGrid>
+	        		<h:outputText value="Reset Operation"/>
+		       		<rich:comboBox id="dayComboForReset" value="Select Day" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedDayComboForReset}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listDay}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        </rich:comboBox>
+			        <rich:comboBox id="hourComboForReset" value="Select Hour" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedHourComboForReset}" width="110">
+			        		<f:selectItems value="#{manuelSchedulingUtilBean.listHour}"/>
+			        		<a4j:support event="onselect" ajaxSingle="true"/>
+			        </rich:comboBox>
+			        <h:commandButton id="buttonForResetCoordinate" value="Reset" action="#{manuelSchedulingUtilBean.clickResetCoordinateButton}" style=" width : 110px; height : 20px;">
 								<a4j:support event="onclick" reRender="outputPanelLabListId,outPutPanelCourseListId"/>
 					</h:commandButton>
 		       </h:panelGrid>
@@ -202,7 +223,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="phptable, src, errorPanel" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="phptable" value="#{manuelSchedulingUtilBean}"  var="category">
+                <h:dataTable id="phptable" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt11}"></h:outputText>
                     </h:column>
@@ -219,7 +240,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt21}"></h:outputText>
                     </h:column>
@@ -236,7 +257,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt31}"></h:outputText>
                     </h:column>
@@ -253,7 +274,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt41}"></h:outputText>
                     </h:column>
@@ -271,7 +292,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt51}"></h:outputText>
                     </h:column>
@@ -288,7 +309,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable1, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable1" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable1" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt12}"></h:outputText>
                     </h:column>
@@ -305,7 +326,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable1, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable1" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable1" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt22}"></h:outputText>
                     </h:column>
@@ -322,7 +343,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable1, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable1" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable1" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt32}"></h:outputText>
                     </h:column>
@@ -339,7 +360,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable1, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable1" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable1" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt42}"></h:outputText>
                     </h:column>
@@ -356,7 +377,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable1, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable1" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable1" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt52}"></h:outputText>
                     </h:column>
@@ -374,7 +395,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable2, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable2" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable2" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt13}"></h:outputText>
                     </h:column>
@@ -392,7 +413,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable2, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable2" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable2" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt23}"></h:outputText>
                     </h:column>
@@ -410,7 +431,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable2, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable2" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable2" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt33}"></h:outputText>
                     </h:column>
@@ -428,7 +449,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable2, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable2" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable2" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt43}"></h:outputText>
                     </h:column>
@@ -446,7 +467,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable2, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable2" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable2" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt53}"></h:outputText>
                     </h:column>
@@ -463,7 +484,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable3, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable3" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable3" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt14}"></h:outputText>
                     </h:column>
@@ -481,7 +502,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable3, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable3" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable3" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt24}"></h:outputText>
                     </h:column>
@@ -499,7 +520,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable3, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable3" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable3" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt34}"></h:outputText>
                     </h:column>
@@ -517,7 +538,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable3, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable3" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable3" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt44}"></h:outputText>
                     </h:column>
@@ -535,7 +556,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable3, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable3" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable3" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt54}"></h:outputText>
                     </h:column>
@@ -552,7 +573,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable4, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable4" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable4" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt15}"></h:outputText>
                     </h:column>
@@ -570,7 +591,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable4, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable4" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt25}"></h:outputText>
                     </h:column>
@@ -588,7 +609,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable4, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable4" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt35}"></h:outputText>
                     </h:column>
@@ -606,7 +627,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable4, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable4" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable4" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt45}"></h:outputText>
                     </h:column>
@@ -624,7 +645,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable4, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable4" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable4" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt55}"></h:outputText>
                     </h:column>
@@ -641,7 +662,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable5" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt16}"></h:outputText>
                     </h:column>
@@ -659,7 +680,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable5" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt26}"></h:outputText>
                     </h:column>
@@ -677,7 +698,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable5" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt36}"></h:outputText>
                     </h:column>
@@ -695,7 +716,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable5" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt46}"></h:outputText>
                     </h:column>
@@ -713,7 +734,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable5, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable5" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable5" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt56}"></h:outputText>
                     </h:column>
@@ -730,7 +751,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable6" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt17}"></h:outputText>
                     </h:column>
@@ -748,7 +769,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable6" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt27}"></h:outputText>
                     </h:column>
@@ -766,7 +787,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable6" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt37}"></h:outputText>
                     </h:column>
@@ -784,7 +805,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable6" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt47}"></h:outputText>
                     </h:column>
@@ -802,7 +823,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable6, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable6" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable6" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt57}"></h:outputText>
                     </h:column>
@@ -819,7 +840,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="MondayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="MondayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="MondayTable7" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt18}"></h:outputText>
                     </h:column>
@@ -837,7 +858,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="TuesdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="TuesdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="TuesdayTable7" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt28}"></h:outputText>
                     </h:column>
@@ -855,7 +876,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="WednesdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="WednesdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="WednesdayTable7" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt38}"></h:outputText>
                     </h:column>
@@ -873,7 +894,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="ThursdayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="ThursdayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="ThursdayTable7" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt48}"></h:outputText>
                     </h:column>
@@ -891,7 +912,7 @@
                     dropListener="#{manuelSchedulingUtilBean.processDrop}" reRender="FridayTable7, src" actionListener="#{manuelSchedulingUtilBean.getIdAction}">
                 </rich:dropSupport>
 
-                <h:dataTable id="FridayTable7" value="#{manuelSchedulingUtilBean}" var="category">
+                <h:dataTable id="FridayTable7" value="#{manuelSchedulingUtilBean}" style="width:186px;height:50px;" var="category">
                     <h:column>
                         <h:outputText value="#{manuelSchedulingUtilBean.valueForDt58}"></h:outputText>
                     </h:column>
@@ -911,7 +932,7 @@
                         	</h:panelGrid>
                    </rich:messages>
 	        	</rich:panel>
-            </h:panelGrid>
+            	</h:panelGrid>
             
             
             
