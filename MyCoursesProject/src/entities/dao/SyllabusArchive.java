@@ -1,5 +1,10 @@
 package entities.dao;
 
+
+
+import java.util.HashSet;
+import java.util.Set;
+
 // Generated Apr 11, 2011 11:14:09 PM by Hibernate Tools 3.4.0.CR1
 
 /**
@@ -15,6 +20,8 @@ public class SyllabusArchive implements java.io.Serializable {
 	private String filePath;
 	private String versionName;
 
+	private Set schedules = new HashSet(0);
+	
 	public SyllabusArchive() {
 	}
 
@@ -62,5 +69,13 @@ public class SyllabusArchive implements java.io.Serializable {
 
 	public String getVersionName() {
 		return versionName;
+	}
+
+	public void setSchedules(Set schedules) {
+		this.schedules = schedules;
+	}
+
+	public Set getSchedules() {
+		return schedules;
 	}
 }
