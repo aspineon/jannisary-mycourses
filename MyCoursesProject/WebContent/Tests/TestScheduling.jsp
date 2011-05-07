@@ -921,8 +921,11 @@
             </rich:panel>
             
             	</h:panelGrid>
+            	
             	<rich:panel id="errorPanel">
-	        		<rich:messages for="form" layout="list">
+            	<h:panelGrid columns="3">
+            		<rich:panel id="SaveSchedulePanelId">
+            			<rich:messages for="form" layout="list">
                         	<h:panelGrid columns="2">
 	                        	<h:graphicImage value="/images/modal/error.gif"/> 
 	                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>
@@ -930,7 +933,51 @@
 									<a4j:support event="onclick" reRender="form"/>
 								</h:commandButton>
                         	</h:panelGrid>
-                   </rich:messages>
+                   		</rich:messages>	
+            		</rich:panel>
+	        		
+	        		<rich:panel id="ExcelOperationPanelId">
+	        				<h:panelGrid id="ExcelpanelGridId">
+	        					<f:facet name="header">
+									<h:outputText value="Excel Operation" />	        						
+	        					</f:facet>
+
+	        					<f:facet name="footer">
+	        						<h:outputText value="Footer" />
+	        					</f:facet>	        					
+	        				</h:panelGrid>
+	        		</rich:panel>
+                   <rich:panel id="UpdatePanelId">
+                   	<h:panelGrid columns="1" id="UpdatePanelGridId">
+                   	   	<f:facet name="header">
+                   	   		<h:outputText value="Select year and semester" />
+                   	   	</f:facet>
+							
+							<h:form id="UpdateFormId">
+								
+								<rich:comboBox id="updateSemesterComboId">
+									
+								</rich:comboBox>
+								
+								<rich:spacer height="20"/>
+								
+								<rich:comboBox id="updateYearComboId">
+									
+								</rich:comboBox>
+								
+								<rich:spacer height="40"/>
+								
+								<h:commandButton id="UpdateScheduleButtonId" value="Update Schedule" />
+									
+							</h:form>
+							
+                   	   	<f:facet name="footer">
+                   	   		<h:outputText value="footer" />
+                   	   	</f:facet>                   	   	   
+                   	   </h:panelGrid>
+					   
+                   </rich:panel>
+                   </h:panelGrid>
 	        	</rich:panel>
             	</h:panelGrid>
             
