@@ -52,13 +52,7 @@ public class DepartmentBean {
 	}
 	
 	public void store() {
-		/*
-		allCars.set(currentRow, currentItem);
-		keys.clear();
-		keys.add(currentRow);
-		*/
 		
-		/*try-catch blogu eklenecek*/
 		try{
 			currentItem = allDepartments.get(currentRow);
 			currentItem.updateDepartment();
