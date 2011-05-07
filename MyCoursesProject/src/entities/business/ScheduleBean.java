@@ -25,7 +25,7 @@ public class ScheduleBean {
 		schedule.setThirdGradeSchedule(thirdGradeSchedule);
 		schedule.setFourthGradeSchedule(fourthGradeSchedule);
 		
-		schedule.addSchedule();
+		schedule.addScheduleMatrix();
 	}
 
 	public String getpCourseType() {
