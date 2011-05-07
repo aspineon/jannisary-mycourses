@@ -26,7 +26,7 @@
     </class>
     <sql-query name="AddSchedule">
     		<return alias="Schedule" class="entities.dao.Schedule"/>
-        	<![CDATA[CALL AddSchedule(:pCourseType,:pTimeofCourse,:pHours,:pSyllabusId)]]>
+        	<![CDATA[CALL AddSchedule(:pCourseType,:pTimeofCourse,:pHours,:pSyllabusId,:pSyllabusArchiveId)]]>
     </sql-query>
     
     <sql-query name="getScheduleBySemesterAndGradeAndYear" callable="true">
