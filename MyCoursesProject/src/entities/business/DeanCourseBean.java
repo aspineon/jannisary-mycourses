@@ -17,6 +17,7 @@ public class DeanCourseBean
 // is taken from these classes.
 	Course courseObj = new Course();
 	Syllabus syllabusObj = new Syllabus();
+	ScheduleAtomic scheduleAtomicObj = new ScheduleAtomic();
 // When year and semester values are selected, they will be attached to these subfields. 	
 	private String selectedYear = ""; 												//1
 	private String selectedSemester = "";											//2
@@ -108,6 +109,11 @@ public class DeanCourseBean
 	private String selectedFreshmanCredit = "";
 	private String freshmanCreditValeuTeo = "";
 	private String freshmanCreditValuePrac = "";
+	
+	private Syllabus selectedFreshmanSyllabus = null;
+	private ScheduleAtomic selectedScheduleAtomic = null;
+	private int atomicIndex = -1;
+	private int topCredit = -1;
 //**************** Sophomore Subfields **********************************************
 	private String selectedSophomoreCourse = "";
 	private String selectedSophomoreSplitCourse = "";
@@ -727,9 +733,7 @@ public class DeanCourseBean
 		this.selectedFreshmanCourse = newValue;	
 		this.clearSubFields("Freshman");
 		this.clearTimeValues("Freshman");
-		if(!this.selectedFreshmanCourse.equals("Course Selection")) {
-			this.selectedFreshmanSplitCourse = newValue.split(":")[0];
-			this.selectedFreshmanSplitLecturer = newValue.split(":")[1];
+		if(!this.selectedFreshmanCourse.equals("Course Selection") && this.selectedFreshmanCourse != null) {
 			this.loadSubFields("Freshman");
 		}
 	}
@@ -741,24 +745,48 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanOperation = newValue;
+		this.atomicIndex = -1;
+		this.topCredit = -1;
 		this.clearTimeValues("Freshman");
 		if((!this.selectedFreshmanOperation.equals("Choose Course Type")) && (this.selectedFreshmanOperation != null)) {
 			int credit = 0;
+			String type = "";
 			if(this.selectedFreshmanOperation.equals("Theoretical")) {
 				credit = Integer.parseInt(this.freshmanCreditValeuTeo);
+				type = "Theo";
+			} else if(this.selectedFreshmanOperation.equals("Practice")) {
+				credit = 3;//Integer.parseInt(this.freshmanCreditValuePrac);
+				type = "Prac";
 			}
-			if(this.selectedFreshmanOperation.equals("Practice")) {
-				credit = Integer.parseInt(this.freshmanCreditValuePrac);
-			}
+
 			if(credit != 0) {
-				this.freshmanCredits = this.loadCredits(credit);
+				this.topCredit = credit;
+				this.clearTimeValues("Freshman");
+				this.loadCredits("Freshman", credit);
+				this.atomicIndex = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, type, credit);
+				if (this.atomicIndex != -1) {
+					this.selectedScheduleAtomic = new ScheduleAtomic(this.freshmanUnmarkedList.get(this.atomicIndex));
+				}
 			}
 		}
-		else {
-			this.clearTimeValues("Freshman");
-		}
+		else { this.clearTimeValues("Freshman"); }
 	}
 	
+	public void freshmanCreditChange(ValueChangeEvent event) {
+		System.out.println("Freshman Operation has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedFreshmanCredit = newValue;
+		if(!this.selectedFreshmanCredit.equals("Choose Credit") && this.selectedFreshmanCredit != "") {
+			this.freshmanDays = loadDays();
+			if(this.topCredit != Integer.parseInt(this.selectedFreshmanCredit)) {
+				this.selectedScheduleAtomic.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
+			}
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomic.getCredit()));
+		}
+	}
 //******************* SOPHOMORE EVENTS **************************************************
 	public void sophomoreSplitChange(ValueChangeEvent event) {
 		System.out.println("Sophomore course has been changed!!!");
@@ -866,49 +894,37 @@ public class DeanCourseBean
 		//First Year(Freshman) Courses are loaded
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByGrade(year, semester, 1);
 		if(itemList.size() != 0) {
-			this.freshmanSchedules = this.generateAtomic(itemList);
+			this.freshmanUnmarkedList = this.generateAtomic(itemList);
 			this.freshmanCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
-				String courseName = itemList.get(i).getCourse().getCourseName();
-				String lecturerName = itemList.get(i).getLecturer().getLecturerName();
-				String item = courseName + " : " + lecturerName;
-				this.freshmanCourses.add(new SelectItem(item));
+				this.freshmanCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
 			}
 		}
 		//Second Year(Sophomore) Courses are loaded
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 2);
 		if(itemList.size() != 0) {
-			this.sophomoreSchedules = this.generateAtomic(itemList);
+			this.sophomoreUnmarkedList = this.generateAtomic(itemList);
 			this.sophomoreCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
-				String courseName = itemList.get(i).getCourse().getCourseName();
-				String lecturerName = itemList.get(i).getLecturer().getLecturerName();
-				String item = courseName + " : " + lecturerName;
-				this.sophomoreCourses.add(new SelectItem(item));
+				this.sophomoreCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
 			}
 		}
 		//Third Year(Junior) Courses are loaded
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 3);
 		if(itemList.size() != 0) {
-			this.juniorSchedules = this.generateAtomic(itemList);
+			this.juniorUnmarkedList = this.generateAtomic(itemList);
 			this.juniorCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
-				String courseName = itemList.get(i).getCourse().getCourseName();
-				String lecturerName = itemList.get(i).getLecturer().getLecturerName();
-				String item = courseName + " : " + lecturerName;
-				this.juniorCourses.add(new SelectItem(item));
+				this.juniorCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
 			}
 		}
 		//Fourth Year(Senior) Courses are loaded
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 4);
 		if(itemList.size() != 0) {
-			this.seniorSchedules = this.generateAtomic(itemList);
+			this.seniorUnmarkedList = this.generateAtomic(itemList);
 			this.seniorCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
-				String courseName = itemList.get(i).getCourse().getCourseName();
-				String lecturerName = itemList.get(i).getLecturer().getLecturerName();
-				String item = courseName + " : " + lecturerName;
-				this.seniorCourses.add(new SelectItem(item));
+				this.seniorCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
 			}
 		}
 	}
@@ -934,15 +950,17 @@ public class DeanCourseBean
 		return sList;
 	}
 //***************************************************************************************
-	private ArrayList<SelectItem> loadCredits(int credit) {
-		ArrayList<SelectItem> sList = new ArrayList<SelectItem>();
-		sList.add(new SelectItem("Choose Credit"));
-		if(credit > 5) { credit = 4; }
-		for(int i = 0; i < credit; i++) {
-			String item = Integer.toString(i + 1);
-			sList.add(new SelectItem(item));
+	private void loadCredits(String grade, int pCredit) {
+		if(grade.equals("Freshman")) {
+			int credit = pCredit;
+			if(credit > 4) { credit = 4; }
+			this.freshmanCredits = new ArrayList<SelectItem>();
+			this.freshmanCredits.add(new SelectItem("Choose Credit"));
+			for(int i = 0; i < credit; i++) {
+				this.freshmanCredits.add(new SelectItem(Integer.toString(i + 1)));
+			}
+			return;
 		}
-		return sList;
 	}
 //***************************************************************************************
 // Onur (Finished 31.04)
@@ -969,10 +987,15 @@ public class DeanCourseBean
 //****************** FIELD CLEAR & LOAD METHODS OF GRADES ******************************
 	private void loadSubFields(String grade) {
 		if(grade.equals("Freshman")) {
-			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseAndLecturer(this.selectedFreshmanSplitCourse, this.selectedFreshmanSplitLecturer);
-			this.freshmanCreditValeuTeo = Integer.toString(itemList.get(0).getCourse().getTeoricLectureHours());
-			this.freshmanCreditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
-
+			int year = Integer.parseInt(this.selectedYear);
+			ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByCourseCode(year, this.selectedSemester, this.selectedFreshmanCourse);
+			this.selectedFreshmanSyllabus = itemList.get(0);
+			
+			this.selectedFreshmanSplitCourse = this.selectedFreshmanSyllabus.getCourse().getCourseName();
+			this.selectedFreshmanSplitLecturer = this.selectedFreshmanSyllabus.getLecturer().getLecturerName();
+			this.freshmanCreditValeuTeo = Integer.toString(this.selectedFreshmanSyllabus.getCourse().getTeoricLectureHours());
+			this.freshmanCreditValuePrac = Integer.toString(this.selectedFreshmanSyllabus.getCourse().getPracticeLectureHourse());
+			
 			this.freshmanOperations.add(new SelectItem("Choose Course Type"));
 			this.freshmanOperations.add(new SelectItem("Theoretical"));
 			this.freshmanOperations.add(new SelectItem("Practice"));
@@ -981,7 +1004,6 @@ public class DeanCourseBean
 		if(grade.equals("Junior")) { }
 		if(grade.equals("Senior")) { }
 	}
-	
 	
 	private void clearSubFields(String grade) {
 		if(grade.equals("Freshman")) {
@@ -999,9 +1021,10 @@ public class DeanCourseBean
 	
 	private void clearTimeValues(String grade) {
 		if(grade.equals("Freshman")) {
+			this.selectedFreshmanCredit = "";
 			this.freshmanCredits.clear();
 			this.freshmanDays.clear();
-			this.freshmanHours.clear();
+			this.freshmanHours.clear(); 
 		}
 		if(grade.equals("Sophomore")) { }
 		if(grade.equals("Junior")) { }
@@ -1046,21 +1069,24 @@ public class DeanCourseBean
 		return retList;
 	}
 	
-	private ScheduleAtomic findRelatedAtomic(Syllabus sItem, String course, String grade, String sign) {
-		ScheduleAtomic sAtom = null;
+	private int findRelatedAtomic(String grade, String sign, String opType, Syllabus syllabus, String courseType, int credit) {
+		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit);
 		if(grade.equals("Freshman")) {
 			if(sign.equals("Unmarked")) {
 				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
-					
+					if(sAtom.equals(this.freshmanUnmarkedList.get(i))) {
+						return i;
+					}
 				}
+				return -1;
 			}
 			if(sign.equals("Marked")) {
-				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
+				for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
 					
 				}
 			}
 		}
-		return sAtom;
+		return -1;
 	}
 	
 //***************************************************************************************
