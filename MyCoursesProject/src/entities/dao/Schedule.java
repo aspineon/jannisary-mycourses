@@ -1,5 +1,6 @@
 package entities.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -36,6 +37,7 @@ public class Schedule implements java.io.Serializable {
 	private BasicScheduleUtilBean[][] thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
 	
+	private ArrayList<Schedule> scheduleList = new ArrayList<Schedule>(); //2. bölüm sonunda otomatik olrak belirlenen ders programını Schedule tablosuna atmak için kullanılan metod
 	
 	public Schedule() {
 	}
@@ -50,7 +52,35 @@ public class Schedule implements java.io.Serializable {
 		
 	}
 	
-public void addSchedule(){
+	public void addScheduleList(){
+		Session session=null;
+		try{
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			
+			for(int i=0; i<scheduleList.size(); i++){
+				
+				Query query = session.getNamedQuery("AddSchedule");
+				query.setParameter("pCourseType", scheduleList.get(i).courseType);
+				query.setParameter("pTimeofCourse", scheduleList.get(i).timeofCourse);
+				query.setParameter("pHours", scheduleList.get(i).hours);
+				query.setParameter("pSyllabusId", scheduleList.get(i).syllabus);
+				query.setParameter("pSyllabusArchiveId", scheduleList.get(i).syllabusArchive);
+				
+				query.executeUpdate();
+			}
+			
+			tx.commit();
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
+public void addScheduleMatrix(){
 		
 		Session session=null;
 		try{
@@ -247,5 +277,14 @@ public void addSchedule(){
 		return syllabusArchive;
 	}
 
+	public ArrayList<Schedule> getScheduleList() {
+		return scheduleList;
+	}
+
+	public void setScheduleList(ArrayList<Schedule> scheduleList) {
+		this.scheduleList = scheduleList;
+	}
+
+	
 	
 }
