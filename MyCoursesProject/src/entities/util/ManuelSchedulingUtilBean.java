@@ -48,6 +48,8 @@ public class ManuelSchedulingUtilBean {
 	private List<SelectItem> listSemester = new ArrayList<SelectItem>();
 	private List<SelectItem> listGrade = new ArrayList<SelectItem>();
 	private List<SelectItem> listYear = new ArrayList<SelectItem>();
+	private List<SelectItem> listDay = new ArrayList<SelectItem>();
+	private List<SelectItem> listHour = new ArrayList<SelectItem>();
 	
 	private int intGrade; //intGrade storeProcedure'a parametre olarak geçirilen sınıf değişkeni.
 	private String semester; //semeter storeProcedure'e parametre olarak geçirilen sınıf değişkeni.
@@ -56,6 +58,8 @@ public class ManuelSchedulingUtilBean {
 	private int selectedYearForEdit;// Edit yapmak istediğinde bu değişkeni kullanacağız
 	public int currentYear; //İlgili yıl bilgilerinin edinildiği alt alan
 	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
+	private String dayForReset;
+	private int hourForReset;
 	
     /*
      * Arayüzde yer alan herbir saat dilimi hücresinde sürükle bırak işlemi ardından etkilenen isim alanlarını
@@ -127,6 +131,18 @@ public class ManuelSchedulingUtilBean {
 		listYear.add(new SelectItem(Integer.toString(currentYear-9)));
 		listYear.add(new SelectItem(Integer.toString(currentYear-10)));
 		
+		listDay.add(new SelectItem("Monday"));
+		listDay.add(new SelectItem("Tuesday"));
+		listDay.add(new SelectItem("Wednesday"));
+		listDay.add(new SelectItem("Thursday"));
+		listDay.add(new SelectItem("Friday"));
+		
+		for(int k=1;k<9;k++){
+			listHour.add(new SelectItem(k));
+		}
+		
+		
+		
 		/*Başlangıçta Syllabus verilerini almak için (Course List tablosunu
 		 * doldurmak için) grade ve semester değerleri ilkleniyor.
 		 * */
@@ -169,6 +185,12 @@ public class ManuelSchedulingUtilBean {
 		return null;
 	}
 
+	public String clickResetCoordinateButton() throws Exception{
+		System.out.println("Reset Coordinate Button");
+		this.resetSelectedCoordinate();
+		return null;
+	}
+	
 	public String clickSave(){
 		saveMatrix();
 		return null;
@@ -182,6 +204,26 @@ public class ManuelSchedulingUtilBean {
 		}
 		
 	    System.out.println(semester);
+	}
+	
+	public void selectionChangedDayComboForReset(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			dayForReset = selectedValue;
+		}
+		
+	    System.out.println(dayForReset);
+	}
+	
+	public void selectionChangedHourComboForReset(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			hourForReset = Integer.parseInt(selectedValue);
+		}
+		
+	    System.out.println(hourForReset);
 	}
 	
 	public void selectionChangedYearComboForEdit(ValueChangeEvent evt){
@@ -318,6 +360,35 @@ public class ManuelSchedulingUtilBean {
 		
 	}
 	
+	public void resetSelectedCoordinate(){
+		BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
+		bs.setClassroomId(-1);
+		bs.setLecturerName("Lecturer");
+		
+		int day=0;
+		if(dayForReset.equals("Monday")){
+			day = 0;
+		}else if(dayForReset.equals("Tuesday")){
+			day = 1;
+		}else if(dayForReset.equals("Wednesday")){
+			day = 2;
+		}else if(dayForReset.equals("Thursday")){
+			day = 3;
+		}else if(dayForReset.equals("Friday")){
+			day = 4;
+		}
+		
+		if(intGrade==1){
+			firstGradeSchedule[day][hourForReset-1] = bs;
+		}else if(intGrade == 2){
+			secondGradeSchedule[day][hourForReset-1] = bs;
+		}else if(intGrade == 3){
+			thirdGradeSchedule[day][hourForReset-1] = bs;
+		}else if(intGrade == 4){
+			fourthGradeSchedule[day][hourForReset-1] = bs;
+		}
+	}
+	
 	private void fillMatrixForEditOperation(){
 		if(allRealScheduleItems.size() != 0){
 			int quotient;
@@ -333,9 +404,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						firstGradeSchedule[quotient-1][7]  = bs;
@@ -354,9 +425,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						secondGradeSchedule[quotient-1][7]  = bs;
@@ -375,9 +446,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						thirdGradeSchedule[quotient-1][7]  = bs;
@@ -396,9 +467,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P)");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						fourthGradeSchedule[quotient-1][7]  = bs;
@@ -560,7 +631,7 @@ public class ManuelSchedulingUtilBean {
 					BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
 					bs.setCourseType("theoric");
 					String newName = allBasicScheduleItems.get(i).getCourseName();
-					newName = newName + " (T)";
+					newName = newName + " (T), {" + allBasicScheduleItems.get(i).getLecturerName() + "}";
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
@@ -574,7 +645,7 @@ public class ManuelSchedulingUtilBean {
 					BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
 					bs.setCourseType("practice");
 					String newName = allBasicScheduleItems.get(i).getCourseName();
-					newName = newName + " (P)";
+					newName = newName + "(P), {" + allBasicScheduleItems.get(i).getLecturerName() + "}";
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
@@ -789,10 +860,24 @@ public class ManuelSchedulingUtilBean {
 		this.listYear = listYear;
 	}
 	
+	public List<SelectItem> getListDay() {
+		return listDay;
+	}
+
+	public void setListDay(List<SelectItem> listDay) {
+		this.listDay = listDay;
+	}
+
+	public List<SelectItem> getListHour() {
+		return listHour;
+	}
+
+	public void setListHour(List<SelectItem> listHour) {
+		this.listHour = listHour;
+	}
+	
 	
 	// Getters and setters for the 40 datatable values
-
-	
 
 	public String getValueForDt11() {
 			if(intGrade == 1){
