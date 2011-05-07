@@ -88,7 +88,9 @@
 		            			<h:inputText id= "freshmanPracCreditTextField" disabled="true" 
 		            						style="background-color:#FFF8C6; width:50px;"
 		            						value="#{deanCourseBean.freshmanCreditValuePrac}"/>
+		            	
 		            			
+		            	
 		            			<br/>
 		            			<h:outputText value="Course Type : " />
 		            					<h:selectOneMenu id="freshmanOperationTypeComboBox" 
@@ -98,21 +100,21 @@
 									            	<f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
 								        </h:selectOneMenu>
 		            			<br/>
-		            			
+		            	
 		            			<h:outputText value="Credit : " />
 		            				<h:selectOneMenu id="freshmanCreditComboBox" 
-		            						value="#{deanCourseBean.selectedFreshmanCredit}">            				
+		            						value="#{deanCourseBean.selectedFreshmanCredit}"
+		            						valueChangeListener="#{deanCourseBean.freshmanCreditChange}" onchange="submit()">            				
 		            							<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
 		            			</h:selectOneMenu>
-		            			
+		            	
 		            			<br/>
-		            			
 		            			<h:outputText value="Days : " />
 		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}">
 						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
 						           	</h:selectOneMenu>
 		            			<br/>
-		            			
+		            	
 		            			<br/>
 		            			<h:outputText value="StartHour : " />
 		            				<h:selectOneMenu id="freshmanStartHourComboBox" 
@@ -120,12 +122,14 @@
 		            				<f:selectItems  value="#{deanCourseBean.freshmanHours}"/>        			
 		            			</h:selectOneMenu>
 		            			<br/>
+		            	</h:form>
 		            			
-		            			
+		            	<h:form>
 		            			<h:commandButton value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
             			</h:form>
+            			
             		</td>
             		<td style=" width : 22px;">
             			
