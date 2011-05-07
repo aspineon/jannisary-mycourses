@@ -11,6 +11,9 @@
         <many-to-one name="syllabus" class="entities.dao.Syllabus" fetch="select">
             <column name="Syllabus_Id" not-null="true" />
         </many-to-one>
+        <many-to-one name="syllabusArchive" class="entities.dao.SyllabusArchive" fetch="select">
+        	<column name="Syllabus_Archive_Id" not-null="true" />
+        </many-to-one>
         <property name="courseType" type="string">
             <column name="Course_Type" length="8" not-null="true" />
         </property>
