@@ -128,8 +128,7 @@ public class SyllabusBean {
 			currentItem.setLecturer(lecturer);
 			currentItem.setClassroom(classroom);
 			currentItem.updateSyllabus();
-			//getAllSyllabusList Ã§aÄŸrÄ±larak gÃ¼ncellenen veriler alÄ±nÄ±yor.
-			//getAllSyllabusList();
+			
 			allSyllabusList.set(currentRow, currentItem);
 			keys.clear();
 			keys.add(currentRow);
@@ -161,7 +160,7 @@ public class SyllabusBean {
 			syllabus.addSyllabus();
 			keys.clear();
 			keys.add(allSyllabusList.size());
-			
+			allSyllabusList = syllabus.getAllSyllabus();
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
 		}
