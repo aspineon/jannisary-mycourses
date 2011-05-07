@@ -77,7 +77,7 @@ public class SysUserBean {
 			/*SysUser.jsp'de yer alan User Name ve User Password alanlarını temizle*/
 			currentItem.setUserName("");
 			currentItem.setUserPassword("");
-			
+			allUsers = sysUser.getAllUser();
 			
 			
 		}catch(Exception ex){
