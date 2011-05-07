@@ -143,6 +143,41 @@ public class ScheduleAtomic {
 		}
 		return retList;
 	}
+	
+	// ************* Credit Split and Merge Functions *********************************************
+	
+	@SuppressWarnings("unused")
+	public ScheduleAtomic splitCredit(int pCredit)
+	{
+		ScheduleAtomic splitObj = new ScheduleAtomic();
+		
+		if(pCredit > 0 && pCredit < this.credit)
+		{
+			splitObj.setSyllabus(this.syllabus);
+			splitObj.setCourseType(this.courseType);
+			splitObj.setCredit(this.credit - (this.credit - pCredit));
+			splitObj.setDay(this.day);
+			splitObj.setStartHour(this.startHour);
+		}		
+		return splitObj;
+	}
+	
+	public void mergeCredit(ScheduleAtomic pScheduleAtomic)
+	{
+		if(((pScheduleAtomic.getStartHour() + pScheduleAtomic.getCredit()) == this.startHour)
+				&& (pScheduleAtomic.getDay().equals(this.day)))
+		{
+			this.startHour = pScheduleAtomic.getStartHour();			
+			this.credit = pScheduleAtomic.getCredit() + this.credit;
+		}
+		else
+		{
+			this.credit = pScheduleAtomic.getCredit() + this.credit;
+		}
+	}
+	
+//***************************************************************************************
+	
 //*************** GETTER-SETTER METHODS *************************************************
 	public Syllabus getSyllabus() {
 		return syllabus;
