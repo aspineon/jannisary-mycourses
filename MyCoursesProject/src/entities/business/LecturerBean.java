@@ -64,8 +64,6 @@ public class LecturerBean {
 			
 			currentItem.setDepartment(department);
 			currentItem. updateLecturer();
-			//getAllSyllabusList Ã§aÄŸrÄ±larak gÃ¼ncellenen veriler alÄ±nÄ±yor.
-			//getAllSyllabusList();
 			allLecturerList.set(currentRow, currentItem);
 			keys.clear();
 			keys.add(currentRow);
@@ -94,9 +92,7 @@ public class LecturerBean {
 			newlecturer.addLecturer();
 			keys.clear();
 			keys.add(allLecturerList.size());
-			/*SysUser.jsp'de yer alan User Name ve User Password alanlarÄ±nÄ± temizle*/
-			//currentItem.
-			//currentItem.setUserPassword("");
+			allLecturerList = newlecturer.getAllLecturer();
 			
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
