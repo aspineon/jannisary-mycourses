@@ -1,7 +1,12 @@
 package entities.utility;
 
+import entities.dao.Schedule;
 import entities.dao.Syllabus;
+import entities.dao.SyllabusArchive;
+
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.model.SelectItem;
 
 public class ScheduleAtomic {
@@ -144,6 +149,56 @@ public class ScheduleAtomic {
 		return retList;
 	}
 	
+	/*Added by Erhun(07.05.2011)*/
+	private int dayToIntDay(String strDay){
+		int intDay = 0;
+		try{
+			if(strDay.equals("Monday"))        { intDay = 1;}
+			else if(strDay.equals("Tuesday"))  { intDay = 2;}
+			else if(strDay.equals("Wednesday")){ intDay = 3;}
+			else if(strDay.equals("Thursday")) { intDay = 4;}
+			else if(strDay.equals("Friday"))   { intDay = 5;}
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+		return intDay;
+	}
+	
+	/*Added by Erhun(07.05.2011)*/
+	public void addScheduleAtomicListToScheduleTable(List<ScheduleAtomic> listScheduleAtomic){
+		Schedule schedule = new Schedule();
+		ArrayList<Schedule> scheduleList = new ArrayList<Schedule>();
+		ScheduleAtomic scheduleAtomic = new ScheduleAtomic();
+		int intSyllabusArchiveId=0;//hardCode olarak eklenmiştir,
+		try{
+			for(int i = 0; i < listScheduleAtomic.size(); i++){
+				schedule = new Schedule();
+				
+				scheduleAtomic = new ScheduleAtomic(listScheduleAtomic.get(i));
+				SyllabusArchive sylArchive = new SyllabusArchive();
+				sylArchive.setSyllabusArchiveId(intSyllabusArchiveId);
+				
+				schedule.setSyllabusArchive(sylArchive);
+				schedule.setSyllabus(scheduleAtomic.getSyllabus());
+				schedule.setCourseType(scheduleAtomic.getCourseType());
+				schedule.setHours(scheduleAtomic.getCredit());
+				int intDay = dayToIntDay(scheduleAtomic.getDay());
+				intDay = intDay * 8;
+				int timeOfCourse = (intDay * 8) + scheduleAtomic.getStartHour();
+				schedule.setTimeofCourse(timeOfCourse);
+				
+				scheduleList.add(schedule);
+			}
+			
+			schedule.setScheduleList(scheduleList);
+			schedule.addScheduleList();
+			
+		}catch(Exception ex){
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	
 	// ************* Credit Split and Merge Functions *********************************************
 	
 	@SuppressWarnings("unused")
@@ -178,6 +233,7 @@ public class ScheduleAtomic {
 	
 //***************************************************************************************
 	
+
 //*************** GETTER-SETTER METHODS *************************************************
 	public Syllabus getSyllabus() {
 		return syllabus;
