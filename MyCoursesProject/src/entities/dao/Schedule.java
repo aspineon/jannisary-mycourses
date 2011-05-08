@@ -182,6 +182,123 @@ public void addScheduleMatrix(){
 		}
 	}
 
+public void updateScheduleMatrix(){
+	
+	Session session=null;
+	try{
+		
+		
+		SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+		session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		
+		for(int i = 0; i < 5;i++){
+			for(int j = 0;j < 8 ;j++){
+				//Kontrol diğer if lerde de uyugulanmalaı.
+				if(!firstGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+					
+					syllabus.setSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
+					syllabus.setSemester(firstGradeSchedule[i][j].getSemester());
+					syllabus.setYear(firstGradeSchedule[i][j].getYear());
+					courseType = firstGradeSchedule[i][j].getCourseType();
+					timeofCourse = firstGradeSchedule[i][j].getTimeofCourse();
+					hours = firstGradeSchedule[i][j].getHours();
+					scheduleId = firstGradeSchedule[i][j].getScheduleId();
+					
+					Query query = session.getNamedQuery("updateScheduleMatrix");
+					query.setParameter("pScheduleId", scheduleId);
+					query.setParameter("pCourseType", courseType);
+					query.setParameter("pTimeofCourse", timeofCourse);
+					query.setParameter("pHours", hours);
+					query.setParameter("pSyllabusId", syllabus);
+					query.executeUpdate();
+					
+			    }
+				
+				if(!secondGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+					
+					syllabus = new Syllabus();
+					courseType="";
+				    timeofCourse = -1;
+				    hours = -1;
+					
+					syllabus.setSyllabusId(secondGradeSchedule[i][j].getSyllabusId());
+					syllabus.setSemester(firstGradeSchedule[i][j].getSemester());
+					syllabus.setYear(firstGradeSchedule[i][j].getYear());
+					courseType = secondGradeSchedule[i][j].getCourseType();
+					timeofCourse = secondGradeSchedule[i][j].getTimeofCourse();
+					hours = secondGradeSchedule[i][j].getHours();
+					scheduleId = firstGradeSchedule[i][j].getScheduleId();
+					
+					Query query = session.getNamedQuery("updateScheduleMatrix");
+					query.setParameter("pScheduleId", scheduleId);
+					query.setParameter("pCourseType", courseType);
+					query.setParameter("pTimeofCourse", timeofCourse);
+					query.setParameter("pHours", hours);
+					query.setParameter("pSyllabusId", syllabus);
+					query.executeUpdate();
+				}
+				
+				if(!thirdGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+					
+					syllabus = new Syllabus();
+					courseType="";
+				    timeofCourse = -1;
+				    hours = -1;
+					
+					syllabus.setSyllabusId(thirdGradeSchedule[i][j].getSyllabusId());
+					syllabus.setSemester(firstGradeSchedule[i][j].getSemester());
+					syllabus.setYear(firstGradeSchedule[i][j].getYear());
+					courseType = thirdGradeSchedule[i][j].getCourseType();
+					timeofCourse = thirdGradeSchedule[i][j].getTimeofCourse();
+					hours = thirdGradeSchedule[i][j].getHours();
+					scheduleId = firstGradeSchedule[i][j].getScheduleId();
+					
+					Query query = session.getNamedQuery("updateScheduleMatrix");
+					query.setParameter("pScheduleId", scheduleId);
+					query.setParameter("pCourseType", courseType);
+					query.setParameter("pTimeofCourse", timeofCourse);
+					query.setParameter("pHours", hours);
+					query.setParameter("pSyllabusId", syllabus);
+					query.executeUpdate();
+				}
+				
+				if(!fourthGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
+					
+					syllabus = new Syllabus();
+					courseType="";
+				    timeofCourse = -1;
+				    hours = -1;
+					
+					syllabus.setSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
+					syllabus.setSemester(firstGradeSchedule[i][j].getSemester());
+					syllabus.setYear(firstGradeSchedule[i][j].getYear());
+					courseType = fourthGradeSchedule[i][j].getCourseType();
+					timeofCourse = fourthGradeSchedule[i][j].getTimeofCourse();
+					hours = fourthGradeSchedule[i][j].getHours();
+					scheduleId = firstGradeSchedule[i][j].getScheduleId();
+					
+					Query query = session.getNamedQuery("updateScheduleMatrix");
+					query.setParameter("pScheduleId", scheduleId);
+					query.setParameter("pCourseType", courseType);
+					query.setParameter("pTimeofCourse", timeofCourse);
+					query.setParameter("pHours", hours);
+					query.setParameter("pSyllabusId", syllabus);
+					query.executeUpdate();
+				}
+			}
+		}
+		
+		tx.commit();
+	}catch(Exception e){
+		System.err.print(e.getMessage());
+	}
+	finally{
+		session.close();
+	}
+}
+
 	@SuppressWarnings("unchecked")
 	public List<Schedule> getScheduleBySemesterAndGradeAndYear(){
 		List<Schedule> allSchedules = null;
