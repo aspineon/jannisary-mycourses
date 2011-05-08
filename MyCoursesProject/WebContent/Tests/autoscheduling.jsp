@@ -436,8 +436,8 @@
             			 <h:form prependId="false">
 		            			<h:selectOneListbox id="seniorListBox" style=" width : 219px;" 
 		            								value="#{deanCourseBean.selectedSeniorCourse}"
-		            								valueChangeListener="#{deanCourseBean.SeniorSplitChange}" onchange="submit()">
-		            				<f:selectItems value="#{deanCourseBean.SeniorCourses}"/>	           					
+		            								valueChangeListener="#{deanCourseBean.seniorSplitChange}" onchange="submit()">
+		            				<f:selectItems value="#{deanCourseBean.seniorCourses}"/>	           					
 		            			</h:selectOneListbox>
 		            			<br/>
 		            			<br/>
