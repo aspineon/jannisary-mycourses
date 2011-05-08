@@ -185,29 +185,35 @@
     
      <h:form>
      <rich:panel>
-   		<h:panelGrid columns="1">
-   			   	
+   		<h:panelGrid columns="2">
+   			  
+   			  <h:outputLabel value="Title : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
 	    	<h:inputText  value="#{lecturerBean.currentItem.title}" id="titleText">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		    		    	
+	   		  
+	   		  <h:outputLabel value="Lecturer Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  		    	
 	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}" id="lecturerName">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		    	
+	   		  
+	   		  <h:outputLabel value="E-Mail : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  	
 	    	<h:inputText  value="#{lecturerBean.currentItem.email}" id="lecturerEmail">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   			    
+	   			   
+	   			   <h:outputLabel value="" /> 
     		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
 			
+			<h:outputLabel value="Telephone : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}" id="lecturerTelephone">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		
-	   		<h:commandButton value="Add Lecturer" action="#{lecturerBean.addLecturer}" style=" width : 110px; height : 20px;">
+	   		<h:outputLabel value="" />
+	   		<h:commandButton value="Add Lecturer" action="#{lecturerBean.addLecturer}" style="width : 110px; height : 25px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
 	   			    	
