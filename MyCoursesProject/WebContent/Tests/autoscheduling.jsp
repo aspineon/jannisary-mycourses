@@ -110,7 +110,8 @@
 		            	
 		            			<br/>
 		            			<h:outputText value="Days : " />
-		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}">
+		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}"
+		            															valueChangeListener="#{deanCourseBean.freshmanDayChange}" onchange="submit()">
 						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
 						           	</h:selectOneMenu>
 		            			<br/>
