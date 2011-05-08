@@ -11,16 +11,9 @@ public class SortedList {
 	public SortedList(){
 	}
 	
-	public SortedList(SortedList ls){
+	public SortedList(ArrayList<ScheduleAtomic> ls){
 		
-		this.listSorted = ls.listSorted;
-		this.falseAttendanceList = ls.falseAttendanceList;
-		
-		this.firstYearList = ls.firstYearList;
-		this.secondYearList = ls.secondYearList;
-		this.thirdYearList = ls.thirdYearList;
-		this.fourthYearList = ls.fourthYearList;
-		
+		this.listSorted = ls;
 		separateCredit();
 	}//end of constructor
 	
