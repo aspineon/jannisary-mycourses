@@ -963,11 +963,12 @@
 								
 								<rich:spacer height="40"/>
 								
+								<h:selectBooleanCheckbox  id="checkBoxExcelOperationId"/>
 								
 								
 								<rich:spacer height="40"/>
 								
-								<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
+								<h:commandButton id="btnSaveScheduleId" value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
 									<a4j:support event="onclick" reRender="form"/>
 								</h:commandButton>
 									
