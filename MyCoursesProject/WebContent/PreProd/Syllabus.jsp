@@ -227,7 +227,7 @@
 			<f:selectItems value="#{syllabusBean.classroomList}"/>
 		</rich:comboBox>
      	
-     	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style=" width : 110px; height : 20px;">
+     	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style="width : 110px; height : 24px;">
 			<a4j:support event="onclick" reRender="table"/>
 		</h:commandButton>
      	
@@ -236,10 +236,6 @@
      </rich:panel>
     </h:form>
     
-    
-    <rich:messages>
-    
-    </rich:messages>
 
 </f:view>
 </body>
