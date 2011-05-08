@@ -116,6 +116,7 @@ public class ScheduleAtomic {
 		}
 		return retList;
 	}
+	
 	private ArrayList<Integer> generateKnowledge(int credit) {
 		ArrayList<Integer> retList = new ArrayList<Integer>();
 		if(credit == 1) {
@@ -201,7 +202,6 @@ public class ScheduleAtomic {
 	
 	// ************* Credit Split and Merge Functions *********************************************
 	
-	@SuppressWarnings("unused")
 	public ScheduleAtomic splitCredit(int pCredit)
 	{
 		ScheduleAtomic splitObj = new ScheduleAtomic();
@@ -210,9 +210,10 @@ public class ScheduleAtomic {
 		{
 			splitObj.setSyllabus(this.syllabus);
 			splitObj.setCourseType(this.courseType);
-			splitObj.setCredit(this.credit - (this.credit - pCredit));
+			splitObj.setCredit(pCredit);
 			splitObj.setDay(this.day);
 			splitObj.setStartHour(this.startHour);
+			this.setCredit(this.credit - pCredit);
 		}		
 		return splitObj;
 	}
