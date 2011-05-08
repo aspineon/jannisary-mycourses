@@ -200,7 +200,7 @@
     
      <h:form>
      <rich:panel>
-     	<h:panelGrid columns="3">
+     	<h:panelGrid columns="1">
      	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
 		</rich:comboBox>
@@ -218,7 +218,7 @@
 			<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
 		</rich:comboBox>
      	
-     	<h:outputText value="Section No" />
+     	
      	<h:inputText value="#{syllabusBean.currentItem.sectionNo}">
 	    	<f:validateLength minimum="1" maximum="20"/>
 	    </h:inputText>
