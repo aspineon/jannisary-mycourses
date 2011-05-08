@@ -507,9 +507,10 @@ public class ManuelSchedulingUtilBean {
 		if(allRealScheduleItems.size() != 0){
 			int quotient;
 			int remainder;
-			BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
+			BasicScheduleUtilBean bs = null;
 			if(intGrade==1){
 				for(int i=0;i<allRealScheduleItems.size();i++){
+					bs = new BasicScheduleUtilBean();
 					quotient = allRealScheduleItems.get(i).getTimeofCourse();
 					remainder = quotient % 8;
 					quotient = (int) Math.floor(quotient/8);
@@ -535,6 +536,7 @@ public class ManuelSchedulingUtilBean {
 				}
 			}else if(intGrade==2){
 				for(int i=0;i<allRealScheduleItems.size();i++){
+					bs = new BasicScheduleUtilBean();
 					quotient = allRealScheduleItems.get(i).getTimeofCourse();
 					remainder = quotient % 8;
 					quotient = (int) Math.floor(quotient/8);
@@ -560,6 +562,7 @@ public class ManuelSchedulingUtilBean {
 				}
 			}if(intGrade==3){
 				for(int i=0;i<allRealScheduleItems.size();i++){
+					bs = new BasicScheduleUtilBean();
 					quotient = allRealScheduleItems.get(i).getTimeofCourse();
 					remainder = quotient % 8;
 					quotient = (int) Math.floor(quotient/8);
@@ -585,6 +588,7 @@ public class ManuelSchedulingUtilBean {
 				}
 			}else if(intGrade==4){
 				for(int i=0;i<allRealScheduleItems.size();i++){
+					bs = new BasicScheduleUtilBean();
 					quotient = allRealScheduleItems.get(i).getTimeofCourse();
 					remainder = quotient % 8;
 					quotient = (int) Math.floor(quotient/8);
