@@ -8,10 +8,11 @@ import entities.dao.Course;
 public class SortedList {
 	private ArrayList<ScheduleAtomic> listSorted = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> falseAttendanceList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> fourthYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> thirdYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> secondYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> firstYearList = new ArrayList<ScheduleAtomic>();
+	
+	private ArrayList<ScheduleAtomic> fourthCreditList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> thirdCreditList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> secondCreditList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> firstCreditList = new ArrayList<ScheduleAtomic>();
 	
 	public SortedList(){
 	}
@@ -24,23 +25,24 @@ public class SortedList {
 	private void separateCredit(){
 		try {
 			ScheduleAtomic scAtomic = null;
+			ArrayList<ScheduleAtomic> firstYearList;
 			for (int i = 0; i < listSorted.size(); i++) {
 				scAtomic = new ScheduleAtomic(listSorted.get(i));
 
-				if (scAtomic.getCredit() == 1) {firstYearList.add(scAtomic);} 
-				else if (scAtomic.getCredit() == 2) {secondYearList.add(scAtomic);} 
-				else if (scAtomic.getCredit() == 3) {thirdYearList.add(scAtomic);} 
-				else if (scAtomic.getCredit() == 4) {fourthYearList.add(scAtomic);}
+				if (scAtomic.getCredit() == 1) {firstCreditList.add(scAtomic);} 
+				else if (scAtomic.getCredit() == 2) {secondCreditList.add(scAtomic);} 
+				else if (scAtomic.getCredit() == 3) {thirdCreditList.add(scAtomic);} 
+				else if (scAtomic.getCredit() == 4) {fourthCreditList.add(scAtomic);}
 			}//end of for loop
 			
-			fourthYearList = separateAttandence(fourthYearList);
-			thirdYearList  = separateAttandence(thirdYearList);
-			secondYearList = separateAttandence(secondYearList);
-			firstYearList  = separateAttandence(firstYearList);
+			fourthCreditList = separateAttandence(fourthCreditList);
+			thirdCreditList  = separateAttandence(thirdCreditList);
+			secondCreditList = separateAttandence(secondCreditList);
+			firstYearList  = separateAttandence(firstCreditList);
 			
-			fourthYearList = separatePrecondition(fourthYearList);
-			thirdYearList = separatePrecondition(thirdYearList);
-			secondYearList = separatePrecondition(secondYearList);
+			fourthCreditList = separatePrecondition(fourthCreditList);
+			thirdCreditList = separatePrecondition(thirdCreditList);
+			secondCreditList = separatePrecondition(secondCreditList);
 			firstYearList = separatePrecondition(firstYearList);
 			
 		} catch (Exception e) {
@@ -95,38 +97,35 @@ public class SortedList {
 		this.falseAttendanceList = falseAttendanceList;
 	}
 
-	public ArrayList<ScheduleAtomic> getFourthYearList() {
-		return fourthYearList;
+	public ArrayList<ScheduleAtomic> getFourthCreditList() {
+		return fourthCreditList;
 	}
 
-	public void setFourthYearList(ArrayList<ScheduleAtomic> fourthYearList) {
-		this.fourthYearList = fourthYearList;
+	public void setFourthCreditList(ArrayList<ScheduleAtomic> fourthCreditList) {
+		this.fourthCreditList = fourthCreditList;
 	}
 
-	public ArrayList<ScheduleAtomic> getThirdYearList() {
-		return thirdYearList;
+	public ArrayList<ScheduleAtomic> getThirdCreditList() {
+		return thirdCreditList;
 	}
 
-	public void setThirdYearList(ArrayList<ScheduleAtomic> thirdYearList) {
-		this.thirdYearList = thirdYearList;
+	public void setThirdCreditList(ArrayList<ScheduleAtomic> thirdCreditList) {
+		this.thirdCreditList = thirdCreditList;
 	}
 
-	public ArrayList<ScheduleAtomic> getSecondYearList() {
-		return secondYearList;
+	public ArrayList<ScheduleAtomic> getSecondCreditList() {
+		return secondCreditList;
 	}
 
-	public void setSecondYearList(ArrayList<ScheduleAtomic> secondYearList) {
-		this.secondYearList = secondYearList;
+	public void setSecondCreditList(ArrayList<ScheduleAtomic> secondCreditList) {
+		this.secondCreditList = secondCreditList;
 	}
 
-	public ArrayList<ScheduleAtomic> getFirstYearList() {
-		return firstYearList;
+	public ArrayList<ScheduleAtomic> getFirstCreditList() {
+		return firstCreditList;
 	}
 
-	public void setFirstYearList(ArrayList<ScheduleAtomic> firstYearList) {
-		this.firstYearList = firstYearList;
+	public void setFirstCreditList(ArrayList<ScheduleAtomic> firstCreditList) {
+		this.firstCreditList = firstCreditList;
 	}
-	
-	
-	
 }
