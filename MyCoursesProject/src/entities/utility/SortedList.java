@@ -38,12 +38,12 @@ public class SortedList {
 			fourthCreditList = separateAttandence(fourthCreditList);
 			thirdCreditList  = separateAttandence(thirdCreditList);
 			secondCreditList = separateAttandence(secondCreditList);
-			firstYearList  = separateAttandence(firstCreditList);
+			firstCreditList  = separateAttandence(firstCreditList);
 			
 			fourthCreditList = separatePrecondition(fourthCreditList);
 			thirdCreditList = separatePrecondition(thirdCreditList);
 			secondCreditList = separatePrecondition(secondCreditList);
-			firstYearList = separatePrecondition(firstYearList);
+			firstCreditList = separatePrecondition(firstCreditList);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -56,7 +56,7 @@ public class SortedList {
 			Course course = null;
 			for(int i = 0; i < scAtomicList.size(); i++){
 				course = new Course(scAtomicList.get(i).getSyllabus().getCourse());
-				if(course.isAttendance()){
+				if(!course.isAttendance()){
 					falseAttendanceList.add(scAtomicList.get(i));
 				}//end if
 			}//end of for loop
