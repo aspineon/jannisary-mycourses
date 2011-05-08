@@ -219,73 +219,62 @@
     </rich:modalPanel>
     
     <h:form>
-    <table>
     
-    <tr>
-    	<td>	   
-    		<h:outputLabel for="Course Code" value="Course Code"></h:outputLabel> 	
-	    	<h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode">
-	    		
-	   		</h:inputText>
-	   		
-    	</td>
-    	<td>	    	
-	    	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName">
+    <h:panelGrid id="coursePanel" columns="1" border="0">
+    	
+    		
+	    <h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode"/>
+	    <!-- ******************************************************** -->
+	   	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="courseName" />
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture">
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture">
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
-	   		</h:inputText>
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText">
-	   		</h:inputText>
-    	</td>
+	   				
+    	<!-- ******************************************************** -->
     	
-    	<td>
-    	
-	    	<rich:comboBox id="selectTypeofCourseId" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
+    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture">
+	   	</h:inputText>
+    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture">
+	   	</h:inputText>
+	   	
+	   	<!-- ******************************************************** -->
+	   	
+	   	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
+	   		</h:inputText>	   	
+	   	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText">
+	   		</h:inputText>
+	   	
+	   	
+	   	
+	   	<rich:comboBox id="selectTypeofCourseId" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 			</rich:comboBox>
-	    	
-    	</td>
-    	<td>
-    	
-	    	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+	   	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
-	    	
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
+	   	
+	   	
+	   	
+	   	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="preconditionText" />
-    	</td>
-    	<td>	    	
-	    	<h:inputText  value="#{courseBean.currentItem.courseDescription}" id="courseDesc">
+	   		
+	   	
+	   	<!-- ********************************************************************* -->
+	   	
+	   	<h:inputText  value="#{courseBean.currentItem.courseDescription}" id="courseDesc">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="courseDesc" />
-    	</td>
-		
-		<td>	
-	    	<h:commandButton value="Add Course" action="#{courseBean.addCourse}" style=" width : 110px; height : 20px;">
+	   		
+	   	
+	   		<!-- ********************************************************************* -->
+	   		
+	   		<h:commandButton value="Add Course" action="#{courseBean.addCourse}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+	   	
+	   	
+    </h:panelGrid>
+  
     </h:form>
         
 </f:view>
