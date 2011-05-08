@@ -6,13 +6,17 @@ import entities.dao.Course;
 
 
 public class SortedList {
-
+	private ArrayList<ScheduleAtomic> listSorted = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> falseAttendanceList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> fourthYearList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> thirdYearList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> secondYearList = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> firstYearList = new ArrayList<ScheduleAtomic>();
 	
 	public SortedList(){
 	}
 	
 	public SortedList(ArrayList<ScheduleAtomic> ls){
-		
 		this.listSorted = ls;
 		separateCredit();
 	}//end of constructor
@@ -74,14 +78,55 @@ public class SortedList {
 		}//end of for-loop
 		return lsScheduleAtomic;
 	}//end of separatePrecondition method
+
+	public ArrayList<ScheduleAtomic> getListSorted() {
+		return listSorted;
+	}
+
+	public void setListSorted(ArrayList<ScheduleAtomic> listSorted) {
+		this.listSorted = listSorted;
+	}
+
+	public ArrayList<ScheduleAtomic> getFalseAttendanceList() {
+		return falseAttendanceList;
+	}
+
+	public void setFalseAttendanceList(ArrayList<ScheduleAtomic> falseAttendanceList) {
+		this.falseAttendanceList = falseAttendanceList;
+	}
+
+	public ArrayList<ScheduleAtomic> getFourthYearList() {
+		return fourthYearList;
+	}
+
+	public void setFourthYearList(ArrayList<ScheduleAtomic> fourthYearList) {
+		this.fourthYearList = fourthYearList;
+	}
+
+	public ArrayList<ScheduleAtomic> getThirdYearList() {
+		return thirdYearList;
+	}
+
+	public void setThirdYearList(ArrayList<ScheduleAtomic> thirdYearList) {
+		this.thirdYearList = thirdYearList;
+	}
+
+	public ArrayList<ScheduleAtomic> getSecondYearList() {
+		return secondYearList;
+	}
+
+	public void setSecondYearList(ArrayList<ScheduleAtomic> secondYearList) {
+		this.secondYearList = secondYearList;
+	}
+
+	public ArrayList<ScheduleAtomic> getFirstYearList() {
+		return firstYearList;
+	}
+
+	public void setFirstYearList(ArrayList<ScheduleAtomic> firstYearList) {
+		this.firstYearList = firstYearList;
+	}
 	
-	private ArrayList<ScheduleAtomic> listSorted = new ArrayList<ScheduleAtomic>();
 	
-	private ArrayList<ScheduleAtomic> falseAttendanceList = new ArrayList<ScheduleAtomic>();
-	
-	private ArrayList<ScheduleAtomic> fourthYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> thirdYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> secondYearList = new ArrayList<ScheduleAtomic>();
-	private ArrayList<ScheduleAtomic> firstYearList = new ArrayList<ScheduleAtomic>();
 	
 }
