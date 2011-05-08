@@ -4,8 +4,6 @@
 <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -220,40 +218,50 @@
     
     <h:form>
     
-    <h:panelGrid id="coursePanel" columns="1" border="0">
+    <h:panelGrid id="coursePanel" columns="2" border="0">
     	
-    		
-	    <h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode"/>
+    	<h:outputLabel value="Course Code : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>	
+	    <h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+	    
 	    <!-- ******************************************************** -->
-	   	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName">
+	   	<h:outputLabel value="Course Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+	   	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   				
     	<!-- ******************************************************** -->
     	
-    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture">
+    	<h:outputLabel value="Theoric Hours : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+    	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   	</h:inputText>
-    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture">
+	   	
+	   	<h:outputLabel value="Practice Hours : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+    	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   	</h:inputText>
 	   	
 	   	<!-- ******************************************************** -->
 	   	
+	   	<h:outputLabel value="Attendance : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
-	   		</h:inputText>	   	
-	   	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText">
+	   		</h:inputText>	  
+	   		
+	   		<h:outputLabel value="Grade : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
+	   	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   		</h:inputText>
 	   	
 	   	
-	   	
+	   	<h:outputLabel value="" />
 	   	<rich:comboBox id="selectTypeofCourseId" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 			</rich:comboBox>
+			
+			<h:outputLabel value="" />
 	   	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
 	   	
 	   	
-	   	
+	   	<h:outputLabel value="Precondition : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
@@ -261,14 +269,15 @@
 	   	
 	   	<!-- ********************************************************************* -->
 	   	
+	   	<h:outputLabel value="Course Description : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText  value="#{courseBean.currentItem.courseDescription}" id="courseDesc">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		
 	   	
 	   		<!-- ********************************************************************* -->
-	   		
-	   		<h:commandButton value="Add Course" action="#{courseBean.addCourse}" style=" width : 110px; height : 20px;">
+	   		<h:outputLabel value="" />
+	   		<h:commandButton value="Add Course" action="#{courseBean.addCourse}" style="width : 110px; height : 24px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
 	   	
