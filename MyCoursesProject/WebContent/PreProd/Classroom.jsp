@@ -155,35 +155,24 @@
     </rich:modalPanel>
         
      <h:form>
-    <table>
-    
-    <tr>
-    	
-    	<td>
-    	
-	    	<h:outputText value="Department Code" />
+     
+     <h:panelGrid id="classroomPanelGrid" columns="1">
+     	     	
             <rich:comboBox id="departmentAddId" value="Select Department Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentAddCombo}">
             	<f:selectItems value="#{classroomBean.departmentCodeList}"/>
             </rich:comboBox>
-	    	
-    	</td>
-    	<td>
-    	
-	    	<h:inputText  value="#{classroomBean.currentItem.classroomCode}" id="classroomCode">
+     
+     		<h:inputText value="#{classroomBean.currentItem.classroomCode}" id="classroomCode">
 	    		<f:validateLength minimum="1" maximum="10"/>
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		<rich:message for="classroomCode" />
-	    	
-    	</td>
-		
-		<td>	
-	    	<h:commandButton value="Add Classroom" action="#{classroomBean.addClassroom}" style=" width : 110px; height : 20px;">
+	   		     
+     		<h:commandButton value="Add Classroom" action="#{classroomBean.addClassroom}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+     
+     </h:panelGrid>
+     
     </h:form>
 
 
