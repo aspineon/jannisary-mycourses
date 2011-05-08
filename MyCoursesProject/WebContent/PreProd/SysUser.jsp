@@ -162,12 +162,12 @@
     
     <h:panelGrid id="sysuserPanelGrid" columns="2">
     	<h:outputLabel value="User Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName">
+    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
 	   	
 	   	<h:outputLabel value="User Password : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
+    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: small;">
 	    		<rich:ajaxValidator event="onblur"/>
 	    </h:inputText>
 	   	
