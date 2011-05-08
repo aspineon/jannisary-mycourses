@@ -50,6 +50,8 @@ public class ManuelSchedulingUtilBean {
 	private List<SelectItem> listYear = new ArrayList<SelectItem>();
 	private List<SelectItem> listDay = new ArrayList<SelectItem>();
 	private List<SelectItem> listHour = new ArrayList<SelectItem>();
+	private List<SelectItem> listNextTwoYearsToSave = new ArrayList<SelectItem>();
+	private List<SelectItem> listSemesterToSave = new ArrayList<SelectItem>();
 	
 	private int intGrade; //intGrade storeProcedure'a parametre olarak geçirilen sınıf değişkeni.
 	private String semester; //semeter storeProcedure'e parametre olarak geçirilen sınıf değişkeni.
@@ -60,6 +62,9 @@ public class ManuelSchedulingUtilBean {
 	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
 	private String dayForReset;
 	private int hourForReset;
+	private int editOrAddFlag;
+	private int savedYear;
+	private String savedSemester;
 	
     /*
      * Arayüzde yer alan herbir saat dilimi hücresinde sürükle bırak işlemi ardından etkilenen isim alanlarını
@@ -137,6 +142,12 @@ public class ManuelSchedulingUtilBean {
 		listDay.add(new SelectItem("Thursday"));
 		listDay.add(new SelectItem("Friday"));
 		
+		listNextTwoYearsToSave.add(new SelectItem(currentYear));
+		listNextTwoYearsToSave.add(new SelectItem(currentYear+1));
+		
+		listSemesterToSave.add(new SelectItem("Fall"));
+		listSemesterToSave.add(new SelectItem("Spring"));
+		
 		for(int k=1;k<9;k++){
 			listHour.add(new SelectItem(k));
 		}
@@ -167,6 +178,7 @@ public class ManuelSchedulingUtilBean {
 	
 	public String clickGetCoursesButton() throws Exception{
 		System.out.println("Get Course Button");
+		editOrAddFlag = 0;// Add
 		allSyllabuses = null;
 		allBasicScheduleItems = null;
 		allRealScheduleItems = null;
@@ -176,6 +188,7 @@ public class ManuelSchedulingUtilBean {
 	
 	public String clickGetCoursesButtonForEdit() throws Exception{
 		System.out.println("Get Course Button For Edit");
+		editOrAddFlag = 1;//Edit
 		allSyllabuses = null;
 		allBasicScheduleItems = null;
 		allRealScheduleItems = null;
@@ -192,7 +205,14 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	public String clickSave(){
-		saveMatrix();
+		if(editOrAddFlag==0){
+			saveMatrix();
+		}else if(editOrAddFlag==1){
+			setMatrixSyllabusYearAndSemester();
+			updateMatrix();
+		}
+		/*resetMatrix();
+		fillMatrix();*/
 		return null;
 	} 	
 	
@@ -204,6 +224,26 @@ public class ManuelSchedulingUtilBean {
 		}
 		
 	    System.out.println(semester);
+	}
+	
+	public void selectionChangedSavedSemesterCombo(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			savedSemester = selectedValue;
+		}
+		
+	    System.out.println(savedSemester);
+	}
+	
+	public void selectionChangedSavedYearCombo(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			savedYear = Integer.parseInt(selectedValue);
+		}
+		
+	    System.out.println(savedYear);
 	}
 	
 	public void selectionChangedDayComboForReset(ValueChangeEvent evt){
@@ -259,6 +299,27 @@ public class ManuelSchedulingUtilBean {
 		System.out.println("Bean.processDrag()");
 	}
 	
+	public void processDrop(DropEvent event) {
+		try {
+			System.out.println("Bean.processDrop()");
+			tempBasicScheduleItem = (BasicScheduleUtilBean) event.getDragValue();
+			System.out.println("lecturer name in processDrop: " + tempBasicScheduleItem.getCourseTheoricOrPraticName());
+			//this.dragValue = (Object) event.getDragValue();
+			//tempBasicScheduleItem = (BasicScheduleUtilBean) dragValue;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Error in processDrop!!!!!******");
+		}
+		
+		//int intSyllabusId = tempSchedule.getSyllabus().getSyllabusId();
+		//tempSchedule = new Schedule(findScheduleByIdInList(intSyllabusId));
+		
+		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
+		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
+		
+	}	
+	
 	public String dragAction() {
 		System.out.println("Bean.dragAction()");
 		return null;
@@ -269,8 +330,7 @@ public class ManuelSchedulingUtilBean {
 		try {
 			System.out.println("Bean.dropAction()");
 			int timeofCourse = componentIdtoDay*8 + componentIdtoHour;
-			tempBasicScheduleItem.setTimeofCourse(timeofCourse);
-			tempBasicScheduleItem.setHours(1);
+			
 			
 			System.out.println(tempBasicScheduleItem.getClassroomId());
 			System.out.println(tempBasicScheduleItem.getLecturerName());
@@ -287,6 +347,9 @@ public class ManuelSchedulingUtilBean {
 				   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 					{
 					System.out.println("success in first grade if");
+						//tempBasicScheduleItem = firstGradeSchedule[componentIdtoDay][componentIdtoHour];
+						tempBasicScheduleItem.setTimeofCourse(timeofCourse);
+						tempBasicScheduleItem.setHours(1);
 						firstGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem; 
 					}else{
 						errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with first class lesson";
@@ -299,6 +362,9 @@ public class ManuelSchedulingUtilBean {
 					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
 					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
+							//tempBasicScheduleItem = secondGradeSchedule[componentIdtoDay][componentIdtoHour];
+							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
+							tempBasicScheduleItem.setHours(1);
 							secondGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with second class lesson";
@@ -311,6 +377,9 @@ public class ManuelSchedulingUtilBean {
 					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
 					   !tempBasicScheduleItem.getLecturerName().equals(fourthGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
+							//tempBasicScheduleItem = thirdGradeSchedule[componentIdtoDay][componentIdtoHour];
+							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
+							tempBasicScheduleItem.setHours(1);
 							thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with third class lesson";
@@ -323,6 +392,9 @@ public class ManuelSchedulingUtilBean {
 					   !tempBasicScheduleItem.getLecturerName().equals(thirdGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()) &&
 					   !tempBasicScheduleItem.getLecturerName().equals(firstGradeSchedule[componentIdtoDay][componentIdtoHour].getLecturerName()))
 						{
+							//tempBasicScheduleItem = fourthGradeSchedule[componentIdtoDay][componentIdtoHour];
+							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
+							tempBasicScheduleItem.setHours(1);
 							fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with fourth class lesson";
@@ -358,6 +430,38 @@ public class ManuelSchedulingUtilBean {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void setMatrixSyllabusYearAndSemester(){
+		if(intGrade==1){
+			for(int i=0;i<5;i++){
+				for(int j=0;j<8;j++){
+					firstGradeSchedule[i][j].setYear(savedYear);
+					firstGradeSchedule[i][j].setSemester(savedSemester);
+				}
+			}
+		}else if(intGrade==2){
+			for(int i=0;i<5;i++){
+				for(int j=0;j<8;j++){
+					secondGradeSchedule[i][j].setYear(savedYear);
+					secondGradeSchedule[i][j].setSemester(savedSemester);
+				}
+			}
+		}else if(intGrade==3){
+			for(int i=0;i<5;i++){
+				for(int j=0;j<8;j++){
+					thirdGradeSchedule[i][j].setYear(savedYear);
+					thirdGradeSchedule[i][j].setSemester(savedSemester);
+				}
+			}
+		}else if(intGrade==4){
+			for(int i=0;i<5;i++){
+				for(int j=0;j<8;j++){
+					fourthGradeSchedule[i][j].setYear(savedYear);
+					fourthGradeSchedule[i][j].setSemester(savedSemester);
+				}
+			}
+		}
 	}
 	
 	public void resetSelectedCoordinate(){
@@ -403,6 +507,10 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
+					bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
+					bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
+					bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
 						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
@@ -424,6 +532,10 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
+					bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
+					bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
+					bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
 						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
@@ -445,6 +557,10 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
+					bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
+					bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
+					bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
 						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
@@ -466,6 +582,10 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
 					bs.setHours(1);
 					bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+					bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
+					bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
+					bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
+					bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
 						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
@@ -519,28 +639,6 @@ public class ManuelSchedulingUtilBean {
 		}
 		return allBasicScheduleItems;
 	}
-	
-	
-	public void processDrop(DropEvent event) {
-		try {
-			System.out.println("Bean.processDrop()");
-			tempBasicScheduleItem = (BasicScheduleUtilBean) event.getDragValue();
-			System.out.println("lecturer name in processDrop: " + tempBasicScheduleItem.getCourseTheoricOrPraticName());
-			//this.dragValue = (Object) event.getDragValue();
-			//tempBasicScheduleItem = (BasicScheduleUtilBean) dragValue;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Error in processDrop!!!!!******");
-		}
-		
-		//int intSyllabusId = tempSchedule.getSyllabus().getSyllabusId();
-		//tempSchedule = new Schedule(findScheduleByIdInList(intSyllabusId));
-		
-		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
-		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
-		
-	}	
 		
 	public List<Syllabus> getSyllabusBySemesterAndGrade() {
 		
@@ -637,6 +735,7 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
 					bs.setLecturerName(allBasicScheduleItems.get(i).getLecturerName());
 					bs.setSyllabusId(allBasicScheduleItems.get(i).getSyllabusId());
+					bs.setTimeofCourse(allBasicScheduleItems.get(i).getTimeofCourse());
 					courseList.add(bs);
 					System.out.println("getTeoricLectureHours");
 				}
@@ -651,6 +750,7 @@ public class ManuelSchedulingUtilBean {
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
 					bs.setLecturerName(allBasicScheduleItems.get(i).getLecturerName());
 					bs.setSyllabusId(allBasicScheduleItems.get(i).getSyllabusId());
+					bs.setTimeofCourse(allBasicScheduleItems.get(i).getTimeofCourse());
 					labList.add(bs);
 					System.out.println("getPracticeLectureHourse");
 				}
@@ -672,6 +772,11 @@ public class ManuelSchedulingUtilBean {
 	    secondGradeSchedule = new BasicScheduleUtilBean[5][8];
 		thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
 		fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
+	}
+	
+	private void updateMatrix(){
+		ScheduleBean scheduleBean = new ScheduleBean();
+		scheduleBean.updateSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
 	}
 	
 	private void saveMatrix(){
@@ -876,8 +981,41 @@ public class ManuelSchedulingUtilBean {
 		this.listHour = listHour;
 	}
 	
+	public List<SelectItem> getListNextTwoYearsToSave() {
+		return listNextTwoYearsToSave;
+	}
+
+	public void setListNextTwoYearsToSave(List<SelectItem> listNextTwoYearsToSave) {
+		this.listNextTwoYearsToSave = listNextTwoYearsToSave;
+	}
+
+	public List<SelectItem> getListSemesterToSave() {
+		return listSemesterToSave;
+	}
+
+	public void setListSemesterToSave(List<SelectItem> listSemesterToSave) {
+		this.listSemesterToSave = listSemesterToSave;
+	}
+
+	public int getSavedYear() {
+		return savedYear;
+	}
+
+	public void setSavedYear(int savedYear) {
+		this.savedYear = savedYear;
+	}
+
+	public String getSavedSemester() {
+		return savedSemester;
+	}
+
+	public void setSavedSemester(String savedSemester) {
+		this.savedSemester = savedSemester;
+	}
 	
 	// Getters and setters for the 40 datatable values
+
+	
 
 	public String getValueForDt11() {
 			if(intGrade == 1){
