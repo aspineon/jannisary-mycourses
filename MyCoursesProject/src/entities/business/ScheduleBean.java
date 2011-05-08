@@ -27,6 +27,17 @@ public class ScheduleBean {
 		
 		schedule.addScheduleMatrix();
 	}
+	
+	public void updateSchedule(BasicScheduleUtilBean[][] firstGradeSchedule, BasicScheduleUtilBean[][] secondGradeSchedule,
+			BasicScheduleUtilBean[][] thirdGradeSchedule,BasicScheduleUtilBean[][] fourthGradeSchedule){
+		
+		schedule.setFirstGradeSchedule(firstGradeSchedule);
+		schedule.setSecondGradeSchedule(secondGradeSchedule);
+		schedule.setThirdGradeSchedule(thirdGradeSchedule);
+		schedule.setFourthGradeSchedule(fourthGradeSchedule);
+		
+		schedule.updateScheduleMatrix();
+	}
 
 	public String getpCourseType() {
 		return pCourseType;
