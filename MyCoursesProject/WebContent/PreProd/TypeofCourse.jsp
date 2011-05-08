@@ -155,17 +155,17 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
     <h:form>
-    	        		    	
+    	   <h:panelGrid id="typeofCoursePanelGrid" columns="1">     		    	
 	    	<h:inputText  value="#{typeofCourseBean.currentItem.typeofCourse}" id="id1">
 	    		<f:validateLength minimum="3" maximum="12"/>
                 <rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-    		<rich:message for="id1" />
     		
-	    	<h:commandButton value="Add TypeofCourse" action="#{typeofCourseBean.addTypeofCourse}" style=" width : 110px; height : 20px;">
+    		
+	    	<h:commandButton value="Add TypeofCourse" action="#{typeofCourseBean.addTypeofCourse}" style="height : 29px; width : 132px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		
+		</h:panelGrid>
     </h:form>
     </ui:composition>
         
