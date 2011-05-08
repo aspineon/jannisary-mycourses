@@ -4,8 +4,6 @@
 <%@ taglib uri="http://richfaces.org/a4j" prefix="a4j" %>
 <%@ taglib uri="http://richfaces.org/rich" prefix="rich" %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -161,39 +159,26 @@
     </rich:modalPanel>
     
     <h:form>
-    <table>
     
-    <tr>
-    	<td>	    	
-	    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName">
+    <h:panelGrid id="sysuserPanelGrid" columns="1">
+    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName">
 	    		<rich:ajaxValidator event="onblur"/>
-	   		</h:inputText>
-	   		<rich:message for="userName" />
-    	</td>
-    	
-    	<td>
-    	
-	    	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
+	   	</h:inputText>
+	   	
+	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
 				<f:selectItems value="#{sysUserBean.selectItems}"/>
-			</rich:comboBox>
-	    	
-    	</td>
+		</rich:comboBox>
     
-    	<td>
-	    	
-			<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
+    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
 	    		<rich:ajaxValidator event="onblur"/>
-	    	</h:inputText>
-	    	<rich:message for="userPass" />
-		</td>
-		
-		<td>	
-	    	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style=" width : 110px; height : 20px;">
+	    </h:inputText>
+    
+    	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style="width : 110px; height : 25px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+    
+    </h:panelGrid>
+    
     </h:form>
 
 </f:view>
