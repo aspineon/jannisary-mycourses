@@ -13,7 +13,10 @@ public class BasicScheduleUtilBean {
 	private String courseTheoricOrPraticName;
 	private int timeofCourse;
 	private int hours;
-	
+	private int year;
+	private String semester;
+	private int scheduleId;
+
 	public BasicScheduleUtilBean(){
 		
 	}
@@ -92,4 +95,29 @@ public class BasicScheduleUtilBean {
 	public void setHours(int hours) {
 		this.hours = hours;
 	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+	public int getScheduleId() {
+		return scheduleId;
+	}
+
+	public void setScheduleId(int scheduleId) {
+		this.scheduleId = scheduleId;
+	}
+	
 }
