@@ -42,6 +42,22 @@ public class ScheduleAtomic {
 	}
 	
 	@Override
+	public String toString() {
+		String retStr = "";
+		retStr = retStr + " Syllabus: " + this.syllabus.getSyllabusId();
+		retStr = retStr + "| Type: " + this.courseType;
+		retStr = retStr + "| Credit: " + this.credit;
+		retStr = retStr + "\n";
+		boolean att = this.syllabus.getCourse().isAttendance();
+		String ek = "Attandance required\n\n";
+		if(att == false) {
+			ek = "Attendance not required\n\n";
+		}
+		retStr = retStr + ek;
+		return retStr;
+	}
+	
+	@Override
 	public boolean equals(Object obj) {
         if (this == obj)
             return true;
