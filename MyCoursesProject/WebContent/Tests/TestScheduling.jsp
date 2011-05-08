@@ -11,6 +11,12 @@
 <title>Insert title here</title>
   <style>
   
+  		.footerPanelStyle{
+  			width:300px;
+  			height:150px;
+  			vertical-align:top;	
+  		}
+  
         .panelc {
             width:25%;
             vertical-align:top;
@@ -924,30 +930,18 @@
             	
             	<rich:panel id="errorPanel">
             	<h:panelGrid columns="3">
-            		<rich:panel id="SaveSchedulePanelId">
+            		<rich:panel id="SaveSchedulePanelId" bodyClass="footerPanelStyle">
             			<rich:messages for="form" layout="list">
                         	<h:panelGrid columns="2">
 	                        	<h:graphicImage value="/images/modal/error.gif"/> 
 	                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>
-	                        	<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
-									<a4j:support event="onclick" reRender="form"/>
-								</h:commandButton>
+	                        	
                         	</h:panelGrid>
                    		</rich:messages>	
             		</rich:panel>
 	        		
-	        		<rich:panel id="ExcelOperationPanelId">
-	        				<h:panelGrid id="ExcelpanelGridId">
-	        					<f:facet name="header">
-									<h:outputText value="Excel Operation" />	        						
-	        					</f:facet>
-
-	        					<f:facet name="footer">
-	        						<h:outputText value="Footer" />
-	        					</f:facet>	        					
-	        				</h:panelGrid>
-	        		</rich:panel>
-                   <rich:panel id="UpdatePanelId">
+	        		
+                   <rich:panel id="UpdatePanelId" bodyClass="footerPanelStyle">
                    	<h:panelGrid columns="1" id="UpdatePanelGridId">
                    	   	<f:facet name="header">
                    	   		<h:outputText value="Select year and semester" />
@@ -967,7 +961,13 @@
 								
 								<rich:spacer height="40"/>
 								
-								<h:commandButton id="UpdateScheduleButtonId" value="Update Schedule" />
+								
+								
+								<rich:spacer height="40"/>
+								
+								<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
+									<a4j:support event="onclick" reRender="form"/>
+								</h:commandButton>
 									
 							</h:form>
 							
@@ -980,9 +980,6 @@
                    </h:panelGrid>
 	        	</rich:panel>
             	</h:panelGrid>
-            
-            
-            
         </h:form>
         </h:panelGrid>
     </rich:panel>
