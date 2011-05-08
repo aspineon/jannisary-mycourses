@@ -8,6 +8,7 @@ import javax.faces.model.SelectItem;
 import entities.dao.Course;
 import entities.dao.Syllabus;
 import entities.utility.ScheduleAtomic;
+import entities.utility.SortedList;
 
 public class DeanCourseBean 
 {
@@ -24,8 +25,6 @@ public class DeanCourseBean
 // These subfields holds the actions state when selecting year and semester.
 	private boolean yearFlag = false;
 	private boolean semesterFlag = false;
-	private String operationFlag = "";
-	private boolean splitFlag = false;
 // Year and semester data are hold in these subfields.
 	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>(); 			//3
 	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();		//4
@@ -116,6 +115,7 @@ public class DeanCourseBean
 	private ScheduleAtomic selectedScheduleAtomicFreshman = null;
 	private int atomicIndexFreshman = -1;
 	private int topCreditFreshman = -1;
+	private String optFlagFreshman = "";
 //**************** Sophomore Subfields **********************************************
 	private String selectedSophomoreCourse = "";
 	private String selectedSophomoreSplitCourse = "";
@@ -132,6 +132,7 @@ public class DeanCourseBean
 	private ScheduleAtomic selectedScheduleAtomicSophomore = null;
 	private int atomicIndexSophomore = -1;
 	private int topCreditSophomore = -1;
+	private String optFlagSophomore = "";
 //**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
 	private String selectedJuniorSplitCourse = "";
@@ -148,6 +149,7 @@ public class DeanCourseBean
 	private ScheduleAtomic selectedScheduleAtomicJunior = null;
 	private int atomicIndexJunior = -1;
 	private int topCreditJunior = -1;
+	private String optFlagJunior = "";
 //**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
 	private String selectedSeniorSplitCourse = "";
@@ -164,6 +166,7 @@ public class DeanCourseBean
 	private ScheduleAtomic selectedScheduleAtomicSenior = null;
 	private int atomicIndexSenior = -1;
 	private int topCreditSenior = -1;
+	private String optFlagSenior = "";
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
@@ -404,7 +407,7 @@ public class DeanCourseBean
 	}
 //********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
-	{
+	{	
 		try
 		{
 			if(selectedFreshmanOperation.equals("Theory Operation"))
@@ -767,22 +770,22 @@ public class DeanCourseBean
 		this.clearTimeValues("Freshman");
 		if((!this.selectedFreshmanOperation.equals("Choose Course Type")) && (this.selectedFreshmanOperation != null)) {
 			if(this.selectedFreshmanOperation.equals("Theoretical")) {
-				if(this.operationFlag == "P") { 
+				if(this.optFlagFreshman == "P") { 
 					this.clearTimeValues("Freshman");
 					this.selectedFreshmanCredit = null;
 				}
-				this.operationFlag = "T";
+				this.optFlagFreshman = "T";
 				this.topCreditFreshman = Integer.parseInt(this.freshmanCreditValeuTeo);
 				this.loadCredits("Freshman", this.topCreditFreshman);
 				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Theo", this.topCreditFreshman);
 				return;
 			} 
 			if(this.selectedFreshmanOperation.equals("Practice")) {
-				if(this.operationFlag == "T") {
+				if(this.optFlagFreshman == "T") {
 					this.clearTimeValues("Freshman");
 					this.selectedFreshmanCredit = null;
 				}
-				this.operationFlag = "P";
+				this.optFlagFreshman = "P";
 				this.topCreditFreshman = Integer.parseInt(this.freshmanCreditValuePrac);
 				this.loadCredits("Freshman", this.topCreditFreshman);
 				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Prac", this.topCreditFreshman);
@@ -791,9 +794,8 @@ public class DeanCourseBean
 		}
 		else { 
 			this.clearTimeValues("Freshman"); 
-			this.operationFlag = "";
+			this.optFlagFreshman = "";
 		}
-		
 	}
 	
 	public void freshmanCreditChange(ValueChangeEvent event) {
@@ -809,12 +811,10 @@ public class DeanCourseBean
 			this.loadDays("Freshman");
 			if (this.atomicIndexFreshman != -1) {
 				if(this.topCreditFreshman != Integer.parseInt(this.selectedFreshmanCredit)) {
-					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));
-					this.splitFlag = true;
+					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));	
 				}
 				else {
 					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
-					this.splitFlag = false;
 				}
 			}
 			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicFreshman.getCredit()));
@@ -829,6 +829,7 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanDay = newValue;
+		this.deneme();
 		this.freshmanHours.clear();
 		if(!this.selectedFreshmanDay.equals("Choose Day") && this.selectedFreshmanDay != "") {
 			this.freshmanHours = this.selectedScheduleAtomicFreshman.getKnowledgeByDay(this.selectedFreshmanDay);
@@ -841,7 +842,12 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedSophomoreCourse = newValue;	
+		this.selectedSophomoreCourse = newValue;
+		this.clearSubFields("Sophomore");
+		this.clearTimeValues("Sophomore");
+		if(!this.selectedSophomoreCourse.equals("Course Selection") && this.selectedSophomoreCourse != null) {
+			this.loadSubFields("Sophomore");
+		}
 	}
 	
 	public void sophomoreOperationChange(ValueChangeEvent event) {
@@ -850,6 +856,38 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSophomoreOperation = newValue;
+		this.atomicIndexSophomore = -1;
+		this.topCreditSophomore = -1;
+		this.clearTimeValues("Sophomore");
+		if((!this.selectedSophomoreOperation.equals("Choose Course Type")) && (this.selectedSophomoreOperation != null)) {
+			if(this.selectedSophomoreOperation.equals("Theoretical")) {
+				if(this.optFlagSophomore == "P") { 
+					this.clearTimeValues("Sophomore");
+					this.selectedSophomoreCredit = null;
+				}
+				this.optFlagSophomore = "T";
+				this.topCreditSophomore = Integer.parseInt(this.sophomoreCreditValeuTeo);
+				this.loadCredits("Sophomore", this.topCreditSophomore);
+				this.atomicIndexSophomore = this.findRelatedAtomic("Sophomore", "Unmarked", "SEEK", this.selectedSophomoreSyllabus, "Theo", this.topCreditSophomore);
+				return;
+			} 
+			if(this.selectedSophomoreOperation.equals("Practice")) {
+				if(this.optFlagSophomore == "T") {
+					this.clearTimeValues("Sophomore");
+					this.selectedSophomoreCredit = null;
+				}
+				this.optFlagSophomore = "P";
+				this.topCreditSophomore = Integer.parseInt(this.sophomoreCreditValuePrac);
+				this.loadCredits("Sophomore", this.topCreditSophomore);
+				this.atomicIndexSophomore = this.findRelatedAtomic("Sophomore", "Unmarked", "SEEK", this.selectedSophomoreSyllabus, "Prac", this.topCreditSophomore);
+				return;
+			}
+		}
+		else { 
+			this.clearTimeValues("Sophomore"); 
+			this.optFlagSophomore = "";
+		}
 	}
 	
 	public void sophomoreCreditChange(ValueChangeEvent event) {
@@ -858,6 +896,22 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSophomoreCredit = newValue;
+		this.sophomoreDays.clear();
+		this.sophomoreHours.clear();
+		if(!this.selectedSophomoreCredit.equals("Choose Credit") && this.selectedSophomoreCredit != "") {
+			this.loadDays("Sophomore");
+			if (this.atomicIndexSophomore != -1) {
+				if(this.topCreditSophomore != Integer.parseInt(this.selectedSophomoreCredit)) {
+					this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore).splitCredit(Integer.parseInt(this.selectedSophomoreCredit));
+				}
+				else {
+					this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore);	
+				}
+			}
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSophomore.getCredit()));
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSophomore.getSyllabus().getSyllabusId()));
+		}
 	}
 	
 	public void sophomoreDayChange(ValueChangeEvent event) {
@@ -866,6 +920,11 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSophomoreDay = newValue;
+		this.sophomoreHours.clear();
+		if(!this.selectedSophomoreDay.equals("Choose Day") && this.selectedSophomoreDay != "") {
+			this.sophomoreHours = this.selectedScheduleAtomicSophomore.getKnowledgeByDay(this.selectedSophomoreDay);
+		}
 	}
 	
 //******************* JUNIOR EVENTS *****************************************************
@@ -875,7 +934,12 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedSophomoreCourse = newValue;	
+		this.selectedJuniorCourse = newValue;
+		this.clearSubFields("Junior");
+		this.clearTimeValues("Junior");
+		if(!this.selectedJuniorCourse.equals("Course Selection") && this.selectedJuniorCourse != null) {
+			this.loadSubFields("Junior");
+		}	
 	}
 	
 	public void juniorOperationChange(ValueChangeEvent event) {
@@ -884,6 +948,38 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedJuniorOperation = newValue;
+		this.atomicIndexJunior = -1;
+		this.topCreditJunior = -1;
+		this.clearTimeValues("Junior");
+		if((!this.selectedJuniorOperation.equals("Choose Course Type")) && (this.selectedJuniorOperation != null)) {
+			if(this.selectedJuniorOperation.equals("Theoretical")) {
+				if(this.optFlagJunior == "P") { 
+					this.clearTimeValues("Junior");
+					this.selectedJuniorCredit = null;
+				}
+				this.optFlagJunior = "T";
+				this.topCreditJunior = Integer.parseInt(this.juniorCreditValueTeo);
+				this.loadCredits("Junior", this.topCreditJunior);
+				this.atomicIndexJunior = this.findRelatedAtomic("Junior", "Unmarked", "SEEK", this.selectedJuniorSyllabus, "Theo", this.topCreditJunior);
+				return;
+			} 
+			if(this.selectedJuniorOperation.equals("Practice")) {
+				if(this.optFlagJunior == "T") {
+					this.clearTimeValues("Junior");
+					this.selectedJuniorCredit = null;
+				}
+				this.optFlagJunior = "P";
+				this.topCreditJunior = Integer.parseInt(this.juniorCreditValuePrac);
+				this.loadCredits("Junior", this.topCreditJunior);
+				this.atomicIndexJunior = this.findRelatedAtomic("Junior", "Unmarked", "SEEK", this.selectedJuniorSyllabus, "Prac", this.topCreditJunior);
+				return;
+			}
+		}
+		else { 
+			this.clearTimeValues("Junior"); 
+			this.optFlagJunior = "";
+		}
 	}
 	
 	public void juniorCreditChange(ValueChangeEvent event) {
@@ -892,6 +988,22 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedJuniorCredit = newValue;
+		this.juniorDays.clear();
+		this.juniorHours.clear();
+		if(!this.selectedJuniorCredit.equals("Choose Credit") && this.selectedJuniorCredit != "") {
+			this.loadDays("Junior");
+			if (this.atomicIndexJunior != -1) {
+				if(this.topCreditJunior != Integer.parseInt(this.selectedJuniorCredit)) {
+					this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior).splitCredit(Integer.parseInt(this.selectedJuniorCredit));
+				}
+				else {
+					this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior);	
+				}
+			}
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicJunior.getCredit()));
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicJunior.getSyllabus().getSyllabusId()));
+		}
 	}
 	
 	public void juniorDayChange(ValueChangeEvent event) {
@@ -900,6 +1012,11 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedJuniorDay = newValue;
+		this.juniorHours.clear();
+		if(!this.selectedJuniorDay.equals("Choose Day") && this.selectedJuniorDay != "") {
+			this.juniorHours = this.selectedScheduleAtomicJunior.getKnowledgeByDay(this.selectedJuniorDay);
+		}
 	}
 	
 //******************* SENIOR EVENTS *****************************************************
@@ -909,7 +1026,12 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedSophomoreCourse = newValue;	
+		this.selectedSeniorCourse = newValue;
+		this.clearSubFields("Senior");
+		this.clearTimeValues("Senior");
+		if(!this.selectedSeniorCourse.equals("Course Selection") && this.selectedSeniorCourse != null) {
+			this.loadSubFields("Senior");
+		}	
 	}
 	
 	public void seniorOperationChange(ValueChangeEvent event) {
@@ -918,6 +1040,38 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSeniorOperation = newValue;
+		this.atomicIndexSenior = -1;
+		this.topCreditSenior = -1;
+		this.clearTimeValues("Senior");
+		if((!this.selectedSeniorOperation.equals("Choose Course Type")) && (this.selectedSeniorOperation != null)) {
+			if(this.selectedSeniorOperation.equals("Theoretical")) {
+				if(this.optFlagSenior == "P") { 
+					this.clearTimeValues("Senior");
+					this.selectedSeniorCredit = null;
+				}
+				this.optFlagSenior = "T";
+				this.topCreditSenior = Integer.parseInt(this.seniorCreditValueTeo);
+				this.loadCredits("Senior", this.topCreditSenior);
+				this.atomicIndexSenior = this.findRelatedAtomic("Senior", "Unmarked", "SEEK", this.selectedSeniorSyllabus, "Theo", this.topCreditSenior);
+				return;
+			} 
+			if(this.selectedSeniorOperation.equals("Practice")) {
+				if(this.optFlagSenior == "T") {
+					this.clearTimeValues("Senior");
+					this.selectedSeniorCredit = null;
+				}
+				this.optFlagSenior = "P";
+				this.topCreditSenior = Integer.parseInt(this.seniorCreditValuePrac);
+				this.loadCredits("Senior", this.topCreditSenior);
+				this.atomicIndexSenior = this.findRelatedAtomic("Senior", "Unmarked", "SEEK", this.selectedSeniorSyllabus, "Prac", this.topCreditSenior);
+				return;
+			}
+		}
+		else { 
+			this.clearTimeValues("Senior"); 
+			this.optFlagSenior = "";
+		}
 	}
 	
 	public void seniorCreditChange(ValueChangeEvent event) {
@@ -926,6 +1080,22 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSeniorCredit = newValue;
+		this.seniorDays.clear();
+		this.seniorHours.clear();
+		if(!this.selectedSeniorCredit.equals("Choose Credit") && this.selectedSeniorCredit != "") {
+			this.loadDays("Senior");
+			if (this.atomicIndexSenior != -1) {
+				if(this.topCreditSenior != Integer.parseInt(this.selectedSeniorCredit)) {
+					this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior).splitCredit(Integer.parseInt(this.selectedSeniorCredit));
+				}
+				else {
+					this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior);	
+				}
+			}
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSenior.getCredit()));
+			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSenior.getSyllabus().getSyllabusId()));
+		}
 	}
 	
 	public void seniorDayChange(ValueChangeEvent event) {
@@ -934,6 +1104,11 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
+		this.selectedSeniorDay = newValue;
+		this.seniorHours.clear();
+		if(!this.selectedSeniorDay.equals("Choose Day") && this.selectedSeniorDay != "") {
+			this.seniorHours = this.selectedScheduleAtomicSenior.getKnowledgeByDay(this.selectedSeniorDay);
+		}
 	}
 	
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2017,5 +2192,33 @@ public class DeanCourseBean
 		this.seniorCredits = seniorCredits;
 	}
 //**************************************************************************************
+	private void deneme() {
+		SortedList item = new SortedList(this.freshmanUnmarkedList);
+		System.out.println("4 Credit Atomics");
+		ArrayList<ScheduleAtomic> lst = item.getFourthCreditList();
+		for(int i = 0; i < lst.size(); i++) {
+			System.out.print(lst.get(i).toString());
+		}
+		System.out.println("3 Credit Atomics");
+		lst = item.getThirdCreditList();
+		for(int i = 0; i < lst.size(); i++) {
+			System.out.print(lst.get(i).toString());
+		}
+		System.out.println("2 Credit Atomics");
+		lst = item.getSecondCreditList();
+		for(int i = 0; i < lst.size(); i++) {
+			System.out.print(lst.get(i).toString());
+		}
+		System.out.println("1 Credit Atomics");
+		lst = item.getFirstCreditList();
+		for(int i = 0; i < lst.size(); i++) {
+			System.out.print(lst.get(i).toString());
+		}
+		System.out.println("Not Attendence Atomics");
+		lst = item.getFalseAttendanceList();
+		for(int i = 0; i < lst.size(); i++) {
+			System.out.print(lst.get(i).toString());
+		}
+	}
 	
 }
