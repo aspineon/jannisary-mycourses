@@ -160,19 +160,25 @@
     
     <h:form>
     
-    <h:panelGrid id="sysuserPanelGrid" columns="1">
+    <h:panelGrid id="sysuserPanelGrid" columns="2">
+    	<h:outputLabel value="User Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
     	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName">
 	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
 	   	
+	   	<h:outputLabel value="User Password : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
+	    		<rich:ajaxValidator event="onblur"/>
+	    </h:inputText>
+	   	
+	   	<h:outputLabel value="" />
 	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
 				<f:selectItems value="#{sysUserBean.selectItems}"/>
 		</rich:comboBox>
     
-    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass">
-	    		<rich:ajaxValidator event="onblur"/>
-	    </h:inputText>
+    	
     
+    <h:outputLabel value="" />
     	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style="width : 110px; height : 25px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
