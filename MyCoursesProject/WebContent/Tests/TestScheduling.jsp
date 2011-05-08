@@ -949,15 +949,17 @@
 							
 							<h:form id="UpdateFormId">
 								
-								<rich:comboBox id="updateSemesterComboId">
-									
-								</rich:comboBox>
+								<rich:comboBox id="yearToSave" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedYearCombo}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listNextTwoYearsToSave}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        			</rich:comboBox>
 								
 								<rich:spacer height="20"/>
 								
-								<rich:comboBox id="updateYearComboId">
-									
-								</rich:comboBox>
+								<rich:comboBox id="semesterToSave" value="Select Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedSemesterCombo}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listSemesterToSave}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        			</rich:comboBox>
 								
 								<rich:spacer height="40"/>
 								
