@@ -160,16 +160,13 @@
 	    		<f:validateLength minimum="3" maximum="12"/>
                 <rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-    		
-    		
+    		   		
 	    	<h:commandButton value="Add TypeofCourse" action="#{typeofCourseBean.addTypeofCourse}" style="height : 29px; width : 132px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
 		</h:panelGrid>
     </h:form>
     </ui:composition>
-        
-
 
 </f:view>
 </body>
