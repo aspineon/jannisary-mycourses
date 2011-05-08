@@ -152,34 +152,24 @@
     </rich:modalPanel>
     
     <h:form>
-    <table>
     
-    <tr>
-    	<td>	    	
-	    	<h:inputText  value="#{departmentBean.currentItem.deptCode}">
+    <h:panelGrid id="departmentPanelGrid" columns="1">
+    
+    	<h:inputText  value="#{departmentBean.currentItem.deptCode}">
 	    		<f:validateLength minimum="1" maximum="10"/>
-	   		</h:inputText>
-    	</td>
-    	<td>
-	    	
-			<h:inputText value="#{departmentBean.currentItem.deptDescription}">
+	   	</h:inputText>
+	   	
+	   	<h:inputText value="#{departmentBean.currentItem.deptDescription}">
 	    		<f:validateLength minimum="1" maximum="100"/>
 	    	</h:inputText>
-		</td>
-		
-		<td>	
-	    	<h:commandButton value="Add Department" action="#{departmentBean.addDepartment}" style=" width : 110px; height : 20px;">
+    
+    	<h:commandButton value="Add Department" action="#{departmentBean.addDepartment}" style=" width : 110px; height : 20px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
-		</td>
-	</tr>
-	</table>
+    
+    </h:panelGrid>
     </h:form>
         
-    <rich:messages>
-    
-    </rich:messages>
-
 </f:view>
 </body>
 </html>
