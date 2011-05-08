@@ -16,6 +16,7 @@ import entities.business.ScheduleBean;
 import entities.dao.Course;
 import entities.dao.Schedule;
 import entities.dao.Syllabus;
+import entities.utility.ExcelPOI;
 
 public class ManuelSchedulingUtilBean {
 	
@@ -35,7 +36,9 @@ public class ManuelSchedulingUtilBean {
 	private BasicScheduleUtilBean[][] thirdGradeSchedule = new BasicScheduleUtilBean[5][8];
 	private BasicScheduleUtilBean[][] fourthGradeSchedule = new BasicScheduleUtilBean[5][8];
 	
-	/* Ara yüzde dersler Theorik ve pratik olarak 2 ayrı listede gösteriliyor. Bu dersleri arkaplan da tuttuğumuz listeler.
+	/* 
+	 * Ara yüzde dersler Theorik ve pratik olarak 2 ayrı listede gösteriliyor. 
+	 * Bu dersleri arkaplan da tuttuğumuz listeler.
 	 *  */
 	private ArrayList<BasicScheduleUtilBean> courseList = new ArrayList<BasicScheduleUtilBean>();
 	private ArrayList<BasicScheduleUtilBean> labList = new ArrayList<BasicScheduleUtilBean>();
@@ -206,7 +209,14 @@ public class ManuelSchedulingUtilBean {
 	
 	public String clickSave(){
 		if(editOrAddFlag==0){
-			saveMatrix();
+			/*if check box selected*/
+			ExcelPOI excel = new ExcelPOI();
+			excel.generateFreshmanSheet(convertExcelBasicScheduleMatrixToStringMatrix(firstGradeSchedule));
+			excel.generateSophomoreSheet(convertExcelBasicScheduleMatrixToStringMatrix(secondGradeSchedule));
+			excel.generateJuniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(thirdGradeSchedule));
+			excel.generateSeniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(fourthGradeSchedule));
+			excel.writeToExcelPOI("2011", "fall", "asd");
+			//saveMatrix();
 		}else if(editOrAddFlag==1){
 			setMatrixSyllabusYearAndSemester();
 			updateMatrix();
@@ -782,47 +792,30 @@ public class ManuelSchedulingUtilBean {
 	private void saveMatrix(){
 		ScheduleBean scheduleBean = new ScheduleBean();
 		scheduleBean.addSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
-		/*for(int i = 0; i < 5;i++){
-			for(int j = 0;j < 8 ;j++){
-				//Kontrol diğer if lerde de uyugulanmalaı.
-				if(!firstGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
-					
-					scheduleBean.setpSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
-					scheduleBean.setpCourseType(firstGradeSchedule[i][j].getCourseType());
-					scheduleBean.setpTimeOfCourse(firstGradeSchedule[i][j].getTimeofCourse());
-					scheduleBean.setpHours(firstGradeSchedule[i][j].getHours());
-					
-					scheduleBean.addSchedule();
-			    }
-				
-				if(secondGradeSchedule[i][j] != null){
-					scheduleBean.setpSyllabusId(secondGradeSchedule[i][j].getSyllabusId());
-					scheduleBean.setpCourseType(secondGradeSchedule[i][j].getCourseType());
-					scheduleBean.setpTimeOfCourse(secondGradeSchedule[i][j].getTimeofCourse());
-					scheduleBean.setpHours(secondGradeSchedule[i][j].getHours());
-					
-					scheduleBean.addSchedule();
-				}
-				
-				if(thirdGradeSchedule[i][j] != null){
-					scheduleBean.setpSyllabusId(thirdGradeSchedule[i][j].getSyllabusId());
-					scheduleBean.setpCourseType(thirdGradeSchedule[i][j].getCourseType());
-					scheduleBean.setpTimeOfCourse(thirdGradeSchedule[i][j].getTimeofCourse());
-					scheduleBean.setpHours(thirdGradeSchedule[i][j].getHours());
-					
-					scheduleBean.addSchedule();
-				}
-				
-				if(fourthGradeSchedule[i][j] != null){
-					scheduleBean.setpSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
-					scheduleBean.setpCourseType(fourthGradeSchedule[i][j].getCourseType());
-					scheduleBean.setpTimeOfCourse(fourthGradeSchedule[i][j].getTimeofCourse());
-					scheduleBean.setpHours(fourthGradeSchedule[i][j].getHours());
-				
-					scheduleBean.addSchedule();
+	}
+	/*
+	 * Excel raporlamasında kullanılmak üzere ExcelPOI içindeki metotodlara dönüştürme işlemleri
+	 * */
+	private String [][] convertExcelBasicScheduleMatrixToStringMatrix(BasicScheduleUtilBean [][] paramMatrix){
+		String matrix[][] = new String [6][9];
+		matrix[0][0] = "Hours / Days";
+		matrix[0][1] = "Monday";
+		matrix[0][2] = "Tuesday";
+		matrix[0][3] = "Wednesday";
+		matrix[0][4] = "Thursday";
+		matrix[0][5] = "Friday";
+		
+		try {
+			for(int i=1;i<5;i++){
+				for(int j = 0; j < 8; j++){
+					matrix[i][j] = paramMatrix[i-1][j].getCourseName();
 				}
 			}
-		}*/
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return matrix;
 	}
 	
 	/* Sınıf alt lanlarının Getters and Setters*/
