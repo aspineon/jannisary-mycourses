@@ -27,11 +27,11 @@
 		</td>
 		<h:form>
 		<td>			
-			<h:selectOneMenu id="Year" onchange="submit();"
-				value="#{deanCourseBean.selectedYear}"
-				valueChangeListener="#{deanCourseBean.yearValueChange}" style=" width : 194px;">
-					<f:selectItems value="#{deanCourseBean.yearList}" />
-			</h:selectOneMenu>		
+		<h:selectOneMenu id="Year" onchange="submit();"
+			 			 value="#{deanCourseBean.selectedYear}"
+						 valueChangeListener="#{deanCourseBean.yearValueChange}" style=" width : 194px;">
+			<f:selectItems value="#{deanCourseBean.yearList}" />
+		</h:selectOneMenu>		
 		</td>
 		</h:form>
 		</tr>
@@ -45,11 +45,11 @@
 		</td>
 		<h:form>
 		<td>			
-			<h:selectOneMenu id="Semester" onchange="submit();"
-				value="#{deanCourseBean.selectedSemester}"
-				valueChangeListener="#{deanCourseBean.semesterValueChange}" style=" width : 194px;">
-					<f:selectItems value="#{deanCourseBean.semesterList}" />
-			</h:selectOneMenu>		
+		<h:selectOneMenu id="Semester" onchange="submit();"
+						 value="#{deanCourseBean.selectedSemester}"
+						 valueChangeListener="#{deanCourseBean.semesterValueChange}" style=" width : 194px;">
+			<f:selectItems value="#{deanCourseBean.semesterList}" />
+		</h:selectOneMenu>		
 		</td>
 		</h:form>
 		</tr>
@@ -65,80 +65,66 @@
             		<td>
             			<h:form prependId="false">
 		            			<h:selectOneListbox id="freshmanListBox" style=" width : 219px;" 
-		            							value="#{deanCourseBean.selectedFreshmanCourse}"
-		            							valueChangeListener="#{deanCourseBean.freshmanSplitChange}"
-		            							onchange="submit()">
+		            								value="#{deanCourseBean.selectedFreshmanCourse}"
+		            								valueChangeListener="#{deanCourseBean.freshmanSplitChange}" onchange="submit()">
 		            				<f:selectItems value="#{deanCourseBean.freshmanCourses}"/>	           					
 		            			</h:selectOneListbox>
-		            			<br/><br/>
+		            			<br/>
+		            			<br/>
 		            			<h:outputText value="Course : " />
 		            			<h:inputText id="freshmanCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedFreshmanSplitCourse}"></h:inputText>
-		            						 <br/>
+		            			<br/>
 		            			<h:outputText value="Lecturer : " />
 		            			<h:inputText id="freshmanLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedFreshmanSplitLecturer}"></h:inputText>
 		            			<br/>
 		            			<h:outputText value="Theory : " />
-		            			<h:inputText id="freshmanTeoCreditTextField" disabled="true" 
-		            					style="background-color:#FFF8C6;width : 50px;"
-		            					value="#{deanCourseBean.freshmanCreditValeuTeo}"></h:inputText>
+		            			<h:inputText id="freshmanTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
+		            						 value="#{deanCourseBean.freshmanCreditValeuTeo}"></h:inputText>
 		            			<br/>
 		            			<h:outputText value="Practice : " />
-		            			<h:inputText id= "freshmanPracCreditTextField" disabled="true" 
-		            						style="background-color:#FFF8C6; width:50px;"
-		            						value="#{deanCourseBean.freshmanCreditValuePrac}"/>
-		            	
-		            			
-		            	
+		            			<h:inputText id= "freshmanPracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
+		            						 value="#{deanCourseBean.freshmanCreditValuePrac}"/>
 		            			<br/>
 		            			<h:outputText value="Course Type : " />
-		            					<h:selectOneMenu id="freshmanOperationTypeComboBox" 
-							            		style=" width : 151px;"
-							            		value="#{deanCourseBean.selectedFreshmanOperation}"
-							            		valueChangeListener="#{deanCourseBean.freshmanOperationChange}" onchange="submit()">
-									            	<f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
-								        </h:selectOneMenu>
+		            			<h:selectOneMenu id="freshmanOperationTypeComboBox" style=" width : 151px;" 
+		            							 value="#{deanCourseBean.selectedFreshmanOperation}"
+						            			 valueChangeListener="#{deanCourseBean.freshmanOperationChange}" onchange="submit()">
+								    <f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
+								</h:selectOneMenu>
 		            			<br/>
-		            	
 		            			<h:outputText value="Credit : " />
-		            				<h:selectOneMenu id="freshmanCreditComboBox" 
-		            						value="#{deanCourseBean.selectedFreshmanCredit}"
-		            						valueChangeListener="#{deanCourseBean.freshmanCreditChange}" onchange="submit()">            				
-		            							<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
+		            			<h:selectOneMenu id="freshmanCreditComboBox" 
+		            							 value="#{deanCourseBean.selectedFreshmanCredit}"
+		   										 valueChangeListener="#{deanCourseBean.freshmanCreditChange}" onchange="submit()">            				
+		            				<f:selectItems value="#{deanCourseBean.freshmanCredits}"/>        			
 		            			</h:selectOneMenu>
-		            	
 		            			<br/>
 		            			<h:outputText value="Days : " />
-		            				<h:selectOneMenu id="freshmanDaysComboBox" value="#{deanCourseBean.selectedFreshmanDay}"
-		            															valueChangeListener="#{deanCourseBean.freshmanDayChange}" onchange="submit()">
-						            			<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
-						           	</h:selectOneMenu>
-		            			<br/>
-		            	
-		            			<br/>
+		            			<h:selectOneMenu id="freshmanDaysComboBox" 
+		            							 value="#{deanCourseBean.selectedFreshmanDay}"
+		            							 valueChangeListener="#{deanCourseBean.freshmanDayChange}" onchange="submit()">
+						      		<f:selectItems value="#{deanCourseBean.freshmanDays}" /> 
+						        </h:selectOneMenu>
+		            			<br/>	            	
 		            			<h:outputText value="StartHour : " />
-		            				<h:selectOneMenu id="freshmanStartHourComboBox" 
-		            							value="#{deanCourseBean.selectedFreshmanStartHour}">            				
+		            			<h:selectOneMenu id="freshmanStartHourComboBox" 
+		            							 value="#{deanCourseBean.selectedFreshmanStartHour}">            				
 		            				<f:selectItems  value="#{deanCourseBean.freshmanHours}"/>        			
 		            			</h:selectOneMenu>
-		            			<br/>
-		            	</h:form>
-		            			
+		            			<br/>		
+		            	</h:form>  			
 		            	<h:form>
-		            			<h:commandButton value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
-							    <h:commandButton value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
+		            			<h:commandButton id="freshmanSubmit" value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton id="freshmanReset" value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
             			</h:form>
-            			
             		</td>
-            		<td style=" width : 22px;">
-            			
-            		</td>
+            		<td style=" width : 100px;"></td>
             		<td>
-            			
-            			<rich:dataTable id="freshmanDataTable" value="#{deanCourseBean.initFreshmanCourseTable}" var="item" style=" width : 700px;">
-            				
+            			<rich:dataTable id="freshmanDataTable" value="#{deanCourseBean.initFreshmanCourseTable}" var="item" style=" width : 700px;">	
+	        				
 	        				<f:facet name="header">
 	                			<h:outputText value="Schedule Table For Dean Course" />
 	        				</f:facet>
@@ -202,89 +188,65 @@
             	<tr>
             		<td>
             			<h:form prependId="false">
-	            			 <h:selectOneListbox id="sophomoreListBox" style=" width : 281px;"
-	            			 					value="#{deanCourseBean.selectedSophomoreCourse}"
-	            			 					valueChangeListener="#{deanCourseBean.sophomoreSplitChange}"
-	            			 					onchange="submit()">	            			 					
-	            			 	<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>
-	            			 </h:selectOneListbox>
-	            			 <br/><br/>
-	            			 <h:outputText value="Course : " />
-	            			 <h:inputText disabled="true" style="background-color:#FFF8C6; width : 170px;" 
-	            			 			value="#{deanCourseBean.selectedSophomoreSplitCourse}"/>
-	            			 			<br/>
-	            			 <h:outputText value="Lecturer : " />
-	            			 <h:inputText disabled="true" style="background-color:#FFF8C6; width : 170px;" 
-	            			 			value="#{deanCourseBean.selectedSophomoreSplitLecturer}" />
-	            			 			<br/>
-	            			 			<h:outputText value="Theory : " />
-	            			 <h:inputText disabled="true" style="background-color:#FFF8C6;width : 50px;"
-	            			 			value="#{deanCourseBean.sophomoreCreditValeuTeo}"/>
-	            			 			<br/>
-	            			 			<h:outputText value="Practice : " />
-	            			 <h:inputText disabled="true" style="background-color:#FFF8C6;width : 50px;"
-	            			 			value="#{deanCourseBean.sophomoreCreditValuePrac}"/>
-	            			 		<br/>
-	            			 		<h:outputText value="Operation : " />
-	            			 		<h:selectOneMenu id="sophomoreOperationTypeComboBox" 
-							            		style=" width : 151px;"
-							            		value="#{deanCourseBean.selectedSophomoreOperation}">
-									            	<f:selectItem itemValue="Choose Operation" />
-									            	<f:selectItem itemValue="Theory Operation"/>
-									            	<f:selectItem itemValue="Practice Operation" />
-								    </h:selectOneMenu>
-								    <br/>
-								    <h:outputText value="Days : " />
-								    <h:selectOneMenu id="sophomoreDaysComboBox"
-						            			value="#{deanCourseBean.selectedSophomoreDay}"
-						            		 	>
-						            			<f:selectItem itemValue="Choose Days" />
-						            			<f:selectItem itemValue="Monday" />
-						            			<f:selectItem itemValue="Tuesday" />
-						            			<f:selectItem itemValue="Wednesday" />
-						            			<f:selectItem itemValue="Thursday" />
-						            			<f:selectItem itemValue="Friday" />
-						            		</h:selectOneMenu>
-								        <br/>
-								        <h:outputText value="Start Hour : " />
-								        <h:selectOneMenu id="sophomoreStartHourComboBox" 
-		            							value="#{deanCourseBean.selectedSophomoreStartHour}">            				
-				            				<f:selectItem itemValue="Choose Start Hour"/>
-										    <f:selectItem itemValue="1"/>
-										    <f:selectItem itemValue="2"/>
-										    <f:selectItem itemValue="3"/>
-										    <f:selectItem itemValue="4"/>
-										    <f:selectItem itemValue="5"/>
-										    <f:selectItem itemValue="6"/>
-										    <f:selectItem itemValue="7"/>
-										    <f:selectItem itemValue="8"/>        			
-				            			</h:selectOneMenu>
+		            			<h:selectOneListbox id="sophomoreListBox" style=" width : 219px;"
+		            							    value="#{deanCourseBean.selectedSophomoreCourse}"
+		            								valueChangeListener="#{deanCourseBean.sophomoreSplitChange}" onchange="submit()">
+		            				<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>	           					
+		            			</h:selectOneListbox>
 		            			<br/>
-		            			<h:outputText value="End Hour : " />
-		            			<h:selectOneMenu id="sophomoreEndHourComboBox" 
-		            							value="#{deanCourseBean.selectedSophomoreEndHour}">            				
-		            				<f:selectItem itemValue="Choose End Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
+		            			<br/>
+		            			<h:outputText value="Course : " />
+		            			<h:inputText id="sophomoreCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            					   	 value="#{deanCourseBean.selectedSophomoreSplitCourse}"></h:inputText>
+		            			<br/>
+		            			<h:outputText value="Lecturer : " />
+		            			<h:inputText id="sophomoreLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            					 	 value="#{deanCourseBean.selectedSophomoreSplitLecturer}"></h:inputText>
+		            			<br/>
+		            			<h:outputText value="Theory : " />
+		            			<h:inputText id="sophomoreTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
+		            						 value="#{deanCourseBean.sophomoreCreditValeuTeo}"></h:inputText>
+		            			<br/>
+		            			<h:outputText value="Practice : " />
+		            			<h:inputText id= "sophomorePracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
+		            						 value="#{deanCourseBean.sophomoreCreditValuePrac}"/>
+		            			<br/>
+		            			<h:outputText value="Course Type : " />
+		            			<h:selectOneMenu id="sophomoreOperationTypeComboBox" style=" width : 151px;"
+							            		 value="#{deanCourseBean.selectedSophomoreOperation}"
+												 valueChangeListener="#{deanCourseBean.sophomoreOperationChange}" onchange="submit()">
+					            	<f:selectItems value="#{deanCourseBean.sophomoreOperations}" />            	
+								</h:selectOneMenu>
+		            			<br/>
+		            			<h:outputText value="Credit : " />
+		            			<h:selectOneMenu id="sophomoreCreditComboBox" 
+		            							 value="#{deanCourseBean.selectedSophomoreCredit}"
+		            							 valueChangeListener="#{deanCourseBean.sophomoreCreditChange}" onchange="submit()">            				
+		            				<f:selectItems value="#{deanCourseBean.sophomoreCredits}"/>        			
 		            			</h:selectOneMenu>
-		            			
 		            			<br/>
-		            			<h:commandButton value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
-							    <h:commandButton value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
+		            			<h:outputText value="Days : " />
+		            			<h:selectOneMenu id="sophomoreDaysComboBox" 
+		            							 value="#{deanCourseBean.selectedSophomoreDay}"
+		           								 valueChangeListener="#{deanCourseBean.sophomoreDayChange}" onchange="submit()">
+						       		<f:selectItems value="#{deanCourseBean.sophomoreDays}" /> 
+						        </h:selectOneMenu>
+		            			<br/>
+		            			<br/>
+		            			<h:outputText value="StartHour : " />
+		            			<h:selectOneMenu id="sophomoreStartHourComboBox" value="#{deanCourseBean.selectedSophomoreStartHour}">            				
+		            				<f:selectItems value="#{deanCourseBean.sophomoreHours}"/>        			
+		            			</h:selectOneMenu>
+		            			<br/>
+		            	</h:form>
+		            	<h:form>
+		            			<h:commandButton id="sophomoreSubmit" value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton id="sophomoreReset" value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
             			</h:form>
             		</td>
-            		<td style=" width : 100px;">
-            			
-            		</td>
+            		<td style=" width : 100px;"></td>
             		<td>
-            			
 		            			<rich:dataTable id="sophomoreDataTable" 
 		            				value="#{deanCourseBean.initSophomoreCourseTable}" var="item" style=" width : 700px;">
 		            				
@@ -350,90 +312,65 @@
             	<tr>
             		<td>
             			 <h:form prependId="false">
-            			 		<h:selectOneListbox id="juniorListBox" style=" width : 219px;" 
-		            					value="#{deanCourseBean.selectedJuniorCourse}"
-		            					valueChangeListener="#{deanCourseBean.juniorSplitChange}"
-		            					onchange="submit()">
+		            			<h:selectOneListbox id="juniorListBox" style=" width : 219px;" 
+		            							value="#{deanCourseBean.selectedJuniorCourse}"
+		            							valueChangeListener="#{deanCourseBean.juniorSplitChange}" onchange="submit()">
 		            				<f:selectItems value="#{deanCourseBean.juniorCourses}"/>	           					
 		            			</h:selectOneListbox>
-            			 	<br/><br/>
-            			 	<h:outputText value="Course : " />
-            			 	<h:inputText id="juniorCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            			<br/>
+		            			<br/>
+		            			<h:outputText value="Course : " />
+		            			<h:inputText id="juniorCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedJuniorSplitCourse}"></h:inputText>
-		            						 <br/>
-		            		<h:outputText value="Lecturer : " />
-		            		<h:inputText id="juniorLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            			<br/>
+		            			<h:outputText value="Lecturer : " />
+		            			<h:inputText id="juniorLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedJuniorSplitLecturer}"></h:inputText>
-		            		<br/>
-		            		<h:outputText value="Theory : " />
-		            		<h:inputText id="juniorTeoCreditTextField" disabled="true" 
-		            					style="background-color:#FFF8C6;width : 50px;"
-		            					value="#{deanCourseBean.juniorCreditValueTeo}"></h:inputText>
+		            			<br/>
+		            			<h:outputText value="Theory : " />
+		            			<h:inputText id="juniorTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
+		            						 value="#{deanCourseBean.juniorCreditValueTeo}"></h:inputText>
 		            			<br/>
 		            			<h:outputText value="Practice : " />
-		            			<h:inputText id= "juniorPracCreditTextField" disabled="true" 
-		            						style="background-color:#FFF8C6; width:50px;"
-		            						value="#{deanCourseBean.juniorCreditValuePrac}"/>
+		            			<h:inputText id= "juniorPracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
+		            						 value="#{deanCourseBean.juniorCreditValuePrac}"/>
 		            			<br/>
-		            			<h:outputText value="Operation : " />
-		            			<h:selectOneMenu id="juniorOperationTypeComboBox" 
-							            		style=" width : 151px;"
-							            		value="#{deanCourseBean.selectedJuniorOperation}">
-									            	<f:selectItem itemValue="Choose Operation" />
-									            	<f:selectItem itemValue="Theory Operation"/>
-									            	<f:selectItem itemValue="Practice Operation" />
+		            			<h:outputText value="Course Type : " />
+		            			<h:selectOneMenu id="juniorOperationTypeComboBox" style=" width : 151px;"
+							            		 value="#{deanCourseBean.selectedJuniorOperation}"
+							            		 valueChangeListener="#{deanCourseBean.juniorOperationChange}" onchange="submit()">
+									 <f:selectItems value="#{deanCourseBean.juniorOperations}" />            	
 								</h:selectOneMenu>
 		            			<br/>
+		            			<h:outputText value="Credit : " />
+		            			<h:selectOneMenu id="juniorCreditComboBox" 
+		            							 value="#{deanCourseBean.selectedJuniorCredit}"
+		            							 valueChangeListener="#{deanCourseBean.juniorCreditChange}" onchange="submit()">            				
+		            				<f:selectItems value="#{deanCourseBean.juniorCredits}"/>        			
+		            			</h:selectOneMenu>
+		            			<br/>
 		            			<h:outputText value="Days : " />
-		            			<h:selectOneMenu id="juniorDaysComboBox"
-						            			value="#{deanCourseBean.selectedJuniorDay}"
-						            		 	>
-						            			<f:selectItem itemValue="Choose Days" />
-						            			<f:selectItem itemValue="Monday" />
-						            			<f:selectItem itemValue="Tuesday" />
-						            			<f:selectItem itemValue="Wednesday" />
-						            			<f:selectItem itemValue="Thursday" />
-						            			<f:selectItem itemValue="Friday" />
-						            		</h:selectOneMenu>
+		            			<h:selectOneMenu id="juniorDaysComboBox" 
+		            							 value="#{deanCourseBean.selectedJuniorDay}"
+		           								 valueChangeListener="#{deanCourseBean.juniorDayChange}" onchange="submit()">
+						            <f:selectItems value="#{deanCourseBean.juniorDays}" /> 
+						       	</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="Start Hour : " />
+		            			<br/>
+		            			<h:outputText value="StartHour : " />
 		            			<h:selectOneMenu id="juniorStartHourComboBox" 
-		            							value="#{deanCourseBean.selectedJuniorStartHour}">            				
-		            				<f:selectItem itemValue="Choose Start Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
+		            							 value="#{deanCourseBean.selectedJuniorStartHour}">            				
+		            				<f:selectItems  value="#{deanCourseBean.juniorHours}"/>        			
 		            			</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="End Hour : " />
-		            			<h:selectOneMenu id="juniorEndHourComboBox" 
-		            							value="#{deanCourseBean.selectedJuniorEndHour}">            				
-		            				<f:selectItem itemValue="Choose End Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
-		            			</h:selectOneMenu>
-		            			
-		            			<br/>
-		            			
-		            			<h:commandButton value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
-							    <h:commandButton value="Reset" action="#{deanCourseBean.clearDeanCourseTable}" onclick="submit()"></h:commandButton>
+		            	</h:form>
+		            	<h:form>
+		            			<h:commandButton id="juniorSubmit"  value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton id="juniorReset" value="Reset" action="#{deanCourseBean.clearJuniorCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
-            			 </h:form>
+            			</h:form>
             		</td>
-            		<td style=" width : 100px;">
-            			
-            		</td>
+            		<td style=" width : 100px;"></td>
             		<td>
             			<rich:dataTable id="myDataTableJunior" value="#{deanCourseBean.initJuniorCourseTable}" var="item" style=" width : 700px;">
             				
@@ -497,90 +434,64 @@
             	<tr>
             		<td>
             			 <h:form prependId="false">
-            			 	<h:selectOneListbox id="seniorListBox" style=" width : 219px;" 
-		            							value="#{deanCourseBean.selectedSeniorCourse}"
-		            							valueChangeListener="#{deanCourseBean.seniorSplitChange}"
-		            							onchange="submit()">
-		            				<f:selectItems value="#{deanCourseBean.seniorCourses}"/>	           					
-		            		</h:selectOneListbox>
-		            		<br/><br/>
-		            		<h:outputText value="Course : " />
-		            		<h:inputText id="seniorCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            			<h:selectOneListbox id="seniorListBox" style=" width : 219px;" 
+		            								value="#{deanCourseBean.selectedSeniorCourse}"
+		            								valueChangeListener="#{deanCourseBean.SeniorSplitChange}" onchange="submit()">
+		            				<f:selectItems value="#{deanCourseBean.SeniorCourses}"/>	           					
+		            			</h:selectOneListbox>
+		            			<br/>
+		            			<br/>
+		            			<h:outputText value="Course : " />
+		            			<h:inputText id="seniorCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedSeniorSplitCourse}"></h:inputText>
-		            						 <br/>
-		            						 <h:outputText value="Lecturer : " />
-		            		<h:inputText id="seniorLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+		            			<br/>
+		            			<h:outputText value="Lecturer : " />
+		            			<h:inputText id="seniorLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
 		            						 value="#{deanCourseBean.selectedSeniorSplitLecturer}"></h:inputText>
 		            			<br/>
 		            			<h:outputText value="Theory : " />
-		            		<h:inputText id="seniorTeoCreditTextField" disabled="true" 
-		            					style="background-color:#FFF8C6;width : 50px;"
-		            					value="#{deanCourseBean.seniorCreditValueTeo}"></h:inputText>
+		            			<h:inputText id="seniorTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
+		            						 value="#{deanCourseBean.seniorCreditValueTeo}"></h:inputText>
 		            			<br/>
 		            			<h:outputText value="Practice : " />
-		            			<h:inputText id= "seniorPracCreditTextField" disabled="true" 
-		            						style="background-color:#FFF8C6; width:50px;"
-		            						value="#{deanCourseBean.seniorCreditValuePrac}"/>
+		            			<h:inputText id= "seniorPracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
+		            						 value="#{deanCourseBean.seniorCreditValuePrac}"/>
 		            			<br/>
-		            			<h:outputText value="Operation : " />
-		            			<h:selectOneMenu id="seniorOperationTypeComboBox" 
-							            		style=" width : 151px;"
-							            		value="#{deanCourseBean.selectedSeniorOperation}">
-									            	<f:selectItem itemValue="Choose Operation" />
-									            	<f:selectItem itemValue="Theory Operation"/>
-									            	<f:selectItem itemValue="Practice Operation" />
-								        </h:selectOneMenu>
+		            			<h:outputText value="Course Type : " />
+		            			<h:selectOneMenu id="seniorOperationTypeComboBox" style=" width : 151px;"
+							            		 value="#{deanCourseBean.selectedSeniorOperation}"
+							            		 valueChangeListener="#{deanCourseBean.seniorOperationChange}" onchange="submit()">
+						         	<f:selectItems value="#{deanCourseBean.seniorOperations}" />            	
+								</h:selectOneMenu>
+		            			<br/>
+		            			<h:outputText value="Credit : " />
+		            			<h:selectOneMenu id="seniorCreditComboBox" 
+		            							 value="#{deanCourseBean.selectedSeniorCredit}"
+		            							 valueChangeListener="#{deanCourseBean.seniorCreditChange}" onchange="submit()">            				
+		            				<f:selectItems value="#{deanCourseBean.seniorCredits}"/>        			
+		            			</h:selectOneMenu>
 		            			<br/>
 		            			<h:outputText value="Days : " />
-		            			<h:selectOneMenu id="seniorDaysComboBox"
-						            			value="#{deanCourseBean.selectedSeniorDay}"
-						            		 	>
-						            			<f:selectItem itemValue="Choose Days" />
-						            			<f:selectItem itemValue="Monday" />
-						            			<f:selectItem itemValue="Tuesday" />
-						            			<f:selectItem itemValue="Wednesday" />
-						            			<f:selectItem itemValue="Thursday" />
-						            			<f:selectItem itemValue="Friday" />
-						            		</h:selectOneMenu>
+		            			<h:selectOneMenu id="seniorDaysComboBox" 
+		            							 value="#{deanCourseBean.selectedSeniorDay}"
+		           								 valueChangeListener="#{deanCourseBean.seniorDayChange}" onchange="submit()">
+						            <f:selectItems value="#{deanCourseBean.seniorDays}" /> 
+						        </h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="Start Hour : " />
-		            			<h:selectOneMenu id="seniorStartHourComboBox" 
-		            							value="#{deanCourseBean.selectedSeniorStartHour}">            				
-		            				<f:selectItem itemValue="Choose Start Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
+		            			<br/>
+		            			<h:outputText value="StartHour : " />
+		            			<h:selectOneMenu id="seniorStartHourComboBox" value="#{deanCourseBean.selectedSeniorStartHour}">            				
+		            				<f:selectItems  value="#{deanCourseBean.seniorHours}"/>        			
 		            			</h:selectOneMenu>
 		            			<br/>
-		            			<h:outputText value="End Hour : " />
-		            			<h:selectOneMenu id="seniorEndHourComboBox" 
-		            							value="#{deanCourseBean.selectedSeniorEndHour}">            				
-		            				<f:selectItem itemValue="Choose End Hour"/>
-								    <f:selectItem itemValue="1"/>
-								    <f:selectItem itemValue="2"/>
-								    <f:selectItem itemValue="3"/>
-								    <f:selectItem itemValue="4"/>
-								    <f:selectItem itemValue="5"/>
-								    <f:selectItem itemValue="6"/>
-								    <f:selectItem itemValue="7"/>
-								    <f:selectItem itemValue="8"/>        			
-		            			</h:selectOneMenu>
-		            			
-		            			<br/>
-		            			<h:commandButton value="Submit" action="#{deanCourseBean.initSeniorCourseTableEvent}" onclick="submit()"></h:commandButton>
-							    <h:commandButton value="Reset" action="#{deanCourseBean.clearSeniorCourseTable}" onclick="submit()"></h:commandButton>
+		            	</h:form>
+		            	<h:form>
+		            			<h:commandButton id="seniorSubmit"  value="Submit" action="#{deanCourseBean.initSeniorCourseTableEvent}" onclick="submit()"></h:commandButton>
+							    <h:commandButton id="seniorReset" value="Reset" action="#{deanCourseBean.clearSeniorCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
-		            			
-            			 </h:form>
+            			</h:form>
             		</td>
-            		<td style=" width : 100px;">
-            			
-            		</td>
+            		<td style=" width : 100px;"></td>
             		<td>
             			<rich:dataTable id="myDataTableSenior" value="#{deanCourseBean.initSeniorCourseTable}" var="item" style=" width : 700px;">
             				
