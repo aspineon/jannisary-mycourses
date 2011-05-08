@@ -33,4 +33,9 @@
    		<return alias="Schedule" class="entities.dao.Schedule"/>
    		<![CDATA[CALL GetScheduleBySemesterAndGradeAndYear(:pSemester,:pGrade,:pYear)]]>
  	</sql-query>
+ 	
+ 	<sql-query name="updateScheduleMatrix">
+ 		<return alias="Schedule" class="entities.dao.Schedule"/>
+ 		<![CDATA[CALL UpdateScheduleMatrix(:pScheduleId, :pCourseType,:pTimeofCourse,:pHours,:pSyllabusId)]]>
+ 	</sql-query>
 </hibernate-mapping>
