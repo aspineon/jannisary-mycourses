@@ -218,54 +218,61 @@
     
     <h:form>
     
-    <h:panelGrid id="coursePanel" columns="2" border="0">
+    <h:panelGrid id="coursePanel" columns="3" border="0">
     	
     	<h:outputLabel value="Course Code : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>	
-	    <h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+	    <h:inputText label="Course Code" value="#{courseBean.currentItem.courseCode}" id="courseCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+	    	<rich:ajaxValidator event="onblur"/>
+	    </h:inputText>
+	    <rich:message for="courseCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	    
 	    <!-- ******************************************************** -->
 	   	<h:outputLabel value="Course Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText label="Course Name" value="#{courseBean.currentItem.courseName}" id="courseName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   	<rich:message for="courseName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   				
     	<!-- ******************************************************** -->
     	
     	<h:outputLabel value="Theoric Hours : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
     	<h:inputText  value="#{courseBean.currentItem.teoricLectureHours}" id="teoricLecture" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   	</h:inputText>
+	   	<rich:message for="teoricLecture" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="Practice Hours : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
     	<h:inputText  value="#{courseBean.currentItem.practiceLectureHourse}" id="practiceLecture" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   	</h:inputText>
-	   	
+	   	<rich:message for="practiceLecture" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	<!-- ******************************************************** -->
 	   	
 	   	<h:outputLabel value="Attendance : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
-	   		</h:inputText>	  
-	   		
+	   		</h:inputText>
+	   	<h:outputText value="" />
+	   	
 	   		<h:outputLabel value="Grade : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
 	   	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	   		</h:inputText>
-	   	
+	   	<rich:message for="gradeText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="" />
 	   	<rich:comboBox id="selectTypeofCourseId" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 			</rich:comboBox>
+		<h:outputLabel value="" />
 			
 			<h:outputLabel value="" />
 	   	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
-	   	
+	   	<h:outputLabel value="" />
 	   	
 	   	<h:outputLabel value="Precondition : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	   	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		
+	   	<rich:message for="preconditionText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>	
 	   	
 	   	<!-- ********************************************************************* -->
 	   	
@@ -273,7 +280,7 @@
 	   	<h:inputText  value="#{courseBean.currentItem.courseDescription}" id="courseDesc">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		
+	   	<rich:message for="courseDesc" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>	
 	   	
 	   		<!-- ********************************************************************* -->
 	   		<h:outputLabel value="" />
