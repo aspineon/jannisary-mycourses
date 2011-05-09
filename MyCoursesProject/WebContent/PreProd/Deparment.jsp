@@ -153,16 +153,18 @@
     
     <h:form>
     
-    <h:panelGrid id="departmentPanelGrid" columns="2">
+    <h:panelGrid id="departmentPanelGrid" columns="3">
     	<h:outputLabel value="Department Code : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText  value="#{departmentBean.currentItem.deptCode}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
-	    		<f:validateLength minimum="1" maximum="10"/>
+    	<h:inputText id="departmentCode"  value="#{departmentBean.currentItem.deptCode}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
+	   	<rich:message for="departmentCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="Department Description : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-	   	<h:inputText value="#{departmentBean.currentItem.deptDescription}" style=" width : 164px;">
-	    		<f:validateLength minimum="1" maximum="100"/>
+	   	<h:inputText id="departmentDesc" value="#{departmentBean.currentItem.deptDescription}" style=" width : 164px;">
+	    		<rich:ajaxValidator event="onblur"/>
 	    	</h:inputText>
+	    <rich:message for="departmentDesc" style="color:red;FONT-SIZE: small; FONT-FAMILY:'Verdana';"></rich:message>
     
     <h:outputLabel value="" />
     	<h:commandButton value="Add Department" action="#{departmentBean.addDepartment}" style="width : 110px; height : 25px;">
