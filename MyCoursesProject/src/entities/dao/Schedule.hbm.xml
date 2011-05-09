@@ -38,4 +38,19 @@
  		<return alias="Schedule" class="entities.dao.Schedule"/>
  		<![CDATA[CALL UpdateScheduleMatrix(:pScheduleId, :pCourseType,:pTimeofCourse,:pHours,:pSyllabusId)]]>
  	</sql-query>
+ 	
+ 	<sql-query name="updateSyllabusMatrix">
+ 		<return alias="Schedule" class="entities.dao.Schedule"/>
+ 		<![CDATA[CALL UpdateSyllabusMatrix(:pSyllabusId, :pSyllabusYear, :pSyllabusSemester)]]>
+ 	</sql-query>
+ 	
+ 	<sql-query name="addSyllabusForEditOperation">
+ 		<return alias="Schedule" class="entities.dao.Schedule"/>
+ 		<![CDATA[CALL AddSyllabusForEditOperation(:pSemester, :pYear, :pCourseId, :pLecturerId, :pSectionNo, :pClassroomId)]]>
+ 	</sql-query>
+ 	
+ 	<sql-query name="getLastInsertedSyllabus" callable="true">
+   		<return alias="Syllabus" class="entities.dao.Syllabus"/>
+   		<![CDATA[CALL GetLastInsertedSyllabus()]]>
+ 	</sql-query>
 </hibernate-mapping>
