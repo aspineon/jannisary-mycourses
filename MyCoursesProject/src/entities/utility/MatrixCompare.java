@@ -3,6 +3,7 @@ package entities.utility;
 import entities.utility.Index;
 import java.util.ArrayList;
 
+
 public class MatrixCompare {
 	private boolean result;
 	private ArrayList<Index> indexes;
