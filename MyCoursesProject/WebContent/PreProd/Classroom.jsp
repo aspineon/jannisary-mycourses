@@ -156,25 +156,26 @@
         
      <h:form>
      
-     <h:panelGrid id="classroomPanelGrid" columns="2">
-     	    
-     		
-     		
+     <h:panelGrid id="classroomPanelGrid" columns="3">
+     	        		
      		<h:outputLabel value="Classroom Code :" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
      		<h:inputText value="#{classroomBean.currentItem.classroomCode}" id="classroomCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
-	    		<f:validateLength minimum="1" maximum="10"/>
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		 <rich:message for="classroomCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		     
 	   		     <h:outputLabel value="" />
             <rich:comboBox id="departmentAddId" value="Select Department Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentAddCombo}" width="165">
             	<f:selectItems value="#{classroomBean.departmentCodeList}"/>
             </rich:comboBox>
+            <h:outputLabel value="" />
+	   		     
 	   		     
 	   		     <h:outputLabel value="" />
      		<h:commandButton value="Add Classroom" action="#{classroomBean.addClassroom}" style="width : 110px; height : 24px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
+     	<h:outputLabel value="" />
      
      </h:panelGrid>
      
