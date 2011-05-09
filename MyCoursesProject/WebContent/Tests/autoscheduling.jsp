@@ -64,6 +64,7 @@
             	<tr style=" height : 167px;">
             		<td>
             			<h:form prependId="false">
+            		
 		            			<h:selectOneListbox id="freshmanListBox" style=" width : 219px;" 
 		            								value="#{deanCourseBean.selectedFreshmanCourse}"
 		            								valueChangeListener="#{deanCourseBean.freshmanSplitChange}" onchange="submit()">
@@ -93,6 +94,7 @@
 						            			 valueChangeListener="#{deanCourseBean.freshmanOperationChange}" onchange="submit()">
 								    <f:selectItems value="#{deanCourseBean.freshmanOperations}" />            	
 								</h:selectOneMenu>
+		            			
 		            			<br/>
 		            			<h:outputText value="Credit : " />
 		            			<h:selectOneMenu id="freshmanCreditComboBox" 
@@ -115,7 +117,7 @@
 		            			</h:selectOneMenu>
 		            			<br/>		
 		            	</h:form>  			
-		            	<h:form>
+		            	<h:form prependId="false">
 		            			<h:commandButton id="freshmanSubmit" value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="freshmanReset" value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
             					<br/>
