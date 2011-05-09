@@ -25,7 +25,6 @@ public class SortedList {
 	private void separateCredit(){
 		try {
 			ScheduleAtomic scAtomic = null;
-			ArrayList<ScheduleAtomic> firstYearList;
 			for (int i = 0; i < listSorted.size(); i++) {
 				scAtomic = new ScheduleAtomic(listSorted.get(i));
 
@@ -53,26 +52,22 @@ public class SortedList {
 	
 	private ArrayList<ScheduleAtomic> separateAttandence(ArrayList<ScheduleAtomic> scAtomicList){
 		try {
-			Course course = null;
 			for(int i = 0; i < scAtomicList.size(); i++){
-				course = new Course(scAtomicList.get(i).getSyllabus().getCourse());
-				if(!course.isAttendance()){
+				if(!scAtomicList.get(i).isAttendance()){
 					falseAttendanceList.add(scAtomicList.get(i));
+					scAtomicList.remove(i);
 				}//end if
 			}//end of for loop
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return scAtomicList;
 	}//end of method
 	
 	private ArrayList<ScheduleAtomic> separatePrecondition(ArrayList<ScheduleAtomic> lsScheduleAtomic){
-		Course course = null;
 		ScheduleAtomic sc = null;
 		for(int i = 0; i < lsScheduleAtomic.size(); i++){
-			course = new Course(lsScheduleAtomic.get(i).getSyllabus().getCourse());
-			if(course.getPrecondition().equals("")){
+			if(lsScheduleAtomic.get(i).getPreCondition().equals("")){
 				sc = new ScheduleAtomic(lsScheduleAtomic.get(i));
 				lsScheduleAtomic.remove(i);
 				lsScheduleAtomic.add(sc);
