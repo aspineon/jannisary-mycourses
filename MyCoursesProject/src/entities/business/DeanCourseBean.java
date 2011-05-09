@@ -7,8 +7,8 @@ import javax.faces.model.SelectItem;
 
 import entities.dao.Course;
 import entities.dao.Syllabus;
-import entities.utility.ScheduleAtomic;
-import entities.utility.SortedList;
+
+import entities.utility.*;
 
 public class DeanCourseBean 
 {
@@ -697,6 +697,7 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
 		if((!this.selectedYear.equals("Choose Year")) && (this.selectedYear != null)) {
+			this.testRandomMethod();
 			if(this.semesterFlag == true) {
 				this.clearAllComponents();
 				this.loadAllLists(selectedYear, selectedSemester);
@@ -830,7 +831,7 @@ public class DeanCourseBean
 		this.freshmanHours.clear();
 		if(!this.selectedFreshmanDay.equals("Choose Day") && this.selectedFreshmanDay != "") {
 			this.freshmanHours = this.selectedScheduleAtomicFreshman.getKnowledgeByDay(this.selectedFreshmanDay);
-			this.deneme();
+			this.testSortedList();
 		}
 	}
 //******************* SOPHOMORE EVENTS **************************************************
@@ -2195,33 +2196,43 @@ public class DeanCourseBean
 		this.seniorCredits = seniorCredits;
 	}
 //**************************************************************************************
-	private void deneme() {
+	private void testSortedList() {
 		SortedList item = new SortedList(this.freshmanUnmarkedList);
-		System.out.println("4 Credit Atomics");
+		System.out.println("\n\n*** 4 Credit Atomics ***");
 		ArrayList<ScheduleAtomic> lst = item.getFourthCreditList();
 		for(int i = 0; i < lst.size(); i++) {
 			System.out.print(lst.get(i).toString());
 		}
-		System.out.println("3 Credit Atomics");
+		System.out.println("*** 3 Credit Atomics ***");
 		lst = item.getThirdCreditList();
 		for(int i = 0; i < lst.size(); i++) {
 			System.out.print(lst.get(i).toString());
 		}
-		System.out.println("2 Credit Atomics");
+		System.out.println("*** 2 Credit Atomics ***");
 		lst = item.getSecondCreditList();
 		for(int i = 0; i < lst.size(); i++) {
 			System.out.print(lst.get(i).toString());
 		}
-		System.out.println("1 Credit Atomics");
+		System.out.println("*** 1 Credit Atomics ***");
 		lst = item.getFirstCreditList();
 		for(int i = 0; i < lst.size(); i++) {
 			System.out.print(lst.get(i).toString());
 		}
-		System.out.println("Not Attendence Atomics");
+		System.out.println("*** Not Attendence Atomics ***");
 		lst = item.getFalseAttendanceList();
 		for(int i = 0; i < lst.size(); i++) {
 			System.out.print(lst.get(i).toString());
 		}
 	}
 	
+	private void testRandomMethod() {
+		ScheduleAtomic sItem = new ScheduleAtomic();
+		sItem.setCredit(2);
+		
+		int num = sItem.getRandomKnowledge();
+		num = 8;
+		System.out.println("\n Random generates: " + num + "\n");
+		Index item = sItem.convertIntToIndex(num);
+		System.out.println(item.toString());
+	}
 }
