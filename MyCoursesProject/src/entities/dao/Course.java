@@ -36,7 +36,7 @@ public class Course implements java.io.Serializable {
 	private String courseCode;
 	
 	@NotEmpty
-    @Length(min=3,max=30)
+    @Length(min=3,max=50)
 	private String courseName;
 	
 	
@@ -67,6 +67,7 @@ public class Course implements java.io.Serializable {
 	@NotEmpty
     @Length(min=5,max=200)
 	private String courseDescription;
+	
 	private Set syllabuses = new HashSet(0);
 
 	public Course() {
