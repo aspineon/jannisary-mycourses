@@ -769,9 +769,8 @@ public class DeanCourseBean
 		this.topCreditFreshman = -1;
 		this.clearTimeValues("Freshman");
 		if((!this.selectedFreshmanOperation.equals("Choose Course Type")) && (this.selectedFreshmanOperation != null)) {
-			if(this.selectedFreshmanOperation.equals("Theoretical")) {
+			if(this.selectedFreshmanOperation.equals("Theoretical") && (this.optFlagFreshman != "T")) {
 				if(this.optFlagFreshman == "P") { 
-					this.clearTimeValues("Freshman");
 					this.selectedFreshmanCredit = null;
 				}
 				this.optFlagFreshman = "T";
@@ -780,9 +779,8 @@ public class DeanCourseBean
 				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Theo", this.topCreditFreshman);
 				return;
 			} 
-			if(this.selectedFreshmanOperation.equals("Practice")) {
+			if(this.selectedFreshmanOperation.equals("Practice") && (this.optFlagFreshman != "P")) {
 				if(this.optFlagFreshman == "T") {
-					this.clearTimeValues("Freshman");
 					this.selectedFreshmanCredit = null;
 				}
 				this.optFlagFreshman = "P";
@@ -829,10 +827,10 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanDay = newValue;
-		this.deneme();
 		this.freshmanHours.clear();
 		if(!this.selectedFreshmanDay.equals("Choose Day") && this.selectedFreshmanDay != "") {
 			this.freshmanHours = this.selectedScheduleAtomicFreshman.getKnowledgeByDay(this.selectedFreshmanDay);
+			this.deneme();
 		}
 	}
 //******************* SOPHOMORE EVENTS **************************************************
@@ -1464,21 +1462,26 @@ public class DeanCourseBean
 	private ArrayList<ScheduleAtomic> generateAtomic(ArrayList<Syllabus> sList) {
 		ArrayList<ScheduleAtomic> retList = new ArrayList<ScheduleAtomic>();
 		for(int i = 0; i < sList.size(); i++) {
-			Syllabus sItem = sList.get(i);
+			Syllabus sItem = new Syllabus(sList.get(i));
+			boolean att = sItem.getCourse().isAttendance();
+			int courseId = sItem.getCourse().getCourseId();
+			String preCondition = sItem.getCourse().getPrecondition();
+			int lecturerId = sItem.getLecturer().getLecturerId();
+			int classroomId = sItem.getClassroom().getClassroomId();
 			int tHour = sItem.getCourse().getTeoricLectureHours();
 			if(tHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour));
+				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition));
 			}
 			int pHour = sItem.getCourse().getPracticeLectureHourse();
 			if(pHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour));
+				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour, att, courseId, lecturerId, classroomId, preCondition));
 			}
 		}
 		return retList;
 	}
 	
 	private int findRelatedAtomic(String grade, String sign, String opType, Syllabus syllabus, String courseType, int credit) {
-		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit);
+		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit, false, 0, 0, 0, "");
 		if(grade.equals("Freshman")) {
 			if(sign.equals("Unmarked")) {
 				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
