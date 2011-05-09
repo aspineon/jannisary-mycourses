@@ -8,6 +8,9 @@ public class BasicScheduleUtilBean {
 	private int practiceHours;
 	private String lecturerName;
 	private int classroomId;
+	private int lecturerId;
+	private int courseId;
+	private int sectionNo;
 	private int syllabusId;
 	private String courseType;
 	private String courseTheoricOrPraticName;
@@ -119,5 +122,31 @@ public class BasicScheduleUtilBean {
 	public void setScheduleId(int scheduleId) {
 		this.scheduleId = scheduleId;
 	}
+
+	public int getLecturerId() {
+		return lecturerId;
+	}
+
+	public void setLecturerId(int lecturerId) {
+		this.lecturerId = lecturerId;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+	public int getSectionNo() {
+		return sectionNo;
+	}
+
+	public void setSectionNo(int sectionNo) {
+		this.sectionNo = sectionNo;
+	}
+	
+	
 	
 }
