@@ -16,12 +16,17 @@ public class ScheduleAtomic {
 	private int startHour = 0;
 	private int credit = 0;
 	private ArrayList<Integer> knowledge;
+	private boolean attendance;
+	private int courseId;
+	private int lecturerId;
+	private int classroomId;
+	private String preCondition;
 	
 	public ScheduleAtomic() {
 		super();
 	}
 	
-	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit) {
+	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition) {
 		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
@@ -29,6 +34,11 @@ public class ScheduleAtomic {
 		this.startHour = pStartHour;
 		this.credit = pCredit;
 		this.knowledge = this.generateKnowledge(pCredit);
+		this.attendance = pAttendance;
+		this.courseId = pCourseId;
+		this.lecturerId = pLecturerId;
+		this.classroomId = pClassroomId;
+		this.preCondition = pPreCondition;
 	}
 	//Copy Constructor
 	public ScheduleAtomic(ScheduleAtomic sItem) {
@@ -39,15 +49,23 @@ public class ScheduleAtomic {
 		this.startHour = sItem.startHour;
 		this.credit = sItem.credit;
 		this.knowledge = sItem.knowledge;
+		this.attendance = sItem.attendance;
+		this.courseId = sItem.courseId;
+		this.lecturerId = sItem.lecturerId;
+		this.classroomId = sItem.classroomId;
+		this.preCondition = sItem.preCondition;
 	}
 	
 	@Override
 	public String toString() {
-		String retStr = "";
+		String retStr = "\n";
 		retStr = retStr + " Syllabus: " + this.syllabus.getSyllabusId();
 		retStr = retStr + "| Type: " + this.courseType;
 		retStr = retStr + "| Credit: " + this.credit;
-		retStr = retStr + "\n";
+		retStr = retStr + "| Precondition: " + this.preCondition + "\n";
+		retStr = retStr + "Course Id: " + this.courseId;
+		retStr = retStr + "| Lecturer Id: " + this.lecturerId;
+		retStr = retStr + "| Classroom Id: " + this.classroomId + "\n";
 		boolean att = this.syllabus.getCourse().isAttendance();
 		String ek = "Attandance required\n\n";
 		if(att == false) {
@@ -167,14 +185,14 @@ public class ScheduleAtomic {
 	}
 	
 	/*Added by Erhun(07.05.2011)*/
-	private int dayToIntDay(String strDay){
+	public int dayToIntDay(String strDay){
 		int intDay = 0;
 		try{
-			if(strDay.equals("Monday"))        { intDay = 1;}
-			else if(strDay.equals("Tuesday"))  { intDay = 2;}
-			else if(strDay.equals("Wednesday")){ intDay = 3;}
-			else if(strDay.equals("Thursday")) { intDay = 4;}
-			else if(strDay.equals("Friday"))   { intDay = 5;}
+			if(strDay.equals("Monday"))        { intDay = 0;}
+			else if(strDay.equals("Tuesday"))  { intDay = 1;}
+			else if(strDay.equals("Wednesday")){ intDay = 2;}
+			else if(strDay.equals("Thursday")) { intDay = 3;}
+			else if(strDay.equals("Friday"))   { intDay = 4;}
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
 		}
@@ -300,4 +318,47 @@ public class ScheduleAtomic {
 	public void setKnowledge(ArrayList<Integer> knowledge) {
 		this.knowledge = knowledge;
 	}
+
+	public boolean isAttendance() {
+		return attendance;
+	}
+
+	public void setAttendance(boolean attendance) {
+		this.attendance = attendance;
+	}
+
+	public int getCourseId() {
+		return courseId;
+	}
+
+	public void setCourseId(int courseId) {
+		this.courseId = courseId;
+	}
+
+	public int getLecturerId() {
+		return lecturerId;
+	}
+
+	public void setLecturerId(int lecturerId) {
+		this.lecturerId = lecturerId;
+	}
+
+	public int getClassroomId() {
+		return classroomId;
+	}
+
+	public void setClassroomId(int classroomId) {
+		this.classroomId = classroomId;
+	}
+
+	public String getPreCondition() {
+		return preCondition;
+	}
+
+	public void setPreCondition(String preCondition) {
+		this.preCondition = preCondition;
+	}
+	
+	
 }
+
