@@ -249,21 +249,29 @@ public class ScheduleAtomic {
 	/*Added by Erhun(09.05.2011)*/
 	public Index convertIntToIndex(int intDayHour){
 		Index index = new Index();
-		String strDay = "";
-		try{
-			int intDay = intDayHour / 8;
-			int intHour = intDayHour % 8;
-			if(intDay == 0 ){strDay="Monday";}
-			else if( intDay == 1){ strDay = "Tuesday";}
-			else if( intDay == 2){ strDay = "Wednesday";}
-			else if( intDay == 3){ strDay = "Thursday";}
-			else if( intDay == 4){ strDay = "Friday";}
+		String strDay = "";	
+		int intDay = intDayHour / 8;
+		int intHour = intDayHour % 8;
+		if(intHour == 0) {
+			intHour = 8;	
+			if(intDay == 1) { strDay = "Monday"; }
+			if(intDay == 2) { strDay = "Tuesday"; }
+			if(intDay == 3) { strDay = "Wednesday"; }
+			if(intDay == 4) { strDay = "Thursday"; }
+			if(intDay == 5) { strDay = "Friday"; }
 			index.setDay(strDay);
 			index.setHour(intHour);
-		}catch(Exception ex){
-			ex.printStackTrace();
+			return index;
 		}
+		if(intDay == 0) { strDay = "Monday"; }
+		if(intDay == 1) { strDay = "Tuesday"; }
+		if(intDay == 2) { strDay = "Wednesday"; }
+		if(intDay == 3) { strDay = "Thursday"; }
+		if(intDay == 4) { strDay = "Friday"; }
+		index.setDay(strDay);
+		index.setHour(intHour);
 		return index;
+		
 	}//end of convertIntToIndex method
 	
 	// ************* Credit Split and Merge Functions *********************************************
