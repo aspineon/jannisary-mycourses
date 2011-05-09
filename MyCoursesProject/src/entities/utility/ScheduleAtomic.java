@@ -6,6 +6,7 @@ import entities.dao.SyllabusArchive;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.faces.model.SelectItem;
 
@@ -232,7 +233,38 @@ public class ScheduleAtomic {
 			System.out.println(ex.getMessage());
 		}
 	}
-	
+
+	/*Added by Erhun(09.05.2011)*/
+	public int getRandomKnowledge(){
+		int retIndex = -1;
+		Random random = new Random();
+		try{
+			retIndex = random.nextInt(knowledge.size());
+		}catch(Exception ex){
+			
+		}
+		return retIndex;
+	}//end of getRandomKnowledge method
+
+	/*Added by Erhun(09.05.2011)*/
+	public Index convertIntToIndex(int intDayHour){
+		Index index = new Index();
+		String strDay = "";
+		try{
+			int intDay = intDayHour / 8;
+			int intHour = intDayHour % 8;
+			if(intDay == 0 ){strDay="Monday";}
+			else if( intDay == 1){ strDay = "Tuesday";}
+			else if( intDay == 2){ strDay = "Wednesday";}
+			else if( intDay == 3){ strDay = "Thursday";}
+			else if( intDay == 4){ strDay = "Friday";}
+			index.setDay(strDay);
+			index.setHour(intHour);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		return index;
+	}//end of convertIntToIndex method
 	
 	// ************* Credit Split and Merge Functions *********************************************
 	
