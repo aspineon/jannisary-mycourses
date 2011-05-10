@@ -185,32 +185,37 @@
     
      <h:form>
      <rich:panel>
-   		<h:panelGrid columns="2">
+   		<h:panelGrid columns="3">
    			  
    			  <h:outputLabel value="Title : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
 	    	<h:inputText  value="#{lecturerBean.currentItem.title}" id="titleText">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="titleText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		  
 	   		  <h:outputLabel value="Lecturer Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  		    	
 	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}" id="lecturerName">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		  
 	   		  <h:outputLabel value="E-Mail : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  	
 	    	<h:inputText  value="#{lecturerBean.currentItem.email}" id="lecturerEmail">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerEmail" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   			   
 	   			   <h:outputLabel value="" /> 
     		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
+			<h:outputLabel value="" />
 			
 			<h:outputLabel value="Telephone : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}" id="lecturerTelephone">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
+	   		<rich:message for="lecturerTelephone" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		
 	   		<h:outputLabel value="" />
 	   		<h:commandButton value="Add Lecturer" action="#{lecturerBean.addLecturer}" style="width : 110px; height : 25px;">
