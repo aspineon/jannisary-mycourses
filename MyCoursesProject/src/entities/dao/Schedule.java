@@ -85,29 +85,28 @@ public void addScheduleMatrix(){
 		Session session=null;
 		try{
 			
-			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
 			
-			
 			for(int i = 0; i < 5;i++){
 				for(int j = 0;j < 8 ;j++){
-					//Kontrol diğer if lerde de uyugulanmalaı.
+					//Kontrol diğer if lerde de uyugulanmaları.
 					if(!firstGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
 						
 						syllabus.setSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
 						courseType = firstGradeSchedule[i][j].getCourseType();
 						timeofCourse = firstGradeSchedule[i][j].getTimeofCourse();
 						hours = firstGradeSchedule[i][j].getHours();
+						syllabusArchive.setSyllabusArchiveId(firstGradeSchedule[i][j].getSyllabusArchiveId());
 						
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
+						query.setParameter("pSyllabusArchive", this.syllabusArchive);
 						query.executeUpdate();
-						
 						
 				    }
 					
@@ -122,12 +121,14 @@ public void addScheduleMatrix(){
 						courseType = secondGradeSchedule[i][j].getCourseType();
 						timeofCourse = secondGradeSchedule[i][j].getTimeofCourse();
 						hours = secondGradeSchedule[i][j].getHours();
+						syllabusArchive.setSyllabusArchiveId(secondGradeSchedule[i][j].getSyllabusArchiveId());
 						
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
+						query.setParameter("pSyllabusArchive", this.syllabusArchive);
 						query.executeUpdate();
 					}
 					
@@ -142,12 +143,14 @@ public void addScheduleMatrix(){
 						courseType = thirdGradeSchedule[i][j].getCourseType();
 						timeofCourse = thirdGradeSchedule[i][j].getTimeofCourse();
 						hours = thirdGradeSchedule[i][j].getHours();
+						syllabusArchive.setSyllabusArchiveId(thirdGradeSchedule[i][j].getSyllabusArchiveId());
 						
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
+						query.setParameter("pSyllabusArchive", this.syllabusArchive);
 						query.executeUpdate();
 					}
 					
@@ -157,7 +160,8 @@ public void addScheduleMatrix(){
 						courseType="";
 					    timeofCourse = -1;
 					    hours = -1;
-						
+					    syllabusArchive.setSyllabusArchiveId(fourthGradeSchedule[i][j].getSyllabusArchiveId());
+					    
 						syllabus.setSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
 						courseType = fourthGradeSchedule[i][j].getCourseType();
 						timeofCourse = fourthGradeSchedule[i][j].getTimeofCourse();
@@ -168,6 +172,7 @@ public void addScheduleMatrix(){
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
+						query.setParameter("pSyllabusArchive", this.syllabusArchive);
 						query.executeUpdate();
 					}
 				}
