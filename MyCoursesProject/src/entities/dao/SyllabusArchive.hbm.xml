@@ -27,4 +27,15 @@
         	<one-to-many class="entities.dao.Schedule" />
         </set>
     </class>
+    
+    <sql-query name="AddSyllabusArchive">
+    <return alias="SyllabusArchive" class="entities.dao.SyllabusArchive"/>
+        <![CDATA[CALL AddSyllabusArchive(:pSemester,:pYear,:pFilePath,:pVersionName)]]>
+    </sql-query>
+    
+    <sql-query name="GetSyllabusArchiveIdByVersionName" callable="true">
+   		<return alias="SyllabusArchive" class="entities.dao.SyllabusArchive"/>
+   		<![CDATA[CALL GetSyllabusArchiveIdByVersionName(:pVersionName)]]>
+ 	</sql-query>
+    
 </hibernate-mapping>
