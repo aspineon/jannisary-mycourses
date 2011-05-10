@@ -75,6 +75,31 @@ public class SortedList {
 		return lsScheduleAtomic;
 	}//end of separatePrecondition method
 
+	/*Added by Erhun(11.05.2011)*/
+	private SortedList forwardAllList(int intVal){
+		this.firstCreditList = forward(firstCreditList, intVal);
+		this.secondCreditList = forward(secondCreditList, intVal);
+		this.thirdCreditList = forward(thirdCreditList, intVal);
+		this.fourthCreditList = forward(fourthCreditList, intVal);
+		return this;
+	}
+	/*Added by Erhun(11.05.2011)*/
+	private ArrayList<ScheduleAtomic> forward(ArrayList<ScheduleAtomic> listUnmarkedList, int intVal){
+		ArrayList<Integer> listKnowledge = null;
+		try {
+			for(int i=0; i < listUnmarkedList.size();i++){
+				listKnowledge = listUnmarkedList.get(i).getKnowledge();
+				if(listKnowledge.contains(intVal)){
+					listKnowledge.remove(intVal);
+				}//end of if block
+			}//end of for loop
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		return listUnmarkedList;
+	}//end of forward method
+	
 	public ArrayList<ScheduleAtomic> getListSorted() {
 		return listSorted;
 	}
