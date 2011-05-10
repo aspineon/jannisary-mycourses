@@ -160,28 +160,30 @@
     
     <h:form>
     
-    <h:panelGrid id="sysuserPanelGrid" columns="2">
+    <h:panelGrid id="sysuserPanelGrid" columns="3">
     	<h:outputLabel value="User Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
     	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
 	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
+	   	<rich:message for="userName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="User Password : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
     	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: small;">
 	    		<rich:ajaxValidator event="onblur"/>
 	    </h:inputText>
+	    <rich:message for="userPass" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="" />
 	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
 				<f:selectItems value="#{sysUserBean.selectItems}"/>
 		</rich:comboBox>
-    
-    	
+    	<h:outputLabel value="" />
     
     <h:outputLabel value="" />
     	<h:commandButton value="Add User" action="#{sysUserBean.addUser}" style="width : 110px; height : 25px;">
 				<a4j:support event="onclick" reRender="table"/>
 			</h:commandButton>
+    <h:outputLabel value="" />
     
     </h:panelGrid>
     
