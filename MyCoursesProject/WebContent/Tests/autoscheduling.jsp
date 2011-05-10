@@ -66,6 +66,7 @@
             			<h:form prependId="false">
             		
             				<h:panelGrid columns="2">
+            				
             				<h:outputLabel value="" />
 		            			<h:selectOneListbox id="freshmanListBox" style=" width : 219px; background-color:#CFECEC;" 
 		            								value="#{deanCourseBean.selectedFreshmanCourse}"
