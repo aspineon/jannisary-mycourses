@@ -200,44 +200,50 @@
     
      <h:form>
      <rich:panel>
-     	<h:panelGrid columns="2">
+     	<h:panelGrid columns="3">
      	
      	<h:outputLabel value="Section : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-     	<h:inputText value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
-	    	<f:validateLength minimum="1" maximum="20"/>
+     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+	    	<rich:ajaxValidator event="onblur"></rich:ajaxValidator>
 	    </h:inputText>
+	    <rich:message for="syllabusSection" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
      	
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
 		</rich:comboBox>
+		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectYearId" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}">
 			<f:selectItems value="#{syllabusBean.yearList}"/>
 		</rich:comboBox>
+		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectSemesterId" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}">
 			<f:selectItems value="#{syllabusBean.semesterList}"/>
 		</rich:comboBox>
+		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
 			<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
 		</rich:comboBox>
-     	
+     	<h:outputLabel value="" />
      	
 	    
 	    <h:outputLabel value="" />
 	    <rich:comboBox id="selectClassroomId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomAddCombo}">
 			<f:selectItems value="#{syllabusBean.classroomList}"/>
 		</rich:comboBox>
+     	<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
      	<h:commandButton value="Add Syllabus" action="#{syllabusBean.addSyllabus}" style="width : 110px; height : 24px;">
 			<a4j:support event="onclick" reRender="table"/>
 		</h:commandButton>
+     	<h:outputLabel value="" />
      	
      	</h:panelGrid>
      
