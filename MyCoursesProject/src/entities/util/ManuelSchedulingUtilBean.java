@@ -339,7 +339,8 @@ public class ManuelSchedulingUtilBean {
 	public String dropAction() {
 		try {
 			System.out.println("Bean.dropAction()");
-			int timeofCourse = componentIdtoDay*8 + componentIdtoHour;
+			int timeofCourse;
+			timeofCourse = componentIdtoDay*8 + componentIdtoHour + 1;
 			
 			
 			System.out.println(tempBasicScheduleItem.getClassroomId());
