@@ -55,6 +55,7 @@ public class ManuelSchedulingUtilBean {
 	private List<SelectItem> listHour = new ArrayList<SelectItem>();
 	private List<SelectItem> listNextTwoYearsToSave = new ArrayList<SelectItem>();
 	private List<SelectItem> listSemesterToSave = new ArrayList<SelectItem>();
+	private List<SelectItem> listArchiveToSave = new ArrayList<SelectItem>();
 	
 	private int intGrade; //intGrade storeProcedure'a parametre olarak geçirilen sınıf değişkeni.
 	private String semester; //semeter storeProcedure'e parametre olarak geçirilen sınıf değişkeni.
@@ -68,8 +69,12 @@ public class ManuelSchedulingUtilBean {
 	private int editOrAddFlag;
 	private int savedYear;
 	private String savedSemester;
+	private String savedVersionName;
+	private String savedArchiveComboSelect;
 	
-    /*
+    
+
+	/*
      * Arayüzde yer alan herbir saat dilimi hücresinde sürükle bırak işlemi ardından etkilenen isim alanlarını
      * gösteren değişkenler.
      *  */
@@ -126,6 +131,9 @@ public class ManuelSchedulingUtilBean {
 		
 		listSemester.add(new SelectItem("Fall"));
 		listSemester.add(new SelectItem("Spring"));
+		
+		listArchiveToSave.add(new SelectItem("Yes"));
+		listArchiveToSave.add(new SelectItem("No"));
 		
 		listYear.add(new SelectItem(Integer.toString(currentYear)));
 		listYear.add(new SelectItem(Integer.toString(currentYear-1)));
@@ -210,13 +218,24 @@ public class ManuelSchedulingUtilBean {
 	public String clickSave(){
 		if(editOrAddFlag==0){
 			/*if check box selected*/
-			ExcelPOI excel = new ExcelPOI();
-			excel.generateFreshmanSheet(convertExcelBasicScheduleMatrixToStringMatrix(firstGradeSchedule));
-			excel.generateSophomoreSheet(convertExcelBasicScheduleMatrixToStringMatrix(secondGradeSchedule));
-			excel.generateJuniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(thirdGradeSchedule));
-			excel.generateSeniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(fourthGradeSchedule));
-			excel.writeToExcelPOI("2011", "fall", "asd");
-			//saveMatrix();
+			if(savedArchiveComboSelect.equals("Yes")){
+				int intSyllabusArchiveId = -1;
+				ExcelPOI excel = new ExcelPOI();
+				excel.generateFreshmanSheet(convertExcelBasicScheduleMatrixToStringMatrix(firstGradeSchedule));
+				excel.generateSophomoreSheet(convertExcelBasicScheduleMatrixToStringMatrix(secondGradeSchedule));
+				excel.generateJuniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(thirdGradeSchedule));
+				excel.generateSeniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(fourthGradeSchedule));
+				
+				String strYear = "" + savedYear;
+				intSyllabusArchiveId = excel.writeToExcelPOI(strYear , savedSemester, savedVersionName);
+				
+				setSyllabusArchiveIdToScheduleMatrix(intSyllabusArchiveId);
+				
+			}//end of add syllabusArchive if
+			if(savedArchiveComboSelect.equals("No")){
+				setSyllabusArchiveIdToScheduleMatrix(1);
+			}
+			saveMatrix();
 		}else if(editOrAddFlag==1){
 			setMatrixSyllabusYearAndSemester();
 			updateMatrix();
@@ -244,6 +263,18 @@ public class ManuelSchedulingUtilBean {
 		}
 		
 	    System.out.println(savedSemester);
+	}
+	
+	public void selectionChangedSavedArchiveCombo(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			 savedArchiveComboSelect = selectedValue;
+		}
+		else{
+			savedArchiveComboSelect="";
+			}
+	    System.out.println(savedArchiveComboSelect);
 	}
 	
 	public void selectionChangedSavedYearCombo(ValueChangeEvent evt){
@@ -305,9 +336,11 @@ public class ManuelSchedulingUtilBean {
 		 }
 	}
 	
+	
 	public void processDrag(DragEvent dragEvent) {
 		System.out.println("Bean.processDrag()");
 	}
+	
 	
 	public void processDrop(DropEvent event) {
 		try {
@@ -322,18 +355,13 @@ public class ManuelSchedulingUtilBean {
 			System.out.println("Error in processDrop!!!!!******");
 		}
 		
-		//int intSyllabusId = tempSchedule.getSyllabus().getSyllabusId();
-		//tempSchedule = new Schedule(findScheduleByIdInList(intSyllabusId));
-		
-		//combodan ve üzerine geldiğimiz datatable dan aldığımız saat, sınıf ve semester bilgileriyle matrise eleman eklenmesi yapılacak
-		//o saatte dersin yapılacağı sınıfın doluluk kontrolü, belirtilen hocanın o anda başka bir ders vermekte olup olmadığı kontrolleri de yapılacak! 
-		
 	}	
 	
 	public String dragAction() {
 		System.out.println("Bean.dragAction()");
 		return null;
 	}
+	
 	
 	/*Sürüklenen verinin ilgili saat hücresinde sınıf ve hoca kontrolleri yapıldıktan sonra matrislere atıldığı metod tanımı*/
 	public String dropAction() {
@@ -825,6 +853,20 @@ public class ManuelSchedulingUtilBean {
 		ScheduleBean scheduleBean = new ScheduleBean();
 		scheduleBean.addSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
 	}
+	/*
+	 * Schedule nesnelerini archive ile 
+	 * */
+	private void setSyllabusArchiveIdToScheduleMatrix(int intSyllabusArchiveId){
+		for(int i=0;i<5;i++){
+			for(int j = 0; j < 8; j++){
+				firstGradeSchedule[i][j].setSyllabusArchiveId(intSyllabusArchiveId);
+				secondGradeSchedule[i][j].setSyllabusArchiveId(intSyllabusArchiveId);
+				thirdGradeSchedule[i][j].setSyllabusArchiveId(intSyllabusArchiveId);
+				fourthGradeSchedule[i][j].setSyllabusArchiveId(intSyllabusArchiveId);
+			}
+		}
+	}
+	
 	/*
 	 * Excel raporlamasında kullanılmak üzere ExcelPOI içindeki metotodlara dönüştürme işlemleri
 	 * */
@@ -2363,5 +2405,21 @@ public class ManuelSchedulingUtilBean {
 
 	public void setValueForDt58(String valueForDt58) {
 		this.valueForDt58 = valueForDt58;
+	}
+
+	public void setSavedVersionName(String savedVersionName) {
+		this.savedVersionName = savedVersionName;
+	}
+
+	public String getSavedVersionName() {
+		return savedVersionName;
+	}
+	
+	public List<SelectItem> getListArchiveToSave() {
+		return listArchiveToSave;
+	}
+
+	public void setListArchiveToSave(List<SelectItem> listArchiveToSave) {
+		this.listArchiveToSave = listArchiveToSave;
 	}
 }
