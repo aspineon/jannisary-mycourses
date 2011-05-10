@@ -2,7 +2,6 @@ package entities.utility;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Calendar;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -12,6 +11,8 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.CellStyle;
 
+import entities.business.SyllabusArchiveBean;
+
 public class ExcelPOI 
 {
 	HSSFWorkbook scheduleWorkbook = new HSSFWorkbook();
@@ -20,22 +21,32 @@ public class ExcelPOI
 	// seasonYearOne seasonYearTwo'dan kasit 2010-2011 gibi bir sezonun belirtilmesi
 	// seasonType ise Fall yada Spring gibi tipinin belitilmesidir...
 	
-	public void writeToExcelPOI(String strYear, String strSemester, String versionName)
-	{
+	public int writeToExcelPOI(String strYear, String strSemester, String versionName){
+		int intSyllabusArhiveId = -1;
 		try{
+			
 			File scheduleFolder = new File("ScheduleFiles");
 			// siniflara ait excel dosyasinin yaratilmasi ***********************
-			File scheduleFile = new File("ScheduleFiles\\" + strYear + "_"+ strSemester + "_" + versionName + ".xls");
+			String strFilePath = "ScheduleFiles\\" + strYear + "_"+ strSemester + "_" + versionName + ".xls";
+			File scheduleFile = new File(strFilePath);
 			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
 			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
 			scheduleWorkbook.write(fileOutputStream);
+			
+			/*Veritabanına syllabusArchive bilgileri atılıyor*/
+			SyllabusArchiveBean syllabusArchiveBean = new SyllabusArchiveBean(strSemester, Integer.parseInt(strYear), strFilePath, versionName);
+			syllabusArchiveBean.addSyllabusArchive();
+			syllabusArchiveBean.setVersionName(versionName);
+			intSyllabusArhiveId = syllabusArchiveBean.getSyllabusArchiveIdByVersionName();
 		}
 		catch(Exception ex){
 			ex.getMessage();
 		}
-	}
+		return intSyllabusArhiveId;
+		
+	}//end of writeToExcelPOI method
 	
 	public void generateFreshmanSheet(String freshmanTable[][]){
 		try{
