@@ -19,6 +19,9 @@ public class BasicScheduleUtilBean {
 	private int year;
 	private String semester;
 	private int scheduleId;
+	private int syllabusArchiveId;
+	
+	
 
 	public BasicScheduleUtilBean(){
 		
@@ -147,6 +150,13 @@ public class BasicScheduleUtilBean {
 		this.sectionNo = sectionNo;
 	}
 	
+	public int getSyllabusArchiveId() {
+		return syllabusArchiveId;
+	}
+
+	public void setSyllabusArchiveId(int syllabusArchiveId) {
+		this.syllabusArchiveId = syllabusArchiveId;
+	}
 	
 	
 }
