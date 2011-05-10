@@ -1,6 +1,5 @@
 package entities.util;
 
-import entities.dao.Syllabus;
 
 public class BasicScheduleUtilBean {
 	private String courseName;
