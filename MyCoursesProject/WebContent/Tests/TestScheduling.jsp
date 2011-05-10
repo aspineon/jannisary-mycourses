@@ -45,7 +45,6 @@
 <f:view>
 <rich:dragIndicator id="indicator"/>
 
-
  <rich:panel style="pacategorying:0" headerClass="outpanelHeader">
         <f:facet name="header">
             <rich:spacer height="20"/>
@@ -81,7 +80,7 @@
        		Paneller arasına boşluklar eklendi.
        -->
        <div class="div_near_spacer" ></div>
-         	<rich:spacer  width="1" height="30" title="Here is a spacer..."/>
+         	<rich:spacer  width="1" height="30"/>
         <div class="div_near_spacer" ></div>
        </h:form>
        <h:form>
@@ -948,30 +947,34 @@
                    	   	</f:facet>
 							
 							<h:form id="UpdateFormId">
+								<h:panelGrid columns="2">
+									
 								
 								<rich:comboBox id="yearToSave" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedYearCombo}" width="110">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listNextTwoYearsToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
 								
-								<rich:spacer height="20"/>
+								
+								
 								
 								<rich:comboBox id="semesterToSave" value="Select Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedSemesterCombo}" width="110">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listSemesterToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
 								
-								<rich:spacer height="40"/>
 								
-								<h:selectBooleanCheckbox  id="checkBoxExcelOperationId"/>
+								<rich:comboBox id="archiveToSave" value="Save Archive" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedArchiveCombo}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listArchiveToSave}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        			</rich:comboBox>
 								
-								
-								<rich:spacer height="40"/>
+								<h:inputText value="#{manuelSchedulingUtilBean.savedVersionName}" />
 								
 								<h:commandButton id="btnSaveScheduleId" value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
 									<a4j:support event="onclick" reRender="form"/>
 								</h:commandButton>
-									
+							</h:panelGrid>		
 							</h:form>
 							
                    	   	<f:facet name="footer">
