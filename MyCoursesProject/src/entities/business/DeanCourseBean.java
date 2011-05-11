@@ -116,6 +116,8 @@ public class DeanCourseBean
 	private int atomicIndexFreshman = -1;
 	private int topCreditFreshman = -1;
 	private String optFlagFreshman = "";
+	private boolean splitFlagFreshman = false;
+	private boolean readyToGoFreshman = false;
 //**************** Sophomore Subfields **********************************************
 	private String selectedSophomoreCourse = "";
 	private String selectedSophomoreSplitCourse = "";
@@ -408,6 +410,10 @@ public class DeanCourseBean
 //********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
 	{	
+		String end = "\nNo no no\n";
+		if(this.readyToGoFreshman == true) { end = "\nTa ta ta\n"; }
+		System.out.println("Schedule " + end);
+	/**
 		try
 		{
 			if(selectedFreshmanOperation.equals("Theory Operation"))
@@ -473,6 +479,7 @@ public class DeanCourseBean
 		{
 			ex.getMessage();
 		}
+		**/
 		return null;
 	}
 	
@@ -696,8 +703,10 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
+		this.readyToGoFreshman = false;
 		if((!this.selectedYear.equals("Choose Year")) && (this.selectedYear != null)) {
 			this.testRandomMethod();
+			this.readyToGoFreshman = false;
 			if(this.semesterFlag == true) {
 				this.clearAllComponents();
 				this.loadAllLists(selectedYear, selectedSemester);
@@ -721,6 +730,7 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSemester = newValue;
+		this.readyToGoFreshman = false;
 		if((!this.selectedSemester.equals("Choose Semester")) && (this.selectedSemester != null)) {
 			this.clearAllComponents();
 			this.loadAllLists(this.selectedYear, this.selectedSemester);
@@ -751,7 +761,8 @@ public class DeanCourseBean
 		String newValue = (String)event.getNewValue();
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
-		this.selectedFreshmanCourse = newValue;	
+		this.selectedFreshmanCourse = newValue;
+		this.readyToGoFreshman = false;
 		this.clearSubFields("Freshman");
 		this.clearTimeValues("Freshman");
 		if(!this.selectedFreshmanCourse.equals("Course Selection") && this.selectedFreshmanCourse != null) {
@@ -766,29 +777,40 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanOperation = newValue;
-		this.atomicIndexFreshman = -1;
+		this.readyToGoFreshman = false;
 		this.topCreditFreshman = -1;
-		this.clearTimeValues("Freshman");
+		this.freshmanCredits.clear();
+		this.freshmanDays.clear();
+		this.freshmanHours.clear();
 		if((!this.selectedFreshmanOperation.equals("Choose Course Type")) && (this.selectedFreshmanOperation != null)) {
+			this.clearTimeValues("Freshman");
+			this.loadCredits("Freshman", 0);
+			if(this.selectedScheduleAtomicFreshman != null && this.splitFlagFreshman == true) {
+				ScheduleAtomic boundedAtomic = this.freshmanUnmarkedList.get(atomicIndexFreshman);
+				System.out.println(boundedAtomic.toString());
+				boundedAtomic.mergeCredit(this.selectedScheduleAtomicFreshman, "Unmarked");
+				this.testMergeMethod();
+				this.atomicIndexFreshman = -1;
+			}
 			if(this.selectedFreshmanOperation.equals("Theoretical") && (this.optFlagFreshman != "T")) {
 				if(this.optFlagFreshman == "P") { 
 					this.selectedFreshmanCredit = null;
 				}
 				this.optFlagFreshman = "T";
-				this.topCreditFreshman = Integer.parseInt(this.freshmanCreditValeuTeo);
+				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Theo", 0);
+				this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
+				this.freshmanCredits.clear();
 				this.loadCredits("Freshman", this.topCreditFreshman);
-				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Theo", this.topCreditFreshman);
-				return;
 			} 
 			if(this.selectedFreshmanOperation.equals("Practice") && (this.optFlagFreshman != "P")) {
 				if(this.optFlagFreshman == "T") {
 					this.selectedFreshmanCredit = null;
 				}
 				this.optFlagFreshman = "P";
-				this.topCreditFreshman = Integer.parseInt(this.freshmanCreditValuePrac);
+				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Prac", 0);
+				this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
+				this.freshmanCredits.clear();
 				this.loadCredits("Freshman", this.topCreditFreshman);
-				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Prac", this.topCreditFreshman);
-				return;
 			}
 		}
 		else { 
@@ -804,20 +826,25 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanCredit = newValue;
+		this.readyToGoFreshman = false;
 		this.freshmanDays.clear();
 		this.freshmanHours.clear();
-		if(!this.selectedFreshmanCredit.equals("Choose Credit") && this.selectedFreshmanCredit != "") {
+		if(!this.selectedFreshmanCredit.equals("Choose Credit") && this.selectedFreshmanCredit != null) {
 			this.loadDays("Freshman");
 			if (this.atomicIndexFreshman != -1) {
 				if(this.topCreditFreshman != Integer.parseInt(this.selectedFreshmanCredit)) {
 					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));	
+					this.splitFlagFreshman = true;
 				}
 				else {
 					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
+					this.splitFlagFreshman = false;
 				}
 			}
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicFreshman.getCredit()));
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicFreshman.getSyllabus().getSyllabusId()));
+		}
+		else {
+			this.freshmanDays.clear();
+			this.freshmanHours.clear();
 		}
 	}
 	
@@ -828,10 +855,33 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanDay = newValue;
+		this.readyToGoFreshman = false;
 		this.freshmanHours.clear();
-		if(!this.selectedFreshmanDay.equals("Choose Day") && this.selectedFreshmanDay != "") {
+		if((!this.selectedFreshmanDay.equals("Choose Day")) && (this.selectedFreshmanDay != null)) {
+			this.freshmanHours.clear();
 			this.freshmanHours = this.selectedScheduleAtomicFreshman.getKnowledgeByDay(this.selectedFreshmanDay);
-			this.testSortedList();
+		}
+		else {
+			this.freshmanHours.clear();
+		}
+	}
+	
+	public void freshmanHourChange(ValueChangeEvent event) {
+		System.out.println("Freshman Hour has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedFreshmanStartHour = newValue;
+		this.readyToGoFreshman = false;
+		if((!this.selectedFreshmanStartHour.equals("Choose Start Hour")) && (this.selectedFreshmanStartHour != null)) {
+			this.readyToGoFreshman = true;
+			this.selectedScheduleAtomicFreshman = null;
+			return;
+		}
+		else {
+			this.readyToGoFreshman = false;
+			return;
 		}
 	}
 //******************* SOPHOMORE EVENTS **************************************************
@@ -1410,7 +1460,6 @@ public class DeanCourseBean
 			return;
 		}
 	}
-	
 	
 	private void clearTimeValues(String grade) {
 		if(grade.equals("Freshman")) {
@@ -2230,9 +2279,13 @@ public class DeanCourseBean
 		sItem.setCredit(2);
 		
 		int num = sItem.getRandomKnowledge();
-		num = 8;
 		System.out.println("\n Random generates: " + num + "\n");
 		Index item = sItem.convertIntToIndex(num);
 		System.out.println(item.toString());
+	}
+	
+	private void testMergeMethod() {
+		System.out.println(this.selectedScheduleAtomicFreshman.toString());
+		System.out.println(this.freshmanUnmarkedList.get(this.atomicIndexFreshman).toString());
 	}
 }
