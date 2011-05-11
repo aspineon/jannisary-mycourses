@@ -247,13 +247,15 @@
 	   	<!-- ******************************************************** -->
 	   	
 	   	<h:outputLabel value="Attendance : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-	   	<h:inputText  value="#{courseBean.currentItem.attendance}" id="attendanceText">
-	   		</h:inputText>
+	   	<rich:comboBox id="selectAttendanceId" value="Select Attendance" valueChangeListener="#{courseBean.selectionChangedAttendanceCombo}">
+				<f:selectItems value="#{courseBean.selectItemsForAttendance}"/>
+		</rich:comboBox>
 	   	<h:outputText value="" />
 	   	
 	   		<h:outputLabel value="Grade : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
-	   	<h:inputText  value="#{courseBean.currentItem.grade}" id="gradeText" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
-	   		</h:inputText>
+	   	<rich:comboBox id="selectGradeId" value="Select Grade" valueChangeListener="#{courseBean.selectionChangedGradeCombo}">
+				<f:selectItems value="#{courseBean.selectItemsGrades}"/>
+		</rich:comboBox>
 	   	<rich:message for="gradeText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="" />
@@ -265,13 +267,13 @@
 			<h:outputLabel value="" />
 	   	<rich:comboBox id="selectDepartmentCode" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 				<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
-			</rich:comboBox>
+		</rich:comboBox>
 	   	<h:outputLabel value="" />
 	   	
 	   	<h:outputLabel value="Precondition : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-	   	<h:inputText  value="#{courseBean.currentItem.precondition}" id="preconditionText">
-	    		<rich:ajaxValidator event="onblur"/>
-	   		</h:inputText>
+	   	<rich:comboBox id="selectPreconditionCourseCode" value="Select Course Code" valueChangeListener="#{courseBean.selectionChangedPreconditionCombo}">
+				<f:selectItems value="#{courseBean.selectItemsForPreconditions}"/>
+		</rich:comboBox>
 	   	<rich:message for="preconditionText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>	
 	   	
 	   	<!-- ********************************************************************* -->
