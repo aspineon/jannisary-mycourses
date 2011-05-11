@@ -155,7 +155,7 @@
     
     <h:panelGrid id="departmentPanelGrid" columns="3">
     	<h:outputLabel value="Department Code : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText id="departmentCode"  value="#{departmentBean.currentItem.deptCode}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+    	<h:inputText id="departmentCode"  value="#{departmentBean.currentItem.deptCode}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';width : 164px;">
 	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
 	   	<rich:message for="departmentCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
