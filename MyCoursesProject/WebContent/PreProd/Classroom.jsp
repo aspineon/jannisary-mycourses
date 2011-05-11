@@ -159,7 +159,7 @@
      <h:panelGrid id="classroomPanelGrid" columns="3">
      	        		
      		<h:outputLabel value="Classroom Code :" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-     		<h:inputText value="#{classroomBean.currentItem.classroomCode}" id="classroomCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+     		<h:inputText value="#{classroomBean.currentItem.classroomCode}" id="classroomCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana'; width : 159px;">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		 <rich:message for="classroomCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
