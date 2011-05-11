@@ -127,8 +127,7 @@
 		            			
 		            			
 		            		</h:panelGrid>
-		            			</h:form>
-		            			<h:form>		
+		            					
 		          
 		            			<h:commandButton id="freshmanSubmit" value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="freshmanReset" value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
