@@ -203,7 +203,7 @@
      	<h:panelGrid columns="3">
      	
      	<h:outputLabel value="Section : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">	    	
+     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana'; width : 145px;">	    	
 	    </h:inputText>
 	    <h:outputLabel></h:outputLabel>
 	    
