@@ -35,6 +35,16 @@ public class CourseBean {
 	private String courseDescription;
 	private Department department;
 	
+	public CourseBean(){
+		super();
+		selectItemsForAttendance.add(new SelectItem("True"));
+		selectItemsForAttendance.add(new SelectItem("False"));
+		
+		selectItemsGrades.add(new SelectItem("1"));
+		selectItemsGrades.add(new SelectItem("2"));
+		selectItemsGrades.add(new SelectItem("3"));
+		selectItemsGrades.add(new SelectItem("4"));
+	}
 	
 	public Integer getCourseId() {
 		return courseId;
@@ -84,19 +94,46 @@ public class CourseBean {
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
+	
+	
 
 	///////////////////////////////////////////////////////////
 	
 	private List<SelectItem> selectItemsForDepartments;
 	private List<SelectItem> selectItemsForTypeofCourses;
+	private List<SelectItem> selectItemsForPreconditions;
+	private List<SelectItem> selectItemsForAttendance = new ArrayList<SelectItem>();
+	private List<SelectItem> selectItemsGrades = new ArrayList<SelectItem>();;
 	private Course currentItem = new Course();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	private List<Course> allCourses = null;
+	private List<Course> allPreconditionCourses = null;
 	private List<Department> allDepartments = null;
 	private List<TypeofCourse> allTypeofCourses = null;
 
 	
+	
+	
+	public List<SelectItem> getSelectItemsForPreconditions() {
+		selectItemsForPreconditions = new ArrayList<SelectItem>();
+		FillPreconditionsCombo();
+		return selectItemsForPreconditions;
+	}
+
+	public void setSelectItemsForPreconditions(
+			List<SelectItem> selectItemsForPreconditions) {
+		this.selectItemsForPreconditions = selectItemsForPreconditions;
+	}
+
+	public List<SelectItem> getSelectItemsGrades() {
+		return selectItemsGrades;
+	}
+
+	public void setSelectItemsGrades(List<SelectItem> selectItemsGrades) {
+		this.selectItemsGrades = selectItemsGrades;
+	}
+
 	public List<SelectItem> getSelectItemsForTypeofCourses() {
 		FillTypeofCoursesCombo();
 		return selectItemsForTypeofCourses;
@@ -114,6 +151,13 @@ public class CourseBean {
 		this.selectItemsForDepartments = selectItems;
 	}
 	
+	public List<SelectItem> getSelectItemsForAttendance() {
+		return selectItemsForAttendance;
+	}
+	public void setSelectItemsForAttendance(
+			List<SelectItem> selectItemsForAttendance) {
+		this.selectItemsForAttendance = selectItemsForAttendance;
+	}
 	public void selectionChangedDepartmentCombo(ValueChangeEvent  evt) {
 		 String selectedValue = (String) evt.getNewValue();
 		 Department dpt = new Department(selectedValue);
@@ -121,6 +165,22 @@ public class CourseBean {
 
 		 if (!selectedValue.equals("")) {
 			 currentItem.setDepartment(allDepartments.get(0));
+		 }
+	}
+	
+	public void selectionChangedAttendanceCombo(ValueChangeEvent  evt) {
+		 String selectedValue = (String) evt.getNewValue();
+
+		 if (!selectedValue.equals("")) {
+			 currentItem.setAttendance(Boolean.parseBoolean(selectedValue));
+		 }
+	}
+	
+	public void selectionChangedGradeCombo(ValueChangeEvent  evt) {
+		 String selectedValue = (String) evt.getNewValue();
+
+		 if (!selectedValue.equals("")) {
+			 currentItem.setGrade(Integer.parseInt(selectedValue));
 		 }
 	}
 	
@@ -142,6 +202,17 @@ public class CourseBean {
 		for(i=0;i<allDepartments.size();i++){
 			String strDpt = allDepartments.get(i).getDeptCode();
 			selectItemsForDepartments.add(new SelectItem(strDpt));
+		}
+	}
+	
+	public void FillPreconditionsCombo(){
+		int i;
+		selectItemsForPreconditions = new ArrayList<SelectItem>();
+		course = allCourses.get(0);
+		allPreconditionCourses = course.getAllCourses();
+		for(i=0;i<allPreconditionCourses.size();i++){
+			String strDpt = allPreconditionCourses.get(i).getCourseCode();
+			selectItemsForPreconditions.add(new SelectItem(strDpt));
 		}
 	}
 	
