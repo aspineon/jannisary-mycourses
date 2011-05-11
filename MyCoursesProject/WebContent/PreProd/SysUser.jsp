@@ -162,19 +162,19 @@
     
     <h:panelGrid id="sysuserPanelGrid" columns="3">
     	<h:outputLabel value="User Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
+    	<h:inputText  value="#{sysUserBean.currentItem.userName}" id="userName" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana'; width : 144px;">
 	    		<rich:ajaxValidator event="onblur"/>
 	   	</h:inputText>
 	   	<rich:message for="userName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="User Password : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: small;">
+    	<h:inputText value="#{sysUserBean.currentItem.userPassword}" id="userPass" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: small; width : 144px;">
 	    		<rich:ajaxValidator event="onblur"/>
 	    </h:inputText>
 	    <rich:message for="userPass" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="" />
-	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}">
+	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" style="width : 149px;">
 				<f:selectItems value="#{sysUserBean.selectItems}"/>
 		</rich:comboBox>
     	<h:outputLabel value="" />
