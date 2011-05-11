@@ -203,11 +203,10 @@
      	<h:panelGrid columns="3">
      	
      	<h:outputLabel value="Section : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">
-	    	<rich:ajaxValidator event="onblur"></rich:ajaxValidator>
+     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';">	    	
 	    </h:inputText>
-	    <rich:message for="syllabusSection" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
-     	
+	    <h:outputLabel></h:outputLabel>
+	    
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
