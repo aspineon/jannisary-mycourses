@@ -105,12 +105,6 @@ public class ScheduleAtomic {
         		return false;
         } else if (this.startHour != other.startHour)
         	return false;
-        if (this.credit == 0) {
-        	if (other.credit != 0)
-        		return false;
-        } else if (this.credit != other.credit)
-        	return false;
-        
         
         return true;
     }
@@ -141,6 +135,7 @@ public class ScheduleAtomic {
 		}
 		
 		if(top == 0) { return retList; }
+		retList.add(new SelectItem("Choose Start Hour"));
 		for(int i = 0; i < this.knowledge.size(); i++) {
 			if(this.knowledge.get(i) > bottom && this.knowledge.get(i) < top) {
 				int retVal = this.knowledge.get(i) % 8;
@@ -274,7 +269,7 @@ public class ScheduleAtomic {
 		
 	}//end of convertIntToIndex method
 	
-	// ************* Credit Split and Merge Functions *********************************************
+// ************* Credit Split and Merge Functions *********************************************
 	
 	public ScheduleAtomic splitCredit(int pCredit)
 	{
@@ -287,28 +282,46 @@ public class ScheduleAtomic {
 			splitObj.setCredit(pCredit);
 			splitObj.setDay(this.day);
 			splitObj.setStartHour(this.startHour);
+			splitObj.setAttendance(this.attendance);
+			splitObj.setCourseId(this.courseId);
+			splitObj.setLecturerId(this.lecturerId);
+			splitObj.setClassroomId(this.classroomId);
+			splitObj.setPreCondition(this.preCondition);
 			this.setCredit(this.credit - pCredit);
 		}		
 		return splitObj;
 	}
 	
-	public void mergeCredit(ScheduleAtomic pScheduleAtomic)
+	public void mergeCredit(ScheduleAtomic pScheduleAtomic, String listType)
 	{
-		if(((pScheduleAtomic.getStartHour() + pScheduleAtomic.getCredit()) == this.startHour)
-				&& (pScheduleAtomic.getDay().equals(this.day)))
-		{
-			this.startHour = pScheduleAtomic.getStartHour();			
-			this.credit = pScheduleAtomic.getCredit() + this.credit;
+		if(listType.equals("Marked")) {
+			if(((pScheduleAtomic.getStartHour() + pScheduleAtomic.getCredit()) == this.startHour) && (pScheduleAtomic.getDay().equals(this.day))) {
+				this.startHour = pScheduleAtomic.getStartHour();			
+				this.credit = pScheduleAtomic.getCredit() + this.credit;
+				return;
+			}
+			if(((this.getStartHour() + this.credit) == pScheduleAtomic.getStartHour()) && (this.day.equals(pScheduleAtomic.getDay()))) {
+				this.credit = pScheduleAtomic.getCredit() + this.credit;
+				return;
+			}
 		}
-		else
-		{
+		if(listType.equals("Unmarked")) {
 			this.credit = pScheduleAtomic.getCredit() + this.credit;
+			this.setCredit(this.credit);
 		}
 	}
 	
 //***************************************************************************************
-	
+	public ArrayList<ScheduleAtomic> rollback(ArrayList<ScheduleAtomic> sList, int val) {
+		for(int i = 0; i < sList.size(); i++) {
+			sList.get(i).addKnowledge(val);
+		}
+		return sList;
+	}
 
+	public void addKnowledge(int val) {
+		this.knowledge.add(val);
+	}
 //*************** GETTER-SETTER METHODS *************************************************
 	public Syllabus getSyllabus() {
 		return syllabus;
