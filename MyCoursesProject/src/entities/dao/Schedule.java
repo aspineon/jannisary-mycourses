@@ -28,6 +28,10 @@ public class Schedule implements java.io.Serializable {
 	private String courseType;
 	private int timeofCourse;
 	private int hours;
+	private int savedYear;
+	private int selectedYearForEdit;
+	private String semester;
+	private String savedSemester;
 	
 	//Manual Scheduling de gösterimde kullanılan alan, veritabanında tanımı yoktur.
 	private String courseTheoricOrPraticName;
@@ -193,6 +197,8 @@ public void updateScheduleMatrix(){
 	int syllecturerId;
 	int sylSectionNo;
 	int sylClassroomId;
+	int sylId;
+	
 	Session session=null;
 	try{
 		
@@ -219,21 +225,31 @@ public void updateScheduleMatrix(){
 					sylCourseId = firstGradeSchedule[i][j].getCourseId();
 					syllecturerId = firstGradeSchedule[i][j].getLecturerId();
 					sylSectionNo = firstGradeSchedule[i][j].getSectionNo();
-					
+					syllabus.setSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
 					
 					courseType = firstGradeSchedule[i][j].getCourseType();
 					timeofCourse = firstGradeSchedule[i][j].getTimeofCourse();
 					hours = firstGradeSchedule[i][j].getHours();
 					scheduleId = firstGradeSchedule[i][j].getScheduleId();
 					
-					Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
-					querySyl.setParameter("pSemester", syllabus.getSemester());
-					querySyl.setParameter("pYear", syllabus.getYear());
-					querySyl.setParameter("pCourseId", sylCourseId);
-					querySyl.setParameter("pLecturerId", syllecturerId);
-					querySyl.setParameter("pSectionNo", sylSectionNo);
-					querySyl.setParameter("pClassroomId", sylClassroomId);
-					querySyl.executeUpdate();
+					if((semester.equals(savedSemester)) && (selectedYearForEdit==savedYear)){
+						
+					}else{
+						Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
+						querySyl.setParameter("pSemester", syllabus.getSemester());
+						querySyl.setParameter("pYear", syllabus.getYear());
+						querySyl.setParameter("pCourseId", sylCourseId);
+						querySyl.setParameter("pLecturerId", syllecturerId);
+						querySyl.setParameter("pSectionNo", sylSectionNo);
+						querySyl.setParameter("pClassroomId", sylClassroomId);
+						querySyl.executeUpdate();
+						
+						Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
+						syllabusIdList = (List<Syllabus>) querySylId.list();
+						
+						int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
+						syllabus.setSyllabusId(newSyllabusId);
+					}
 					
 					/*Query query = session.getNamedQuery("updateScheduleMatrix");
 					query.setParameter("pScheduleId", scheduleId);
@@ -244,29 +260,33 @@ public void updateScheduleMatrix(){
 					query.executeUpdate();*/
 					
 					//Query for getting last syllabusId
-					Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
-					syllabusIdList = (List<Syllabus>) querySylId.list();
 					
-					int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
-					int cId = syllabusIdList.get(0).getCourse().getCourseId();
-					
-					syllabus.setSyllabusId(newSyllabusId);
 					
 					if(scheduleId!=0){
-						Query query = session.getNamedQuery("updateScheduleMatrix");
-						query.setParameter("pScheduleId", scheduleId);
-						query.setParameter("pCourseType", courseType);
-						query.setParameter("pTimeofCourse", timeofCourse);
-						query.setParameter("pHours", hours);
-						query.setParameter("pSyllabusId", syllabus);
-						query.executeUpdate();
+						if((!semester.equals(savedSemester)) || (selectedYearForEdit!=savedYear)){
+							Query query = session.getNamedQuery("AddSchedule");
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.setParameter("pSyllabusArchive", 1);
+							query.executeUpdate();
+						}else{
+							Query query = session.getNamedQuery("updateScheduleMatrix");
+							query.setParameter("pScheduleId", scheduleId);
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.executeUpdate();
+						}
 					}else if(scheduleId == 0){
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
-						query.setParameter("pSyllabusArchiveId", 1);
+						query.setParameter("pSyllabusArchive", 1);
 						query.executeUpdate();
 					}
 					
@@ -287,21 +307,31 @@ public void updateScheduleMatrix(){
 					sylCourseId = secondGradeSchedule[i][j].getCourseId();
 					syllecturerId = secondGradeSchedule[i][j].getLecturerId();
 					sylSectionNo = secondGradeSchedule[i][j].getSectionNo();
-					
+					syllabus.setSyllabusId(secondGradeSchedule[i][j].getSyllabusId());
 					
 					courseType = secondGradeSchedule[i][j].getCourseType();
 					timeofCourse = secondGradeSchedule[i][j].getTimeofCourse();
 					hours = secondGradeSchedule[i][j].getHours();
 					scheduleId = secondGradeSchedule[i][j].getScheduleId();
 					
-					Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
-					querySyl.setParameter("pSemester", syllabus.getSemester());
-					querySyl.setParameter("pYear", syllabus.getYear());
-					querySyl.setParameter("pCourseId", sylCourseId);
-					querySyl.setParameter("pLecturerId", syllecturerId);
-					querySyl.setParameter("pSectionNo", sylSectionNo);
-					querySyl.setParameter("pClassroomId", sylClassroomId);
-					querySyl.executeUpdate();
+					if((semester.equals(savedSemester)) && (selectedYearForEdit==savedYear)){
+						
+					}else{
+						Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
+						querySyl.setParameter("pSemester", syllabus.getSemester());
+						querySyl.setParameter("pYear", syllabus.getYear());
+						querySyl.setParameter("pCourseId", sylCourseId);
+						querySyl.setParameter("pLecturerId", syllecturerId);
+						querySyl.setParameter("pSectionNo", sylSectionNo);
+						querySyl.setParameter("pClassroomId", sylClassroomId);
+						querySyl.executeUpdate();
+						
+						Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
+						syllabusIdList = (List<Syllabus>) querySylId.list();
+						
+						int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
+						syllabus.setSyllabusId(newSyllabusId);
+					}
 					
 					/*Query query = session.getNamedQuery("updateScheduleMatrix");
 					query.setParameter("pScheduleId", scheduleId);
@@ -312,29 +342,33 @@ public void updateScheduleMatrix(){
 					query.executeUpdate();*/
 					
 					//Query for getting last syllabusId
-					Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
-					syllabusIdList = (List<Syllabus>) querySylId.list();
 					
-					int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
-					int cId = syllabusIdList.get(0).getCourse().getCourseId();
-					
-					syllabus.setSyllabusId(newSyllabusId);
 					
 					if(scheduleId!=0){
-						Query query = session.getNamedQuery("updateScheduleMatrix");
-						query.setParameter("pScheduleId", scheduleId);
-						query.setParameter("pCourseType", courseType);
-						query.setParameter("pTimeofCourse", timeofCourse);
-						query.setParameter("pHours", hours);
-						query.setParameter("pSyllabusId", syllabus);
-						query.executeUpdate();
+						if((!semester.equals(savedSemester)) || (selectedYearForEdit!=savedYear)){
+							Query query = session.getNamedQuery("AddSchedule");
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.setParameter("pSyllabusArchive", 1);
+							query.executeUpdate();
+						}else{
+							Query query = session.getNamedQuery("updateScheduleMatrix");
+							query.setParameter("pScheduleId", scheduleId);
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.executeUpdate();
+						}
 					}else if(scheduleId == 0){
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
-						query.setParameter("pSyllabusArchiveId", 1);
+						query.setParameter("pSyllabusArchive", 1);
 						query.executeUpdate();
 					}
 				}
@@ -354,21 +388,31 @@ public void updateScheduleMatrix(){
 					sylCourseId = thirdGradeSchedule[i][j].getCourseId();
 					syllecturerId = thirdGradeSchedule[i][j].getLecturerId();
 					sylSectionNo = thirdGradeSchedule[i][j].getSectionNo();
-					
+					syllabus.setSyllabusId(thirdGradeSchedule[i][j].getSyllabusId());
 					
 					courseType = thirdGradeSchedule[i][j].getCourseType();
 					timeofCourse = thirdGradeSchedule[i][j].getTimeofCourse();
 					hours = thirdGradeSchedule[i][j].getHours();
 					scheduleId = thirdGradeSchedule[i][j].getScheduleId();
 					
-					Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
-					querySyl.setParameter("pSemester", syllabus.getSemester());
-					querySyl.setParameter("pYear", syllabus.getYear());
-					querySyl.setParameter("pCourseId", sylCourseId);
-					querySyl.setParameter("pLecturerId", syllecturerId);
-					querySyl.setParameter("pSectionNo", sylSectionNo);
-					querySyl.setParameter("pClassroomId", sylClassroomId);
-					querySyl.executeUpdate();
+					if((semester.equals(savedSemester)) && (selectedYearForEdit==savedYear)){
+						
+					}else{
+						Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
+						querySyl.setParameter("pSemester", syllabus.getSemester());
+						querySyl.setParameter("pYear", syllabus.getYear());
+						querySyl.setParameter("pCourseId", sylCourseId);
+						querySyl.setParameter("pLecturerId", syllecturerId);
+						querySyl.setParameter("pSectionNo", sylSectionNo);
+						querySyl.setParameter("pClassroomId", sylClassroomId);
+						querySyl.executeUpdate();
+						
+						Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
+						syllabusIdList = (List<Syllabus>) querySylId.list();
+						
+						int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
+						syllabus.setSyllabusId(newSyllabusId);
+					}
 					
 					/*Query query = session.getNamedQuery("updateScheduleMatrix");
 					query.setParameter("pScheduleId", scheduleId);
@@ -379,88 +423,113 @@ public void updateScheduleMatrix(){
 					query.executeUpdate();*/
 					
 					//Query for getting last syllabusId
-					Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
-					syllabusIdList = (List<Syllabus>) querySylId.list();
 					
-					int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
-					int cId = syllabusIdList.get(0).getCourse().getCourseId();
-					
-					syllabus.setSyllabusId(newSyllabusId);
 					
 					if(scheduleId!=0){
-						Query query = session.getNamedQuery("updateScheduleMatrix");
-						query.setParameter("pScheduleId", scheduleId);
-						query.setParameter("pCourseType", courseType);
-						query.setParameter("pTimeofCourse", timeofCourse);
-						query.setParameter("pHours", hours);
-						query.setParameter("pSyllabusId", syllabus);
-						query.executeUpdate();
+						if((!semester.equals(savedSemester)) || (selectedYearForEdit!=savedYear)){
+							Query query = session.getNamedQuery("AddSchedule");
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.setParameter("pSyllabusArchive", 1);
+							query.executeUpdate();
+						}else{
+							Query query = session.getNamedQuery("updateScheduleMatrix");
+							query.setParameter("pScheduleId", scheduleId);
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.executeUpdate();
+						}
 					}else if(scheduleId == 0){
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
-						query.setParameter("pSyllabusArchiveId", 1);
+						query.setParameter("pSyllabusArchive", 1);
 						query.executeUpdate();
 					}
 				}
 				
 				if(!fourthGradeSchedule[i][j].getLecturerName().equals("Lecturer")){
 					List<Syllabus> syllabusIdList = null;
-					syllabus = new Syllabus();
-					courseType="";
-				    timeofCourse = -1;
-				    hours = -1;
-					
-				    
-					//syllabus.setSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
+					//syllabus.setSyllabusId(firstGradeSchedule[i][j].getSyllabusId());
 					syllabus.setSemester(fourthGradeSchedule[i][j].getSemester());
 					syllabus.setYear(fourthGradeSchedule[i][j].getYear());
+					
+					/*Lecturer lt = new Lecturer();
+					lt.setLecturerName(firstGradeSchedule[i][j].getLecturerName());
+					syllabus.setLecturer(lt);*/
 					
 					sylClassroomId = fourthGradeSchedule[i][j].getClassroomId();
 					sylCourseId = fourthGradeSchedule[i][j].getCourseId();
 					syllecturerId = fourthGradeSchedule[i][j].getLecturerId();
 					sylSectionNo = fourthGradeSchedule[i][j].getSectionNo();
+					syllabus.setSyllabusId(fourthGradeSchedule[i][j].getSyllabusId());
 					
 					courseType = fourthGradeSchedule[i][j].getCourseType();
 					timeofCourse = fourthGradeSchedule[i][j].getTimeofCourse();
 					hours = fourthGradeSchedule[i][j].getHours();
 					scheduleId = fourthGradeSchedule[i][j].getScheduleId();
 					
-					Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
-					querySyl.setParameter("pSemester", syllabus.getSemester());
-					querySyl.setParameter("pYear", syllabus.getYear());
-					querySyl.setParameter("pCourseId", sylCourseId);
-					querySyl.setParameter("pLecturerId", syllecturerId);
-					querySyl.setParameter("pSectionNo", sylSectionNo);
-					querySyl.setParameter("pClassroomId", sylClassroomId);
-					querySyl.executeUpdate();
+					if((semester.equals(savedSemester)) && (selectedYearForEdit==savedYear)){
+						
+					}else{
+						Query querySyl = session.getNamedQuery("addSyllabusForEditOperation");
+						querySyl.setParameter("pSemester", syllabus.getSemester());
+						querySyl.setParameter("pYear", syllabus.getYear());
+						querySyl.setParameter("pCourseId", sylCourseId);
+						querySyl.setParameter("pLecturerId", syllecturerId);
+						querySyl.setParameter("pSectionNo", sylSectionNo);
+						querySyl.setParameter("pClassroomId", sylClassroomId);
+						querySyl.executeUpdate();
+						
+						Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
+						syllabusIdList = (List<Syllabus>) querySylId.list();
+						
+						int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
+						syllabus.setSyllabusId(newSyllabusId);
+					}
+					
+					/*Query query = session.getNamedQuery("updateScheduleMatrix");
+					query.setParameter("pScheduleId", scheduleId);
+					query.setParameter("pCourseType", courseType);
+					query.setParameter("pTimeofCourse", timeofCourse);
+					query.setParameter("pHours", hours);
+					query.setParameter("pSyllabusId", syllabus);
+					query.executeUpdate();*/
 					
 					//Query for getting last syllabusId
-					Query querySylId = session.getNamedQuery("getLastInsertedSyllabus");
-					syllabusIdList = (List<Syllabus>) querySylId.list();
 					
-					int newSyllabusId = syllabusIdList.get(0).getSyllabusId();
-					int cId = syllabusIdList.get(0).getCourse().getCourseId();
-					
-					syllabus.setSyllabusId(newSyllabusId);
 					
 					if(scheduleId!=0){
-						Query query = session.getNamedQuery("updateScheduleMatrix");
-						query.setParameter("pScheduleId", scheduleId);
-						query.setParameter("pCourseType", courseType);
-						query.setParameter("pTimeofCourse", timeofCourse);
-						query.setParameter("pHours", hours);
-						query.setParameter("pSyllabusId", syllabus);
-						query.executeUpdate();
+						if((!semester.equals(savedSemester)) || (selectedYearForEdit!=savedYear)){
+							Query query = session.getNamedQuery("AddSchedule");
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.setParameter("pSyllabusArchive", 1);
+							query.executeUpdate();
+						}else{
+							Query query = session.getNamedQuery("updateScheduleMatrix");
+							query.setParameter("pScheduleId", scheduleId);
+							query.setParameter("pCourseType", courseType);
+							query.setParameter("pTimeofCourse", timeofCourse);
+							query.setParameter("pHours", hours);
+							query.setParameter("pSyllabusId", syllabus);
+							query.executeUpdate();
+						}
 					}else if(scheduleId == 0){
 						Query query = session.getNamedQuery("AddSchedule");
 						query.setParameter("pCourseType", courseType);
 						query.setParameter("pTimeofCourse", timeofCourse);
 						query.setParameter("pHours", hours);
 						query.setParameter("pSyllabusId", syllabus);
-						query.setParameter("pSyllabusArchiveId", 1);
+						query.setParameter("pSyllabusArchive", 1);
 						query.executeUpdate();
 					}
 				}
@@ -577,6 +646,38 @@ public void updateScheduleMatrix(){
 
 	public void setScheduleList(ArrayList<Schedule> scheduleList) {
 		this.scheduleList = scheduleList;
+	}
+
+	public int getSavedYear() {
+		return savedYear;
+	}
+
+	public void setSavedYear(int savedYear) {
+		this.savedYear = savedYear;
+	}
+
+	public int getSelectedYearForEdit() {
+		return selectedYearForEdit;
+	}
+
+	public void setSelectedYearForEdit(int selectedYearForEdit) {
+		this.selectedYearForEdit = selectedYearForEdit;
+	}
+
+	public String getSemester() {
+		return semester;
+	}
+
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+	public String getSavedSemester() {
+		return savedSemester;
+	}
+
+	public void setSavedSemester(String savedSemester) {
+		this.savedSemester = savedSemester;
 	}
 
 	
