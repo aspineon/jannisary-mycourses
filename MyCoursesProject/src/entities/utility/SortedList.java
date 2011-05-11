@@ -21,47 +21,33 @@ public class SortedList {
 		separateCredit();
 	}//end of constructor
 	
-	public SortedList rollback(int val) {
-		int grades = this.findCofactors(val);
-		ScheduleAtomic sObj = new ScheduleAtomic();
-		switch(grades) 
-		{
-			case 1:
-				this.firstCreditList = sObj.rollback(firstCreditList, val);
-			break;
-		
-			case 2:
-				this.firstCreditList = sObj.rollback(firstCreditList, val);
-				this.secondCreditList = sObj.rollback(secondCreditList, val);
-			break;
-		
-			case 3:
-				this.firstCreditList = sObj.rollback(firstCreditList, val);
-				this.secondCreditList = sObj.rollback(secondCreditList, val);
-				this.thirdCreditList = sObj.rollback(thirdCreditList, val);
-			break;
-		
-			case 4:
-				this.firstCreditList = sObj.rollback(firstCreditList, val);
-				this.secondCreditList = sObj.rollback(secondCreditList, val);
-				this.thirdCreditList = sObj.rollback(thirdCreditList, val);
-				this.fourthCreditList = sObj.rollback(fourthCreditList, val);
-			break;
-			
-			default:
-				break;
-		}	
-		return this;
+	public ArrayList<ScheduleAtomic> convertToOneList() {
+		ArrayList<ScheduleAtomic> retList = new ArrayList<ScheduleAtomic>();
+		for(int i = 0; i < this.fourthCreditList.size(); i++) {
+			retList.add(this.fourthCreditList.get(i));
+		}
+		for(int i = 0; i < this.thirdCreditList.size(); i++) {
+			retList.add(this.thirdCreditList.get(i));
+		}
+		for(int i = 0; i < this.secondCreditList.size(); i++) {
+			retList.add(this.secondCreditList.get(i));
+		}
+		for(int i = 0; i < this.firstCreditList.size(); i++) {
+			retList.add(this.firstCreditList.get(i));
+		}
+		return retList;
 	}
 	
-	private int findCofactors(int val) {
-		int factor = val % 4;
-		int retVal = 0;
-		if( factor == 0) { retVal = 1; }
-		if( factor == 1) { retVal = 4; }
-		if( factor == 2) { retVal = 3; }
-		if( factor == 3) { retVal = 2; }
-		return retVal;
+	public boolean isEmpty() {
+		int total = 0;
+		boolean result = true;
+		total = total + this.firstCreditList.size(); 
+		total = total + this.secondCreditList.size();
+		total = total + this.thirdCreditList.size();
+		total = total + this.fourthCreditList.size();
+		total = total + this.falseAttendanceList.size();
+		if(total != 0) { result = false; }
+		return result;
 	}
 	
 	private void separateCredit(){
@@ -119,7 +105,7 @@ public class SortedList {
 	}//end of separatePrecondition method
 
 	/*Added by Erhun(11.05.2011)*/
-	private SortedList forwardAllList(int intVal){
+	public SortedList forwardAllList(int intVal){
 		this.firstCreditList = this.forward(firstCreditList, intVal);
 		this.secondCreditList = this.forward(secondCreditList, intVal);
 		this.thirdCreditList = this.forward(thirdCreditList, intVal);
@@ -127,7 +113,7 @@ public class SortedList {
 		return this;
 	}
 	/*Added by Erhun(11.05.2011)*/
-	private ArrayList<ScheduleAtomic> forward(ArrayList<ScheduleAtomic> listUnmarkedList, int intVal){
+	public ArrayList<ScheduleAtomic> forward(ArrayList<ScheduleAtomic> listUnmarkedList, int intVal){
 		ArrayList<Integer> listKnowledge = null;
 		try {
 			for(int i=0; i < listUnmarkedList.size();i++){
