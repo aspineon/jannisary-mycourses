@@ -1,7 +1,7 @@
 package entities.utility;
 
 import java.util.ArrayList;
-
+import entities.utility.ScheduleAtomic;
 
 
 public class SortedList {
@@ -20,6 +20,49 @@ public class SortedList {
 		this.listSorted = ls;
 		separateCredit();
 	}//end of constructor
+	
+	public SortedList rollback(int val) {
+		int grades = this.findCofactors(val);
+		ScheduleAtomic sObj = new ScheduleAtomic();
+		switch(grades) 
+		{
+			case 1:
+				this.firstCreditList = sObj.rollback(firstCreditList, val);
+			break;
+		
+			case 2:
+				this.firstCreditList = sObj.rollback(firstCreditList, val);
+				this.secondCreditList = sObj.rollback(secondCreditList, val);
+			break;
+		
+			case 3:
+				this.firstCreditList = sObj.rollback(firstCreditList, val);
+				this.secondCreditList = sObj.rollback(secondCreditList, val);
+				this.thirdCreditList = sObj.rollback(thirdCreditList, val);
+			break;
+		
+			case 4:
+				this.firstCreditList = sObj.rollback(firstCreditList, val);
+				this.secondCreditList = sObj.rollback(secondCreditList, val);
+				this.thirdCreditList = sObj.rollback(thirdCreditList, val);
+				this.fourthCreditList = sObj.rollback(fourthCreditList, val);
+			break;
+			
+			default:
+				break;
+		}	
+		return this;
+	}
+	
+	private int findCofactors(int val) {
+		int factor = val % 4;
+		int retVal = 0;
+		if( factor == 0) { retVal = 1; }
+		if( factor == 1) { retVal = 4; }
+		if( factor == 2) { retVal = 3; }
+		if( factor == 3) { retVal = 2; }
+		return retVal;
+	}
 	
 	private void separateCredit(){
 		try {
