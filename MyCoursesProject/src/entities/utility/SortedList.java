@@ -120,10 +120,10 @@ public class SortedList {
 
 	/*Added by Erhun(11.05.2011)*/
 	private SortedList forwardAllList(int intVal){
-		this.firstCreditList = forward(firstCreditList, intVal);
-		this.secondCreditList = forward(secondCreditList, intVal);
-		this.thirdCreditList = forward(thirdCreditList, intVal);
-		this.fourthCreditList = forward(fourthCreditList, intVal);
+		this.firstCreditList = this.forward(firstCreditList, intVal);
+		this.secondCreditList = this.forward(secondCreditList, intVal);
+		this.thirdCreditList = this.forward(thirdCreditList, intVal);
+		this.fourthCreditList = this.forward(fourthCreditList, intVal);
 		return this;
 	}
 	/*Added by Erhun(11.05.2011)*/
