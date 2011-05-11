@@ -230,17 +230,21 @@ public class ScheduleAtomic {
 	}
 
 	/*Added by Erhun(09.05.2011)*/
-	public int getRandomKnowledge(){
+	public int getRandomValue(int range){
 		int retIndex = -1;
 		Random random = new Random();
 		try{
-			retIndex = random.nextInt(knowledge.size());
+			retIndex = random.nextInt(range);
 		}catch(Exception ex){
-			
+			System.out.println(ex.getMessage());
 		}
 		return retIndex;
 	}//end of getRandomKnowledge method
 
+	public int getKnowledgeByIndex(int index) {
+		return this.knowledge.get(index);
+	}
+	
 	/*Added by Erhun(09.05.2011)*/
 	public Index convertIntToIndex(int intDayHour){
 		Index index = new Index();
@@ -313,14 +317,27 @@ public class ScheduleAtomic {
 	
 //***************************************************************************************
 	public ArrayList<ScheduleAtomic> rollback(ArrayList<ScheduleAtomic> sList, int val) {
+		int factor = this.findCofactors(val);
 		for(int i = 0; i < sList.size(); i++) {
-			sList.get(i).addKnowledge(val);
+			if(sList.get(i).getCredit() < factor) {
+				sList.get(i).addKnowledge(val);
+			}
 		}
 		return sList;
 	}
 
 	public void addKnowledge(int val) {
 		this.knowledge.add(val);
+	}
+	
+	private int findCofactors(int val) {
+		int factor = val % 4;
+		int retVal = 0;
+		if( factor == 0) { retVal = 2; }
+		if( factor == 1) { retVal = 5; }
+		if( factor == 2) { retVal = 4; }
+		if( factor == 3) { retVal = 3; }
+		return retVal;
 	}
 //*************** GETTER-SETTER METHODS *************************************************
 	public Syllabus getSyllabus() {
