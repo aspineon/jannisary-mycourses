@@ -82,13 +82,24 @@ public class DeanCourseBean
 	private ArrayList<ScheduleAtomic> seniorUnmarkedList = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> seniorMarkedList = new ArrayList<ScheduleAtomic>();
 	
-	private Hashtable<String, Integer> dayMapToIndexHash;	
+	private Hashtable<String, Integer> dayMapToIndexHash;
+	private Hashtable<String, Integer> dayMapToIntegerHash;
 //******************* MATRICES *************************************************
-	public String[][] initCourseTable = new String[8][6];
-	public String[][] initFreshmanCourseTable = new String[8][6];
-	public String[][] initSophomoreCourseTable = new String[8][6];
-	public String[][] initJuniorCourseTable = new String[8][6];
-	public String[][] initSeniorCourseTable = new String[8][6];
+	public String[][] initCourseTable = new String[9][6];
+	public String[][] initFreshmanCourseTable = new String[9][6];
+	public String[][] initSophomoreCourseTable = new String[9][6];
+	public String[][] initJuniorCourseTable = new String[9][6];
+	public String[][] initSeniorCourseTable = new String[9][6];
+	
+	public Integer[][] controlFreshmanLecturer = new Integer[8][5];
+	public Integer[][] controlSophomoreLecturer = new Integer[8][5];
+	public Integer[][] controlJuniorLecturer = new Integer[8][5];
+	public Integer[][] controlSeniorLecturer = new Integer[8][5];
+	
+	public Integer[][] controlFreshmanClassroom = new Integer[8][5];
+	public Integer[][] controlSophomoreClassroom = new Integer[8][5];
+	public Integer[][] controlJuniorClassroom = new Integer[8][5];
+	public Integer[][] controlSeniorClassroom = new Integer[8][5];
 //******************************************************************************
 	private String selectedDeanLecturer;
 	String selectedDeanDay = "";
@@ -173,12 +184,19 @@ public class DeanCourseBean
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
 	{	
-		dayMapToIndexHash = new Hashtable<String, Integer>();
-		dayMapToIndexHash.put("Monday", 1);
-		dayMapToIndexHash.put("Tuesday", 2);
-		dayMapToIndexHash.put("Wednesday", 3);
-		dayMapToIndexHash.put("Thursday", 4);
-		dayMapToIndexHash.put("Friday", 5);
+		this.dayMapToIndexHash = new Hashtable<String, Integer>();
+		this.dayMapToIndexHash.put("Monday", 1);
+		this.dayMapToIndexHash.put("Tuesday", 2);
+		this.dayMapToIndexHash.put("Wednesday", 3);
+		this.dayMapToIndexHash.put("Thursday", 4);
+		this.dayMapToIndexHash.put("Friday", 5);
+		
+		this.dayMapToIntegerHash = new Hashtable<String, Integer>();
+		this.dayMapToIntegerHash.put("Monday", 0);
+		this.dayMapToIntegerHash.put("Tuesday", 1);
+		this.dayMapToIntegerHash.put("Wednesday", 2);
+		this.dayMapToIntegerHash.put("Thursday", 3);
+		this.dayMapToIntegerHash.put("Friday", 4);
 		
 		initCourseTable[0][0] = "1";
 		initCourseTable[1][0] = "2";
@@ -413,6 +431,8 @@ public class DeanCourseBean
 		String end = "\nNo no no\n";
 		if(this.readyToGoFreshman == true) { end = "\nTa ta ta\n"; }
 		System.out.println("Schedule " + end);
+		
+		this.freshmanAutoScheduling();
 	/**
 		try
 		{
@@ -1550,7 +1570,142 @@ public class DeanCourseBean
 		return -1;
 	}
 	
-//***************************************************************************************
+
+	private boolean controlLecturer(String grade, int day, int hour, int lecturerId) {
+		boolean retVal = true;
+		if(grade.equals("Freshman")) {
+			if(this.controlFreshmanLecturer[hour][day] == lecturerId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Sophomore")) {
+			if(this.controlSophomoreLecturer[hour][day] == lecturerId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Senior")) {
+			if(this.controlSeniorLecturer[hour][day] == lecturerId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Junior")) {
+			if(this.controlJuniorLecturer[hour][day] == lecturerId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		return retVal;
+	}
+	
+	private boolean controlClassroom(String grade, int day, int hour, int classroomId) {
+		boolean retVal = true;
+		if(grade.equals("Freshman")) {
+			if(this.controlFreshmanClassroom[hour][day] == classroomId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Sophomore")) {
+			if(this.controlSophomoreClassroom[hour][day] == classroomId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Senior")) {
+			if(this.controlSeniorClassroom[hour][day] == classroomId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Junior")) {
+			if(this.controlJuniorClassroom[hour][day] == classroomId) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		return retVal;
+	}
+//************************************************************************************************
+//******************** SCHEDULING ALGORITHMS *****************************************************	
+	private void freshmanAutoScheduling() {
+		SortedList sList = new SortedList(this.freshmanUnmarkedList);
+		ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
+		ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
+		ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
+	
+		int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+		ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
+		
+		int randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
+		int randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+		Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+		
+		boolean optDone = false;
+		while(atomicList.size() != 0) {	
+			if(optDone == true) {
+				unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+				workingAtomic = atomicList.get(unmarkedIndex);
+				
+				randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
+				randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+				iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+			}
+			
+			boolean options = true;
+			optDone = false;
+			while((options != false) && (optDone != true)) {
+				int hour = iVal.getHour();
+				int day = this.dayMapToIntegerHash.get(iVal.getDay());
+				int limit = workingAtomic.getCredit() + hour;
+				
+				boolean controlCheck = true;
+				for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+					controlCheck = this.controlLecturer("Freshman", day, j, workingAtomic.getLecturerId());
+				}
+				for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+					controlCheck = this.controlClassroom("Freshman", day, k, workingAtomic.getClassroomId());
+				}
+				
+				if(controlCheck == true) {
+					int val = randomVal;
+					for(int p = 0; p < workingAtomic.getCredit(); p++) {
+						atomicList = sList.forward(atomicList, val);
+						val++;
+					}
+					ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
+					sItem.setDay(iVal.getDay());
+					sItem.setStartHour(iVal.getHour());
+					stack.add(sItem);
+					atomicList.remove(unmarkedIndex);
+					optDone = true;
+				} 
+				else {
+					workingAtomic.getKnowledge().remove(randomPosition);
+					if(workingAtomic.getKnowledge().size() == 0) {
+						int index = stack.size() - 1;
+						workingAtomic = new ScheduleAtomic(stack.get(index));
+						stack.remove(index);
+						
+						workingAtomic.setStartHour(0);
+						workingAtomic.setDay("");
+						atomicList.add(workingAtomic);
+						unmarkedIndex = atomicList.size() - 1;
+						
+						options = false;
+					}
+					else {
+						randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
+						randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+						iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+					}
+				}
+			}//end of while inner
+		}//end of while outer
+	}
+	
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
 // Onur (Finished 29.04)
@@ -2278,7 +2433,7 @@ public class DeanCourseBean
 		ScheduleAtomic sItem = new ScheduleAtomic();
 		sItem.setCredit(2);
 		
-		int num = sItem.getRandomKnowledge();
+		int num = sItem.getRandomValue(sItem.getKnowledge().size());
 		System.out.println("\n Random generates: " + num + "\n");
 		Index item = sItem.convertIntToIndex(num);
 		System.out.println(item.toString());
