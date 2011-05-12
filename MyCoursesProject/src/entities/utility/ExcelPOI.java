@@ -26,10 +26,11 @@ public class ExcelPOI
 		try{
 			
 			File scheduleFolder = new File("ScheduleFiles");
-			// siniflara ait excel dosyasinin yaratilmasi ***********************
-			String strFilePath = "ScheduleFiles\\" + strYear + "_"+ strSemester + "_" + versionName + ".xls";
-			File scheduleFile = new File(strFilePath);
 			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
+			// siniflara ait excel dosyasinin yaratilmasi ***********************
+			String strFilePath =  "ScheduleFiles/" + strYear + "_"+ strSemester + "_" + versionName + ".xls";
+			File scheduleFile = new File(strFilePath);
+			
 			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
@@ -42,7 +43,7 @@ public class ExcelPOI
 			intSyllabusArhiveId = syllabusArchiveBean.getSyllabusArchiveIdByVersionName();
 		}
 		catch(Exception ex){
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 		return intSyllabusArhiveId;
 		
@@ -66,7 +67,7 @@ public class ExcelPOI
 			
 			freshmanStyle.setWrapText(true);		
 			//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
-			freshmanSheet.setColumnWidth(0, 4500);
+			freshmanSheet.setColumnWidth(0, 7500);
 			freshmanSheet.setColumnWidth(1, 4000);
 			freshmanSheet.setColumnWidth(2, 4000);
 			freshmanSheet.setColumnWidth(3, 4000);
@@ -75,14 +76,13 @@ public class ExcelPOI
 			
 			//*******************************************************************
 			
-			for(int row = 0; row < 9; row++)
+			for(int row = 0; row < 8; row++)
 			{
 				HSSFRow freshmanRow = freshmanSheet.createRow(row);
 		
-				for(int column = 0; column < 6; column++)
+				for(int column = 0; column < 5; column++)
 				{
 					HSSFCell freshmanCell = freshmanRow.createCell(column);
-					
 					freshmanCell.setCellValue(freshmanTable[row][column]);
 					
 					if(column >= 0 && row == 0){
@@ -176,7 +176,7 @@ public class ExcelPOI
 		}
 		catch(Exception ex)
 		{
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 	}
 	
@@ -205,10 +205,10 @@ public class ExcelPOI
 			sophomoreSheet.setColumnWidth(4, 4000);
 			sophomoreSheet.setColumnWidth(5, 4000);
 			
-			for(int row = 0; row < 9; row++){
+			for(int row = 0; row < 8; row++){
 				HSSFRow sophomoreRow = sophomoreSheet.createRow(row);
 				
-				for(int column = 0; column < 6; column++){
+				for(int column = 0; column < 5; column++){
 					HSSFCell sophomoreCell = sophomoreRow.createCell(column);
 					sophomoreCell.setCellValue(sophomoreTable[row][column]);
 
@@ -303,7 +303,7 @@ public class ExcelPOI
 		}//end of try
 		catch(Exception ex)
 		{
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 	}//end of generateSophomoreSheet
 	
@@ -335,10 +335,10 @@ public class ExcelPOI
 			juniorSheet.setColumnWidth(5, 4000);
 			
 			
-			for(int row = 0; row < 9; row++){
+			for(int row = 0; row < 8; row++){
 				HSSFRow juniorRow = juniorSheet.createRow(row);
 				
-				for(int column = 0; column < 6; column++){
+				for(int column = 1; column < 5; column++){
 					HSSFCell juniorCell = juniorRow.createCell(column);
 					juniorCell.setCellValue(juniorTable[row][column]);
 					
@@ -433,7 +433,7 @@ public class ExcelPOI
 		}
 		catch(Exception ex)
 		{
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 	}
 	
@@ -469,20 +469,19 @@ public class ExcelPOI
 			{
 				HSSFRow seniorRow = seniorSheet.createRow(row);
 				
+				
 				for(int column = 0; column < 6; column++)
 				{
 					HSSFCell seniorCell = seniorRow.createCell(column);
 					seniorCell.setCellValue(seniorTable[row][column]);
 
-					if(column >= 0 && row == 0)
-					{
+					if(column >= 0 && row == 0){
 						seniorStyle.setFillForegroundColor(HSSFColor.TURQUOISE.index);
 						seniorStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 						//freshmanStyle.setFillBackgroundColor(HSSFColor.TURQUOISE.index);
 						seniorCell.setCellStyle(seniorStyle);
 					}
-					else if(column == 0 && row >= 1)
-					{
+					else if(column == 0 && row >= 1){
 						HSSFCellStyle seniorStyle3 = scheduleWorkbook.createCellStyle();
 						
 						//*********** Border Operations *************************************
@@ -510,8 +509,7 @@ public class ExcelPOI
 						
 						seniorCell.setCellStyle(seniorStyle3);
 					}
-					else if((column == 2 || column == 4) && row > 0)
-					{
+					else if((column == 2 || column == 4) && row > 0){
 						HSSFCellStyle seniorStyle4 = scheduleWorkbook.createCellStyle();
 						
 						//*********** Border Operations *************************************
@@ -539,8 +537,7 @@ public class ExcelPOI
 						
 						seniorCell.setCellStyle(seniorStyle4);
 					}
-					else
-					{
+					else{
 						HSSFCellStyle seniorStyle2 = scheduleWorkbook.createCellStyle();
 						
 						//*********** Border Operations *************************************
@@ -564,13 +561,12 @@ public class ExcelPOI
 						seniorSheet.setColumnWidth(5, 4000);
 						seniorCell.setCellStyle(seniorStyle2);
 					}
-					
 				}
 			}
 		}
 		catch(Exception ex)
 		{
-			ex.getMessage();
+			System.out.println(ex.getMessage());
 		}
 	}
 }
