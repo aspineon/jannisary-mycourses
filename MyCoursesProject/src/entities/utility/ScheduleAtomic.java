@@ -60,13 +60,15 @@ public class ScheduleAtomic {
 	@Override
 	public String toString() {
 		String retStr = "\n";
-		retStr = retStr + " Syllabus: " + this.syllabus.getSyllabusId();
+		retStr = retStr + "Syllabus: " + this.syllabus.getSyllabusId();
 		retStr = retStr + "| Type: " + this.courseType;
 		retStr = retStr + "| Credit: " + this.credit;
 		retStr = retStr + "| Precondition: " + this.preCondition + "\n";
 		retStr = retStr + "Course Id: " + this.courseId;
 		retStr = retStr + "| Lecturer Id: " + this.lecturerId;
 		retStr = retStr + "| Classroom Id: " + this.classroomId + "\n";
+		retStr = retStr + "Day: " + this.day;
+		retStr = retStr + "| StartHour: " + this.startHour + "\n";
 		boolean att = this.syllabus.getCourse().isAttendance();
 		String ek = "Attandance required\n\n";
 		if(att == false) {
@@ -231,7 +233,7 @@ public class ScheduleAtomic {
 
 	/*Added by Erhun(09.05.2011)*/
 	public int getRandomValue(int range){
-		int retIndex = -1;
+		int retIndex = 0;
 		Random random = new Random();
 		try{
 			retIndex = random.nextInt(range);
@@ -241,8 +243,20 @@ public class ScheduleAtomic {
 		return retIndex;
 	}//end of getRandomKnowledge method
 
+	public int getKnowledgeSize() {
+		return this.knowledge.size();
+	}
+	
+	public void removeKnowledgeByIndex(int index) {
+		this.knowledge.remove(index);
+	}
+	
 	public int getKnowledgeByIndex(int index) {
-		return this.knowledge.get(index);
+		return this.getKnownIndex(index);
+	}
+	
+	private int getKnownIndex(int index) {
+		return this.knowledge.get(index);	
 	}
 	
 	/*Added by Erhun(09.05.2011)*/
