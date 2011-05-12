@@ -235,7 +235,7 @@ public class ManuelSchedulingUtilBean {
 			if(savedArchiveComboSelect.equals("No")){
 				setSyllabusArchiveIdToScheduleMatrix(1);
 			}
-			saveMatrix();
+			//saveMatrix();
 		}else if(editOrAddFlag==1){
 			setMatrixSyllabusYearAndSemester();
 			updateMatrix();
@@ -827,7 +827,7 @@ public class ManuelSchedulingUtilBean {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -871,7 +871,7 @@ public class ManuelSchedulingUtilBean {
 	 * Excel raporlamasında kullanılmak üzere ExcelPOI içindeki metotodlara dönüştürme işlemleri
 	 * */
 	private String [][] convertExcelBasicScheduleMatrixToStringMatrix(BasicScheduleUtilBean [][] paramMatrix){
-		String matrix[][] = new String [6][9];
+		String matrix[][] = new String [9][6];
 		matrix[0][0] = "Hours / Days";
 		matrix[0][1] = "Monday";
 		matrix[0][2] = "Tuesday";
@@ -880,14 +880,14 @@ public class ManuelSchedulingUtilBean {
 		matrix[0][5] = "Friday";
 		
 		try {
-			for(int i=1;i<5;i++){
-				for(int j = 0; j < 8; j++){
-					matrix[i][j] = paramMatrix[i-1][j].getCourseName();
+			for(int i=1;i<9;i++){
+				for(int j = 1; j < 6; j++){
+					matrix[i][j] = paramMatrix[j-1][i-1].getCourseTheoricOrPraticName();
 				}
 			}
-		} catch (Exception e) {
+		}catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return matrix;
 	}
