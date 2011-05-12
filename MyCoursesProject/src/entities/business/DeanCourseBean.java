@@ -91,15 +91,115 @@ public class DeanCourseBean
 	public String[][] initJuniorCourseTable = new String[9][6];
 	public String[][] initSeniorCourseTable = new String[9][6];
 	
-	public Integer[][] controlFreshmanLecturer = new Integer[8][5];
-	public Integer[][] controlSophomoreLecturer = new Integer[8][5];
-	public Integer[][] controlJuniorLecturer = new Integer[8][5];
-	public Integer[][] controlSeniorLecturer = new Integer[8][5];
+	public Integer[][] controlFreshmanCourse = {{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0},
+			  									{0, 0, 0, 0, 0}};
+
+	public Integer[][] controlSophomoreCourse = {{0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0},
+											 	 {0, 0, 0, 0, 0}};
+
+	public Integer[][] controlJuniorCourse = {{0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0},
+											  {0, 0, 0, 0, 0}};
+
+	public Integer[][] controlSeniorCourse = {{0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0},
+										  	  {0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlFreshmanClassroom = new Integer[8][5];
-	public Integer[][] controlSophomoreClassroom = new Integer[8][5];
-	public Integer[][] controlJuniorClassroom = new Integer[8][5];
-	public Integer[][] controlSeniorClassroom = new Integer[8][5];
+	
+	public Integer[][] controlFreshmanLecturer = {{0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0},
+												  {0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlSophomoreLecturer = {{0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0},
+			  									   {0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlJuniorLecturer = {{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlSeniorLecturer = {{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0},
+			   									{0, 0, 0, 0, 0}};
+	
+	
+	public Integer[][] controlFreshmanClassroom = {{0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0},
+			   									   {0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlSophomoreClassroom = {{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0},
+			   										{0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlJuniorClassroom = {{0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0}};
+	
+	public Integer[][] controlSeniorClassroom = {{0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0},
+			   									 {0, 0, 0, 0, 0}};
 //******************************************************************************
 	private String selectedDeanLecturer;
 	String selectedDeanDay = "";
@@ -433,6 +533,9 @@ public class DeanCourseBean
 		System.out.println("Schedule " + end);
 		
 		this.freshmanAutoScheduling();
+		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
+			System.out.println(this.freshmanMarkedList.get(i).toString());
+		}
 	/**
 		try
 		{
@@ -1570,7 +1673,35 @@ public class DeanCourseBean
 		return -1;
 	}
 	
-
+	private boolean controlCourse(String grade, int day, int hour) {
+		boolean retVal = true;
+		if(grade.equals("Freshman")) {
+			if(this.controlFreshmanCourse[hour][day] != 0) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Sophomore")) {
+			if(this.controlSophomoreLecturer[hour][day] != 0) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Senior")) {
+			if(this.controlSeniorLecturer[hour][day] != 0) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		if(grade.equals("Junior")) {
+			if(this.controlJuniorLecturer[hour][day] != 0) {
+				retVal = false;
+			}
+			return retVal;			
+		}
+		return retVal;
+	}
+	
 	private boolean controlLecturer(String grade, int day, int hour, int lecturerId) {
 		boolean retVal = true;
 		if(grade.equals("Freshman")) {
@@ -1638,9 +1769,9 @@ public class DeanCourseBean
 	
 		int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
 		ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
-		
-		int randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
-		int randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+		int range = workingAtomic.getKnowledgeSize();
+		int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+		int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
 		Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 		
 		boolean optDone = false;
@@ -1648,9 +1779,9 @@ public class DeanCourseBean
 			if(optDone == true) {
 				unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
 				workingAtomic = atomicList.get(unmarkedIndex);
-				
-				randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
-				randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+				range = workingAtomic.getKnowledgeSize();
+				randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+				randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
 				iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 			}
 			
@@ -1658,10 +1789,15 @@ public class DeanCourseBean
 			optDone = false;
 			while((options != false) && (optDone != true)) {
 				int hour = iVal.getHour();
+				hour = hour - 1;
 				int day = this.dayMapToIntegerHash.get(iVal.getDay());
 				int limit = workingAtomic.getCredit() + hour;
 				
 				boolean controlCheck = true;
+				for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+					controlCheck = this.controlCourse("Freshman", day, h);
+				}
+				
 				for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
 					controlCheck = this.controlLecturer("Freshman", day, j, workingAtomic.getLecturerId());
 				}
@@ -1671,22 +1807,34 @@ public class DeanCourseBean
 				
 				if(controlCheck == true) {
 					int val = randomVal;
+					workingAtomic.setDay(iVal.getDay());
+					workingAtomic.setStartHour(iVal.getHour());
+					int hourRollBack = workingAtomic.getStartHour();
 					for(int p = 0; p < workingAtomic.getCredit(); p++) {
 						atomicList = sList.forward(atomicList, val);
+						this.controlFreshmanLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
+						this.controlFreshmanClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
 						val++;
+						hourRollBack++;
 					}
 					ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
-					sItem.setDay(iVal.getDay());
-					sItem.setStartHour(iVal.getHour());
 					stack.add(sItem);
 					atomicList.remove(unmarkedIndex);
 					optDone = true;
 				} 
 				else {
-					workingAtomic.getKnowledge().remove(randomPosition);
+					workingAtomic.removeKnowledgeByIndex(randomPosition);
 					if(workingAtomic.getKnowledge().size() == 0) {
 						int index = stack.size() - 1;
 						workingAtomic = new ScheduleAtomic(stack.get(index));
+						int hourRollBack = workingAtomic.getStartHour();
+						int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
+						for(int r = 0; r < workingAtomic.getCredit(); r++) {
+							atomicList = scheduleAtomicObj.rollback(atomicList, hourRollBack);
+							this.controlFreshmanLecturer[hourRollBack][dayRollBack] = 0;
+							this.controlFreshmanClassroom[hourRollBack][dayRollBack] = 0;
+							hourRollBack++;
+						}
 						stack.remove(index);
 						
 						workingAtomic.setStartHour(0);
@@ -1697,13 +1845,15 @@ public class DeanCourseBean
 						options = false;
 					}
 					else {
-						randomPosition = this.scheduleAtomicObj.getRandomValue(workingAtomic.getKnowledge().size());
-						randomVal = this.scheduleAtomicObj.getKnowledgeByIndex(randomPosition);
+						range = workingAtomic.getKnowledgeSize();
+						randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+						randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
 						iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 					}
 				}
 			}//end of while inner
 		}//end of while outer
+		this.freshmanMarkedList = stack;
 	}
 	
 //************************* GETTER-SETTER METHODS ***************************************	
