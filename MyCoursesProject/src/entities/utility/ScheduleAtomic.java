@@ -259,6 +259,10 @@ public class ScheduleAtomic {
 		return this.knowledge.get(index);	
 	}
 	
+	public void refreshKnowledge() {
+		this.setCredit(this.credit);
+	} 
+	
 	/*Added by Erhun(09.05.2011)*/
 	public Index convertIntToIndex(int intDayHour){
 		Index index = new Index();
