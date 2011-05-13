@@ -1762,98 +1762,107 @@ public class DeanCourseBean
 //************************************************************************************************
 //******************** SCHEDULING ALGORITHMS *****************************************************	
 	private void freshmanAutoScheduling() {
-		SortedList sList = new SortedList(this.freshmanUnmarkedList);
-		ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
-		ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
-		ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
-	
-		int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
-		ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
-		int range = workingAtomic.getKnowledgeSize();
-		int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
-		int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
-		Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
-		
-		boolean optDone = false;
-		while(atomicList.size() != 0) {	
-			if(optDone == true) {
-				unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
-				workingAtomic = atomicList.get(unmarkedIndex);
-				range = workingAtomic.getKnowledgeSize();
-				randomPosition = this.scheduleAtomicObj.getRandomValue(range);
-				randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
-				iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
-			}
+		try {
+			SortedList sList = new SortedList(this.freshmanUnmarkedList);
+			ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
+			ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
+			ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
+
+			int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+			ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
+			int range = workingAtomic.getKnowledgeSize();
+			int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+			int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+			Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 			
-			boolean options = true;
-			optDone = false;
-			while((options != false) && (optDone != true)) {
-				int hour = iVal.getHour();
-				hour = hour - 1;
-				int day = this.dayMapToIntegerHash.get(iVal.getDay());
-				int limit = workingAtomic.getCredit() + hour;
-				
-				boolean controlCheck = true;
-				for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
-					controlCheck = this.controlCourse("Freshman", day, h);
+			boolean optDone = false;
+			while(atomicList.size() != 0) {	
+				if(optDone == true) {
+					unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+					workingAtomic = atomicList.get(unmarkedIndex);
+					range = workingAtomic.getKnowledgeSize();
+					randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+					randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+					iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 				}
 				
-				for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
-					controlCheck = this.controlLecturer("Freshman", day, j, workingAtomic.getLecturerId());
-				}
-				for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
-					controlCheck = this.controlClassroom("Freshman", day, k, workingAtomic.getClassroomId());
-				}
-				
-				if(controlCheck == true) {
-					int val = randomVal;
-					workingAtomic.setDay(iVal.getDay());
-					workingAtomic.setStartHour(iVal.getHour());
-					int hourRollBack = workingAtomic.getStartHour();
-					for(int p = 0; p < workingAtomic.getCredit(); p++) {
-						atomicList = sList.forward(atomicList, val);
-						this.controlFreshmanLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
-						this.controlFreshmanClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
-						val++;
-						hourRollBack++;
+				boolean options = true;
+				optDone = false;
+				while((options != false) && (optDone != true)) {
+					int hour = iVal.getHour();
+					hour = hour - 1;
+					int day = this.dayMapToIntegerHash.get(iVal.getDay());
+					int limit = workingAtomic.getCredit() + hour;
+					
+					boolean controlCheck = true;
+					for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+						controlCheck = this.controlCourse("Freshman", day, h);
 					}
-					ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
-					stack.add(sItem);
-					atomicList.remove(unmarkedIndex);
-					optDone = true;
-				} 
-				else {
-					workingAtomic.removeKnowledgeByIndex(randomPosition);
-					if(workingAtomic.getKnowledge().size() == 0) {
-						int index = stack.size() - 1;
-						workingAtomic = new ScheduleAtomic(stack.get(index));
+					
+					for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+						controlCheck = this.controlLecturer("Freshman", day, j, workingAtomic.getLecturerId());
+					}
+					for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+						controlCheck = this.controlClassroom("Freshman", day, k, workingAtomic.getClassroomId());
+					}
+					
+					if(controlCheck == true) {
+						int val = randomVal;
+						workingAtomic.setDay(iVal.getDay());
+						workingAtomic.setStartHour(iVal.getHour());
 						int hourRollBack = workingAtomic.getStartHour();
-						int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
-						for(int r = 0; r < workingAtomic.getCredit(); r++) {
-							atomicList = scheduleAtomicObj.rollback(atomicList, hourRollBack);
-							this.controlFreshmanLecturer[hourRollBack][dayRollBack] = 0;
-							this.controlFreshmanClassroom[hourRollBack][dayRollBack] = 0;
+						hourRollBack = hourRollBack - 1;
+						for(int p = 0; p < workingAtomic.getCredit(); p++) {
+							Integer newInteger = new Integer(val); 
+							atomicList = sList.forward(atomicList, newInteger);
+							this.controlFreshmanLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
+							this.controlFreshmanClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
+							this.controlFreshmanCourse[hourRollBack][day] = workingAtomic.getCourseId();
+							val++;
 							hourRollBack++;
 						}
-						stack.remove(index);
-						
-						workingAtomic.setStartHour(0);
-						workingAtomic.setDay("");
-						atomicList.add(workingAtomic);
-						unmarkedIndex = atomicList.size() - 1;
-						
-						options = false;
-					}
+						ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
+						stack.add(sItem);
+						atomicList.remove(unmarkedIndex);
+						optDone = true;
+					} 
 					else {
-						range = workingAtomic.getKnowledgeSize();
-						randomPosition = this.scheduleAtomicObj.getRandomValue(range);
-						randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
-						iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+						workingAtomic.removeKnowledgeByIndex(randomPosition);
+						if(workingAtomic.getKnowledge().size() == 0) {
+							int index = stack.size() - 1;
+							workingAtomic = new ScheduleAtomic(stack.get(index));
+							int hourRollBack = workingAtomic.getStartHour() - 1;
+							int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
+							for(int r = 0; r < workingAtomic.getCredit(); r++) {
+								atomicList = scheduleAtomicObj.rollback(atomicList, hourRollBack);
+								this.controlFreshmanLecturer[hourRollBack][dayRollBack] = 0;
+								this.controlFreshmanClassroom[hourRollBack][dayRollBack] = 0;
+								this.controlFreshmanCourse[hourRollBack][day] = 0;
+								hourRollBack++;
+							}
+							stack.remove(index);
+							
+							workingAtomic.setStartHour(0);
+							workingAtomic.setDay("");
+							atomicList.add(workingAtomic);
+							unmarkedIndex = atomicList.size() - 1;
+							
+							options = false;
+						}
+						else {
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+						}
 					}
-				}
-			}//end of while inner
-		}//end of while outer
-		this.freshmanMarkedList = stack;
+				}//end of while inner
+			}//end of while outer
+			this.freshmanMarkedList = stack;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 //************************* GETTER-SETTER METHODS ***************************************	
