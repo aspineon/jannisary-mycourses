@@ -64,6 +64,7 @@ public class ExcelPOI
 			//*********** Alignment operations ***************************************
 			
 			freshmanStyle.setAlignment(CellStyle.ALIGN_CENTER);		
+			freshmanStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 			
 			freshmanStyle.setWrapText(true);		
 			//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -93,7 +94,7 @@ public class ExcelPOI
 					}
 					else if(column == 0 && row >= 1){
 						HSSFCellStyle freshmanStyle3 = scheduleWorkbook.createCellStyle();
-						
+						freshmanRow.setHeight((short) 1060);
 						//*********** Border Operations *************************************
 						freshmanStyle3.setBorderBottom(CellStyle.BORDER_THIN);
 						freshmanStyle3.setBorderTop(CellStyle.BORDER_THIN);
@@ -104,6 +105,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						freshmanStyle3.setAlignment(CellStyle.ALIGN_CENTER);		
+						freshmanStyle3.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						freshmanStyle3.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -121,7 +123,7 @@ public class ExcelPOI
 					}
 					else if((column == 2 || column == 4) && row > 0){
 						HSSFCellStyle freshmanStyle4 = scheduleWorkbook.createCellStyle();
-						
+						freshmanRow.setHeight((short) 1060);
 						//*********** Border Operations *************************************
 						freshmanStyle4.setBorderBottom(CellStyle.BORDER_THIN);
 						freshmanStyle4.setBorderTop(CellStyle.BORDER_THIN);
@@ -131,7 +133,8 @@ public class ExcelPOI
 						
 						//*********** Alignment operations ***************************************
 						
-						freshmanStyle4.setAlignment(CellStyle.ALIGN_CENTER);		
+						freshmanStyle4.setAlignment(CellStyle.ALIGN_CENTER);	
+						freshmanStyle4.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						freshmanStyle4.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -149,7 +152,7 @@ public class ExcelPOI
 					}
 					else{
 						HSSFCellStyle freshmanStyle2 = scheduleWorkbook.createCellStyle();
-						
+						freshmanRow.setHeight((short) 1060);
 						//*********** Border Operations *************************************
 						freshmanStyle2.setBorderBottom(CellStyle.BORDER_THIN);
 						freshmanStyle2.setBorderTop(CellStyle.BORDER_THIN);
@@ -160,6 +163,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						freshmanStyle2.setAlignment(CellStyle.ALIGN_CENTER);		
+						freshmanStyle2.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						freshmanStyle2.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -195,6 +199,7 @@ public class ExcelPOI
 			//*********** Alignment operations ***************************************
 			
 			sophomoreStyle.setAlignment(CellStyle.ALIGN_CENTER);		
+			sophomoreStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 			
 			sophomoreStyle.setWrapText(true);		
 			sophomoreStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -222,7 +227,7 @@ public class ExcelPOI
 					}
 					else if(column == 0 && row >= 1){
 						HSSFCellStyle sophomoreStyle3 = scheduleWorkbook.createCellStyle();
-						
+						sophomoreRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						sophomoreStyle3.setBorderBottom(CellStyle.BORDER_THIN);
 						sophomoreStyle3.setBorderTop(CellStyle.BORDER_THIN);
@@ -233,6 +238,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						sophomoreStyle3.setAlignment(CellStyle.ALIGN_CENTER);		
+						sophomoreStyle3.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						sophomoreStyle3.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -250,7 +256,7 @@ public class ExcelPOI
 					}
 					else if((column == 2 || column == 4) && row > 0){
 						HSSFCellStyle sophomoreStyle4 = scheduleWorkbook.createCellStyle();
-						
+						sophomoreRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						sophomoreStyle4.setBorderBottom(CellStyle.BORDER_THIN);
 						sophomoreStyle4.setBorderTop(CellStyle.BORDER_THIN);
@@ -261,6 +267,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						sophomoreStyle4.setAlignment(CellStyle.ALIGN_CENTER);		
+						sophomoreStyle4.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						sophomoreStyle4.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -278,7 +285,7 @@ public class ExcelPOI
 					}
 					else{
 						HSSFCellStyle sophomoreStyle2 = scheduleWorkbook.createCellStyle();
-						
+						sophomoreRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						sophomoreStyle2.setBorderBottom(CellStyle.BORDER_THIN);
 						sophomoreStyle2.setBorderTop(CellStyle.BORDER_THIN);
@@ -289,6 +296,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						sophomoreStyle2.setAlignment(CellStyle.ALIGN_CENTER);		
+						sophomoreStyle2.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						sophomoreStyle2.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -326,6 +334,7 @@ public class ExcelPOI
 			//*********** Alignment operations ***************************************
 			
 			juniorStyle.setAlignment(CellStyle.ALIGN_CENTER);		
+			juniorStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 			
 			juniorStyle.setWrapText(true);		
 			juniorStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -353,7 +362,7 @@ public class ExcelPOI
 					}
 					else if(column == 0 && row >= 1){
 						HSSFCellStyle juniorStyle3 = scheduleWorkbook.createCellStyle();
-						
+						juniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						juniorStyle3.setBorderBottom(CellStyle.BORDER_THIN);
 						juniorStyle3.setBorderTop(CellStyle.BORDER_THIN);
@@ -363,7 +372,8 @@ public class ExcelPOI
 						
 						//*********** Alignment operations ***************************************
 						
-						juniorStyle3.setAlignment(CellStyle.ALIGN_CENTER);		
+						juniorStyle3.setAlignment(CellStyle.ALIGN_CENTER);	
+						juniorStyle3.setVerticalAlignment(CellStyle.VERTICAL_CENTER);	
 						
 						juniorStyle3.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -381,7 +391,7 @@ public class ExcelPOI
 					}
 					else if((column == 2 || column == 4) && row > 0){
 						HSSFCellStyle juniorStyle4 = scheduleWorkbook.createCellStyle();
-						
+						juniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						juniorStyle4.setBorderBottom(CellStyle.BORDER_THIN);
 						juniorStyle4.setBorderTop(CellStyle.BORDER_THIN);
@@ -392,6 +402,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						juniorStyle4.setAlignment(CellStyle.ALIGN_CENTER);		
+						juniorStyle4.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						juniorStyle4.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -409,7 +420,7 @@ public class ExcelPOI
 					}
 					else{
 						HSSFCellStyle juniorStyle2 = scheduleWorkbook.createCellStyle();
-						
+						juniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						juniorStyle2.setBorderBottom(CellStyle.BORDER_THIN);
 						juniorStyle2.setBorderTop(CellStyle.BORDER_THIN);
@@ -420,6 +431,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						juniorStyle2.setAlignment(CellStyle.ALIGN_CENTER);		
+						juniorStyle2.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						juniorStyle2.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -457,6 +469,7 @@ public class ExcelPOI
 			//*********** Alignment operations ***************************************
 			
 			seniorStyle.setAlignment(CellStyle.ALIGN_CENTER);		
+			seniorStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 			
 			seniorStyle.setWrapText(true);		
 			seniorStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -486,7 +499,7 @@ public class ExcelPOI
 					}
 					else if(column == 0 && row >= 1){
 						HSSFCellStyle seniorStyle3 = scheduleWorkbook.createCellStyle();
-						
+						seniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						seniorStyle3.setBorderBottom(CellStyle.BORDER_THIN);
 						seniorStyle3.setBorderTop(CellStyle.BORDER_THIN);
@@ -497,6 +510,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						seniorStyle3.setAlignment(CellStyle.ALIGN_CENTER);		
+						seniorStyle3.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						seniorStyle3.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -514,7 +528,7 @@ public class ExcelPOI
 					}
 					else if((column == 2 || column == 4) && row > 0){
 						HSSFCellStyle seniorStyle4 = scheduleWorkbook.createCellStyle();
-						
+						seniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						seniorStyle4.setBorderBottom(CellStyle.BORDER_THIN);
 						seniorStyle4.setBorderTop(CellStyle.BORDER_THIN);
@@ -525,6 +539,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						seniorStyle4.setAlignment(CellStyle.ALIGN_CENTER);		
+						seniorStyle4.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						seniorStyle4.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
@@ -542,7 +557,7 @@ public class ExcelPOI
 					}
 					else{
 						HSSFCellStyle seniorStyle2 = scheduleWorkbook.createCellStyle();
-						
+						seniorRow.setHeight((short)1060);
 						//*********** Border Operations *************************************
 						seniorStyle2.setBorderBottom(CellStyle.BORDER_THIN);
 						seniorStyle2.setBorderTop(CellStyle.BORDER_THIN);
@@ -553,6 +568,7 @@ public class ExcelPOI
 						//*********** Alignment operations ***************************************
 						
 						seniorStyle2.setAlignment(CellStyle.ALIGN_CENTER);		
+						seniorStyle2.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 						
 						seniorStyle2.setWrapText(true);		
 						//freshmanStyle.setFillBackgroundColor(new HSSFColor.YELLOW().getIndex());
