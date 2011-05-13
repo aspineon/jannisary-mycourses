@@ -76,11 +76,11 @@ public class ExcelPOI
 			
 			//*******************************************************************
 			
-			for(int row = 0; row < 8; row++)
+			for(int row = 0; row < 9; row++)
 			{
 				HSSFRow freshmanRow = freshmanSheet.createRow(row);
 		
-				for(int column = 0; column < 5; column++)
+				for(int column = 0; column < 6; column++)
 				{
 					HSSFCell freshmanCell = freshmanRow.createCell(column);
 					freshmanCell.setCellValue(freshmanTable[row][column]);
@@ -205,10 +205,12 @@ public class ExcelPOI
 			sophomoreSheet.setColumnWidth(4, 4000);
 			sophomoreSheet.setColumnWidth(5, 4000);
 			
-			for(int row = 0; row < 8; row++){
+			
+			
+			for(int row = 0; row < 9; row++){
 				HSSFRow sophomoreRow = sophomoreSheet.createRow(row);
 				
-				for(int column = 0; column < 5; column++){
+				for(int column = 0; column < 6; column++){
 					HSSFCell sophomoreCell = sophomoreRow.createCell(column);
 					sophomoreCell.setCellValue(sophomoreTable[row][column]);
 
@@ -335,10 +337,11 @@ public class ExcelPOI
 			juniorSheet.setColumnWidth(5, 4000);
 			
 			
-			for(int row = 0; row < 8; row++){
+			
+			for(int row = 0; row < 9; row++){
 				HSSFRow juniorRow = juniorSheet.createRow(row);
 				
-				for(int column = 1; column < 5; column++){
+				for(int column = 0; column < 6; column++){
 					HSSFCell juniorCell = juniorRow.createCell(column);
 					juniorCell.setCellValue(juniorTable[row][column]);
 					
@@ -474,7 +477,7 @@ public class ExcelPOI
 				{
 					HSSFCell seniorCell = seniorRow.createCell(column);
 					seniorCell.setCellValue(seniorTable[row][column]);
-
+					
 					if(column >= 0 && row == 0){
 						seniorStyle.setFillForegroundColor(HSSFColor.TURQUOISE.index);
 						seniorStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
