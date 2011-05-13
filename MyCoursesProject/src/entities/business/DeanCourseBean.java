@@ -532,10 +532,14 @@ public class DeanCourseBean
 		if(this.readyToGoFreshman == true) { end = "\nTa ta ta\n"; }
 		System.out.println("Schedule " + end);
 		
+		this.clearControlTables("Freshman");
+		this.refreshKnowlegdes("Freshman");
 		this.freshmanAutoScheduling();
 		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
 			System.out.println(this.freshmanMarkedList.get(i).toString());
 		}
+		
+		this.writeFreshmanSchedule();
 	/**
 		try
 		{
@@ -604,6 +608,46 @@ public class DeanCourseBean
 		}
 		**/
 		return null;
+	}
+	
+	private void writeFreshmanSchedule() {
+		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
+			ScheduleAtomic item = this.freshmanMarkedList.get(i);
+			String day = item.getDay();
+			int hour = item.getStartHour() - 1;
+			int credit = item.getCredit();
+			String type = item.getCourseType();
+			String addStr = "";
+			if(type.equals("Theo")) { addStr = "(T)"; }
+			if(type.equals("Prac")) { addStr = "(P)"; }
+			int dayTable = this.dayMapToIndexHash.get(day);
+			for(int j = 0; j < credit; j++) {
+				initFreshmanCourseTable[hour][dayTable] = Integer.toString(item.getCourseId()) + " " + addStr;
+				hour++;
+			}
+		}
+	}
+	
+	private void clearControlTables(String grade) {
+		if(grade.equals("Freshman")) {
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 5; j++) {
+					this.controlFreshmanCourse[i][j] = 0;
+					this.controlFreshmanLecturer[i][j] = 0;
+					this.controlFreshmanClassroom[i][j] = 0;
+				}
+			}
+			return;
+		}
+		if(grade.equals("Sophomore")) {
+			
+		}
+		if(grade.equals("Junior")) {
+		
+		}
+		if(grade.equals("Senior")) {
+			
+		}
 	}
 	
 	public String initSophomoreCourseTableEvent()
@@ -1673,6 +1717,17 @@ public class DeanCourseBean
 		return -1;
 	}
 	
+	private void refreshKnowlegdes(String grade) {
+		if(grade.equals("Freshman")) {
+			for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
+				this.freshmanUnmarkedList.get(i).refreshKnowledge();
+			}
+		}
+		if(grade.equals("Sophomore")) {}
+		if(grade.equals("Senior")) {}
+		if(grade.equals("Junior")) {}
+	}
+	
 	private boolean controlCourse(String grade, int day, int hour) {
 		boolean retVal = true;
 		if(grade.equals("Freshman")) {
@@ -1846,6 +1901,11 @@ public class DeanCourseBean
 							workingAtomic.setDay("");
 							atomicList.add(workingAtomic);
 							unmarkedIndex = atomicList.size() - 1;
+							
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
 							
 							options = false;
 						}
