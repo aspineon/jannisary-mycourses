@@ -113,18 +113,19 @@ public class SortedList {
 		return this;
 	}
 	/*Added by Erhun(11.05.2011)*/
-	public ArrayList<ScheduleAtomic> forward(ArrayList<ScheduleAtomic> listUnmarkedList, int intVal){
+	public ArrayList<ScheduleAtomic> forward(ArrayList<ScheduleAtomic> listUnmarkedList, Integer intVal){
 		ArrayList<Integer> listKnowledge = null;
 		try {
 			for(int i=0; i < listUnmarkedList.size();i++){
 				listKnowledge = listUnmarkedList.get(i).getKnowledge();
+				
 				if(listKnowledge.contains(intVal)){
 					listKnowledge.remove(intVal);
 				}//end of if block
 			}//end of for loop
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 		return listUnmarkedList;
 	}//end of forward method
