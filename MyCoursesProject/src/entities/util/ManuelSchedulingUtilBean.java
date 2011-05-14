@@ -9,6 +9,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.validator.NotEmpty;
 import org.richfaces.event.DragEvent;
 import org.richfaces.event.DropEvent;
 
@@ -69,7 +70,10 @@ public class ManuelSchedulingUtilBean {
 	private int editOrAddFlag;
 	private int savedYear;
 	private String savedSemester;
+	
+	@NotEmpty
 	private String savedVersionName;
+	
 	private String savedArchiveComboSelect;
 	
     
