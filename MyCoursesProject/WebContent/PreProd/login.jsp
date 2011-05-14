@@ -18,30 +18,32 @@
 				<td style=" width : 990px;"></td>
 				</tr>
 			</table>
-			<h:panelGrid columns="3" >
-				
-				<h:outputLabel value="Username" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-				<h:outputLabel value="Password" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-				<h:outputLabel value="" />
-				
-				<h:inputText id="loginUsername" value="" >
-					<rich:ajaxValidator event="onblur"></rich:ajaxValidator>			
-				</h:inputText>		
-				<h:inputText id="loginPassword" value="">
-					<rich:ajaxValidator event="onblur"></rich:ajaxValidator>
-				</h:inputText>
-				<h:commandButton value="Login" style="width : 70px; height : 25px;">
-						<a4j:support event="onclick" reRender=""/>
-				</h:commandButton>
-				
-				<rich:message for="loginUsername" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>		
-				<rich:message for="loginPassword" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
-				<h:outputLabel value="" />
-				
-				<h:outputLabel value="" />	
-				<h:outputLabel value="" />
-				
-			</h:panelGrid>
+			<h:form prependId="false">
+				<h:panelGrid columns="3" >
+					
+					<h:outputLabel value="Username" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+					<h:outputLabel value="Password" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
+					<h:outputLabel value="" />
+									
+					<h:inputText id="loginUsername" value="#{loginBean.userName}" >
+						<rich:ajaxValidator event="onblur"></rich:ajaxValidator>			
+					</h:inputText>		
+					<h:inputText id="loginPassword" value="#{loginBean.password}">
+						<rich:ajaxValidator event="onblur"></rich:ajaxValidator>
+					</h:inputText>
+					<h:commandButton id="loginButton" value="Login" action="#{loginBean.checkLogin}" onclick="submit()" style="width : 70px; height : 25px;">
+							<a4j:support event="onclick" reRender=""/>
+					</h:commandButton>
+					
+					<rich:message for="loginUsername" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>		
+					<rich:message for="loginPassword" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
+					<h:outputLabel value="" />
+					
+					<h:outputLabel value="" />	
+					<h:outputLabel value="" />
+					
+				</h:panelGrid>
+			</h:form>
 		</h:panelGrid>
 		
 		<table>
