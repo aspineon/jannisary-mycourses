@@ -12,38 +12,33 @@
 <body>
 <f:view>
 	<h:panelGrid columns="1">
+		<h:form>
 		<h:panelGrid columns="2" style="background-color:#3BB9FF;">
 			<table>
 				<tr style=" height : 65px;">
 				<td style=" width : 990px;"></td>
 				</tr>
 			</table>
-			<h:form prependId="false">
-				<h:panelGrid columns="3" >
-					
+			<h:panelGrid columns="3" >
+				
 					<h:outputLabel value="Username" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 					<h:outputLabel value="Password" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-					<h:outputLabel value="" />
-									
+					<h:outputLabel value=""/>
+					
 					<h:inputText id="loginUsername" value="#{loginBean.userName}" >
-						<rich:ajaxValidator event="onblur"></rich:ajaxValidator>			
+									
 					</h:inputText>		
 					<h:inputText id="loginPassword" value="#{loginBean.password}">
-						<rich:ajaxValidator event="onblur"></rich:ajaxValidator>
+						
 					</h:inputText>
-					<h:commandButton id="loginButton" value="Login" action="#{loginBean.checkLogin}" onclick="submit()" style="width : 70px; height : 25px;">
-							<a4j:support event="onclick" reRender=""/>
+					<h:commandButton value="Login" action="#{loginBean.checkLogin}" style="width : 70px; height : 25px;">
+							<a4j:support event="onclick" reRender="" />
 					</h:commandButton>
 					
 					<rich:message for="loginUsername" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>		
 					<rich:message for="loginPassword" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
-					<h:outputLabel value="" />
 					
-					<h:outputLabel value="" />	
-					<h:outputLabel value="" />
-					
-				</h:panelGrid>
-			</h:form>
+			</h:panelGrid>
 		</h:panelGrid>
 		
 		<table>
@@ -52,7 +47,7 @@
 				</td>		
 			</tr>
 		</table>
-		
+		</h:form>
 	</h:panelGrid>
 </f:view>
 </body>
