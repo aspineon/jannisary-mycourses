@@ -1,4 +1,5 @@
 package entities.dao;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -132,6 +133,27 @@ public class SysUser implements java.io.Serializable {
 		finally{
 			session.close();
 		}
+	}
+	
+	public List<SysUser> getSysUserByUsernameAndPassword()
+	{
+		Session session=null;
+		List<SysUser> allUser = null;
+		try
+		{
+			 SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+             session = sessionFactory.openSession();
+             allUser = new ArrayList<SysUser>();
+             Query query = session.getNamedQuery("getSysUserByUsernameAndPassword");
+             query.setParameter("pUserName", userName);
+             query.setParameter("pUserPass", userPassword);
+             allUser =(List<SysUser>) query.list();
+		}
+		catch(Exception ex)
+		{
+			System.err.println(ex.getMessage());
+		}
+		return allUser;
 	}
 	
 	public Integer getUserId() {
