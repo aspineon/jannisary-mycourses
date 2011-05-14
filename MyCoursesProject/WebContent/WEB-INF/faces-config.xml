@@ -67,6 +67,19 @@
   <managed-bean-class>entities.business.LoginBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <navigation-rule>
+  <from-view-id>/PreProd/login.jsp</from-view-id>
+  <navigation-case>
+   <from-action>#{loginBean.checkLogin}</from-action>
+   <from-outcome>success</from-outcome>
+   <to-view-id>/PreProd/index.jsp</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-action>#{loginBean.checkLogin}</from-action>
+   <from-outcome>failure</from-outcome>
+   <to-view-id>/PreProd/login.jsp</to-view-id>
+  </navigation-case>
+ </navigation-rule>
  <validator>
   <validator-id>EmailValidator</validator-id>
   <validator-class>entities.validator.EmailValidator</validator-class>
