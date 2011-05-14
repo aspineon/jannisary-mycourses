@@ -22,12 +22,14 @@ public class ScheduleAtomic {
 	private int lecturerId;
 	private int classroomId;
 	private String preCondition;
+	private String courseName;
+	private String lecturerName;
 	
 	public ScheduleAtomic() {
 		super();
 	}
 	
-	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition) {
+	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName) {
 		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
@@ -40,6 +42,8 @@ public class ScheduleAtomic {
 		this.lecturerId = pLecturerId;
 		this.classroomId = pClassroomId;
 		this.preCondition = pPreCondition;
+		this.courseName = pCourseName;
+		this.lecturerName = pLecturerName;
 	}
 	//Copy Constructor
 	public ScheduleAtomic(ScheduleAtomic sItem) {
@@ -55,6 +59,8 @@ public class ScheduleAtomic {
 		this.lecturerId = sItem.lecturerId;
 		this.classroomId = sItem.classroomId;
 		this.preCondition = sItem.preCondition;
+		this.courseName = sItem.courseName;
+		this.lecturerName = sItem.lecturerName;
 	}
 	
 	@Override
@@ -65,16 +71,25 @@ public class ScheduleAtomic {
 		retStr = retStr + "| Credit: " + this.credit;
 		retStr = retStr + "| Precondition: " + this.preCondition + "\n";
 		retStr = retStr + "Course Id: " + this.courseId;
-		retStr = retStr + "| Lecturer Id: " + this.lecturerId;
-		retStr = retStr + "| Classroom Id: " + this.classroomId + "\n";
+		retStr = retStr + "| Course Name: " + this.courseName + "\n";
+		retStr = retStr + "Lecturer Id: " + this.lecturerId;
+		retStr = retStr + "| Lecturer Name: " + this.lecturerName + "\n";
+		retStr = retStr + "Classroom Id: " + this.classroomId + "\n";
 		retStr = retStr + "Day: " + this.day;
 		retStr = retStr + "| StartHour: " + this.startHour + "\n";
 		boolean att = this.syllabus.getCourse().isAttendance();
-		String ek = "Attandance required\n\n";
+		String ek = "Attandance required\n";
 		if(att == false) {
-			ek = "Attendance not required\n\n";
+			ek = "Attendance not required\n";
 		}
 		retStr = retStr + ek;
+		String knowledge = "{";
+		for(int i = 0; i < this.knowledge.size(); i++) {
+			String knwStr = Integer.toString(this.knowledge.get(i));
+			knowledge = knowledge + knwStr + ",";
+		}
+		knowledge = knowledge + "}\n\n";
+		retStr = retStr + knowledge;
 		return retStr;
 	}
 	
@@ -445,6 +460,22 @@ public class ScheduleAtomic {
 
 	public void setPreCondition(String preCondition) {
 		this.preCondition = preCondition;
+	}
+
+	public String getCourseName() {
+		return courseName;
+	}
+
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
+	public String getLecturerName() {
+		return lecturerName;
+	}
+
+	public void setLecturerName(String lecturerName) {
+		this.lecturerName = lecturerName;
 	}
 	
 	
