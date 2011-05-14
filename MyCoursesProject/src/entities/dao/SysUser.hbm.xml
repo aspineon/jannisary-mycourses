@@ -38,4 +38,11 @@
     <return alias="SysUser" class="entities.dao.SysUser"/>
         <![CDATA[CALL UpdateUser(:pUserId,:pUserName,:pUserStatus,:pUserPass)]]>
     </sql-query>
+    
+    <sql-query name="getSysUserByUsernameAndPassword" callable="true">
+    <return alias="SysUser" class="entities.dao.SysUser"/>
+        <![CDATA[CALL GetSysUserByUsernameAndPassword(:pUserName,:pUserPass)]]>
+    </sql-query>
+    
+    
 </hibernate-mapping>
