@@ -956,16 +956,24 @@
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listSemesterToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
+			        			
 								
 								<rich:comboBox id="archiveToSave" value="Save Archive" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedArchiveCombo}" width="110">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listArchiveToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
 								
-								<h:inputText value="#{manuelSchedulingUtilBean.savedVersionName}" />
+								<h:inputText id="versionName" value="#{manuelSchedulingUtilBean.savedVersionName}" >
+									<rich:ajaxValidator event="onblur"/>
+								</h:inputText>
+								
 								<h:commandButton id="btnSaveScheduleId" value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
 									<a4j:support event="onclick" reRender="form"/>
 								</h:commandButton>
+								
+								<rich:message for="versionName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
+								
+								
 							</h:panelGrid>		
 							</h:form>
                    	   	<f:facet name="footer">
