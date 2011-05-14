@@ -25,14 +25,10 @@
 					<h:outputLabel value="Password" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 					<h:outputLabel value=""/>
 					
-					<h:inputText id="loginUsername" value="#{loginBean.userName}" >
-									
-					</h:inputText>		
-					<h:inputText id="loginPassword" value="#{loginBean.password}">
-						
-					</h:inputText>
+					<h:inputText id="loginUsername" value="#{loginBean.userName}" />
+					<h:inputText id="loginPassword" value="#{loginBean.password}" />
 					<h:commandButton value="Login" action="#{loginBean.checkLogin}" style="width : 70px; height : 25px;">
-							<a4j:support event="onclick" reRender="" />
+							
 					</h:commandButton>
 					
 					<rich:message for="loginUsername" style="color:red; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>		
