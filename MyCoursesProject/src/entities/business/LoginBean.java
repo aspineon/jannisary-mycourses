@@ -24,6 +24,7 @@ public class LoginBean
 	
 	public String checkLogin()
 	{
+		String returnString = "success";
 		HttpServletResponse response = null;
 		SysUser sysUserObj = new SysUser();
 		List<SysUser> sysUserList;
@@ -38,11 +39,16 @@ public class LoginBean
 			if(sysUserList.size() == 0)
 			{
 				System.err.println("Login Fail");
+				returnString = "failure";
+				return returnString;
+				
 			}
 			else
 			{
 				System.out.println("Success");
-				response.sendRedirect(response.encodeRedirectUrl("http://localhost:8080/MyCoursesProject/faces/PreProd/index.jsp"));
+				returnString = "success";
+				return returnString;
+				//response.sendRedirect(response.encodeRedirectUrl("http://localhost:8080/MyCoursesProject/faces/PreProd/index.jsp"));
 			}
 		
 		}
