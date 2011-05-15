@@ -176,7 +176,7 @@
 	    <rich:message for="userPass" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   	
 	   	<h:outputLabel value="" />
-	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" style="width : 149px;">
+	   	<rich:comboBox id="selectStatusId" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" width="146px;">
 				<f:selectItems value="#{sysUserBean.selectItems}"/>
 		</rich:comboBox>
     	<h:outputLabel value="" />
