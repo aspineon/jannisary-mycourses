@@ -44,7 +44,7 @@
 						</h:outputLink>										
 				</rich:menuItem>
 				<rich:menuItem submitMode="none" >									
-						<h:outputLink value="../PreProd/Deparment.jsp" target="centerFrame">
+						<h:outputLink value="../PreProd/Department.jsp" target="centerFrame">
 							<h:outputText value="Department" />
 						</h:outputLink>										
 				</rich:menuItem>
