@@ -25,6 +25,7 @@ public class DeanCourseBean
 // These subfields holds the actions state when selecting year and semester.
 	private boolean yearFlag = false;
 	private boolean semesterFlag = false;
+	private boolean autoScheduleFlag = false;
 // Year and semester data are hold in these subfields.
 	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>(); 			//3
 	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();		//4
@@ -620,7 +621,7 @@ public class DeanCourseBean
 			if(type.equals("Prac")) { addStr = "(P)"; }
 			int dayTable = this.dayMapToIndexHash.get(day);
 			for(int j = 0; j < credit; j++) {
-				initFreshmanCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerName();
+				initFreshmanCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
 				hour++;
 			}
 		}
@@ -875,6 +876,7 @@ public class DeanCourseBean
 			if(this.semesterFlag == true) {
 				this.clearAllComponents();
 				this.loadAllLists(selectedYear, selectedSemester);
+				this.autoScheduleFlag = true;
 			}
 			else {
 				this.semesterList = new ArrayList<SelectItem>();
@@ -1681,27 +1683,32 @@ public class DeanCourseBean
 		ArrayList<ScheduleAtomic> retList = new ArrayList<ScheduleAtomic>();
 		for(int i = 0; i < sList.size(); i++) {
 			Syllabus sItem = new Syllabus(sList.get(i));
+			
 			boolean att = sItem.getCourse().isAttendance();
 			int courseId = sItem.getCourse().getCourseId();
 			String courseName = sItem.getCourse().getCourseName();
 			String preCondition = sItem.getCourse().getPrecondition();
+			
 			int lecturerId = sItem.getLecturer().getLecturerId();
 			String lecturerName = sItem.getLecturer().getLecturerName();
+			String lecturerTitle = sItem.getLecturer().getTitle();
+			
 			int classroomId = sItem.getClassroom().getClassroomId();
+			
 			int tHour = sItem.getCourse().getTeoricLectureHours();
 			if(tHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName));
+				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle));
 			}
 			int pHour = sItem.getCourse().getPracticeLectureHourse();
 			if(pHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName));
+				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle));
 			}
 		}
 		return retList;
 	}
 	
 	private int findRelatedAtomic(String grade, String sign, String opType, Syllabus syllabus, String courseType, int credit) {
-		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit, false, 0, 0, 0, "", "", "");
+		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit, false, 0, 0, 0, "", "", "", "");
 		if(grade.equals("Freshman")) {
 			if(sign.equals("Unmarked")) {
 				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
