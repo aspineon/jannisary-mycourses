@@ -126,7 +126,7 @@
 
     <rich:modalPanel id="editPanel" autosized="true" width="450">
         <f:facet name="header">
-            <h:outputText value="Edit Current User" />
+            <h:outputText value="Edit Current Course" />
         </f:facet>
         <f:facet name="controls">
             <h:panelGroup>
