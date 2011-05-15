@@ -1937,6 +1937,125 @@ public class DeanCourseBean
 		}
 	}
 	
+	private void sophomoreAutoScheduling() {
+		try {
+			SortedList sList = new SortedList(this.sophomoreUnmarkedList);
+			ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
+			ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
+			ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
+
+			int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+			ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
+			int range = workingAtomic.getKnowledgeSize();
+			int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+			int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+			Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+			
+			boolean optDone = false;
+			while(atomicList.size() != 0) {	
+				if(optDone == true) {
+					unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+					workingAtomic = atomicList.get(unmarkedIndex);
+					range = workingAtomic.getKnowledgeSize();
+					randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+					randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+					iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+				}
+				
+				boolean options = true;
+				optDone = false;
+				while((options != false) && (optDone != true)) {
+					int hour = iVal.getHour();
+					hour = hour - 1;
+					int day = this.dayMapToIntegerHash.get(iVal.getDay());
+					int limit = workingAtomic.getCredit() + hour;
+					
+					boolean controlCheck = true;
+					for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+						controlCheck = this.controlCourse("Sophomore", day, h);
+					}
+					
+					for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+						controlCheck = this.controlLecturer("Sophomore", day, j, workingAtomic.getLecturerId());
+					}
+					for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+						controlCheck = this.controlClassroom("Sophomore", day, k, workingAtomic.getClassroomId());
+					}
+					
+					if(controlCheck == true) {
+						int val = randomVal;
+						workingAtomic.setDay(iVal.getDay());
+						workingAtomic.setStartHour(iVal.getHour());
+						int hourRollBack = workingAtomic.getStartHour();
+						hourRollBack = hourRollBack - 1;
+						for(int p = 0; p < workingAtomic.getCredit(); p++) {
+							Integer newInteger = new Integer(val); 
+							atomicList = sList.forward(atomicList, newInteger);
+							stack = sList.forward(stack, newInteger);
+							this.controlSophomoreLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
+							this.controlSophomoreClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
+							this.controlSophomoreCourse[hourRollBack][day] = workingAtomic.getCourseId();
+							val++;
+							hourRollBack++;
+						}
+						ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
+						stack.add(sItem);
+						atomicList.remove(unmarkedIndex);
+						optDone = true;
+					} 
+					else {
+						workingAtomic.removeKnowledgeByIndex(randomPosition);
+						workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
+						if(workingAtomic.getKnowledge().size() == 0) {
+							int index = stack.size() - 1;
+							workingAtomic = new ScheduleAtomic(stack.get(index));
+							
+							int tempHour = workingAtomic.getStartHour();
+							int tempDay = this.dayMapToIntegerHash.get(workingAtomic.getDay());
+							Integer known = new Integer((tempDay * 8) + tempHour);
+							atomicList = scheduleAtomicObj.rollback(atomicList, known);
+							
+							int hourRollBack = workingAtomic.getStartHour() - 1;
+							int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
+							for(int r = 0; r < workingAtomic.getCredit(); r++) {
+								this.controlSophomoreLecturer[hourRollBack][dayRollBack] = 0;
+								this.controlSophomoreClassroom[hourRollBack][dayRollBack] = 0;
+								this.controlSophomoreCourse[hourRollBack][day] = 0;
+								hourRollBack++;
+							}
+							stack.remove(index);
+							stack = scheduleAtomicObj.refreshKnowledgeSpots(stack, known);
+							
+							workingAtomic.setStartHour(0);
+							workingAtomic.setDay("");
+							atomicList.add(workingAtomic);
+							atomicList = scheduleAtomicObj.refreshKnowledgeSpots(atomicList, known);
+							unmarkedIndex = atomicList.size() - 1;
+							
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+							
+							options = false;
+						}
+						else {
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+						}
+					}
+				}//end of while inner
+			}//end of while outer
+			this.sophomoreMarkedList = stack;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
 // Onur (Finished 29.04)
