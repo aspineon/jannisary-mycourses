@@ -123,28 +123,28 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Semester" />
-                        <h:inputText value="#{syllabusBean.currentItem.semester}" />
+                        <h:inputText value="#{syllabusBean.currentItem.semester}" style="width:158px"/>
                         
                         <h:outputText value="Year" />
-                        <h:inputText value="#{syllabusBean.currentItem.year}" />
+                        <h:inputText value="#{syllabusBean.currentItem.year}" style="width:158px"/>
                         
                         <h:outputText value="Course Code" />
-                        <rich:comboBox id="courseEditId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseEditCombo}">
+                        <rich:comboBox id="courseEditId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseEditCombo}" width="160px">
                         <f:selectItems value="#{syllabusBean.courseCodeList}"/>
                         </rich:comboBox>
                         
                         <h:outputText value="Lecture Name" />
-                        <rich:comboBox id="lecturerEditId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLecturerEditCombo}">
+                        <rich:comboBox id="lecturerEditId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLecturerEditCombo}" width="160px">
                         	<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
                         </rich:comboBox>
                         
                         <h:outputText value="Classroom Code" />
-                        <rich:comboBox id="classroomEditId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomEditCombo}">
+                        <rich:comboBox id="classroomEditId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomEditCombo}" width="160px">
                         	<f:selectItems value="#{syllabusBean.classroomList}"/>
                         </rich:comboBox>
                         
                         <h:outputText value="SectionNo" />
-                        <h:inputText value="#{syllabusBean.currentItem.sectionNo}" />
+                        <h:inputText value="#{syllabusBean.currentItem.sectionNo}" style="width:158px"/>
                         
                     </h:panelGrid>
                     <rich:message showSummary="true" showDetail="false" for="price" />
@@ -208,32 +208,32 @@
 	    <h:outputLabel></h:outputLabel>
 	    
      	<h:outputLabel value="" />
-     	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}">
+     	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}" style="width : 139px;">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
 		</rich:comboBox>
 		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
-     	<rich:comboBox id="selectYearId" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}">
+     	<rich:comboBox id="selectYearId" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}" style="width : 139px;">
 			<f:selectItems value="#{syllabusBean.yearList}"/>
 		</rich:comboBox>
 		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
-     	<rich:comboBox id="selectSemesterId" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}">
+     	<rich:comboBox id="selectSemesterId" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}" style="width : 139px;">
 			<f:selectItems value="#{syllabusBean.semesterList}"/>
 		</rich:comboBox>
 		<h:outputLabel value="" />
      	
      	<h:outputLabel value="" />
-     	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}">
+     	<rich:comboBox id="selectLecturerId" value="Select Lecturer Name" valueChangeListener="#{syllabusBean.selectionChangedLectureAddCombo}" style="width : 139px;">
 			<f:selectItems value="#{syllabusBean.lecturerNameList}"/>
 		</rich:comboBox>
      	<h:outputLabel value="" />
      	
 	    
 	    <h:outputLabel value="" />
-	    <rich:comboBox id="selectClassroomId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomAddCombo}">
+	    <rich:comboBox id="selectClassroomId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomAddCombo}" style="width : 139px;">
 			<f:selectItems value="#{syllabusBean.classroomList}"/>
 		</rich:comboBox>
      	<h:outputLabel value="" />
