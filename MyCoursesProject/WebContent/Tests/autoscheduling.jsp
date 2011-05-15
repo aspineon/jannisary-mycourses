@@ -587,7 +587,7 @@
 					            
 					            <h:selectOneMenu id="deanCourses" onchange="submit();"
 								    value="#{deanCourseBean.selectedDeanCourse}"
-								    valueChangeListener="#{deanCourseBean.handleValueChange}" style=" width : 194px;">
+								    valueChangeListener="#{deanCourseBean.deanValueChange}" style=" width : 194px;">
 								    <f:selectItems value="#{deanCourseBean.deanCourseList}" />
 								</h:selectOneMenu>
 								
