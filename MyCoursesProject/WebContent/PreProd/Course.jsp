@@ -142,30 +142,30 @@
                 <a4j:outputPanel ajaxRendered="true">
                     <h:panelGrid columns="2">
                         <h:outputText value="Code" />
-                        <h:inputText value="#{courseBean.currentItem.courseCode}" />
+                        <h:inputText value="#{courseBean.currentItem.courseCode}" style="width:130px;"/>
                         <h:outputText value="Name" />
-                        <h:inputText value="#{courseBean.currentItem.courseName}" />
+                        <h:inputText value="#{courseBean.currentItem.courseName}" style="width:130px;"/>
                         <h:outputText value="Teoric H." />
                         <h:inputText value="#{courseBean.currentItem.teoricLectureHours}"
-                            label="Password" immediate="true" />
+                            label="Password" immediate="true" style="width:130px;"/>
                         <h:outputText value="Practice H." />
-                        <h:inputText value="#{courseBean.currentItem.practiceLectureHourse}" />
+                        <h:inputText value="#{courseBean.currentItem.practiceLectureHourse}" style="width:130px;"/>
                         <h:outputText value="Attendance" />
-                        <h:inputText value="#{courseBean.currentItem.attendance}" />
+                        <h:inputText value="#{courseBean.currentItem.attendance}" style="width:130px;"/>
                         <h:outputText value="Grade" />
-                        <h:inputText value="#{courseBean.currentItem.grade}" />
+                        <h:inputText value="#{courseBean.currentItem.grade}" style="width:130px;"/>
                         <h:outputText value="Type" />
-                        <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="130" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
+                        <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="130px" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 						</rich:comboBox>
                         <h:outputText value="Department" />
-                        <rich:comboBox id="selectDepartmentForEditPanel" width="130" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+                        <rich:comboBox id="selectDepartmentForEditPanel" width="130px" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 						</rich:comboBox>
                         <h:outputText value="Precondition" />
-                        <h:inputText value="#{courseBean.currentItem.precondition}" />
+                        <h:inputText value="#{courseBean.currentItem.precondition}" style="width:130px;"/>
                         <h:outputText value="Description" />
-                        <h:inputText value="#{courseBean.currentItem.courseDescription}" />
+                        <h:inputText value="#{courseBean.currentItem.courseDescription}" style="width:130px;"/>
                     </h:panelGrid>
                     <rich:message showSummary="true" showDetail="false" for="price" />
                 </a4j:outputPanel>
