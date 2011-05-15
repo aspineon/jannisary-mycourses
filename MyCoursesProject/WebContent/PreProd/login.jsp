@@ -24,9 +24,9 @@
 					<h:outputLabel value="Username" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 					<h:outputLabel value="Password" style="color:white; FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
 					<h:outputLabel value=""/>
-					
+				
 					<h:inputText id="loginUsername" value="#{loginBean.userName}" />
-					<h:inputText id="loginPassword" value="#{loginBean.password}" />
+					<h:inputSecret id="loginPassword" value="#{loginBean.password}" />
 					<h:commandButton value="Login" action="#{loginBean.checkLogin}" style="width : 70px; height : 25px;">
 							
 					</h:commandButton>
