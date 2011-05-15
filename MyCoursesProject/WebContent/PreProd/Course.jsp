@@ -33,7 +33,7 @@
                 this.style.backgroundColor='#F1F1F1'; row=this;
                 return false;" style="height : 142px; width : 634px;">
                 <f:facet name="header">
-                    <h:outputText value="User Operation" />
+                    <h:outputText value="Course Operation" />
                 </f:facet>
                 
                 <rich:column>
