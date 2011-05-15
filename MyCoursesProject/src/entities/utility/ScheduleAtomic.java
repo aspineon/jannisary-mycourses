@@ -25,12 +25,13 @@ public class ScheduleAtomic {
 	private String preCondition;
 	private String courseName;
 	private String lecturerName;
+	private String lecturerTitle;
 	
 	public ScheduleAtomic() {
 		super();
 	}
 	
-	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName) {
+	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName, String pLecturerTitle) {
 		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
@@ -46,6 +47,7 @@ public class ScheduleAtomic {
 		this.preCondition = pPreCondition;
 		this.courseName = pCourseName;
 		this.lecturerName = pLecturerName;
+		this.lecturerTitle = pLecturerTitle;
 	}
 	//Copy Constructor
 	public ScheduleAtomic(ScheduleAtomic sItem) {
@@ -62,8 +64,10 @@ public class ScheduleAtomic {
 		this.lecturerId = sItem.lecturerId;
 		this.classroomId = sItem.classroomId;
 		this.preCondition = sItem.preCondition;
+		
 		this.courseName = sItem.courseName;
 		this.lecturerName = sItem.lecturerName;
+		this.lecturerTitle = sItem.lecturerTitle;
 	}
 	
 	@Override
@@ -76,7 +80,7 @@ public class ScheduleAtomic {
 		retStr = retStr + "Course Id: " + this.courseId;
 		retStr = retStr + "| Course Name: " + this.courseName + "\n";
 		retStr = retStr + "Lecturer Id: " + this.lecturerId;
-		retStr = retStr + "| Lecturer Name: " + this.lecturerName + "\n";
+		retStr = retStr + "| Lecturer Name: " + this.lecturerTitle + " " + this.lecturerName + "\n";
 		retStr = retStr + "Classroom Id: " + this.classroomId + "\n";
 		retStr = retStr + "Day: " + this.day;
 		retStr = retStr + "| StartHour: " + this.startHour + "\n";
@@ -357,6 +361,9 @@ public class ScheduleAtomic {
 			splitObj.setLecturerId(this.lecturerId);
 			splitObj.setClassroomId(this.classroomId);
 			splitObj.setPreCondition(this.preCondition);
+			splitObj.setCourseName(this.courseName);
+			splitObj.setLecturerName(this.lecturerName);
+			splitObj.setLecturerTitle(this.lecturerTitle);
 			this.setCredit(this.credit - pCredit);
 		}		
 		return splitObj;
@@ -375,10 +382,6 @@ public class ScheduleAtomic {
 				this.credit = pScheduleAtomic.getCredit() + this.credit;
 				return;
 			}
-		}
-		if(listType.equals("Unmarked")) {
-			this.credit = pScheduleAtomic.getCredit() + this.credit;
-			this.setCredit(this.credit);
 		}
 	}
 	
@@ -518,6 +521,14 @@ public class ScheduleAtomic {
 
 	public void setBlockedKnowledge(ArrayList<ProblematicSpots> blockedKnowledge) {
 		this.blockedKnowledge = blockedKnowledge;
+	}
+
+	public String getLecturerTitle() {
+		return lecturerTitle;
+	}
+
+	public void setLecturerTitle(String lecturerTitle) {
+		this.lecturerTitle = lecturerTitle;
 	}
 }
 
