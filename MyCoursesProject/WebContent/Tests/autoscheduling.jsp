@@ -621,9 +621,20 @@
             	   <table>
             	<tr>
             		<td>
+            			<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            			 <h:outputLabel value="Senior Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
+            		
             			 <h:form prependId="false">
             			 	
-            			 	<h:panelGrid columns="2">
+            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+            			 		
+            			 		<h:outputLabel value="" />
+		            				<table>
+		            					<tr style=" height : 19px;">
+		            						<td></td>
+		            					</tr>
+		            				</table>
+            			 		
             			 		<h:outputLabel value="" />
 		            			<h:selectOneListbox id="seniorListBox" style=" width : 219px; background-color:#CFECEC;" 
 		            								value="#{deanCourseBean.selectedSeniorCourse}"
@@ -677,10 +688,55 @@
 		            		</h:panelGrid>
 		            	</h:form>
 		            	<h:form>
+		            		<h:panelGrid columns="3">
+		            			<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="seniorSubmit"  value="Submit" action="#{deanCourseBean.initSeniorCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="seniorReset" value="Reset" action="#{deanCourseBean.clearSeniorCourseTable}" onclick="submit()"></h:commandButton>
-            					<br/>
+            				</h:panelGrid>	
             			</h:form>
+            			
+            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
+		            					<h:outputLabel value="" />
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Hour Value :" />
+		            					<h:selectOneMenu value="">
+		            						<f:selectItem itemValue="Choose Lock Hour"/>
+		            						<f:selectItem itemValue="1"/>
+		            						<f:selectItem itemValue="2"/>
+		            						<f:selectItem itemValue="3"/>
+		            						<f:selectItem itemValue="4"/>
+		            						<f:selectItem itemValue="5"/>
+		            						<f:selectItem itemValue="6"/>
+		            						<f:selectItem itemValue="7"/>
+		            						<f:selectItem itemValue="8"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Day Value :" />
+		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            						<f:selectItem itemValue="Choose Lock Day"/>
+		            						<f:selectItem itemValue="Monday"/>
+		            						<f:selectItem itemValue="Tuesday"/>
+		            						<f:selectItem itemValue="Wednesday"/>
+		            						<f:selectItem itemValue="Thursday"/>
+		            						<f:selectItem itemValue="Friday"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="" />
+		            					<h:commandButton value="Lock" />
+		            					<h:outputLabel value="" />
+		            					<table>
+		            						<tr style=" height : 12px;">
+			            						<td style=" width : 2px;">
+			            						</td>
+		            						</tr>
+		            					</table>
+		            				</h:panelGrid>
+            			
+            		</h:panelGrid>
             		</td>
             		<td style=" width : 100px;"></td>
             		<td>
