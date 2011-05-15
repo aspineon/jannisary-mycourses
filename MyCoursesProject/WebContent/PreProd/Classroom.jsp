@@ -98,11 +98,11 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Department Code" />
-                        <rich:comboBox id="departmentEditId" value="Select Dept Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentEditCombo}">
+                        <rich:comboBox id="departmentEditId" value="Select Dept Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentEditCombo}" style="width:159px;">
                         	<f:selectItems value="#{classroomBean.departmentCodeList}"/>
                         </rich:comboBox>
                         <h:outputText value="Classroom Code" />
-                        <h:inputText  value="#{classroomBean.currentItem.classroomCode}">
+                        <h:inputText value="#{classroomBean.currentItem.classroomCode}" style="width:149px;">
 	    					<f:validateLength minimum="1" maximum="10"/>
 	   					</h:inputText>
                         
@@ -162,10 +162,10 @@
      		<h:inputText value="#{classroomBean.currentItem.classroomCode}" id="classroomCode" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana'; width : 159px;">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
-	   		 <rich:message for="classroomCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
+	   		 <rich:message for="classroomCode" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana'; "></rich:message>
 	   		     
 	   		     <h:outputLabel value="" />
-            <rich:comboBox id="departmentAddId" value="Select Department Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentAddCombo}" width="165">
+            <rich:comboBox id="departmentAddId" value="Select Department Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentAddCombo}" width="159px">
             	<f:selectItems value="#{classroomBean.departmentCodeList}"/>
             </rich:comboBox>
             <h:outputLabel value="" />
