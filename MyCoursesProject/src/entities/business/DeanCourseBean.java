@@ -533,7 +533,9 @@ public class DeanCourseBean
 		System.out.println("Schedule " + end);
 		
 		this.clearControlTables("Freshman");
-		this.refreshKnowlegdes("Freshman");
+		this.clearFreshmanCourseTable();
+		this.refreshKnowledges("Freshman");
+		this.freshmanUnmarkedList = this.scheduleAtomicObj.clearSpots(this.freshmanUnmarkedList);
 		this.freshmanAutoScheduling();
 		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
 			System.out.println(this.freshmanMarkedList.get(i).toString());
@@ -1722,7 +1724,7 @@ public class DeanCourseBean
 		return -1;
 	}
 	
-	private void refreshKnowlegdes(String grade) {
+	private void refreshKnowledges(String grade) {
 		if(grade.equals("Freshman")) {
 			for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
 				this.freshmanUnmarkedList.get(i).refreshKnowledge();
@@ -1875,6 +1877,7 @@ public class DeanCourseBean
 						for(int p = 0; p < workingAtomic.getCredit(); p++) {
 							Integer newInteger = new Integer(val); 
 							atomicList = sList.forward(atomicList, newInteger);
+							stack = sList.forward(stack, newInteger);
 							this.controlFreshmanLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
 							this.controlFreshmanClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
 							this.controlFreshmanCourse[hourRollBack][day] = workingAtomic.getCourseId();
@@ -1888,23 +1891,31 @@ public class DeanCourseBean
 					} 
 					else {
 						workingAtomic.removeKnowledgeByIndex(randomPosition);
+						workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
 						if(workingAtomic.getKnowledge().size() == 0) {
 							int index = stack.size() - 1;
 							workingAtomic = new ScheduleAtomic(stack.get(index));
+							
+							int tempHour = workingAtomic.getStartHour();
+							int tempDay = this.dayMapToIntegerHash.get(workingAtomic.getDay());
+							Integer known = new Integer((tempDay * 8) + tempHour);
+							atomicList = scheduleAtomicObj.rollback(atomicList, known);
+							
 							int hourRollBack = workingAtomic.getStartHour() - 1;
 							int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
 							for(int r = 0; r < workingAtomic.getCredit(); r++) {
-								atomicList = scheduleAtomicObj.rollback(atomicList, hourRollBack);
 								this.controlFreshmanLecturer[hourRollBack][dayRollBack] = 0;
 								this.controlFreshmanClassroom[hourRollBack][dayRollBack] = 0;
 								this.controlFreshmanCourse[hourRollBack][day] = 0;
 								hourRollBack++;
 							}
 							stack.remove(index);
+							stack = scheduleAtomicObj.refreshKnowledgeSpots(stack, known);
 							
 							workingAtomic.setStartHour(0);
 							workingAtomic.setDay("");
 							atomicList.add(workingAtomic);
+							atomicList = scheduleAtomicObj.refreshKnowledgeSpots(atomicList, known);
 							unmarkedIndex = atomicList.size() - 1;
 							
 							range = workingAtomic.getKnowledgeSize();
