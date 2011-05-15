@@ -253,71 +253,127 @@
             	   <table>
             	<tr>
             		<td>
+            		<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            			<h:outputLabel value="Sophomore Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
+          			
             			<h:form prependId="false">
-            			
-            				<h:panelGrid columns="2">
-            					<h:outputLabel value="" />
-		            			<h:selectOneListbox id="sophomoreListBox" style=" width : 219px; background-color:#CFECEC;"
-		            							    value="#{deanCourseBean.selectedSophomoreCourse}"
-		            								valueChangeListener="#{deanCourseBean.sophomoreSplitChange}" onchange="submit()">
-		            				<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>	           					
-		            			</h:selectOneListbox>
-		            			
-		            			<h:outputLabel value="" />
-		            			<h:outputLabel value="" />
-		            			<h:outputLabel value="" />
-		            			<h:outputLabel value="" />
-		            			
-		            			<h:outputText value="Course : " />
-		            			<h:inputText id="sophomoreCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
-		            					   	 value="#{deanCourseBean.selectedSophomoreSplitCourse}"></h:inputText>
-		            			
-		            			<h:outputText value="Lecturer : " />
-		            			<h:inputText id="sophomoreLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
-		            					 	 value="#{deanCourseBean.selectedSophomoreSplitLecturer}"></h:inputText>
-		            			
-		            			<h:outputText value="Theory : " />
-		            			<h:inputText id="sophomoreTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
-		            						 value="#{deanCourseBean.sophomoreCreditValeuTeo}"></h:inputText>
-		            			
-		            			<h:outputText value="Practice : " />
-		            			<h:inputText id= "sophomorePracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
-		            						 value="#{deanCourseBean.sophomoreCreditValuePrac}"/>
-		            			
-		            			<h:outputText value="Course Type : " />
-		            			<h:selectOneMenu id="sophomoreOperationTypeComboBox" style=" width : 151px;"
-							            		 value="#{deanCourseBean.selectedSophomoreOperation}"
-												 valueChangeListener="#{deanCourseBean.sophomoreOperationChange}" onchange="submit()">
-					            	<f:selectItems value="#{deanCourseBean.sophomoreOperations}" />            	
-								</h:selectOneMenu>
-		            			
-		            			<h:outputText value="Credit : " />
-		            			<h:selectOneMenu id="sophomoreCreditComboBox" 
-		            							 value="#{deanCourseBean.selectedSophomoreCredit}"
-		            							 valueChangeListener="#{deanCourseBean.sophomoreCreditChange}" onchange="submit()">            				
-		            				<f:selectItems value="#{deanCourseBean.sophomoreCredits}"/>        			
-		            			</h:selectOneMenu>
-		            			
-		            			<h:outputText value="Days : " />
-		            			<h:selectOneMenu id="sophomoreDaysComboBox" 
-		            							 value="#{deanCourseBean.selectedSophomoreDay}"
-		           								 valueChangeListener="#{deanCourseBean.sophomoreDayChange}" onchange="submit()">
-						       		<f:selectItems value="#{deanCourseBean.sophomoreDays}" /> 
-						        </h:selectOneMenu>
-		            			
-		            			<h:outputText value="StartHour : " />
-		            			<h:selectOneMenu id="sophomoreStartHourComboBox" value="#{deanCourseBean.selectedSophomoreStartHour}">            				
-		            				<f:selectItems value="#{deanCourseBean.sophomoreHours}"/>        			
-		            			</h:selectOneMenu>
-		            			
-		            			
-		            		</h:panelGrid>
+            				
+	            				<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+	            					
+	            					<h:outputLabel value="" />
+		            				<table>
+		            					<tr style=" height : 19px;">
+		            						<td></td>
+		            					</tr>
+		            				</table>
+	            					
+	            					<h:outputLabel value="" />
+			            			<h:selectOneListbox id="sophomoreListBox" style=" width : 219px; background-color:#CFECEC;"
+			            							    value="#{deanCourseBean.selectedSophomoreCourse}"
+			            								valueChangeListener="#{deanCourseBean.sophomoreSplitChange}" onchange="submit()">
+			            				<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>	           					
+			            			</h:selectOneListbox>
+			            			
+			            			<h:outputLabel value="" />
+			            			<h:outputLabel value="" />
+			            			<h:outputLabel value="" />
+			            			<h:outputLabel value="" />
+			            			
+			            			<h:outputText value="Course : " />
+			            			<h:inputText id="sophomoreCourseTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+			            					   	 value="#{deanCourseBean.selectedSophomoreSplitCourse}"></h:inputText>
+			            			
+			            			<h:outputText value="Lecturer : " />
+			            			<h:inputText id="sophomoreLecturerTextField" disabled="true" style="background-color:#FFF8C6; width : 170px;" 
+			            					 	 value="#{deanCourseBean.selectedSophomoreSplitLecturer}"></h:inputText>
+			            			
+			            			<h:outputText value="Theory : " />
+			            			<h:inputText id="sophomoreTeoCreditTextField" disabled="true" style="background-color:#FFF8C6;width : 50px;"
+			            						 value="#{deanCourseBean.sophomoreCreditValeuTeo}"></h:inputText>
+			            			
+			            			<h:outputText value="Practice : " />
+			            			<h:inputText id= "sophomorePracCreditTextField" disabled="true" style="background-color:#FFF8C6; width:50px;"
+			            						 value="#{deanCourseBean.sophomoreCreditValuePrac}"/>
+			            			
+			            			<h:outputText value="Course Type : " />
+			            			<h:selectOneMenu id="sophomoreOperationTypeComboBox" style=" width : 151px;"
+								            		 value="#{deanCourseBean.selectedSophomoreOperation}"
+													 valueChangeListener="#{deanCourseBean.sophomoreOperationChange}" onchange="submit()">
+						            	<f:selectItems value="#{deanCourseBean.sophomoreOperations}" />            	
+									</h:selectOneMenu>
+			            			
+			            			<h:outputText value="Credit : " />
+			            			<h:selectOneMenu id="sophomoreCreditComboBox" 
+			            							 value="#{deanCourseBean.selectedSophomoreCredit}"
+			            							 valueChangeListener="#{deanCourseBean.sophomoreCreditChange}" onchange="submit()">            				
+			            				<f:selectItems value="#{deanCourseBean.sophomoreCredits}"/>        			
+			            			</h:selectOneMenu>
+			            			
+			            			<h:outputText value="Days : " />
+			            			<h:selectOneMenu id="sophomoreDaysComboBox" 
+			            							 value="#{deanCourseBean.selectedSophomoreDay}"
+			           								 valueChangeListener="#{deanCourseBean.sophomoreDayChange}" onchange="submit()">
+							       		<f:selectItems value="#{deanCourseBean.sophomoreDays}" /> 
+							        </h:selectOneMenu>
+			            			
+			            			<h:outputText value="StartHour : " />
+			            			<h:selectOneMenu id="sophomoreStartHourComboBox" value="#{deanCourseBean.selectedSophomoreStartHour}">            				
+			            				<f:selectItems value="#{deanCourseBean.sophomoreHours}"/>        			
+			            			</h:selectOneMenu>
+			            			
+			            			
+			            		</h:panelGrid>
 		            	</h:form>
+		            	
 		            	<h:form>
+		            		<h:panelGrid columns="3">
+		            		<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="sophomoreSubmit" value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="sophomoreReset" value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
-            					<br/>
+            				</h:panelGrid>
             			</h:form>
+            			
+	            		<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
+		            					<h:outputLabel value="" />
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Hour Value :" />
+		            					<h:selectOneMenu value="">
+		            						<f:selectItem itemValue="Choose Lock Hour"/>
+		            						<f:selectItem itemValue="1"/>
+		            						<f:selectItem itemValue="2"/>
+		            						<f:selectItem itemValue="3"/>
+		            						<f:selectItem itemValue="4"/>
+		            						<f:selectItem itemValue="5"/>
+		            						<f:selectItem itemValue="6"/>
+		            						<f:selectItem itemValue="7"/>
+		            						<f:selectItem itemValue="8"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Day Value :" />
+		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            						<f:selectItem itemValue="Choose Lock Day"/>
+		            						<f:selectItem itemValue="Monday"/>
+		            						<f:selectItem itemValue="Tuesday"/>
+		            						<f:selectItem itemValue="Wednesday"/>
+		            						<f:selectItem itemValue="Thursday"/>
+		            						<f:selectItem itemValue="Friday"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="" />
+		            					<h:commandButton value="Lock" />
+		            					<h:outputLabel value="" />
+		            					<table>
+		            						<tr style=" height : 12px;">
+			            						<td style=" width : 2px;">
+			            						</td>
+		            						</tr>
+		            					</table>
+		            				</h:panelGrid>
+            			</h:panelGrid>
             		</td>
             		<td style=" width : 100px;"></td>
             		<td>
@@ -385,9 +441,20 @@
             	   <table>
             	<tr>
             		<td>
+            			<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            			 <h:outputLabel value="Junior Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
+          			       			 
             			 <h:form prependId="false">
             			 
-            			 	<h:panelGrid columns="2">
+            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+            			 		
+            			 		<h:outputLabel value="" />
+		            				<table>
+		            					<tr style=" height : 19px;">
+		            						<td></td>
+		            					</tr>
+		            				</table>
+            			 		
             			 		<h:outputLabel value="" />
 		            			<h:selectOneListbox id="juniorListBox" style=" width : 219px; background-color:#CFECEC;" 
 		            							value="#{deanCourseBean.selectedJuniorCourse}"
@@ -441,10 +508,55 @@
 		            		</h:panelGrid>
 		            	</h:form>
 		            	<h:form>
+		            		<h:panelGrid columns="3">
+		            			<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="juniorSubmit"  value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="juniorReset" value="Reset" action="#{deanCourseBean.clearJuniorCourseTable}" onclick="submit()"></h:commandButton>
-            					<br/>
+            				</h:panelGrid>
             			</h:form>
+            			
+            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
+		            					<h:outputLabel value="" />
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Hour Value :" />
+		            					<h:selectOneMenu value="">
+		            						<f:selectItem itemValue="Choose Lock Hour"/>
+		            						<f:selectItem itemValue="1"/>
+		            						<f:selectItem itemValue="2"/>
+		            						<f:selectItem itemValue="3"/>
+		            						<f:selectItem itemValue="4"/>
+		            						<f:selectItem itemValue="5"/>
+		            						<f:selectItem itemValue="6"/>
+		            						<f:selectItem itemValue="7"/>
+		            						<f:selectItem itemValue="8"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="Day Value :" />
+		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            						<f:selectItem itemValue="Choose Lock Day"/>
+		            						<f:selectItem itemValue="Monday"/>
+		            						<f:selectItem itemValue="Tuesday"/>
+		            						<f:selectItem itemValue="Wednesday"/>
+		            						<f:selectItem itemValue="Thursday"/>
+		            						<f:selectItem itemValue="Friday"/>
+		            					</h:selectOneMenu>
+		            					<h:outputLabel value="" />
+		            					
+		            					<h:outputLabel value="" />
+		            					<h:commandButton value="Lock" />
+		            					<h:outputLabel value="" />
+		            					<table>
+		            						<tr style=" height : 12px;">
+			            						<td style=" width : 2px;">
+			            						</td>
+		            						</tr>
+		            					</table>
+		            				</h:panelGrid>
+            			
+            		</h:panelGrid>
             		</td>
             		<td style=" width : 100px;"></td>
             		<td>
