@@ -802,7 +802,89 @@
 					</tr>
 				</table>
 			</rich:panel>
-		</rich:tab>		
+		</rich:tab>
+		<rich:tab label="Archive" id="archiveTab">
+            <rich:panel style=" height : 450px;">
+            
+            	<rich:panel id="updateArchivePanelId">
+            		
+            			<f:facet name="label">
+        					<h:outputLabel value="Select Year and Semester" style="FONT-WEIGHT: bold; FONT-SIZE: medium; FONT-FAMILY: 'Verdana';"/>
+            			</f:facet>
+            			  <h:panelGrid columns="1">
+            			  		<h:outputLabel value="" />
+									<h:outputLabel value="" />
+			            			<h:commandButton value="Run Autoscheduling"/>	
+		            			<h:outputLabel value="" />        			
+	            			<h:panelGrid columns="3" style="background-color:#AFDCEC; width : 197px;">
+	            				
+	            				<h:outputLabel value="" />
+	            				<table>
+		            				<tr style=" height : 9px;">
+		            					<td>		            						
+		            					</td>
+		            				</tr>
+	            				</table>
+	            				<h:outputLabel value="" />
+	            				
+	            				<table>
+		            				<tr style="height : 2px; width : 30px;">
+		            					<td>		            						
+		            					</td>
+		            				</tr>
+	            				</table>
+		            			<h:selectOneMenu id="autoArchiveYearComboBox" value="" style=" width : 154px;">
+		            				<f:selectItem itemValue="Choose Year"></f:selectItem>
+		            			</h:selectOneMenu>
+		            			<h:outputLabel value="" />
+	            			
+		            			<table>
+		            				<tr style="height : 2px; width : 30px;">
+		            					<td>		            						
+		            					</td>
+		            				</tr>
+	            				</table>
+		            			<h:selectOneMenu id="autoArchiveSemesterComboBox" value="" style=" width : 154px;">
+		            				<f:selectItem itemValue="Choose Semester"></f:selectItem>
+		            			</h:selectOneMenu>
+		            			<h:outputLabel value="" />
+		            			
+		            				
+		            			<table>
+		            				<tr style="height : 2px; width : 30px;">
+		            					<td>		            						
+		            					</td>
+		            				</tr>
+	            				</table>	
+		            			<h:selectOneMenu id="autoArchiveStatus" value="">
+		            				<f:selectItem itemValue="Select Archive Status"/>
+		            				<f:selectItem itemValue="Yes"/>
+		            				<f:selectItem itemValue="No"/>
+		            			</h:selectOneMenu>
+		            			<h:outputLabel value="" />
+		            			<h:outputLabel value="Version Name : "/>
+			            			<h:inputText value="" >
+			            				<rich:ajaxValidator event="onblur"/>
+			            			</h:inputText>
+			            			<rich:message style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
+		            				<h:outputLabel value="" />
+		            				<h:commandButton value="Save Archive" />
+		            				
+		            				<h:outputLabel value="" />
+		            					            				            			            				
+	            				<table>
+		            				<tr style="height : 8px; width : 30px;">
+		            					<td>		            						
+		            					</td>
+		            				</tr>
+	            				</table>
+								</h:panelGrid>								
+
+            		</h:panelGrid>
+            	</rich:panel>
+            
+            </rich:panel>
+        </rich:tab>		
 	</rich:tabPanel>
 	</h:form>
 </f:view>
