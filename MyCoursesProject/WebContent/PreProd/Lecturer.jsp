@@ -116,19 +116,19 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Lecturer Name" />
-                        <h:inputText value="#{lecturerBean.currentItem.lecturerName}" />
+                        <h:inputText value="#{lecturerBean.currentItem.lecturerName}" style="width:160px;"/>
                         
                         <h:outputText value="Email" />
-                        <h:inputText value="#{lecturerBean.currentItem.email}" />
+                        <h:inputText value="#{lecturerBean.currentItem.email}" style="width:160px;"/>
+                        
+                        <h:outputText value="Title" />
+                        <h:inputText value="#{lecturerBean.currentItem.title}" style="width:160px;"/>
                         
                         <h:outputText value="Telephone" />
-                        <h:inputText value="#{lecturerBean.currentItem.title}" />
-                        
-                        <h:outputText value="Telephone" />
-                        <h:inputText value="#{lecturerBean.currentItem.telephone}" />
+                        <h:inputText value="#{lecturerBean.currentItem.telephone}" style="width:160px;"/>
                         
                         <h:outputText value="Department Code" />
-                        <rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDepartmentEditCombo}">
+                        <rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDepartmentEditCombo}" width="163px;">
                         <f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
                         </rich:comboBox>
                     </h:panelGrid>
@@ -163,7 +163,8 @@
                             oncomplete="#{rich:component('deletePanel')}.hide();"
                             reRender="table" />
                         </td>
-                        <td align="center" width="50%"><a4j:commandButton
+                        <td align="center" width="50%">
+                        <a4j:commandButton
                             value="Cancel"
                             onclick ="#{rich:component('deletePanel')}.hide();return false;" />
                         </td>
@@ -188,31 +189,31 @@
    		<h:panelGrid columns="3">
    			  
    			  <h:outputLabel value="Title : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/> 	
-	    	<h:inputText  value="#{lecturerBean.currentItem.title}" id="titleText">
+	    	<h:inputText  value="#{lecturerBean.currentItem.title}" id="titleText" style="width:158px">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		<rich:message for="titleText" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		  
 	   		  <h:outputLabel value="Lecturer Name : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  		    	
-	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}" id="lecturerName">
+	    	<h:inputText  value="#{lecturerBean.currentItem.lecturerName}" id="lecturerName" style="width:158px">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		<rich:message for="lecturerName" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   		  
 	   		  <h:outputLabel value="E-Mail : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>  	
-	    	<h:inputText  value="#{lecturerBean.currentItem.email}" id="lecturerEmail">
+	    	<h:inputText  value="#{lecturerBean.currentItem.email}" id="lecturerEmail" style="width:158px">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		<rich:message for="lecturerEmail" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 	   			   
 	   			   <h:outputLabel value="" /> 
-    		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}">
+    		<rich:comboBox id="departmentEditId" value="Select Department Code" valueChangeListener="#{lecturerBean.selectionChangedDeparmentAddCombo}" width="160px">
         		<f:selectItems value="#{lecturerBean.selectItemsForDepartments}"/>
 			</rich:comboBox>
 			<h:outputLabel value="" />
 			
 			<h:outputLabel value="Telephone : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}" id="lecturerTelephone">
+	    	<h:inputText  value="#{lecturerBean.currentItem.telephone}" id="lecturerTelephone" style="width:158px">
 	    		<rich:ajaxValidator event="onblur"/>
 	   		</h:inputText>
 	   		<rich:message for="lecturerTelephone" style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
