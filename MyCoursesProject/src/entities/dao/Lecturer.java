@@ -28,12 +28,12 @@ public class Lecturer implements java.io.Serializable {
 	
 	@NotEmpty
     @Pattern(regex=".*[^\\s].*", message="This string contain only spaces")
-    @Length(min=3,max=12)
+    @Length(min=3,max=50)
 	private String lecturerName;
 	
 	@NotEmpty
     @Pattern(regex=".*[^\\s].*", message="This string contain only spaces")
-    @Length(min=3,max=12)
+    @Length(min=3,max=50)
 	private String title;
 	
 	@Email
