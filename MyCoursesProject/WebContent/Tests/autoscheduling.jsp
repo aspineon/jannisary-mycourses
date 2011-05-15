@@ -59,7 +59,7 @@
 	<h:form>
 	<rich:tabPanel switchType="Client" selectedTab="dc">
 		<rich:tab label="Freshman" id="fr">
-            <rich:panel style=" height : 450px;">
+            <rich:panel style="height : 750px; background-color:#E0FFFF;">
             <table>
             	<tr style=" height : 167px;">
             		<td>
@@ -249,7 +249,7 @@
 	      </rich:panel>
         </rich:tab>
         <rich:tab label="Sophomore" id="sp">
-            <rich:panel style=" height : 450px;">
+            <rich:panel style="height : 750px; background-color:#E0FFFF;">
             	   <table>
             	<tr>
             		<td>
@@ -437,7 +437,7 @@
             </rich:panel>
         </rich:tab>
         <rich:tab label="Junior" id="jr">
-            <rich:panel style=" height : 450px;">
+            <rich:panel style="height : 750px; background-color:#E0FFFF;">
             	   <table>
             	<tr>
             		<td>
@@ -617,7 +617,7 @@
             </rich:panel>
         </rich:tab>
         <rich:tab label="Senior" id="sr">
-            <rich:panel style=" height : 450px;">
+            <rich:panel style="height : 750px; background-color:#E0FFFF;">
             	   <table>
             	<tr>
             		<td>
