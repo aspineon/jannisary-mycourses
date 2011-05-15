@@ -528,10 +528,6 @@ public class DeanCourseBean
 //********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
 	{	
-		String end = "\nNo no no\n";
-		if(this.readyToGoFreshman == true) { end = "\nTa ta ta\n"; }
-		System.out.println("Schedule " + end);
-		
 		this.clearControlTables("Freshman");
 		this.clearFreshmanCourseTable();
 		this.refreshKnowledges("Freshman");
@@ -912,7 +908,7 @@ public class DeanCourseBean
 	}
 	
 //This is the event which holds the operations when a course selected in dean tab	
-	public void handleValueChange(ValueChangeEvent event) {
+	public void deanValueChange(ValueChangeEvent event) {
 		System.out.println("Course Name : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
 		String newValue = (String)event.getNewValue();
