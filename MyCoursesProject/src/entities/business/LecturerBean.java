@@ -42,7 +42,7 @@ public class LecturerBean {
 		 *  metodun sonunda tekrar unlock edilir
 		 * */
 		synchronized (this) {
-			if (allLecturerList == null) {
+			
 				allLecturerList = new ArrayList<Lecturer>();
 					try {
 						allLecturerList = currentItem.getAllLecturer();
@@ -52,7 +52,6 @@ public class LecturerBean {
 								+ e.getMessage());
 						e.printStackTrace();
 					}
-			}
 		}
 		return allLecturerList;
 	}
@@ -114,7 +113,7 @@ public class LecturerBean {
 	public List<SelectItem> getSelectItemsForDepartments() {
 		
 		synchronized (this) {
-            if (selectItemsForDepartments == null) {
+            
                     selectItemsForDepartments = new ArrayList<SelectItem>();
                             try {
                                     //Department nesnelerini al.
@@ -130,7 +129,6 @@ public class LecturerBean {
                                                     + e.getMessage());
                                     e.printStackTrace();
                             }
-            }
     }
 		
 		return selectItemsForDepartments;
