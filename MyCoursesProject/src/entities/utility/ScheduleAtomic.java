@@ -17,6 +17,7 @@ public class ScheduleAtomic {
 	private int startHour = 0;
 	private int credit = 0;
 	private ArrayList<Integer> knowledge;
+	private ArrayList<ProblematicSpots> blockedKnowledge = new ArrayList<ProblematicSpots>();
 	private boolean attendance;
 	private int courseId;
 	private int lecturerId;
@@ -37,6 +38,7 @@ public class ScheduleAtomic {
 		this.startHour = pStartHour;
 		this.credit = pCredit;
 		this.knowledge = this.generateKnowledge(pCredit);
+		this.blockedKnowledge = new ArrayList<ProblematicSpots>();
 		this.attendance = pAttendance;
 		this.courseId = pCourseId;
 		this.lecturerId = pLecturerId;
@@ -54,6 +56,7 @@ public class ScheduleAtomic {
 		this.startHour = sItem.startHour;
 		this.credit = sItem.credit;
 		this.knowledge = sItem.knowledge;
+		this.blockedKnowledge = sItem.blockedKnowledge;
 		this.attendance = sItem.attendance;
 		this.courseId = sItem.courseId;
 		this.lecturerId = sItem.lecturerId;
@@ -125,7 +128,7 @@ public class ScheduleAtomic {
         
         return true;
     }
-	
+//*****************************************************************************************	
 	public ArrayList<SelectItem> getKnowledgeByDay(String day) {
 		ArrayList<SelectItem> retList = new ArrayList<SelectItem>();
 		int bottom = 0; 
@@ -306,6 +309,36 @@ public class ScheduleAtomic {
 		
 	}//end of convertIntToIndex method
 	
+	public ArrayList<ScheduleAtomic> refreshKnowledgeSpots(ArrayList<ScheduleAtomic> sList, Integer pProblematicSpot) {
+		for(int i = 0; i < sList.size(); i++) {
+			sList.get(i).removeBlockedSpotByProblem(pProblematicSpot);
+		}
+		return sList;
+	}
+	
+	private void removeBlockedSpotByProblem(Integer pProblematicSpot) {
+		for(int i = 0; i< this.blockedKnowledge.size(); i++) {
+			if(this.blockedKnowledge.get(i).isProblematicByProblematicSpot(pProblematicSpot)) {
+				int blockedKnown = this.blockedKnowledge.get(i).getBlockedSpot();
+				this.blockedKnowledge.remove(i);
+				this.knowledge.add(blockedKnown);
+			}
+		}
+	}
+	
+	public void addBlockedSpot(int blockedSpot, int credit) {
+		ProblematicSpots pItem = new ProblematicSpots(blockedSpot, credit);
+		this.blockedKnowledge.add(pItem);
+	}
+	
+	public ArrayList<ScheduleAtomic> clearSpots(ArrayList<ScheduleAtomic> sList) {
+		for(int i = 0; i < sList.size(); i++) {
+			sList.get(i).setBlockedKnowledge(new ArrayList<ProblematicSpots>());
+		}
+		return sList;
+	}
+	
+//********************************************************************************************
 // ************* Credit Split and Merge Functions *********************************************
 	
 	public ScheduleAtomic splitCredit(int pCredit)
@@ -328,6 +361,7 @@ public class ScheduleAtomic {
 		}		
 		return splitObj;
 	}
+	
 	
 	public void mergeCredit(ScheduleAtomic pScheduleAtomic, String listType)
 	{
@@ -372,7 +406,7 @@ public class ScheduleAtomic {
 		if( factor == 3) { retVal = 3; }
 		return retVal;
 	}
-//*************** GETTER-SETTER METHODS *************************************************
+//*************** GETTER-SETTER METHODS *************************************************************
 	public Syllabus getSyllabus() {
 		return syllabus;
 	}
@@ -477,7 +511,13 @@ public class ScheduleAtomic {
 	public void setLecturerName(String lecturerName) {
 		this.lecturerName = lecturerName;
 	}
-	
-	
+
+	public ArrayList<ProblematicSpots> getBlockedKnowledge() {
+		return blockedKnowledge;
+	}
+
+	public void setBlockedKnowledge(ArrayList<ProblematicSpots> blockedKnowledge) {
+		this.blockedKnowledge = blockedKnowledge;
+	}
 }
 
