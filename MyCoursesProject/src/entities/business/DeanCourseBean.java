@@ -1760,6 +1760,58 @@ public class DeanCourseBean
 		return retVal;
 	}
 	
+	private boolean controlLecturerInOthers(String grade, int day, int hour, int lecturerId) {
+		boolean retVal = true;
+		if(grade.equals("Sophomore")) {
+			if(this.controlFreshmanLecturer[hour][day] == lecturerId) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		if(grade.equals("Junior")) {
+			if((this.controlFreshmanLecturer[hour][day] == lecturerId) ||
+			   (this.controlSophomoreLecturer[hour][day] == lecturerId)) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		if(grade.equals("Senior")) {
+			if((this.controlFreshmanLecturer[hour][day] == lecturerId) ||
+			   (this.controlSophomoreLecturer[hour][day] == lecturerId) ||
+			   (this.controlJuniorLecturer[hour][day] == lecturerId)) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		return retVal;
+	}
+	
+	private boolean controlClassroomInOthers(String grade, int day, int hour, int classroomId) {
+		boolean retVal = true;
+		if(grade.equals("Sophomore")) {
+			if(this.controlFreshmanClassroom[hour][day] == classroomId) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		if(grade.equals("Junior")) {
+			if((this.controlFreshmanClassroom[hour][day] == classroomId) ||
+			   (this.controlSophomoreClassroom[hour][day] == classroomId)) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		if(grade.equals("Sophomore")) {
+			if((this.controlFreshmanClassroom[hour][day] == classroomId) ||
+			   (this.controlSophomoreClassroom[hour][day] == classroomId) ||
+			   (this.controlJuniorClassroom[hour][day] == classroomId)) {
+				retVal = false;
+			}
+			return retVal;
+		}
+		return retVal;
+	}
+	
 	private boolean controlLecturer(String grade, int day, int hour, int lecturerId) {
 		boolean retVal = true;
 		if(grade.equals("Freshman")) {
@@ -1969,7 +2021,7 @@ public class DeanCourseBean
 					hour = hour - 1;
 					int day = this.dayMapToIntegerHash.get(iVal.getDay());
 					int limit = workingAtomic.getCredit() + hour;
-					
+					boolean blocked = false;
 					boolean controlCheck = true;
 					for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
 						controlCheck = this.controlCourse("Sophomore", day, h);
@@ -1980,6 +2032,14 @@ public class DeanCourseBean
 					}
 					for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
 						controlCheck = this.controlClassroom("Sophomore", day, k, workingAtomic.getClassroomId());
+					}
+					
+					if(controlCheck == false) { blocked = true; }
+					for(int l = hour; ((controlCheck != false) && (l < limit)); l++) {
+						controlCheck = this.controlClassroomInOthers("Sophomore", day, l, workingAtomic.getClassroomId());
+					}
+					for(int p = hour; ((controlCheck != false) && (p < limit)); p++) {
+						controlCheck = this.controlLecturerInOthers("Sophomore", day, p, workingAtomic.getLecturerId());
 					}
 					
 					if(controlCheck == true) {
@@ -2005,7 +2065,9 @@ public class DeanCourseBean
 					} 
 					else {
 						workingAtomic.removeKnowledgeByIndex(randomPosition);
-						workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
+						if(blocked == true) {
+							workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
+						}
 						if(workingAtomic.getKnowledge().size() == 0) {
 							int index = stack.size() - 1;
 							workingAtomic = new ScheduleAtomic(stack.get(index));
@@ -2052,9 +2114,265 @@ public class DeanCourseBean
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 	}
+	
+	private void juniorAutoScheduling() {
+		try {
+			SortedList sList = new SortedList(this.juniorUnmarkedList);
+			ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
+			ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
+			ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
+
+			int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+			ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
+			int range = workingAtomic.getKnowledgeSize();
+			int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+			int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+			Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+			
+			boolean optDone = false;
+			while(atomicList.size() != 0) {	
+				if(optDone == true) {
+					unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+					workingAtomic = atomicList.get(unmarkedIndex);
+					range = workingAtomic.getKnowledgeSize();
+					randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+					randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+					iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+				}
+				
+				boolean options = true;
+				optDone = false;
+				while((options != false) && (optDone != true)) {
+					int hour = iVal.getHour();
+					hour = hour - 1;
+					int day = this.dayMapToIntegerHash.get(iVal.getDay());
+					int limit = workingAtomic.getCredit() + hour;
+					boolean blocked = false;
+					boolean controlCheck = true;
+					for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+						controlCheck = this.controlCourse("Junior", day, h);
+					}
+					
+					for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+						controlCheck = this.controlLecturer("Junior", day, j, workingAtomic.getLecturerId());
+					}
+					for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+						controlCheck = this.controlClassroom("Junior", day, k, workingAtomic.getClassroomId());
+					}
+					
+					if(controlCheck == false) { blocked = true; }
+					for(int l = hour; ((controlCheck != false) && (l < limit)); l++) {
+						controlCheck = this.controlClassroomInOthers("Junior", day, l, workingAtomic.getClassroomId());
+					}
+					for(int p = hour; ((controlCheck != false) && (p < limit)); p++) {
+						controlCheck = this.controlLecturerInOthers("Junioor", day, p, workingAtomic.getLecturerId());
+					}
+					
+					if(controlCheck == true) {
+						int val = randomVal;
+						workingAtomic.setDay(iVal.getDay());
+						workingAtomic.setStartHour(iVal.getHour());
+						int hourRollBack = workingAtomic.getStartHour();
+						hourRollBack = hourRollBack - 1;
+						for(int p = 0; p < workingAtomic.getCredit(); p++) {
+							Integer newInteger = new Integer(val); 
+							atomicList = sList.forward(atomicList, newInteger);
+							stack = sList.forward(stack, newInteger);
+							this.controlJuniorLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
+							this.controlJuniorClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
+							this.controlJuniorCourse[hourRollBack][day] = workingAtomic.getCourseId();
+							val++;
+							hourRollBack++;
+						}
+						ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
+						stack.add(sItem);
+						atomicList.remove(unmarkedIndex);
+						optDone = true;
+					} 
+					else {
+						workingAtomic.removeKnowledgeByIndex(randomPosition);
+						if(blocked == true) {
+							workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
+						}
+						if(workingAtomic.getKnowledge().size() == 0) {
+							int index = stack.size() - 1;
+							workingAtomic = new ScheduleAtomic(stack.get(index));
+							
+							int tempHour = workingAtomic.getStartHour();
+							int tempDay = this.dayMapToIntegerHash.get(workingAtomic.getDay());
+							Integer known = new Integer((tempDay * 8) + tempHour);
+							atomicList = scheduleAtomicObj.rollback(atomicList, known);
+							
+							int hourRollBack = workingAtomic.getStartHour() - 1;
+							int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
+							for(int r = 0; r < workingAtomic.getCredit(); r++) {
+								this.controlJuniorLecturer[hourRollBack][dayRollBack] = 0;
+								this.controlJuniorClassroom[hourRollBack][dayRollBack] = 0;
+								this.controlJuniorCourse[hourRollBack][day] = 0;
+								hourRollBack++;
+							}
+							stack.remove(index);
+							stack = scheduleAtomicObj.refreshKnowledgeSpots(stack, known);
+							
+							workingAtomic.setStartHour(0);
+							workingAtomic.setDay("");
+							atomicList.add(workingAtomic);
+							atomicList = scheduleAtomicObj.refreshKnowledgeSpots(atomicList, known);
+							unmarkedIndex = atomicList.size() - 1;
+							
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+							
+							options = false;
+						}
+						else {
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+						}
+					}
+				}//end of while inner
+			}//end of while outer
+			this.juniorMarkedList = stack;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
+	private void seniorAutoScheduling() {
+		try {
+			SortedList sList = new SortedList(this.seniorUnmarkedList);
+			ArrayList<ScheduleAtomic> atomicList = sList.convertToOneList();
+			ArrayList<ScheduleAtomic> attList = sList.getFalseAttendanceList();
+			ArrayList<ScheduleAtomic> stack = new ArrayList<ScheduleAtomic>();
+
+			int unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+			ScheduleAtomic workingAtomic = atomicList.get(unmarkedIndex);
+			int range = workingAtomic.getKnowledgeSize();
+			int randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+			int randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+			Index iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+			
+			boolean optDone = false;
+			while(atomicList.size() != 0) {	
+				if(optDone == true) {
+					unmarkedIndex = this.scheduleAtomicObj.getRandomValue(atomicList.size());
+					workingAtomic = atomicList.get(unmarkedIndex);
+					range = workingAtomic.getKnowledgeSize();
+					randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+					randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+					iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+				}
+				
+				boolean options = true;
+				optDone = false;
+				while((options != false) && (optDone != true)) {
+					int hour = iVal.getHour();
+					hour = hour - 1;
+					int day = this.dayMapToIntegerHash.get(iVal.getDay());
+					int limit = workingAtomic.getCredit() + hour;
+					boolean blocked = false;
+					boolean controlCheck = true;
+					for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+						controlCheck = this.controlCourse("Senior", day, h);
+					}
+					
+					for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+						controlCheck = this.controlLecturer("Senior", day, j, workingAtomic.getLecturerId());
+					}
+					for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+						controlCheck = this.controlClassroom("Senior", day, k, workingAtomic.getClassroomId());
+					}
+					
+					if(controlCheck == false) { blocked = true; }
+					for(int l = hour; ((controlCheck != false) && (l < limit)); l++) {
+						controlCheck = this.controlClassroomInOthers("Senior", day, l, workingAtomic.getClassroomId());
+					}
+					for(int p = hour; ((controlCheck != false) && (p < limit)); p++) {
+						controlCheck = this.controlLecturerInOthers("Senior", day, p, workingAtomic.getLecturerId());
+					}
+					
+					if(controlCheck == true) {
+						int val = randomVal;
+						workingAtomic.setDay(iVal.getDay());
+						workingAtomic.setStartHour(iVal.getHour());
+						int hourRollBack = workingAtomic.getStartHour();
+						hourRollBack = hourRollBack - 1;
+						for(int p = 0; p < workingAtomic.getCredit(); p++) {
+							Integer newInteger = new Integer(val); 
+							atomicList = sList.forward(atomicList, newInteger);
+							stack = sList.forward(stack, newInteger);
+							this.controlSeniorLecturer[hourRollBack][day] = workingAtomic.getLecturerId();
+							this.controlSeniorClassroom[hourRollBack][day] = workingAtomic.getClassroomId();
+							this.controlSeniorCourse[hourRollBack][day] = workingAtomic.getCourseId();
+							val++;
+							hourRollBack++;
+						}
+						ScheduleAtomic sItem = new ScheduleAtomic(workingAtomic);
+						stack.add(sItem);
+						atomicList.remove(unmarkedIndex);
+						optDone = true;
+					} 
+					else {
+						workingAtomic.removeKnowledgeByIndex(randomPosition);
+						if(blocked == true) {
+							workingAtomic.addBlockedSpot(randomVal, workingAtomic.getCredit());
+						}
+						if(workingAtomic.getKnowledge().size() == 0) {
+							int index = stack.size() - 1;
+							workingAtomic = new ScheduleAtomic(stack.get(index));
+							
+							int tempHour = workingAtomic.getStartHour();
+							int tempDay = this.dayMapToIntegerHash.get(workingAtomic.getDay());
+							Integer known = new Integer((tempDay * 8) + tempHour);
+							atomicList = scheduleAtomicObj.rollback(atomicList, known);
+							
+							int hourRollBack = workingAtomic.getStartHour() - 1;
+							int dayRollBack = this.dayMapToIntegerHash.get(workingAtomic.getDay()); 
+							for(int r = 0; r < workingAtomic.getCredit(); r++) {
+								this.controlSeniorLecturer[hourRollBack][dayRollBack] = 0;
+								this.controlSeniorClassroom[hourRollBack][dayRollBack] = 0;
+								this.controlSeniorCourse[hourRollBack][day] = 0;
+								hourRollBack++;
+							}
+							stack.remove(index);
+							stack = scheduleAtomicObj.refreshKnowledgeSpots(stack, known);
+							
+							workingAtomic.setStartHour(0);
+							workingAtomic.setDay("");
+							atomicList.add(workingAtomic);
+							atomicList = scheduleAtomicObj.refreshKnowledgeSpots(atomicList, known);
+							unmarkedIndex = atomicList.size() - 1;
+							
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+							
+							options = false;
+						}
+						else {
+							range = workingAtomic.getKnowledgeSize();
+							randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+							randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+							iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+						}
+					}
+				}//end of while inner
+			}//end of while outer
+			this.seniorMarkedList = stack;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+	}
+
 	
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
