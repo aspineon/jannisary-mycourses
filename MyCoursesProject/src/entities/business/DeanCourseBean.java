@@ -257,6 +257,9 @@ public class DeanCourseBean
 	
 	private String sophomoreLockedDay = "";
 	private String sophomoreLockedHour = "";
+	private boolean sophomoreReadyToLock = false;
+	private boolean sophomoreLockDayFlag = false;
+	private boolean sophomoreLockHourFlag = false;
 	
 //**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
@@ -278,6 +281,9 @@ public class DeanCourseBean
 	
 	private String juniorLockedDay = "";
 	private String juniorLockedHour = "";
+	private boolean juniorReadyToLock = false;
+	private boolean juniorLockDayFlag = false;
+	private boolean juniorLockHourFlag = false;
 	
 //**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
@@ -299,7 +305,11 @@ public class DeanCourseBean
 	
 	private String seniorLockedDay = "";
 	private String seniorLockedHour = "";
-	
+	private boolean seniorReadyToLock = false;
+	private boolean seniorLockDayFlag = false;
+	private boolean seniorLockHourFlag = false;
+//*************************************************************************************************
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
@@ -929,7 +939,7 @@ public class DeanCourseBean
 				return;
 			}
 		}
-		this.readyToGoFreshman = false;
+		this.freshmanReadyToLock = false;
 		return;
 	}
 	
@@ -947,7 +957,7 @@ public class DeanCourseBean
 				return;
 			}
 		}
-		this.readyToGoFreshman = false;
+		this.freshmanReadyToLock = false;
 		return;
 	} 
 	
@@ -965,8 +975,157 @@ public class DeanCourseBean
 		return retStr;
 	}
 //********************************************************************************************
-
-
+	public void sophomoreLockDayChange(ValueChangeEvent event) {
+		System.out.println("Sophomore Lock Day : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.sophomoreLockedDay = newValue;
+		if((!this.sophomoreLockedDay.equals("Choose Lock Day")) && (this.sophomoreLockedDay != null)) {
+			this.sophomoreLockDayFlag = true;
+			if(this.sophomoreLockHourFlag == true) {
+				this.sophomoreReadyToLock = true;
+				return;
+			}
+		}
+		this.sophomoreReadyToLock = false;
+		return;
+	}
+	
+	public void sophomoreLockHourChange(ValueChangeEvent event) {
+		System.out.println("Sophomore Lock Hour : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.sophomoreLockedHour = newValue;
+		if((!this.sophomoreLockedHour.equals("Choose Lock Hour")) && (this.sophomoreLockedHour != null)) {
+			this.sophomoreLockHourFlag = true;
+			if(this.sophomoreLockDayFlag == true) {
+				this.sophomoreReadyToLock = true;
+				return;
+			}
+		}
+		this.sophomoreReadyToLock = false;
+		return;
+	} 
+	
+	public String sophomoreLockOperation() {
+		String retStr = "";
+			Index item = new Index(this.sophomoreLockedDay, Integer.parseInt(this.sophomoreLockedHour));
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = (item.getHour());
+			hour--;
+		if(this.controlSophomoreCourse[hour][dayMatrix] == 0) {
+			this.controlSophomoreCourse[hour][dayMatrix] = -1;
+			this.initSophomoreCourseTable[hour][day] = "LOCKED";
+		}
+		return retStr;
+	}
+//***************************************************************************************
+//****************** LOCK OPERATIONS & EVENTS *******************************************
+	public void juniorLockDayChange(ValueChangeEvent event) {
+		System.out.println("Junior Lock Day : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.juniorLockedDay = newValue;
+		if((!this.juniorLockedDay.equals("Choose Lock Day")) && (this.juniorLockedDay != null)) {
+			this.juniorLockDayFlag = true;
+			if(this.juniorLockHourFlag == true) {
+				this.juniorReadyToLock = true;
+				return;
+			}
+		}
+		this.juniorReadyToLock = false;
+		return;
+	}
+	
+	public void juniorLockHourChange(ValueChangeEvent event) {
+		System.out.println("Junior Lock Hour : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.juniorLockedHour = newValue;
+		if((!this.juniorLockedHour.equals("Choose Lock Hour")) && (this.juniorLockedHour != null)) {
+			this.juniorLockHourFlag = true;
+			if(this.juniorLockDayFlag == true) {
+				this.juniorReadyToLock = true;
+				return;
+			}
+		}
+		this.juniorReadyToLock = false;
+		return;
+	} 
+	
+	public String juniorLockOperation() {
+		String retStr = "";
+			Index item = new Index(this.juniorLockedDay, Integer.parseInt(this.juniorLockedHour));
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = (item.getHour());
+			hour--;
+		if(this.controlJuniorCourse[hour][dayMatrix] == 0) {
+			this.controlJuniorCourse[hour][dayMatrix] = -1;
+			this.initJuniorCourseTable[hour][day] = "LOCKED";
+		}
+		return retStr;
+	}
+//***************************************************************************************
+	public void seniorLockDayChange(ValueChangeEvent event) {
+		System.out.println("Senior Lock Day : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.seniorLockedDay = newValue;
+		if((!this.seniorLockedDay.equals("Choose Lock Day")) && (this.seniorLockedDay != null)) {
+			this.seniorLockDayFlag = true;
+			if(this.seniorLockHourFlag == true) {
+				this.seniorReadyToLock = true;
+				return;
+			}
+		}
+		this.seniorReadyToLock = false;
+		return;
+	}
+	
+	public void seniorLockHourChange(ValueChangeEvent event) {
+		System.out.println("Senior Lock Hour : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.seniorLockedHour = newValue;
+		if((!this.seniorLockedHour.equals("Choose Lock Hour")) && (this.seniorLockedHour != null)) {
+			this.seniorLockHourFlag = true;
+			if(this.seniorLockDayFlag == true) {
+				this.seniorReadyToLock = true;
+				return;
+			}
+		}
+		this.seniorReadyToLock = false;
+		return;
+	} 
+	
+	public String seniorLockOperation() {
+		String retStr = "";
+			Index item = new Index(this.seniorLockedDay, Integer.parseInt(this.seniorLockedHour));
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = (item.getHour());
+			hour--;
+		if(this.controlSeniorCourse[hour][dayMatrix] == 0) {
+			this.controlSeniorCourse[hour][dayMatrix] = -1;
+			this.initSeniorCourseTable[hour][day] = "LOCKED";
+		}
+		return retStr;
+	}
+//*********************************************************************************************
 //This is the event which holds the operations when a course selected in dean tab	
 	public void deanValueChange(ValueChangeEvent event) {
 		System.out.println("Course Name : " + event.getComponent().getId());
