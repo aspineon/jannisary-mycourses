@@ -61,6 +61,11 @@
        		<h:form id="FormGradeAndSemesterSelectPanel" >
         		<h:panelGrid columns="1">
             		<h:outputText value="Add Operation" />
+            		
+            		<rich:comboBox id="yearToSaveForAddOperation" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedNextTwoYearComboForAddOperation}" width="110">
+			        				<f:selectItems value="#{manuelSchedulingUtilBean.listNextTwoYearsToSave}"/>
+			        				<a4j:support event="onselect" ajaxSingle="true"/>
+			        			</rich:comboBox>
             		<rich:comboBox id="courseGradeComboBoxId" value="Select Course Grade" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" width="110">
 	        				<f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
 	        				<a4j:support event="onselect" ajaxSingle="true"/>
