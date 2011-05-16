@@ -26,17 +26,27 @@ public class BasicScheduleUtilBean {
 		
 	}
 	
+	
+	
 	public BasicScheduleUtilBean(BasicScheduleUtilBean bs){
 		this.courseName = bs.getCourseName();
 		this.teoricHours = bs.getTeoricHours();
 		this.practiceHours = bs.getPracticeHours();
 		this.lecturerName = bs.getLecturerName();
 		this.classroomId = bs.getClassroomId();
+		this.lecturerId = bs.getLecturerId();
+		this.courseId = bs.getCourseId();
+		this.sectionNo = bs.getSectionNo();
 		this.syllabusId = bs.getSyllabusId();
 		this.courseType = bs.getCourseType();
 		this.courseTheoricOrPraticName = bs.getCourseTheoricOrPraticName();
 		this.timeofCourse = bs.getTimeofCourse();
 		this.hours = bs.getHours();
+		this.year=bs.getYear();
+		this.semester = bs.getSemester();
+		this.scheduleId = bs.getScheduleId();
+		this.syllabusArchiveId = bs.getSyllabusArchiveId();
+		
 	}
 	
 	public String getCourseName() {
