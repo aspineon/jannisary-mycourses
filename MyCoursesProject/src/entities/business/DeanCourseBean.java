@@ -228,6 +228,13 @@ public class DeanCourseBean
 	private int atomicIndexFreshman = -1;
 	private int topCreditFreshman = -1;
 	private String optFlagFreshman = "";
+	
+	private String freshmanLockedDay = "";
+	private String freshmanLockedHour = "";
+	
+	private boolean freshmanLockDayFlag = false;
+	private boolean freshmanLockHourFlag = false;
+	
 	private boolean splitFlagFreshman = false;
 	private boolean readyToGoFreshman = false;
 //**************** Sophomore Subfields **********************************************
@@ -247,6 +254,10 @@ public class DeanCourseBean
 	private int atomicIndexSophomore = -1;
 	private int topCreditSophomore = -1;
 	private String optFlagSophomore = "";
+	
+	private String sophomoreLockedDay = "";
+	private String sophomoreLockedHour = "";
+	
 //**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
 	private String selectedJuniorSplitCourse = "";
@@ -264,6 +275,10 @@ public class DeanCourseBean
 	private int atomicIndexJunior = -1;
 	private int topCreditJunior = -1;
 	private String optFlagJunior = "";
+	
+	private String juniorLockedDay = "";
+	private String juniorLockedHour = "";
+	
 //**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
 	private String selectedSeniorSplitCourse = "";
@@ -281,6 +296,10 @@ public class DeanCourseBean
 	private int atomicIndexSenior = -1;
 	private int topCreditSenior = -1;
 	private String optFlagSenior = "";
+	
+	private String seniorLockedDay = "";
+	private String seniorLockedHour = "";
+	
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
@@ -818,6 +837,7 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
 		this.readyToGoFreshman = false;
+		this.autoScheduleFlag = false;
 		if((!this.selectedYear.equals("Choose Year")) && (this.selectedYear != null)) {
 			this.testRandomMethod();
 			this.readyToGoFreshman = false;
@@ -846,9 +866,11 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedSemester = newValue;
 		this.readyToGoFreshman = false;
+		this.autoScheduleFlag = false;
 		if((!this.selectedSemester.equals("Choose Semester")) && (this.selectedSemester != null)) {
 			this.clearAllComponents();
 			this.loadAllLists(this.selectedYear, this.selectedSemester);
+			this.autoScheduleFlag = true;
 			this.semesterFlag = true;
 		}
 		else { 
@@ -859,155 +881,62 @@ public class DeanCourseBean
 //***********************************************************************************************	
 	public String runAutoScheduling() {
 		String retVal = "";
-		
-		this.clearControlTables("Freshman");
-		this.clearControlTables("Sophomore");
-		this.clearControlTables("Junior");
-		this.clearControlTables("Senior");
-		
-		this.clearFreshmanCourseTable();
-		this.clearSophomoreCourseTable();
-		this.clearJuniorCourseTable();
-		this.clearSeniorCourseTable();
-		
-		this.refreshKnowledges("Freshman");
-		this.refreshKnowledges("Sophomore");
-		this.refreshKnowledges("Junior");
-		this.refreshKnowledges("Senior");
-		
-		this.freshmanUnmarkedList = this.scheduleAtomicObj.clearSpots(this.freshmanUnmarkedList);
-		this.sophomoreUnmarkedList = this.scheduleAtomicObj.clearSpots(this.sophomoreUnmarkedList);
-		this.juniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.juniorUnmarkedList);
-		this.seniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.seniorUnmarkedList);
-		
-		this.freshmanAutoScheduling();
-		this.sophomoreAutoScheduling();
-		this.juniorAutoScheduling();
-		this.seniorAutoScheduling();
-		
-		this.writeFreshmanSchedule();
-		this.writeSophomoreSchedule();
-		this.writeJuniorSchedule();
-		this.writeSeniorSchedule();
-		
+		if(this.autoScheduleFlag == true) {
+			this.clearControlTables("Freshman");
+			this.clearControlTables("Sophomore");
+			this.clearControlTables("Junior");
+			this.clearControlTables("Senior");
+			
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
+			
+			this.refreshKnowledges("Freshman");
+			this.refreshKnowledges("Sophomore");
+			this.refreshKnowledges("Junior");
+			this.refreshKnowledges("Senior");
+			
+			this.freshmanUnmarkedList = this.scheduleAtomicObj.clearSpots(this.freshmanUnmarkedList);
+			this.sophomoreUnmarkedList = this.scheduleAtomicObj.clearSpots(this.sophomoreUnmarkedList);
+			this.juniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.juniorUnmarkedList);
+			this.seniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.seniorUnmarkedList);
+			
+			this.freshmanAutoScheduling();
+			this.sophomoreAutoScheduling();
+			this.juniorAutoScheduling();
+			this.seniorAutoScheduling();
+			
+			this.writeFreshmanSchedule();
+			this.writeSophomoreSchedule();
+			this.writeJuniorSchedule();
+			this.writeSeniorSchedule();
+		}	
 		return retVal;
 	}
 //*********************************************************************************************
-	private void clearControlTables(String grade) {
-		if(grade.equals("Freshman")) {
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 5; j++) {
-					this.controlFreshmanCourse[i][j] = 0;
-					this.controlFreshmanLecturer[i][j] = 0;
-					this.controlFreshmanClassroom[i][j] = 0;
-				}
-			}
-			return;
-		}
-		if(grade.equals("Sophomore")) {
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 5; j++) {
-					this.controlSophomoreCourse[i][j] = 0;
-					this.controlSophomoreLecturer[i][j] = 0;
-					this.controlSophomoreClassroom[i][j] = 0;
-				}
-			}
-			return;
-		}
-		if(grade.equals("Junior")) {
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 5; j++) {
-					this.controlJuniorCourse[i][j] = 0;
-					this.controlJuniorLecturer[i][j] = 0;
-					this.controlJuniorClassroom[i][j] = 0;
-				}
-			}
-			return;
-		}
-		if(grade.equals("Senior")) {
-			for(int i = 0; i < 8; i++) {
-				for(int j = 0; j < 5; j++) {
-					this.controlSeniorCourse[i][j] = 0;
-					this.controlSeniorLecturer[i][j] = 0;
-					this.controlSeniorClassroom[i][j] = 0;
-				}
-			}
-			return;
-		}
+	public void freshmanLockDayChange(ValueChangeEvent event) {
+		System.out.println("Freshman Lock Day : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.freshmanLockedDay = newValue;
+		
 	}
+	
+	public void freshmanLockHourChange(ValueChangeEvent event) {
+		System.out.println("Freshman Lock Hour : " + event.getComponent().getId());
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.freshmanLockedHour = newValue;
+		
+	} 
 //********************************************************************************************
-	private void writeFreshmanSchedule() {
-		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
-			ScheduleAtomic item = this.freshmanMarkedList.get(i);
-			String day = item.getDay();
-			int hour = item.getStartHour() - 1;
-			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
-			int dayTable = this.dayMapToIndexHash.get(day);
-			for(int j = 0; j < credit; j++) {
-				initFreshmanCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
-				hour++;
-			}
-		}
-	}
 
-	private void writeSophomoreSchedule() {
-		for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
-			ScheduleAtomic item = this.sophomoreMarkedList.get(i);
-			String day = item.getDay();
-			int hour = item.getStartHour() - 1;
-			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
-			int dayTable = this.dayMapToIndexHash.get(day);
-			for(int j = 0; j < credit; j++) {
-				initSophomoreCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
-				hour++;
-			}
-		}
-	}
-	
-	private void writeJuniorSchedule() {
-		for(int i = 0; i < this.juniorMarkedList.size(); i++) {
-			ScheduleAtomic item = this.juniorMarkedList.get(i);
-			String day = item.getDay();
-			int hour = item.getStartHour() - 1;
-			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
-			int dayTable = this.dayMapToIndexHash.get(day);
-			for(int j = 0; j < credit; j++) {
-				initJuniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
-				hour++;
-			}
-		}
-	}
-	
-	private void writeSeniorSchedule() {
-		for(int i = 0; i < this.seniorMarkedList.size(); i++) {
-			ScheduleAtomic item = this.seniorMarkedList.get(i);
-			String day = item.getDay();
-			int hour = item.getStartHour() - 1;
-			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
-			int dayTable = this.dayMapToIndexHash.get(day);
-			for(int j = 0; j < credit; j++) {
-				initSeniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
-				hour++;
-			}
-		}
-	}
-	
+
 //This is the event which holds the operations when a course selected in dean tab	
 	public void deanValueChange(ValueChangeEvent event) {
 		System.out.println("Course Name : " + event.getComponent().getId());
@@ -1825,6 +1754,121 @@ public class DeanCourseBean
 			}
 		}
 		return -1;
+	}
+	
+	private void writeFreshmanSchedule() {
+		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
+			ScheduleAtomic item = this.freshmanMarkedList.get(i);
+			String day = item.getDay();
+			int hour = item.getStartHour() - 1;
+			int credit = item.getCredit();
+			String type = item.getCourseType();
+			String addStr = "";
+			if(type.equals("Theo")) { addStr = "(T)"; }
+			if(type.equals("Prac")) { addStr = "(P)"; }
+			int dayTable = this.dayMapToIndexHash.get(day);
+			for(int j = 0; j < credit; j++) {
+				initFreshmanCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				hour++;
+			}
+		}
+	}
+
+	private void writeSophomoreSchedule() {
+		for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
+			ScheduleAtomic item = this.sophomoreMarkedList.get(i);
+			String day = item.getDay();
+			int hour = item.getStartHour() - 1;
+			int credit = item.getCredit();
+			String type = item.getCourseType();
+			String addStr = "";
+			if(type.equals("Theo")) { addStr = "(T)"; }
+			if(type.equals("Prac")) { addStr = "(P)"; }
+			int dayTable = this.dayMapToIndexHash.get(day);
+			for(int j = 0; j < credit; j++) {
+				initSophomoreCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				hour++;
+			}
+		}
+	}
+	
+	private void writeJuniorSchedule() {
+		for(int i = 0; i < this.juniorMarkedList.size(); i++) {
+			ScheduleAtomic item = this.juniorMarkedList.get(i);
+			String day = item.getDay();
+			int hour = item.getStartHour() - 1;
+			int credit = item.getCredit();
+			String type = item.getCourseType();
+			String addStr = "";
+			if(type.equals("Theo")) { addStr = "(T)"; }
+			if(type.equals("Prac")) { addStr = "(P)"; }
+			int dayTable = this.dayMapToIndexHash.get(day);
+			for(int j = 0; j < credit; j++) {
+				initJuniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				hour++;
+			}
+		}
+	}
+	
+	private void writeSeniorSchedule() {
+		for(int i = 0; i < this.seniorMarkedList.size(); i++) {
+			ScheduleAtomic item = this.seniorMarkedList.get(i);
+			String day = item.getDay();
+			int hour = item.getStartHour() - 1;
+			int credit = item.getCredit();
+			String type = item.getCourseType();
+			String addStr = "";
+			if(type.equals("Theo")) { addStr = "(T)"; }
+			if(type.equals("Prac")) { addStr = "(P)"; }
+			int dayTable = this.dayMapToIndexHash.get(day);
+			for(int j = 0; j < credit; j++) {
+				initSeniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				hour++;
+			}
+		}
+	}
+	
+	private void clearControlTables(String grade) {
+		if(grade.equals("Freshman")) {
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 5; j++) {
+					this.controlFreshmanCourse[i][j] = 0;
+					this.controlFreshmanLecturer[i][j] = 0;
+					this.controlFreshmanClassroom[i][j] = 0;
+				}
+			}
+			return;
+		}
+		if(grade.equals("Sophomore")) {
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 5; j++) {
+					this.controlSophomoreCourse[i][j] = 0;
+					this.controlSophomoreLecturer[i][j] = 0;
+					this.controlSophomoreClassroom[i][j] = 0;
+				}
+			}
+			return;
+		}
+		if(grade.equals("Junior")) {
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 5; j++) {
+					this.controlJuniorCourse[i][j] = 0;
+					this.controlJuniorLecturer[i][j] = 0;
+					this.controlJuniorClassroom[i][j] = 0;
+				}
+			}
+			return;
+		}
+		if(grade.equals("Senior")) {
+			for(int i = 0; i < 8; i++) {
+				for(int j = 0; j < 5; j++) {
+					this.controlSeniorCourse[i][j] = 0;
+					this.controlSeniorLecturer[i][j] = 0;
+					this.controlSeniorClassroom[i][j] = 0;
+				}
+			}
+			return;
+		}
 	}
 	
 	private void refreshKnowledges(String grade) {
@@ -3186,7 +3230,59 @@ public class DeanCourseBean
 	public void setSeniorCredits(ArrayList<SelectItem> seniorCredits) {
 		this.seniorCredits = seniorCredits;
 	}
-//**************************************************************************************
+//**********************************************************************************************	
+	public String getFreshmanLockedDay() {
+		return freshmanLockedDay;
+	}
+	public void setFreshmanLockedDay(String freshmanLockedDay) {
+		this.freshmanLockedDay = freshmanLockedDay;
+	}
+	public String getFreshmanLockedHour() {
+		return freshmanLockedHour;
+	}
+	public void setFreshmanLockedHour(String freshmanLockedHour) {
+		this.freshmanLockedHour = freshmanLockedHour;
+	}
+//**********************************************************************************************
+	public String getSophomoreLockedDay() {
+		return sophomoreLockedDay;
+	}
+	public void setSophomoreLockedDay(String sophomoreLockedDay) {
+		this.sophomoreLockedDay = sophomoreLockedDay;
+	}
+	public String getSophomoreLockedHour() {
+		return sophomoreLockedHour;
+	}
+	public void setSophomoreLockedHour(String sophomoreLockedHour) {
+		this.sophomoreLockedHour = sophomoreLockedHour;
+	}
+//**********************************************************************************************
+	public String getJuniorLockedDay() {
+		return juniorLockedDay;
+	}
+	public void setJuniorLockedDay(String juniorLockedDay) {
+		this.juniorLockedDay = juniorLockedDay;
+	}
+	public String getJuniorLockedHour() {
+		return juniorLockedHour;
+	}
+	public void setJuniorLockedHour(String juniorLockedHour) {
+		this.juniorLockedHour = juniorLockedHour;
+	}
+//**********************************************************************************************
+	public String getSeniorLockedDay() {
+		return seniorLockedDay;
+	}
+	public void setSeniorLockedDay(String seniorLockedDay) {
+		this.seniorLockedDay = seniorLockedDay;
+	}
+	public String getSeniorLockedHour() {
+		return seniorLockedHour;
+	}
+	public void setSeniorLockedHour(String seniorLockedHour) {
+		this.seniorLockedHour = seniorLockedHour;
+	}
+//**********************************************************************************************
 	private void testSortedList() {
 		SortedList item = new SortedList(this.freshmanUnmarkedList);
 		System.out.println("\n\n*** 4 Credit Atomics ***");
@@ -3215,7 +3311,7 @@ public class DeanCourseBean
 			System.out.print(lst.get(i).toString());
 		}
 	}
-	
+
 	private void testRandomMethod() {
 		ScheduleAtomic sItem = new ScheduleAtomic();
 		sItem.setCredit(2);
