@@ -16,7 +16,12 @@
 		<h:panelGrid columns="2" style="background-color:#3BB9FF;">
 			<table>
 				<tr style=" height : 65px;">
-				<td style=" width : 990px;"></td>
+				<td style="width:37px">
+					<h:graphicImage value="../images/logo.png"/>
+				</td>
+				<td style=" width : 990px;">
+										
+				</td>
 				</tr>
 			</table>
 			<h:panelGrid columns="3" >
