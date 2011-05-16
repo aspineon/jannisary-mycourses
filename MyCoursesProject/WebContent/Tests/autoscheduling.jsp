@@ -178,7 +178,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="" />
-		            					<h:commandButton value="Lock" />
+		            					<h:commandButton value="Lock" action="#{deanCourseBean.freshmanLockOperation}" onclick="submit()"/>
 		            					<h:outputLabel value="" />
 		            					<table>
 		            						<tr style=" height : 12px;">
