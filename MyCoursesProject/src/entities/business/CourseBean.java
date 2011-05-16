@@ -46,6 +46,24 @@ public class CourseBean {
 		selectItemsGrades.add(new SelectItem("4"));
 	}
 	
+
+	////////////////////*Class Subfields*///////////////////////////////////////
+	
+	private List<SelectItem> selectItemsForDepartments;
+	private List<SelectItem> selectItemsForTypeofCourses;
+	private List<SelectItem> selectItemsForPreconditions;
+	private List<SelectItem> selectItemsForAttendance = new ArrayList<SelectItem>();
+	private List<SelectItem> selectItemsGrades = new ArrayList<SelectItem>();;
+	private Course currentItem = new Course();
+	private Set<Integer> keys = new HashSet<Integer>();
+	private int currentRow;
+	private List<Course> allCourses = null;
+	private List<Course> allPreconditionCourses = null;
+	private List<Department> allDepartments = null;
+	private List<TypeofCourse> allTypeofCourses = null;
+
+	
+	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -94,26 +112,7 @@ public class CourseBean {
 	public void setCourseDescription(String courseDescription) {
 		this.courseDescription = courseDescription;
 	}
-	
-	
 
-	///////////////////////////////////////////////////////////
-	
-	private List<SelectItem> selectItemsForDepartments;
-	private List<SelectItem> selectItemsForTypeofCourses;
-	private List<SelectItem> selectItemsForPreconditions;
-	private List<SelectItem> selectItemsForAttendance = new ArrayList<SelectItem>();
-	private List<SelectItem> selectItemsGrades = new ArrayList<SelectItem>();;
-	private Course currentItem = new Course();
-	private Set<Integer> keys = new HashSet<Integer>();
-	private int currentRow;
-	private List<Course> allCourses = null;
-	private List<Course> allPreconditionCourses = null;
-	private List<Department> allDepartments = null;
-	private List<TypeofCourse> allTypeofCourses = null;
-
-	
-	
 	
 	public List<SelectItem> getSelectItemsForPreconditions() {
 		selectItemsForPreconditions = new ArrayList<SelectItem>();
@@ -158,6 +157,9 @@ public class CourseBean {
 			List<SelectItem> selectItemsForAttendance) {
 		this.selectItemsForAttendance = selectItemsForAttendance;
 	}
+	/**************-------------------------------------------***************/
+	/****************************Class Actions**********************************/
+	/**************-------------------------------------------***************/
 	public void selectionChangedDepartmentCombo(ValueChangeEvent  evt) {
 		 String selectedValue = (String) evt.getNewValue();
 		 Department dpt = new Department(selectedValue);
@@ -193,6 +195,10 @@ public class CourseBean {
 			 currentItem.setTypeofCourse(allTypeofCourses.get(0));
 		 }
 	}
+	
+	/**************-------------------------------------------***************/
+	/****************************Class Methods**********************************/
+	/**************-------------------------------------------***************/
 	
 	public void FillDepartmentsCombo(){
 		int i;
@@ -244,23 +250,27 @@ public class CourseBean {
 		return allCourses;
 	}
 
+	/*Ekleme işlemi ardından textBox ların temizlenmesi*/
 	
-
+	private void clearTextBoxes(){
+		currentItem.setCourseCode("");
+		currentItem.setCourseName("");
+		currentItem.setTeoricLectureHours(0);
+		currentItem.setPracticeLectureHourse(0);
+		currentItem.setCourseDescription("");
+	}
+	
 	public String addCourse(){
 		try{
 			
-			
 			int size = allCourses.size();		
-			
 			Course course = new Course(currentItem);
 			allCourses.add(size,course);
 			course.AddCourse();
 			keys.clear();
 			keys.add(allCourses.size());
 			allCourses = course.getAllCourses();
-			
-			
-			
+			clearTextBoxes();
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
 		}
@@ -268,11 +278,6 @@ public class CourseBean {
 	}
 	
 	public void store() {
-		/*
-		allCars.set(currentRow, currentItem);
-		keys.clear();
-		keys.add(currentRow);
-		*/
 		
 		/*try-catch blogu eklenecek*/
 		try{
@@ -289,12 +294,6 @@ public class CourseBean {
 	
 	public void delete() {
 		
-		/* try-catch bloğu eklenecek
-		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
-		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
-		 *de silinmeyecek ve kullanıcı veritabanı hatasından bilgilendirilecektir.
-		 * 
-		 */
 		try {
 			currentItem = allCourses.get(currentRow);
 			currentItem.deleteCourse();
