@@ -54,10 +54,10 @@
         <h:panelGrid columns="4" columnClasses="gridContent">
        
        
-       <h:panelGrid bgcolor="Navy">
+       <h:panelGrid bgcolor="#77BFC7">
        <h:form id="form1">
        
-       <rich:panel  id="PanelGradeAndSemesterSelectPanel" style="width:130px">
+       <rich:panel  id="PanelGradeAndSemesterSelectPanel" style="width:130px; background-color:#CFECEC;">
        		<h:form id="FormGradeAndSemesterSelectPanel" >
         		<h:panelGrid columns="1">
             		<h:outputText value="Add Operation" />
@@ -89,7 +89,7 @@
         <div class="div_near_spacer" ></div>
        </h:form>
        <h:form>
-       		<rich:panel>
+       		<rich:panel style="background-color:#CFECEC;width:130px;">
        			<h:form id="FormGradeAndSemesterSelectPanel2" >
 	        	<h:panelGrid>
 	        		<h:outputText value="Edit Operation" />
@@ -114,7 +114,7 @@
        </h:form>
        
        <h:form>
-       		<rich:panel>
+       		<rich:panel style="background-color:#CFECEC;width:130px;">
        			<h:form id="FormGradeAndSemesterSelectPanel3">
 	        	<h:panelGrid>
 	        		<h:outputText value="Reset Operation"/>
