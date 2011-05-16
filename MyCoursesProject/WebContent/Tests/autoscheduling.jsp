@@ -209,7 +209,7 @@
                 			</f:facet>
                 			<h:outputText value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px; background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -221,7 +221,7 @@
                 			</f:facet>
                 			<h:outputText value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px; background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
@@ -399,7 +399,7 @@
 		                			</f:facet>
 		                			<h:outputText style="font-align:center;" value="#{item[1]}" />
 		        				 </rich:column>
-		        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+		        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
 		                			<f:facet name="header">
 		                				<h:outputText value="Tuesday"/>
 		                			</f:facet>
@@ -411,7 +411,7 @@
 		                			</f:facet>
 		                			<h:outputText style="font-align:center;" value="#{item[3]}" />
 		        				 </rich:column>
-		        				 <rich:column style=" width : 250px; background-color:#E0FFFF;">
+		        				 <rich:column style=" width : 250px; background-color:#AFDCEC;">
 		                			<f:facet name="header">
 		                				<h:outputText value="Thursday"/>
 		                			</f:facet>
@@ -581,7 +581,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -593,7 +593,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
@@ -761,7 +761,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -773,7 +773,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#E0FFFF;">
+        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
@@ -1035,7 +1035,7 @@
             			  <h:panelGrid columns="1">
             			  		<h:outputLabel value="" />
 									<h:outputLabel value="" />
-			            			<h:commandButton value="Run Autoscheduling"/>	
+			            			<h:commandButton id="AutoScheduling" value="RunAutoScheduling" action="#{deanCourseBean.runAutoScheduling}" onclick="submit()"></h:commandButton>	
 		            			<h:outputLabel value="" />        			
 	            			<h:panelGrid columns="3" style="background-color:#AFDCEC; width : 197px;">
 	            				

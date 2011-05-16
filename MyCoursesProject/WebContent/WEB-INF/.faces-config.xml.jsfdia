@@ -1,2 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PROCESS model-entity="JSFProcess"/>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#PreProd#login.jsp" PATH="/PreProd/login.jsp"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#PreProd#login.jsp:0" NAME="item"
+   PATH="/PreProd/login.jsp" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{loginBean.checkLogin}:#PreProd#index.jsp"
+    NAME="output" PATH="/PreProd/index.jsp"
+    TARGET="rules:#PreProd#index.jsp"
+    TITLE="#{loginBean.checkLogin}:success" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{loginBean.checkLogin}:#PreProd#login.jsp"
+    NAME="output1" PATH="/PreProd/login.jsp"
+    TARGET="rules:#PreProd#login.jsp"
+    TITLE="#{loginBean.checkLogin}:failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#PreProd#index.jsp" PATH="/PreProd/index.jsp"
+  SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
