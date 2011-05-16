@@ -169,7 +169,7 @@ public class ManuelSchedulingUtilBean {
 			listHour.add(new SelectItem(k));
 		}
 		
-		
+		savedArchiveComboSelect = "No";
 		
 		/*Başlangıçta Syllabus verilerini almak için (Course List tablosunu
 		 * doldurmak için) grade ve semester değerleri ilkleniyor.
