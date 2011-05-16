@@ -29,12 +29,16 @@ public class ScheduleBean {
 	}
 	
 	public void updateSchedule(BasicScheduleUtilBean[][] firstGradeSchedule, BasicScheduleUtilBean[][] secondGradeSchedule,
-			BasicScheduleUtilBean[][] thirdGradeSchedule,BasicScheduleUtilBean[][] fourthGradeSchedule){
+			BasicScheduleUtilBean[][] thirdGradeSchedule,BasicScheduleUtilBean[][] fourthGradeSchedule,int selectedYearForEdit,String semester,String savedSemester,int savedYear){
 		
 		schedule.setFirstGradeSchedule(firstGradeSchedule);
 		schedule.setSecondGradeSchedule(secondGradeSchedule);
 		schedule.setThirdGradeSchedule(thirdGradeSchedule);
 		schedule.setFourthGradeSchedule(fourthGradeSchedule);
+		schedule.setSemester(semester);
+		schedule.setSelectedYearForEdit(selectedYearForEdit);
+		schedule.setSavedSemester(savedSemester);
+		schedule.setSavedYear(savedYear);
 		
 		schedule.updateScheduleMatrix();
 	}
