@@ -1,7 +1,10 @@
 package entities.business;
 
 import java.util.List;
-import javax.servlet.http.*;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
 import entities.dao.SysUser;
 
 public class LoginBean 
@@ -25,7 +28,6 @@ public class LoginBean
 	public String checkLogin()
 	{
 		String returnString = "success";
-		HttpServletResponse response = null;
 		SysUser sysUserObj = new SysUser();
 		List<SysUser> sysUserList;
 		
@@ -44,7 +46,11 @@ public class LoginBean
 				
 			}
 			else
-			{
+			{	
+				FacesContext context = FacesContext.getCurrentInstance();
+				HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+				session.setAttribute("username", userName);
+				
 				System.out.println("Success");
 				returnString = "success";
 				return returnString;
