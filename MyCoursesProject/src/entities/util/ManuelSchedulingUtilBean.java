@@ -135,6 +135,7 @@ public class ManuelSchedulingUtilBean {
 		
 		listSemester.add(new SelectItem("Fall"));
 		listSemester.add(new SelectItem("Spring"));
+		listSemester.add(new SelectItem("Summer"));
 		
 		listArchiveToSave.add(new SelectItem("Yes"));
 		listArchiveToSave.add(new SelectItem("No"));
