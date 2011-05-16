@@ -71,7 +71,7 @@ public class ManuelSchedulingUtilBean {
 	private int savedYear;
 	private String savedSemester;
 	
-	@NotEmpty
+
 	private String savedVersionName;
 	
 	private String savedArchiveComboSelect;
@@ -240,7 +240,7 @@ public class ManuelSchedulingUtilBean {
 			if(savedArchiveComboSelect.equals("No")){
 				setSyllabusArchiveIdToScheduleMatrix(1);
 			}
-			//saveMatrix();
+			saveMatrix();
 		}else if(editOrAddFlag==1){
 			setMatrixSyllabusYearAndSemester();
 			updateMatrix();
@@ -851,7 +851,7 @@ public class ManuelSchedulingUtilBean {
 	
 	private void updateMatrix(){
 		ScheduleBean scheduleBean = new ScheduleBean();
-		scheduleBean.updateSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
+		scheduleBean.updateSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule, selectedYearForEdit, semester, savedSemester, savedYear);
 	}
 	
 	private void saveMatrix(){
