@@ -92,7 +92,7 @@ public class DeanCourseBean
 	public String[][] initJuniorCourseTable = new String[9][6];
 	public String[][] initSeniorCourseTable = new String[9][6];
 	
-	public Integer[][] controlFreshmanCourse = {{0, 0, 0, 0, 0},
+	private Integer[][] controlFreshmanCourse = {{0, 0, 0, 0, 0},
 			  									{0, 0, 0, 0, 0},
 			  									{0, 0, 0, 0, 0},
 			  									{0, 0, 0, 0, 0},
@@ -101,7 +101,7 @@ public class DeanCourseBean
 			  									{0, 0, 0, 0, 0},
 			  									{0, 0, 0, 0, 0}};
 
-	public Integer[][] controlSophomoreCourse = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSophomoreCourse = {{0, 0, 0, 0, 0},
 											 	 {0, 0, 0, 0, 0},
 											 	 {0, 0, 0, 0, 0},
 											 	 {0, 0, 0, 0, 0},
@@ -110,7 +110,7 @@ public class DeanCourseBean
 											 	 {0, 0, 0, 0, 0},
 											 	 {0, 0, 0, 0, 0}};
 
-	public Integer[][] controlJuniorCourse = {{0, 0, 0, 0, 0},
+	private Integer[][] controlJuniorCourse = {{0, 0, 0, 0, 0},
 											  {0, 0, 0, 0, 0},
 											  {0, 0, 0, 0, 0},
 											  {0, 0, 0, 0, 0},
@@ -119,7 +119,7 @@ public class DeanCourseBean
 											  {0, 0, 0, 0, 0},
 											  {0, 0, 0, 0, 0}};
 
-	public Integer[][] controlSeniorCourse = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSeniorCourse = {{0, 0, 0, 0, 0},
 										  	  {0, 0, 0, 0, 0},
 										  	  {0, 0, 0, 0, 0},
 										  	  {0, 0, 0, 0, 0},
@@ -129,7 +129,7 @@ public class DeanCourseBean
 										  	  {0, 0, 0, 0, 0}};
 	
 	
-	public Integer[][] controlFreshmanLecturer = {{0, 0, 0, 0, 0},
+	private Integer[][] controlFreshmanLecturer = {{0, 0, 0, 0, 0},
 												  {0, 0, 0, 0, 0},
 												  {0, 0, 0, 0, 0},
 												  {0, 0, 0, 0, 0},
@@ -138,7 +138,7 @@ public class DeanCourseBean
 												  {0, 0, 0, 0, 0},
 												  {0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlSophomoreLecturer = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSophomoreLecturer = {{0, 0, 0, 0, 0},
 			  									   {0, 0, 0, 0, 0},
 			  									   {0, 0, 0, 0, 0},
 			  									   {0, 0, 0, 0, 0},
@@ -147,7 +147,7 @@ public class DeanCourseBean
 			  									   {0, 0, 0, 0, 0},
 			  									   {0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlJuniorLecturer = {{0, 0, 0, 0, 0},
+	private Integer[][] controlJuniorLecturer = {{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
@@ -156,7 +156,7 @@ public class DeanCourseBean
 			   									{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlSeniorLecturer = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSeniorLecturer = {{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
 			   									{0, 0, 0, 0, 0},
@@ -166,7 +166,7 @@ public class DeanCourseBean
 			   									{0, 0, 0, 0, 0}};
 	
 	
-	public Integer[][] controlFreshmanClassroom = {{0, 0, 0, 0, 0},
+	private Integer[][] controlFreshmanClassroom = {{0, 0, 0, 0, 0},
 			   									   {0, 0, 0, 0, 0},
 			   									   {0, 0, 0, 0, 0},
 			   									   {0, 0, 0, 0, 0},
@@ -175,7 +175,7 @@ public class DeanCourseBean
 			   									   {0, 0, 0, 0, 0},
 			   									   {0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlSophomoreClassroom = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSophomoreClassroom = {{0, 0, 0, 0, 0},
 			   										{0, 0, 0, 0, 0},
 			   										{0, 0, 0, 0, 0},
 			   										{0, 0, 0, 0, 0},
@@ -184,7 +184,7 @@ public class DeanCourseBean
 			   										{0, 0, 0, 0, 0},
 			   										{0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlJuniorClassroom = {{0, 0, 0, 0, 0},
+	private Integer[][] controlJuniorClassroom = {{0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
@@ -193,7 +193,7 @@ public class DeanCourseBean
 			   									 {0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0}};
 	
-	public Integer[][] controlSeniorClassroom = {{0, 0, 0, 0, 0},
+	private Integer[][] controlSeniorClassroom = {{0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
 			   									 {0, 0, 0, 0, 0},
@@ -231,7 +231,7 @@ public class DeanCourseBean
 	
 	private String freshmanLockedDay = "";
 	private String freshmanLockedHour = "";
-	
+	private boolean freshmanReadyToLock = false;
 	private boolean freshmanLockDayFlag = false;
 	private boolean freshmanLockHourFlag = false;
 	
@@ -922,7 +922,15 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.freshmanLockedDay = newValue;
-		
+		if((!this.freshmanLockedDay.equals("Choose Lock Day")) && (this.freshmanLockedDay != null)) {
+			this.freshmanLockDayFlag = true;
+			if(this.freshmanLockHourFlag == true) {
+				this.freshmanReadyToLock = true;
+				return;
+			}
+		}
+		this.readyToGoFreshman = false;
+		return;
 	}
 	
 	public void freshmanLockHourChange(ValueChangeEvent event) {
@@ -932,8 +940,30 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.freshmanLockedHour = newValue;
-		
+		if((!this.freshmanLockedHour.equals("Choose Lock Hour")) && (this.freshmanLockedHour != null)) {
+			this.freshmanLockHourFlag = true;
+			if(this.freshmanLockDayFlag == true) {
+				this.freshmanReadyToLock = true;
+				return;
+			}
+		}
+		this.readyToGoFreshman = false;
+		return;
 	} 
+	
+	public String freshmanLockOperation() {
+		String retStr = "";
+			Index item = new Index(this.freshmanLockedDay, Integer.parseInt(this.freshmanLockedHour));
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = (item.getHour());
+			hour--;
+		if(this.controlFreshmanCourse[hour][dayMatrix] == 0) {
+			this.controlFreshmanCourse[hour][dayMatrix] = -1;
+			this.initFreshmanCourseTable[hour][day] = "LOCKED";
+		}
+		return retStr;
+	}
 //********************************************************************************************
 
 
