@@ -327,15 +327,15 @@
 			            			
 			            			
 			            		</h:panelGrid>
-		            	</h:form>
 		            	
-		            	<h:form>
+		            	
+		            
 		            		<h:panelGrid columns="3">
 		            		<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="sophomoreSubmit" value="Submit" action="#{deanCourseBean.initSophomoreCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="sophomoreReset" value="Reset" action="#{deanCourseBean.clearSophomoreCourseTable}" onclick="submit()"></h:commandButton>
             				</h:panelGrid>
-            			</h:form>
+            			
             			
 	            		<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
@@ -343,7 +343,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu id="lockSophomoreHourCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSophomoreHourCombo" 
+		            									 value="#{deanCourseBean.sophomoreLockedHour}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.sophomoreLockHourChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -357,7 +359,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu id="lockSophomoreDayCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSophomoreDayCombo" 
+		            									 value="#{deanCourseBean.sophomoreLockedDay}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.sophomoreLockDayChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -368,7 +372,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="" />
-		            					<h:commandButton value="Lock" />
+		            					<h:commandButton value="Lock" action="#{deanCourseBean.sophomoreLockOperation}" onclick="submit"/>
 		            					<h:outputLabel value="" />
 		            					<table>
 		            						<tr style=" height : 12px;">
@@ -377,7 +381,9 @@
 		            						</tr>
 		            					</table>
 		            				</h:panelGrid>
+		            				</h:form>	
             			</h:panelGrid>
+            		
             		</td>
             		<td style=" width : 100px;"></td>
             		<td>
@@ -510,14 +516,14 @@
 		            			</h:selectOneMenu>
 		            			
 		            		</h:panelGrid>
-		            	</h:form>
-		            	<h:form>
+		            
+		            	
 		            		<h:panelGrid columns="3">
 		            			<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="juniorSubmit"  value="Submit" action="#{deanCourseBean.initJuniorCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="juniorReset" value="Reset" action="#{deanCourseBean.clearJuniorCourseTable}" onclick="submit()"></h:commandButton>
             				</h:panelGrid>
-            			</h:form>
+            			
             			
             			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
@@ -525,7 +531,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu id="lockJuniorHourCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockJuniorHourCombo" 
+		            									 value="#{deanCourseBean.juniorLockedHour}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.juniorLockHourChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -539,7 +547,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu id="lockJuniorDayCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockJuniorDayCombo" 
+		            									 value="#{deanCourseBean.juniorLockedDay}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.juniorLockDayChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -550,7 +560,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="" />
-		            					<h:commandButton value="Lock" />
+		            					<h:commandButton value="Lock" action="#{deanCourseBean.juniorLockOperation}" onclick="submit()"/>
 		            					<h:outputLabel value="" />
 		            					<table>
 		            						<tr style=" height : 12px;">
@@ -559,7 +569,7 @@
 		            						</tr>
 		            					</table>
 		            				</h:panelGrid>
-            			
+            			</h:form>
             		</h:panelGrid>
             		</td>
             		<td style=" width : 100px;"></td>
@@ -690,14 +700,13 @@
 		            			</h:selectOneMenu>
 		            			
 		            		</h:panelGrid>
-		            	</h:form>
-		            	<h:form>
+		            	
 		            		<h:panelGrid columns="3">
 		            			<h:outputLabel value="asdasdasdasdasd" style="color:#82CAFF;"/>
 		            			<h:commandButton id="seniorSubmit"  value="Submit" action="#{deanCourseBean.initSeniorCourseTableEvent}" onclick="submit()"></h:commandButton>
 							    <h:commandButton id="seniorReset" value="Reset" action="#{deanCourseBean.clearSeniorCourseTable}" onclick="submit()"></h:commandButton>
             				</h:panelGrid>	
-            			</h:form>
+            			
             			
             			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
@@ -705,7 +714,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu id="lockSeniorHourCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSeniorHourCombo" 
+		            									 value="#{deanCourseBean.seniorLockedHour}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.seniorLockHourChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -719,7 +730,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu id="lockSeniorDayCombo" value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSeniorDayCombo" 
+		            									 value="#{deanCourseBean.seniorLockedDay}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.seniorLockDayChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -730,7 +743,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="" />
-		            					<h:commandButton value="Lock" />
+		            					<h:commandButton value="Lock" action="#{deanCourseBean.seniorLockOperation}" onclick="submit()"/>
 		            					<h:outputLabel value="" />
 		            					<table>
 		            						<tr style=" height : 12px;">
@@ -739,7 +752,7 @@
 		            						</tr>
 		            					</table>
 		            				</h:panelGrid>
-            			
+            			</h:form>
             		</h:panelGrid>
             		</td>
             		<td style=" width : 100px;"></td>
