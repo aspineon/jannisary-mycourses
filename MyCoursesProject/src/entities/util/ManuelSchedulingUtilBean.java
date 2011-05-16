@@ -28,7 +28,7 @@ public class ManuelSchedulingUtilBean {
 	private int componentIdtoHour;// Sürükle-Bırak işlemi sırasında Schedule tablosunun Timeof_Course alanına atılacak verinin hesaplanması için saat bilgisini belirlendiği değişken
 	private Syllabus paramSyllabus = new Syllabus();//dao.Syllabus sınıfında sorgu yapabilmek için oluşturuldu.
 	private Schedule paramSchedule = new Schedule();
-	private BasicScheduleUtilBean tempBasicScheduleItem = new BasicScheduleUtilBean();
+	private BasicScheduleUtilBean tempBasicScheduleItem = null;
 	/*
 	 ************************* 1.,2.,3.,4. sınıflar için matris tanımları *****************
 	 */
@@ -360,6 +360,7 @@ public class ManuelSchedulingUtilBean {
 	
 	public void processDrop(DropEvent event) {
 		try {
+			tempBasicScheduleItem = new BasicScheduleUtilBean();
 			System.out.println("Bean.processDrop()");
 			tempBasicScheduleItem = (BasicScheduleUtilBean) event.getDragValue();
 			System.out.println("lecturer name in processDrop: " + tempBasicScheduleItem.getCourseTheoricOrPraticName());
@@ -405,7 +406,8 @@ public class ManuelSchedulingUtilBean {
 						//tempBasicScheduleItem = firstGradeSchedule[componentIdtoDay][componentIdtoHour];
 						tempBasicScheduleItem.setTimeofCourse(timeofCourse);
 						tempBasicScheduleItem.setHours(1);
-						firstGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem; 
+						BasicScheduleUtilBean bs = new BasicScheduleUtilBean(tempBasicScheduleItem);
+						firstGradeSchedule[componentIdtoDay][componentIdtoHour] = bs; 
 					}else{
 						errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with first class lesson";
 					}
@@ -420,7 +422,8 @@ public class ManuelSchedulingUtilBean {
 							//tempBasicScheduleItem = secondGradeSchedule[componentIdtoDay][componentIdtoHour];
 							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
 							tempBasicScheduleItem.setHours(1);
-							secondGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
+							BasicScheduleUtilBean bs = new BasicScheduleUtilBean(tempBasicScheduleItem);
+							secondGradeSchedule[componentIdtoDay][componentIdtoHour] = bs;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with second class lesson";
 						}
@@ -435,7 +438,8 @@ public class ManuelSchedulingUtilBean {
 							//tempBasicScheduleItem = thirdGradeSchedule[componentIdtoDay][componentIdtoHour];
 							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
 							tempBasicScheduleItem.setHours(1);
-							thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
+							BasicScheduleUtilBean bs = new BasicScheduleUtilBean(tempBasicScheduleItem);
+							thirdGradeSchedule[componentIdtoDay][componentIdtoHour] = bs;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with third class lesson";
 						}
@@ -450,7 +454,8 @@ public class ManuelSchedulingUtilBean {
 							//tempBasicScheduleItem = fourthGradeSchedule[componentIdtoDay][componentIdtoHour];
 							tempBasicScheduleItem.setTimeofCourse(timeofCourse);
 							tempBasicScheduleItem.setHours(1);
-							fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = tempBasicScheduleItem;
+							BasicScheduleUtilBean bs = new BasicScheduleUtilBean(tempBasicScheduleItem);
+							fourthGradeSchedule[componentIdtoDay][componentIdtoHour] = bs;
 						}else{
 							errorLabel = "There is a classroom conflict at " + componentIdtoHour + ", " + componentIdtoDay + " index with fourth class lesson";
 						}
