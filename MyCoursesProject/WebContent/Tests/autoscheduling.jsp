@@ -64,11 +64,11 @@
             	<tr style=" height : 167px;">
             		<td>
             			<h:form prependId="false">
-            				<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            				<h:panelGrid columns="1" style="background-color:#82CAFF; width : 312px;">
 		            				
-		            				<h:outputLabel value="Freshman Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
+		            				<h:outputLabel value="Freshman Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff;"/>
 		            				
-		            				<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+		            				<h:panelGrid columns="2" style="background-color:#AFDCEC; width : 330px;">
 		            				
 		            				<h:outputLabel value="" />
 		            				<table>
@@ -78,7 +78,7 @@
 		            				</table>	
 		            				
 		            				<h:outputLabel value="" />
-				            			<h:selectOneListbox id="freshmanListBox" style=" width : 219px; background-color:#CFECEC;" 
+				            			<h:selectOneListbox id="freshmanListBox" style=" width : 174px; background-color:#CFECEC;" 
 				            								value="#{deanCourseBean.selectedFreshmanCourse}"
 				            								valueChangeListener="#{deanCourseBean.freshmanSplitChange}" onchange="submit()">
 				            				<f:selectItems value="#{deanCourseBean.freshmanCourses}"/>	           					
@@ -143,13 +143,13 @@
 				            			<h:commandButton id="freshmanSubmit" value="Submit" action="#{deanCourseBean.initFreshmanCourseTableEvent}" onclick="submit()"></h:commandButton>
 									    <h:commandButton id="freshmanReset" value="Reset" action="#{deanCourseBean.clearFreshmanCourseTable}" onclick="submit()"></h:commandButton>
 		            				</h:panelGrid>
-		            				<h:panelGrid columns="3" style="background-color:#95B9C7; width : 266px;">
+		            				<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
 		            					<h:outputLabel value="" />
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu id="freshmanLockedHour" 
+		            					<h:selectOneMenu id="freshmanLockedHour" style="width : 139px;"
 		            									 value="#{deanCourseBean.freshmanLockedHour}"
 		            									 valueChangeListener="#{deanCourseBean.freshmanLockHourChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
@@ -231,7 +231,7 @@
                 			</f:facet>
                 			<h:outputText value="#{item[4]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 500px;">
+        				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Friday"/>
                 			</f:facet>
@@ -257,12 +257,12 @@
             	   <table>
             	<tr>
             		<td>
-            		<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            		<h:panelGrid columns="1" style="background-color:#82CAFF; width : 312px;">
             			<h:outputLabel value="Sophomore Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
           			
             			<h:form prependId="false">
             				
-	            				<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+	            				<h:panelGrid columns="2" style="background-color:#AFDCEC; width : 330px;">
 	            					
 	            					<h:outputLabel value="" />
 		            				<table>
@@ -272,7 +272,7 @@
 		            				</table>
 	            					
 	            					<h:outputLabel value="" />
-			            			<h:selectOneListbox id="sophomoreListBox" style=" width : 219px; background-color:#CFECEC;"
+			            			<h:selectOneListbox id="sophomoreListBox" style=" width : 173px; background-color:#CFECEC;"
 			            							    value="#{deanCourseBean.selectedSophomoreCourse}"
 			            								valueChangeListener="#{deanCourseBean.sophomoreSplitChange}" onchange="submit()">
 			            				<f:selectItems value="#{deanCourseBean.sophomoreCourses}"/>	           					
@@ -337,13 +337,13 @@
             				</h:panelGrid>
             			</h:form>
             			
-	            		<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+	            		<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
 		            					<h:outputLabel value="" />
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu value="">
+		            					<h:selectOneMenu id="lockSophomoreHourCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -357,7 +357,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSophomoreDayCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -403,7 +403,7 @@
 		                			</f:facet>
 		                			<h:outputText style="font-align:center;" value="#{item[1]}" />
 		        				 </rich:column>
-		        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
+		        				 <rich:column style=" width : 250px;background-color:#FFF8C6;">
 		                			<f:facet name="header">
 		                				<h:outputText value="Tuesday"/>
 		                			</f:facet>
@@ -415,13 +415,13 @@
 		                			</f:facet>
 		                			<h:outputText style="font-align:center;" value="#{item[3]}" />
 		        				 </rich:column>
-		        				 <rich:column style=" width : 250px; background-color:#AFDCEC;">
+		        				 <rich:column style=" width : 250px; background-color:#FFF8C6;">
 		                			<f:facet name="header">
 		                				<h:outputText value="Thursday"/>
 		                			</f:facet>
 		                			<h:outputText style="font-align:center;" value="#{item[4]}" />
 		        				 </rich:column>
-		        				 <rich:column style=" width : 500px;">
+		        				 <rich:column style="width : 250px;">
 		                			<f:facet name="header">
 		                				<h:outputText value="Friday"/>
 		                			</f:facet>
@@ -445,12 +445,12 @@
             	   <table>
             	<tr>
             		<td>
-            			<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            			<h:panelGrid columns="1" style="background-color:#82CAFF;width : 312px;">
             			 <h:outputLabel value="Junior Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
           			       			 
             			 <h:form prependId="false">
             			 
-            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;width : 330px;">
             			 		
             			 		<h:outputLabel value="" />
 		            				<table>
@@ -460,7 +460,7 @@
 		            				</table>
             			 		
             			 		<h:outputLabel value="" />
-		            			<h:selectOneListbox id="juniorListBox" style=" width : 219px; background-color:#CFECEC;" 
+		            			<h:selectOneListbox id="juniorListBox" style=" width : 174px; background-color:#CFECEC;" 
 		            							value="#{deanCourseBean.selectedJuniorCourse}"
 		            							valueChangeListener="#{deanCourseBean.juniorSplitChange}" onchange="submit()">
 		            				<f:selectItems value="#{deanCourseBean.juniorCourses}"/>	           					
@@ -519,13 +519,13 @@
             				</h:panelGrid>
             			</h:form>
             			
-            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
 		            					<h:outputLabel value="" />
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu value="">
+		            					<h:selectOneMenu id="lockJuniorHourCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -539,7 +539,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockJuniorDayCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -585,7 +585,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
+        				 <rich:column style=" width : 250px;background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -597,7 +597,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
+        				 <rich:column style=" width : 250px;background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
@@ -625,12 +625,12 @@
             	   <table>
             	<tr>
             		<td>
-            			<h:panelGrid columns="1" style="background-color:#82CAFF;">
+            			<h:panelGrid columns="1" style="background-color:#82CAFF;width : 312px;">
             			 <h:outputLabel value="Senior Schedule" style="FONT-FAMILY: 'Verdana'; FONT-SIZE: medium; FONT-WEIGHT: bold; color:#ffffff"/>
             		
             			 <h:form prependId="false">
             			 	
-            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;">
+            			 	<h:panelGrid columns="2" style="background-color:#AFDCEC;width : 330px;">
             			 		
             			 		<h:outputLabel value="" />
 		            				<table>
@@ -640,7 +640,7 @@
 		            				</table>
             			 		
             			 		<h:outputLabel value="" />
-		            			<h:selectOneListbox id="seniorListBox" style=" width : 219px; background-color:#CFECEC;" 
+		            			<h:selectOneListbox id="seniorListBox" style=" width : 174px; background-color:#CFECEC;" 
 		            								value="#{deanCourseBean.selectedSeniorCourse}"
 		            								valueChangeListener="#{deanCourseBean.seniorSplitChange}" onchange="submit()">
 		            				<f:selectItems value="#{deanCourseBean.seniorCourses}"/>	           					
@@ -699,13 +699,13 @@
             				</h:panelGrid>	
             			</h:form>
             			
-            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 322px;">
+            			<h:panelGrid columns="3" style="background-color:#95B9C7; width : 330px;">
 		            					<h:outputLabel value="Lock Course Hour" style="COLOR: #ffffff; FONT-SIZE: small; FONT-WEIGHT: bold; FONT-FAMILY: 'Verdana';"/>
 		            					<h:outputLabel value="" />
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu value="">
+		            					<h:selectOneMenu id="lockSeniorHourCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -719,7 +719,7 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="lockSeniorDayCombo" value="" style=" width : 139px;">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
@@ -765,7 +765,7 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[1]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
+        				 <rich:column style=" width : 250px;background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Tuesday"/>
                 			</f:facet>
@@ -777,13 +777,13 @@
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[3]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 250px;background-color:#AFDCEC;">
+        				 <rich:column style=" width : 250px; background-color:#FFF8C6;">
                 			<f:facet name="header">
                 				<h:outputText value="Thursday"/>
                 			</f:facet>
                 			<h:outputText style="font-align:center;" value="#{item[4]}" />
         				 </rich:column>
-        				 <rich:column style=" width : 300px;">
+        				 <rich:column style=" width : 250px;">
                 			<f:facet name="header">
                 				<h:outputText value="Friday"/>
                 			</f:facet>
@@ -798,7 +798,7 @@
         </rich:tab>
 			
 		<rich:tab label="Dean Courses" id="dc">
-			<rich:panel style=" height : 450px;">
+			<rich:panel style=" height : 450px; background-color:#AFC7C7;">
 				<table style="background-color: gray; height : 178px;">
 					<tr style=" height : 12px;">
 						<td>
@@ -1031,7 +1031,7 @@
 		<rich:tab label="Run AutoScheduling & Save to Archive" id="at">
             <rich:panel style=" height : 450px;">
             
-            	<rich:panel id="updateArchivePanelId">
+            	<rich:panel style="background-color:#CFECEC;" id="updateArchivePanelId">
             		
             			<f:facet name="label">
         					<h:outputLabel value="Select Year and Semester" style="FONT-WEIGHT: bold; FONT-SIZE: medium; FONT-FAMILY: 'Verdana';"/>
