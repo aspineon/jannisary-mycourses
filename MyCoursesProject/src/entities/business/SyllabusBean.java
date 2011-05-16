@@ -18,6 +18,7 @@ public class SyllabusBean {
 	public SyllabusBean(){
 		semesterList.add(new SelectItem("Fall"));
 		semesterList.add(new SelectItem("Spring"));
+		semesterList.add(new SelectItem("Summer"));
 		
 		yearList.add(new SelectItem("2000"));
 		yearList.add(new SelectItem("2001"));
