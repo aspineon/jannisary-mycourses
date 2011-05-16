@@ -149,7 +149,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Hour Value :" />
-		            					<h:selectOneMenu value="">
+		            					<h:selectOneMenu id="freshmanLockedHour" 
+		            									 value="#{deanCourseBean.freshmanLockedHour}"
+		            									 valueChangeListener="#{deanCourseBean.freshmanLockHourChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Hour"/>
 		            						<f:selectItem itemValue="1"/>
 		            						<f:selectItem itemValue="2"/>
@@ -163,7 +165,9 @@
 		            					<h:outputLabel value="" />
 		            					
 		            					<h:outputLabel value="Day Value :" />
-		            					<h:selectOneMenu value="" style=" width : 139px;">
+		            					<h:selectOneMenu id="freshmanLockedDay" 
+		            									 value="#{deanCourseBean.freshmanLockedDay}" style=" width : 139px;"
+		            									 valueChangeListener="#{deanCourseBean.freshmanLockDayChange}" onchange="submit()">
 		            						<f:selectItem itemValue="Choose Lock Day"/>
 		            						<f:selectItem itemValue="Monday"/>
 		            						<f:selectItem itemValue="Tuesday"/>
