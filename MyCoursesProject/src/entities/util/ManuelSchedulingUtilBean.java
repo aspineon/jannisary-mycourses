@@ -63,6 +63,7 @@ public class ManuelSchedulingUtilBean {
 	private String strGrade; //strGrade comboboxdan String olarak gelen verilerin karşılaştırmasının yapılması ne intGrade'e seçimin yansıtılmasını sağlayan değişken.
 	private Object dragValue; //Sürükle bırak işleminde sürüklenen nesnenin bilgilerini tutan nesne.
 	private int selectedYearForEdit;// Edit yapmak istediğinde bu değişkeni kullanacağız
+	private int selectedYearForAdd;
 	public int currentYear; //İlgili yıl bilgilerinin edinildiği alt alan
 	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
 	private String dayForReset;
@@ -287,6 +288,16 @@ public class ManuelSchedulingUtilBean {
 		
 		if (!selectedValue.equals("")) {
 			savedYear = Integer.parseInt(selectedValue);
+		}
+		
+	    System.out.println(savedYear);
+	}
+	
+	public void selectionChangedNextTwoYearComboForAddOperation(ValueChangeEvent evt){
+		String selectedValue = (String) evt.getNewValue();
+		
+		if (!selectedValue.equals("")) {
+			selectedYearForAdd = Integer.parseInt(selectedValue);
 		}
 		
 	    System.out.println(savedYear);
@@ -693,7 +704,7 @@ public class ManuelSchedulingUtilBean {
 						paramCourse.setGrade(intGrade);
 						paramSyllabus.setCourse(paramCourse);
 						paramSyllabus.setSemester(semester);
-						paramSyllabus.setYear(currentYear);
+						paramSyllabus.setYear(selectedYearForAdd);
 						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
 						
 					} catch (Exception e) {
@@ -898,8 +909,17 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	/* Sınıf alt lanlarının Getters and Setters*/
+	
 	public ArrayList<BasicScheduleUtilBean> getLabList() {
 		return labList;
+	}
+
+	public int getSelectedYearForAdd() {
+		return selectedYearForAdd;
+	}
+
+	public void setSelectedYearForAdd(int selectedYearForAdd) {
+		this.selectedYearForAdd = selectedYearForAdd;
 	}
 
 	public ArrayList<BasicScheduleUtilBean> getCourseList() {
