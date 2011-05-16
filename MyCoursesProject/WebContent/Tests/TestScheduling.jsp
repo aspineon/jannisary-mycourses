@@ -41,17 +41,17 @@
 		}
     </style>
 </head>
-<body>
+<body bgcolor="#566D7E">
 <f:view>
 <rich:dragIndicator id="indicator"/>
 
  <rich:panel style="pacategorying:0" headerClass="outpanelHeader">
         <f:facet name="header">
-            <rich:spacer height="20"/>
+            <h:outputText value="Manual Scheduling"  />
         </f:facet>
-        <h2 align="center"><h:outputText value="Manual Scheduling" /></h2>
+       
         <h:outputText value="#{manuelSchedulingUtilBean.errorLabel}" />
-        <h:panelGrid columns="4" columnClasses="gridContent">
+        <h:panelGrid columns="4" columnClasses="gridContent"  style="background-color:#8EEBEC;">
        
        
        <h:panelGrid bgcolor="#77BFC7">
@@ -199,30 +199,35 @@
        <h:form id="form">
        <h:panelGrid>
             <h:panelGrid columns="5" columnClasses="gridContent">
-            <rich:panel bodyClass="dropTargetPanel">
+            <rich:panel bodyClass="dropTargetPanel" style=" background-color:#488AC7">
             <f:facet name="header">
-                    <h:outputText value="Monday" />
+                    <h:outputText value="" />
                 </f:facet>
+                <center><h:outputLabel value="Monday" style="FONT-WEIGHT: bold; COLOR: #ffffff; FONT-SIZE: medium;"/></center>
             </rich:panel>
-            <rich:panel bodyClass="dropTargetPanel">
+            <rich:panel bodyClass="dropTargetPanel" style=" background-color:#488AC7">
             <f:facet name="header">
-                    <h:outputText value="Tuesday" />
+                    <h:outputText value="" />
                 </f:facet>
+                <center><h:outputLabel value="Tuesday" style="FONT-WEIGHT: bold; COLOR: #ffffff; FONT-SIZE: medium;"/></center>
             </rich:panel>
-            <rich:panel bodyClass="dropTargetPanel">
+            <rich:panel bodyClass="dropTargetPanel" style=" background-color:#488AC7">
             <f:facet name="header">
-                    <h:outputText value="Wednesday" />
+                    <h:outputText value="" />
                 </f:facet>
+                <center><h:outputLabel value="Wednesday" style="FONT-WEIGHT: bold; COLOR: #ffffff; FONT-SIZE: medium;"/></center>
             </rich:panel>
-            <rich:panel bodyClass="dropTargetPanel">
+            <rich:panel bodyClass="dropTargetPanel" style=" background-color:#488AC7">
             <f:facet name="header">
-                    <h:outputText value="Thursday" />
+                    <h:outputText value="" />
                 </f:facet>
+                <center><h:outputLabel value="Thursday" style="FONT-WEIGHT: bold; COLOR: #ffffff; FONT-SIZE: medium;"/></center>
             </rich:panel>
-            <rich:panel bodyClass="dropTargetPanel">
+            <rich:panel bodyClass="dropTargetPanel" style=" background-color:#488AC7">
             <f:facet name="header">
-                    <h:outputText value="Friday" />
+                    <h:outputText value="" />
                 </f:facet>
+                <center><h:outputLabel value="Friday" style="FONT-WEIGHT: bold; COLOR: #ffffff; FONT-SIZE: medium;"/></center>
             </rich:panel>
             <rich:panel bodyClass="dropTargetPanel">
             	<f:facet name="header">
@@ -932,9 +937,9 @@
             
             	</h:panelGrid>
             	
-            	<rich:panel id="errorPanel">
-            	<h:panelGrid columns="3">
-            		<rich:panel id="SaveSchedulePanelId" bodyClass="footerPanelStyle">
+            	<rich:panel id="errorPanel" style="background-color:#A0CFEC;">
+            	<h:panelGrid columns="3" style="background-color:#A0CFEC;">
+            		<rich:panel id="SaveSchedulePanelId" bodyClass="footerPanelStyle" style="background-color:#CFECEC;">
             			<rich:messages for="form" layout="list">
                         	<h:panelGrid columns="2">
 	                        	<h:graphicImage value="/images/modal/error.gif"/> 
@@ -943,7 +948,7 @@
                    		</rich:messages>	
             		</rich:panel>
 	        		
-                   <rich:panel id="UpdatePanelId" bodyClass="footerPanelStyle">
+                   <rich:panel id="UpdatePanelId" bodyClass="footerPanelStyle" style="background-color:#CFECEC; width : 404px;">
                    	<h:panelGrid columns="1" id="UpdatePanelGridId">
                    	   	<f:facet name="header">
                    	   		<h:outputText value="Select year and semester" />
@@ -952,33 +957,43 @@
 							<h:form id="UpdateFormId">
 								<h:panelGrid columns="2">	
 								
-								<rich:comboBox id="yearToSave" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedYearCombo}" width="110">
+								<h:outputLabel value="" />
+								<rich:comboBox id="yearToSave" value="Select Year" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedYearCombo}" width="145">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listNextTwoYearsToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
 								
-								<rich:comboBox id="semesterToSave" value="Select Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedSemesterCombo}" width="110">
+								
+								<h:outputLabel value="" />
+								<rich:comboBox id="semesterToSave" value="Select Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedSemesterCombo}" width="145">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listSemesterToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
+								
 
-								<rich:comboBox id="archiveToSave" value="Save Archive" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedArchiveCombo}" width="110">
+								<h:outputLabel value="" />
+								<rich:comboBox id="archiveToSave" value="Save Archive" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSavedArchiveCombo}" width="145">
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listArchiveToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
 								
-								<h:inputText id="versionName" value="#{manuelSchedulingUtilBean.savedVersionName}" >
+								
+								<h:outputLabel value="Saved Version Name :" />
+								<h:inputText id="versionName" value="#{manuelSchedulingUtilBean.savedVersionName}" style="width:141px;">
 									<rich:ajaxValidator event="onblur"/>
 								</h:inputText>
 								
-								<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style=" width : 110px; height : 20px;">
+								
+								
+								<h:outputLabel value="" />
+								<h:commandButton value="Save Schedule" action="#{manuelSchedulingUtilBean.clickSave}" style="width : 110px; height : 28px;">
 									<a4j:support event="onclick" reRender="form"/>
 								</h:commandButton>
 								
 							</h:panelGrid>		
 							</h:form>
                    	   	<f:facet name="footer">
-                   	   		<h:outputText value="footer" />
+                   	   		<h:outputText value="" />
                    	   	</f:facet>                   	   	   
                    	   </h:panelGrid>
                    </rich:panel>
