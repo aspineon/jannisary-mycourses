@@ -151,9 +151,16 @@
                         <h:outputText value="Practice H." />
                         <h:inputText value="#{courseBean.currentItem.practiceLectureHourse}" style="width:130px;"/>
                         <h:outputText value="Attendance" />
-                        <h:inputText value="#{courseBean.currentItem.attendance}" style="width:130px;"/>
+
+                        <rich:comboBox id="selectAttendanceIdForEdit" value="Select Attendance" valueChangeListener="#{courseBean.selectionChangedAttendanceCombo}">
+							<f:selectItems value="#{courseBean.selectItemsForAttendance}"/>
+						</rich:comboBox>
+
                         <h:outputText value="Grade" />
-                        <h:inputText value="#{courseBean.currentItem.grade}" style="width:130px;"/>
+                        <rich:comboBox id="selectGradeIdForEdit" value="Select Grade" valueChangeListener="#{courseBean.selectionChangedGradeCombo}">
+							<f:selectItems value="#{courseBean.selectItemsGrades}"/>
+						</rich:comboBox>
+
                         <h:outputText value="Type" />
                         <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="130px" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
@@ -163,7 +170,13 @@
 							<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 						</rich:comboBox>
                         <h:outputText value="Precondition" />
+
+                        <rich:comboBox id="selectPreconditionCourseCode" value="Select Course Code" valueChangeListener="#{courseBean.selectionChangedPreconditionCombo}">
+							<f:selectItems value="#{courseBean.selectItemsForPreconditions}"/>
+						</rich:comboBox>
+
                         <h:inputText value="#{courseBean.currentItem.precondition}" style="width:130px;"/>
+
                         <h:outputText value="Description" />
                         <h:inputText value="#{courseBean.currentItem.courseDescription}" style="width:130px;"/>
                     </h:panelGrid>
@@ -178,7 +191,7 @@
     </rich:modalPanel>
     <rich:modalPanel id="deletePanel" autosized="true" width="200">
         <f:facet name="header">
-            <h:outputText value="Delete this User from list?"
+            <h:outputText value="Delete this Course from list?"
                 style="padding-right:15px;" />
         </f:facet>
         <f:facet name="controls">
