@@ -116,12 +116,12 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Semester" />
-                        <rich:comboBox id="selectSemesterIdForEdit" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}" style="width : 139px;">
+                        <rich:comboBox id="selectSemesterIdForEdit" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}" style="width : 160px;">
 							<f:selectItems value="#{syllabusBean.semesterList}"/>
 						</rich:comboBox>
                         
                         <h:outputText value="Year" />
-                        <rich:comboBox id="selectYearIdForEdit" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}" style="width : 139px;">
+                        <rich:comboBox id="selectYearIdForEdit" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}" style="width : 160px;">
 							<f:selectItems value="#{syllabusBean.yearList}"/>
 						</rich:comboBox>
                         
