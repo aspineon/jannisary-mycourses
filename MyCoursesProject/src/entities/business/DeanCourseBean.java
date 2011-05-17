@@ -234,6 +234,7 @@ public class DeanCourseBean
 	private boolean freshmanReadyToLock = false;
 	private boolean freshmanLockDayFlag = false;
 	private boolean freshmanLockHourFlag = false;
+	private ArrayList<Index> freshmanLockedIndexes = new ArrayList<Index>();
 	
 	private boolean splitFlagFreshman = false;
 	private boolean readyToGoFreshman = false;
@@ -260,6 +261,7 @@ public class DeanCourseBean
 	private boolean sophomoreReadyToLock = false;
 	private boolean sophomoreLockDayFlag = false;
 	private boolean sophomoreLockHourFlag = false;
+	private ArrayList<Index> sophomoreLockedIndexes = new ArrayList<Index>();
 	
 //**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
@@ -284,6 +286,7 @@ public class DeanCourseBean
 	private boolean juniorReadyToLock = false;
 	private boolean juniorLockDayFlag = false;
 	private boolean juniorLockHourFlag = false;
+	private ArrayList<Index> juniorLockedIndexes = new ArrayList<Index>();
 	
 //**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
@@ -308,8 +311,9 @@ public class DeanCourseBean
 	private boolean seniorReadyToLock = false;
 	private boolean seniorLockDayFlag = false;
 	private boolean seniorLockHourFlag = false;
+	private ArrayList<Index> seniorLockedIndexes = new ArrayList<Index>();
+	
 //*************************************************************************************************
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
@@ -912,6 +916,8 @@ public class DeanCourseBean
 			this.juniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.juniorUnmarkedList);
 			this.seniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.seniorUnmarkedList);
 			
+			this.loadLockedIndexes();
+			
 			this.freshmanAutoScheduling();
 			this.sophomoreAutoScheduling();
 			this.juniorAutoScheduling();
@@ -934,13 +940,13 @@ public class DeanCourseBean
 		this.freshmanLockedDay = newValue;
 		if((!this.freshmanLockedDay.equals("Choose Lock Day")) && (this.freshmanLockedDay != null)) {
 			this.freshmanLockDayFlag = true;
-			if(this.freshmanLockHourFlag == true) {
-				this.freshmanReadyToLock = true;
-				return;
-			}
+			if(this.freshmanLockHourFlag == true) { this.freshmanReadyToLock = true; }
+			else { this.freshmanReadyToLock = false; }
 		}
-		this.freshmanReadyToLock = false;
-		return;
+		else {
+			this.freshmanLockDayFlag = false;
+			this.freshmanReadyToLock = false;
+		}
 	}
 	
 	public void freshmanLockHourChange(ValueChangeEvent event) {
@@ -952,26 +958,49 @@ public class DeanCourseBean
 		this.freshmanLockedHour = newValue;
 		if((!this.freshmanLockedHour.equals("Choose Lock Hour")) && (this.freshmanLockedHour != null)) {
 			this.freshmanLockHourFlag = true;
-			if(this.freshmanLockDayFlag == true) {
-				this.freshmanReadyToLock = true;
-				return;
-			}
+			if(this.freshmanLockDayFlag == true) { this.freshmanReadyToLock = true; }
+			else { this.freshmanReadyToLock = false; }
 		}
-		this.freshmanReadyToLock = false;
-		return;
+		else {
+			this.freshmanLockHourFlag = false;
+			this.freshmanReadyToLock = false;
+		}
 	} 
 	
 	public String freshmanLockOperation() {
 		String retStr = "";
+		if(this.freshmanReadyToLock == true) {
 			Index item = new Index(this.freshmanLockedDay, Integer.parseInt(this.freshmanLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
 			int day = this.dayMapToIndexHash.get(item.getDay());
 			int hour = (item.getHour());
 			hour--;
-		if(this.controlFreshmanCourse[hour][dayMatrix] == 0) {
-			this.controlFreshmanCourse[hour][dayMatrix] = -1;
-			this.initFreshmanCourseTable[hour][day] = "LOCKED";
+			if(this.controlFreshmanCourse[hour][dayMatrix] == 0) {
+				Integer iVal = new Integer(-1);
+				this.controlFreshmanCourse[hour][dayMatrix] = iVal;
+				this.initFreshmanCourseTable[hour][day] = "LOCKED";
+				this.freshmanLockedIndexes.add(item);
+			}
 		}
+		return retStr;
+	}
+	
+	public String freshmanUnlockOperation() {
+		String retStr = "";
+		for(int i = 0; i < this.freshmanLockedIndexes.size(); i++) {
+			Index item = this.freshmanLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			if(this.controlFreshmanCourse[hour][dayMatrix] == -1) {
+				this.controlFreshmanCourse[hour][dayMatrix] = 0;
+			}
+			if(this.initFreshmanCourseTable[hour][day].equals("LOCKED")) {
+				this.initFreshmanCourseTable[hour][day] = "";
+			}
+		}
+		this.freshmanLockedIndexes.clear();
 		return retStr;
 	}
 //********************************************************************************************
@@ -984,13 +1013,13 @@ public class DeanCourseBean
 		this.sophomoreLockedDay = newValue;
 		if((!this.sophomoreLockedDay.equals("Choose Lock Day")) && (this.sophomoreLockedDay != null)) {
 			this.sophomoreLockDayFlag = true;
-			if(this.sophomoreLockHourFlag == true) {
-				this.sophomoreReadyToLock = true;
-				return;
-			}
+			if(this.sophomoreLockHourFlag == true) { this.sophomoreReadyToLock = true; }
+			else { this.sophomoreReadyToLock = false; }
 		}
-		this.sophomoreReadyToLock = false;
-		return;
+		else {
+			this.sophomoreLockDayFlag = false;
+			this.sophomoreReadyToLock = false;
+		}
 	}
 	
 	public void sophomoreLockHourChange(ValueChangeEvent event) {
@@ -1002,30 +1031,55 @@ public class DeanCourseBean
 		this.sophomoreLockedHour = newValue;
 		if((!this.sophomoreLockedHour.equals("Choose Lock Hour")) && (this.sophomoreLockedHour != null)) {
 			this.sophomoreLockHourFlag = true;
-			if(this.sophomoreLockDayFlag == true) {
-				this.sophomoreReadyToLock = true;
-				return;
-			}
+			if(this.sophomoreLockDayFlag == true) { this.sophomoreReadyToLock = true; }
+			else { this.sophomoreReadyToLock = false; }
 		}
-		this.sophomoreReadyToLock = false;
-		return;
+		else {
+			this.sophomoreLockHourFlag = false;
+			this.sophomoreReadyToLock = false;
+		}
 	} 
 	
 	public String sophomoreLockOperation() {
 		String retStr = "";
+		if(this.sophomoreReadyToLock == true) {
 			Index item = new Index(this.sophomoreLockedDay, Integer.parseInt(this.sophomoreLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
 			int day = this.dayMapToIndexHash.get(item.getDay());
 			int hour = (item.getHour());
 			hour--;
-		if(this.controlSophomoreCourse[hour][dayMatrix] == 0) {
-			this.controlSophomoreCourse[hour][dayMatrix] = -1;
-			this.initSophomoreCourseTable[hour][day] = "LOCKED";
+			if(this.controlSophomoreCourse[hour][dayMatrix] == 0) {
+				Integer iVal = new Integer(-1);
+				this.controlSophomoreCourse[hour][dayMatrix] = iVal;
+				this.initSophomoreCourseTable[hour][day] = "LOCKED";
+				this.sophomoreLockedIndexes.add(item);
+				return retStr;
+			}
+			else { return retStr; }
 		}
 		return retStr;
 	}
+	
+	public String sophomoreUnlockOperation() {
+		String retStr = "";
+		for(int i = 0; i < this.sophomoreLockedIndexes.size(); i++) {
+			Index item = this.sophomoreLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			if(this.controlSophomoreCourse[hour][dayMatrix] == -1) {
+				this.controlSophomoreCourse[hour][dayMatrix] = 0;
+			}
+			if(this.initSophomoreCourseTable[hour][day].equals("LOCKED")) {
+				this.initSophomoreCourseTable[hour][day] = "";
+			}
+		}
+		this.sophomoreLockedIndexes.clear();
+		return retStr;
+	}
+//************************************************************************************************
 //***************************************************************************************
-//****************** LOCK OPERATIONS & EVENTS *******************************************
 	public void juniorLockDayChange(ValueChangeEvent event) {
 		System.out.println("Junior Lock Day : " + event.getComponent().getId());
 		String oldValue = (String)event.getOldValue();
@@ -1035,13 +1089,13 @@ public class DeanCourseBean
 		this.juniorLockedDay = newValue;
 		if((!this.juniorLockedDay.equals("Choose Lock Day")) && (this.juniorLockedDay != null)) {
 			this.juniorLockDayFlag = true;
-			if(this.juniorLockHourFlag == true) {
-				this.juniorReadyToLock = true;
-				return;
-			}
+			if(this.juniorLockHourFlag == true) { this.juniorReadyToLock = true; }
+			else { this.juniorReadyToLock = false; }
 		}
-		this.juniorReadyToLock = false;
-		return;
+		else {
+			this.juniorLockDayFlag = false;
+			this.juniorReadyToLock = false;
+		}
 	}
 	
 	public void juniorLockHourChange(ValueChangeEvent event) {
@@ -1053,26 +1107,49 @@ public class DeanCourseBean
 		this.juniorLockedHour = newValue;
 		if((!this.juniorLockedHour.equals("Choose Lock Hour")) && (this.juniorLockedHour != null)) {
 			this.juniorLockHourFlag = true;
-			if(this.juniorLockDayFlag == true) {
-				this.juniorReadyToLock = true;
-				return;
-			}
+			if(this.juniorLockDayFlag == true) { this.juniorReadyToLock = true; }
+			else { this.juniorReadyToLock = false; }
 		}
-		this.juniorReadyToLock = false;
-		return;
+		else {
+			this.juniorLockHourFlag = false;
+			this.juniorReadyToLock = false;
+		}
 	} 
 	
 	public String juniorLockOperation() {
 		String retStr = "";
+		if(this.juniorReadyToLock == true) {
 			Index item = new Index(this.juniorLockedDay, Integer.parseInt(this.juniorLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
 			int day = this.dayMapToIndexHash.get(item.getDay());
 			int hour = (item.getHour());
 			hour--;
-		if(this.controlJuniorCourse[hour][dayMatrix] == 0) {
-			this.controlJuniorCourse[hour][dayMatrix] = -1;
-			this.initJuniorCourseTable[hour][day] = "LOCKED";
+			if(this.controlJuniorCourse[hour][dayMatrix] == 0) {
+				Integer iVal = new Integer(-1);
+				this.controlJuniorCourse[hour][dayMatrix] = iVal;
+				this.initJuniorCourseTable[hour][day] = "LOCKED";
+				this.juniorLockedIndexes.add(item);
+			}
 		}
+		return retStr;
+	}
+	
+	public String juniorUnlockOperation() {
+		String retStr = "";
+		for(int i = 0; i < this.juniorLockedIndexes.size(); i++) {
+			Index item = this.juniorLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			if(this.controlJuniorCourse[hour][dayMatrix] == -1) {
+				this.controlJuniorCourse[hour][dayMatrix] = 0;
+			}
+			if(this.initJuniorCourseTable[hour][day].equals("LOCKED")) {
+				this.initJuniorCourseTable[hour][day] = "";
+			}
+		}
+		this.juniorLockedIndexes.clear();
 		return retStr;
 	}
 //***************************************************************************************
@@ -1085,13 +1162,13 @@ public class DeanCourseBean
 		this.seniorLockedDay = newValue;
 		if((!this.seniorLockedDay.equals("Choose Lock Day")) && (this.seniorLockedDay != null)) {
 			this.seniorLockDayFlag = true;
-			if(this.seniorLockHourFlag == true) {
-				this.seniorReadyToLock = true;
-				return;
-			}
+			if(this.seniorLockHourFlag == true) { this.seniorReadyToLock = true; }
+			else { this.seniorReadyToLock = false; }
 		}
-		this.seniorReadyToLock = false;
-		return;
+		else {
+			this.seniorLockDayFlag = false;
+			this.seniorReadyToLock = false;
+		}
 	}
 	
 	public void seniorLockHourChange(ValueChangeEvent event) {
@@ -1103,26 +1180,49 @@ public class DeanCourseBean
 		this.seniorLockedHour = newValue;
 		if((!this.seniorLockedHour.equals("Choose Lock Hour")) && (this.seniorLockedHour != null)) {
 			this.seniorLockHourFlag = true;
-			if(this.seniorLockDayFlag == true) {
-				this.seniorReadyToLock = true;
-				return;
-			}
+			if(this.seniorLockDayFlag == true) { this.seniorReadyToLock = true; }
+			else { this.seniorReadyToLock = false; }
 		}
-		this.seniorReadyToLock = false;
-		return;
+		else {
+			this.seniorLockHourFlag = false;
+			this.seniorReadyToLock = false;
+		}
 	} 
 	
 	public String seniorLockOperation() {
 		String retStr = "";
+		if(this.seniorReadyToLock == true) {
 			Index item = new Index(this.seniorLockedDay, Integer.parseInt(this.seniorLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
 			int day = this.dayMapToIndexHash.get(item.getDay());
 			int hour = (item.getHour());
 			hour--;
-		if(this.controlSeniorCourse[hour][dayMatrix] == 0) {
-			this.controlSeniorCourse[hour][dayMatrix] = -1;
-			this.initSeniorCourseTable[hour][day] = "LOCKED";
+			if(this.controlSeniorCourse[hour][dayMatrix] == 0) {
+				Integer iVal = new Integer(-1);
+				this.controlSeniorCourse[hour][dayMatrix] = iVal;
+				this.initSeniorCourseTable[hour][day] = "LOCKED";
+				this.seniorLockedIndexes.add(item);
+			}
 		}
+		return retStr;
+	}
+	
+	public String seniorUnlockOperation() {
+		String retStr = "";
+		for(int i = 0; i < this.seniorLockedIndexes.size(); i++) {
+			Index item = this.seniorLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			if(this.controlSeniorCourse[hour][dayMatrix] == -1) {
+				this.controlSeniorCourse[hour][dayMatrix] = 0;
+			}
+			if(this.initSeniorCourseTable[hour][day].equals("LOCKED")) {
+				this.initSeniorCourseTable[hour][day] = "";
+			}
+		}
+		this.seniorLockedIndexes.clear();
 		return retStr;
 	}
 //*********************************************************************************************
@@ -1945,6 +2045,46 @@ public class DeanCourseBean
 		return -1;
 	}
 	
+	private void loadLockedIndexes() {
+		Integer iVal = new Integer(-1);
+		for(int i = 0; i < this.freshmanLockedIndexes.size(); i++) {
+			Index item = this.freshmanLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			this.controlFreshmanCourse[hour][dayMatrix] = iVal;
+			this.initFreshmanCourseTable[hour][day] = "LOCKED";
+		}
+		for(int i = 0; i < this.sophomoreLockedIndexes.size(); i++) {
+			Index item = this.sophomoreLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			this.controlSophomoreCourse[hour][dayMatrix] = iVal;
+			this.initSophomoreCourseTable[hour][day] = "LOCKED";
+		}
+		for(int i = 0; i < this.juniorLockedIndexes.size(); i++) {
+			Index item = this.juniorLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			this.controlJuniorCourse[hour][dayMatrix] = iVal;
+			this.initJuniorCourseTable[hour][day] = "LOCKED";
+		}
+		for(int i = 0; i < this.seniorLockedIndexes.size(); i++) {
+			Index item = this.seniorLockedIndexes.get(i);
+			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
+			int day = this.dayMapToIndexHash.get(item.getDay());
+			int hour = item.getHour();
+			hour--;
+			this.controlSeniorCourse[hour][dayMatrix] = iVal;
+			this.initSeniorCourseTable[hour][day] = "LOCKED";
+		}
+	}
+	
 	private void writeFreshmanSchedule() {
 		for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
 			ScheduleAtomic item = this.freshmanMarkedList.get(i);
@@ -2092,19 +2232,19 @@ public class DeanCourseBean
 			return retVal;			
 		}
 		if(grade.equals("Sophomore")) {
-			if(this.controlSophomoreLecturer[hour][day] != 0) {
+			if(this.controlSophomoreCourse[hour][day] != 0) {
 				retVal = false;
 			}
 			return retVal;			
 		}
 		if(grade.equals("Senior")) {
-			if(this.controlSeniorLecturer[hour][day] != 0) {
+			if(this.controlSeniorCourse[hour][day] != 0) {
 				retVal = false;
 			}
 			return retVal;			
 		}
 		if(grade.equals("Junior")) {
-			if(this.controlJuniorLecturer[hour][day] != 0) {
+			if(this.controlJuniorCourse[hour][day] != 0) {
 				retVal = false;
 			}
 			return retVal;			
