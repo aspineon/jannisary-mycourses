@@ -69,13 +69,6 @@
                     </f:facet>
                     <h:outputText value="#{category.classroom.classroomCode}" />
                 </rich:column>
-                
-                <rich:column>
-                    <f:facet name="header">
-                        <h:outputText value="SectionNo" />
-                    </f:facet>
-                    <h:outputText value="#{category.sectionNo}" />
-                </rich:column>
                 <rich:column>
                     <f:facet name="header">
                         Actions
