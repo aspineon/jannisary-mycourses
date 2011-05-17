@@ -1659,8 +1659,32 @@ public class DeanCourseBean
 		this.juniorCourses.clear();
 		this.seniorCourses.clear();
 		this.deanCourseList.clear();
+		
+		this.freshmanLockedIndexes.clear();
+		this.sophomoreLockedIndexes.clear();
+		this.juniorLockedIndexes.clear();
+		this.seniorLockedIndexes.clear();
+		
+		this.clearControlTables("Freshman");
+		this.clearControlTables("Sophomore");
+		this.clearControlTables("Junior");
+		this.clearControlTables("Senor");
+		
+		this.clearDeanCourseTable();
+		this.clearFreshmanCourseTable();
+		this.clearSophomoreCourseTable();
+		this.clearJuniorCourseTable();
+		this.clearSeniorCourseTable();
+		
 		this.clearSubFields("Freshman");
+		this.clearSubFields("Sophomore");
+		this.clearSubFields("Junior");
+		this.clearSubFields("Senior");
+		
 		this.clearTimeValues("Freshman");
+		this.clearTimeValues("Sophomore");
+		this.clearTimeValues("Junior");
+		this.clearTimeValues("Senior");
 	}
 //***************************************************************************************
 // Onur (Finished 01.05)
