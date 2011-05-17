@@ -1,6 +1,8 @@
 package entities.business;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,18 +22,20 @@ public class SyllabusBean {
 		semesterList.add(new SelectItem("Spring"));
 		semesterList.add(new SelectItem("Summer"));
 		
-		yearList.add(new SelectItem("2000"));
-		yearList.add(new SelectItem("2001"));
-		yearList.add(new SelectItem("2002"));
-		yearList.add(new SelectItem("2003"));
-		yearList.add(new SelectItem("2004"));
-		yearList.add(new SelectItem("2005"));
-		yearList.add(new SelectItem("2006"));
-		yearList.add(new SelectItem("2007"));
-		yearList.add(new SelectItem("2008"));
-		yearList.add(new SelectItem("2009"));
-		yearList.add(new SelectItem("2010"));
-		yearList.add(new SelectItem("2011"));
+		currentYear = calculateYear();
+		
+		yearList.add(new SelectItem(Integer.toString(currentYear+1)));
+		yearList.add(new SelectItem(Integer.toString(currentYear)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-1)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-2)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-3)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-4)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-5)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-6)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-7)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-8)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-9)));
+		yearList.add(new SelectItem(Integer.toString(currentYear-10)));
 	}
 	
 	public void selectionChangedLecturerEditCombo(ValueChangeEvent  evt) {
@@ -166,6 +170,22 @@ public class SyllabusBean {
 			System.err.println(ex.getMessage());
 		}
 		return null;
+	}
+	
+	private int calculateYear(){
+		int year=-1;
+		
+		try {
+			Date d = new Date();
+			Calendar c = Calendar.getInstance();
+			c.setTime(d);
+			year = c.get(Calendar.YEAR);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return year;
 	}
 	
 	public Integer getSyllabusId() {
@@ -346,4 +366,5 @@ public class SyllabusBean {
     private ArrayList<SelectItem> courseCodeList = null;
     private ArrayList<SelectItem> lecturerNameList = null;
     private ArrayList<SelectItem> classroomList = null;
+    private int currentYear;
 }
