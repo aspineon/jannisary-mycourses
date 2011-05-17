@@ -123,10 +123,14 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Semester" />
-                        <h:inputText value="#{syllabusBean.currentItem.semester}" style="width:158px"/>
+                        <rich:comboBox id="selectSemesterIdForEdit" value="Select Semester" valueChangeListener="#{syllabusBean.selectionChangedSemesterCombo}" style="width : 139px;">
+							<f:selectItems value="#{syllabusBean.semesterList}"/>
+						</rich:comboBox>
                         
                         <h:outputText value="Year" />
-                        <h:inputText value="#{syllabusBean.currentItem.year}" style="width:158px"/>
+                        <rich:comboBox id="selectYearIdForEdit" value="Select Year" valueChangeListener="#{syllabusBean.selectionChangedYearCombo}" style="width : 139px;">
+							<f:selectItems value="#{syllabusBean.yearList}"/>
+						</rich:comboBox>
                         
                         <h:outputText value="Course Code" />
                         <rich:comboBox id="courseEditId" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseEditCombo}" width="160px">
@@ -142,9 +146,6 @@
                         <rich:comboBox id="classroomEditId" value="Select Classroom" valueChangeListener="#{syllabusBean.selectionChangedClassroomEditCombo}" width="160px">
                         	<f:selectItems value="#{syllabusBean.classroomList}"/>
                         </rich:comboBox>
-                        
-                        <h:outputText value="SectionNo" />
-                        <h:inputText value="#{syllabusBean.currentItem.sectionNo}" style="width:158px"/>
                         
                     </h:panelGrid>
                     <rich:message showSummary="true" showDetail="false" for="price" />
@@ -201,12 +202,7 @@
      <h:form>
      <rich:panel>
      	<h:panelGrid columns="3">
-     	
-     	<h:outputLabel value="Section : " style="FONT-SIZE: small; FONT-FAMILY: 'Verdana';"/>
-     	<h:inputText id="syllabusSection" value="#{syllabusBean.currentItem.sectionNo}" style="FONT-SIZE: small; FONT-FAMILY: 'Verdana'; width : 145px;">	    	
-	    </h:inputText>
-	    <h:outputLabel></h:outputLabel>
-	    
+     		    
      	<h:outputLabel value="" />
      	<rich:comboBox id="selectCourseCode" value="Select Course Code" valueChangeListener="#{syllabusBean.selectionChangedCourseAddCombo}" style="width : 139px;">
 				<f:selectItems value="#{syllabusBean.courseCodeList}"/>
