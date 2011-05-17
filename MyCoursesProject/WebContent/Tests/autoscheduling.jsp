@@ -180,7 +180,7 @@
 		            					<h:outputLabel value="" />
 			            					<h:panelGrid columns="2">
 			            					<h:commandButton value="Lock" action="#{deanCourseBean.freshmanLockOperation}" onclick="submit()"/>
-			            					<h:commandButton value="Unlock All"/>
+			            					<h:commandButton value="Unlock All" action="#{deanCourseBean.freshmanUnlockOperation}" onclick="submit()"/>
 			            					</h:panelGrid>
 		            					<h:outputLabel value="" />
 		            					<table>
@@ -376,8 +376,8 @@
 		            					
 		            					<h:outputLabel value="" />
 		            					<h:panelGrid columns="2">
-		            						<h:commandButton value="Lock" action="#{deanCourseBean.sophomoreLockOperation}" onclick="submit"/>		            					
-			            					<h:commandButton value="Unlock All"/>
+		            						<h:commandButton value="Lock" action="#{deanCourseBean.sophomoreLockOperation}" onclick="submit()"/>		            					
+			            					<h:commandButton value="Unlock All" action="#{deanCourseBean.sophomoreUnlockOperation}" onclick="submit()"/>
 			            				</h:panelGrid>
 		            					
 		            					<h:outputLabel value="" />
@@ -569,7 +569,7 @@
 		            					<h:outputLabel value="" />
 		            						<h:panelGrid columns="2">
 			            						<h:commandButton value="Lock" action="#{deanCourseBean.juniorLockOperation}" onclick="submit()"/>
-			            						<h:commandButton value="Unlock All"/>
+			            						<h:commandButton value="Unlock All" action="#{deanCourseBean.juniorUnlockOperation}" onclick="submit()"/>
 											</h:panelGrid>
 		            					<h:outputLabel value="" />
 		            					<table>
@@ -755,7 +755,7 @@
 		            					<h:outputLabel value="" />
 		            						<h:panelGrid columns="2">
 		            						<h:commandButton value="Lock" action="#{deanCourseBean.seniorLockOperation}" onclick="submit()"/>
-		            						<h:commandButton value="Unlock All" />
+		            						<h:commandButton value="Unlock All" action="#{deanCourseBean.seniorUnlockOperation}" onclick="submit()"/>
 		            						</h:panelGrid>
 		            					<h:outputLabel value="" />
 		            					<table>
