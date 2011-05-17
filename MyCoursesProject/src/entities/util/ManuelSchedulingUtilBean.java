@@ -66,7 +66,7 @@ public class ManuelSchedulingUtilBean {
 	private int selectedYearForAdd;
 	public int currentYear; //İlgili yıl bilgilerinin edinildiği alt alan
 	private String errorLabel; //Sınıf(Classroom) ve Hoca(Lecturer) bilgileri ile kontrol yapıldıktan sonra hatanın yansıtıldığı label.
-	private String dayForReset;
+	private String dayForReset = "";
 	private int hourForReset;
 	private int editOrAddFlag;
 	private int savedYear;
@@ -217,6 +217,10 @@ public class ManuelSchedulingUtilBean {
 
 	public String clickResetCoordinateButton() throws Exception{
 		System.out.println("Reset Coordinate Button");
+		/*Seçim yapılmadığı taktirde butona tıklama kontrolü*/
+		if(dayForReset.equals("") || hourForReset == 0){
+			return null;
+			}
 		this.resetSelectedCoordinate();
 		return null;
 	}
