@@ -28,7 +28,6 @@ public class TypeofCourseBean {
 	public void store() {
 		/*try-catch blogu eklenecek*/
 		try{
-			currentItem = allTypeofCourses.get(currentRow);
 			currentItem.updateTypeofCourse();
 			allTypeofCourses.set(currentRow, currentItem);
 			keys.clear();
