@@ -4,72 +4,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.hibernate.validator.Email;
-import org.hibernate.validator.NotEmpty;
-import org.hibernate.validator.Pattern;
-
-import entities.dao.Course;
 import entities.dao.TypeofCourse;
 
 public class TypeofCourseBean {
-	private Integer typeofCourseId;
 	
+	/********************Sınıf Metodları*********************************/
 	
-	private String typeofCourse;
-	
-	public Integer getTypeofCourseId() {
-		return typeofCourseId;
-	}
-	public void setTypeofCourseId(Integer typeofCourseId) {
-		this.typeofCourseId = typeofCourseId;
-	}
-	public String getTypeofCourse() {
-		return typeofCourse;
-	}
-	public void setTypeofCourse(String typeofCourse) {
-		this.typeofCourse = typeofCourse;
-	}
-	
-	//////////////////////////////////////////////////////
-	
-	private TypeofCourse currentItem = new TypeofCourse();
-	private Set<Integer> keys = new HashSet<Integer>();
-	private int currentRow;
-	private List<TypeofCourse> allTypeofCourses = null;
-	
-	public List<TypeofCourse> getAllTypeofCourses() {
-		synchronized (this) {
-			if (allTypeofCourses == null) {
-				allTypeofCourses = new ArrayList<TypeofCourse>();
-					try {
-						allTypeofCourses = currentItem.getAllTypeofCourses();
-						//listSeperator();
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllUsers Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
-			}
-		}
-		return allTypeofCourses;
-	}
-
-	
-
 	public String addTypeofCourse(){
 		try{
-			
-			
 			int size = allTypeofCourses.size();		
-			
 			TypeofCourse typeofCourse = new TypeofCourse(currentItem);
 			allTypeofCourses.add(size,typeofCourse);
 			typeofCourse.addTypeofCourse();
 			keys.clear();
 			keys.add(allTypeofCourses.size());
 			allTypeofCourses = typeofCourse.getAllTypeofCourses();
-			
 		}catch(Exception ex){
 			System.err.println(ex.getMessage());
 		}
@@ -77,12 +26,6 @@ public class TypeofCourseBean {
 	}
 	
 	public void store() {
-		/*
-		allCars.set(currentRow, currentItem);
-		keys.clear();
-		keys.add(currentRow);
-		*/
-		
 		/*try-catch blogu eklenecek*/
 		try{
 			currentItem = allTypeofCourses.get(currentRow);
@@ -91,12 +34,11 @@ public class TypeofCourseBean {
 			keys.clear();
 			keys.add(currentRow);
 		}catch(Exception ex){
-			System.err.println(ex.getMessage());
+			System.out.println(ex.getMessage());
 		}
 	}
 	
-public void delete() {
-		
+	public void delete() {
 		/* try-catch bloğu eklenecek
 		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
 		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
@@ -109,10 +51,23 @@ public void delete() {
 			allTypeofCourses.remove(currentItem);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 
+	/*****************Sınıf Getter-Setter Metodları****************************/
+	public List<TypeofCourse> getAllTypeofCourses() {
+		synchronized (this) {
+			allTypeofCourses = new ArrayList<TypeofCourse>();
+			try {
+				allTypeofCourses = currentItem.getAllTypeofCourses();
+			} catch (Exception e) {
+				System.out.println("!Load AllUsers Error: " + e.getMessage());
+			}
+		}
+		return allTypeofCourses;
+	}
+	
 	public TypeofCourse getCurrentItem() {
 		return currentItem;
 	}
@@ -135,6 +90,25 @@ public void delete() {
 	public void setAllTypeofCourses(List<TypeofCourse> allTypeofCourses) {
 		this.allTypeofCourses = allTypeofCourses;
 	}
-		
 	
+	public Integer getTypeofCourseId() {
+		return typeofCourseId;
+	}
+	public void setTypeofCourseId(Integer typeofCourseId) {
+		this.typeofCourseId = typeofCourseId;
+	}
+	public String getTypeofCourse() {
+		return typeofCourse;
+	}
+	public void setTypeofCourse(String typeofCourse) {
+		this.typeofCourse = typeofCourse;
+	}
+	
+	/*******************Sınıf Alt Alanları***********************/
+	private Integer typeofCourseId;
+	private String typeofCourse;
+	private TypeofCourse currentItem = new TypeofCourse();
+	private Set<Integer> keys = new HashSet<Integer>();
+	private int currentRow;
+	private List<TypeofCourse> allTypeofCourses = new ArrayList<TypeofCourse>();
 }
