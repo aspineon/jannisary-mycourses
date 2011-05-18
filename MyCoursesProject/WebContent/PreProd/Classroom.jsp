@@ -98,11 +98,11 @@
                     <h:panelGrid columns="2">
                     
                         <h:outputText value="Department Code" />
-                        <rich:comboBox id="departmentEditId" value="Select Dept Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentEditCombo}" style="width:159px;">
+                        <rich:comboBox id="departmentEditId" value="Select Dept Code" valueChangeListener="#{classroomBean.selectionChangedDepartmentEditCombo}" width="155px;">
                         	<f:selectItems value="#{classroomBean.departmentCodeList}"/>
                         </rich:comboBox>
                         <h:outputText value="Classroom Code" />
-                        <h:inputText value="#{classroomBean.currentItem.classroomCode}" style="width:149px;">
+                        <h:inputText value="#{classroomBean.currentItem.classroomCode}" style="width:150px;">
 	    					<f:validateLength minimum="1" maximum="10"/>
 	   					</h:inputText>
                         
