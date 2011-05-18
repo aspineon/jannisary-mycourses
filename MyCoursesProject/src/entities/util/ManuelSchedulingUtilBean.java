@@ -876,7 +876,7 @@ public class ManuelSchedulingUtilBean {
 	
 	private void saveMatrix(){
 		ScheduleBean scheduleBean = new ScheduleBean();
-		scheduleBean.addSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule);
+		scheduleBean.addSchedule(firstGradeSchedule, secondGradeSchedule, thirdGradeSchedule, fourthGradeSchedule,selectedYearForAdd,semester);
 	}
 	/*
 	 * Schedule nesnelerini archive ile 
