@@ -156,10 +156,7 @@ public class SyllabusBean {
 	public String addSyllabus(){
 		try{
 			
-			
 			int size = allSyllabusList.size();		
-			
-			
 			Syllabus syllabus = new Syllabus(currentItem);
 			allSyllabusList.add(size,syllabus);
 			syllabus.addSyllabus();
@@ -208,16 +205,11 @@ public class SyllabusBean {
 		 *  metodun sonunda tekrar unlock edilir
 		 * */
 		synchronized (this) {
-			if (allSyllabusList == null) {
-				allSyllabusList = new ArrayList<Syllabus>();
-					try {
-						allSyllabusList = currentItem.getAllSyllabus() ;
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabus Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+			allSyllabusList = new ArrayList<Syllabus>();
+			try {
+				allSyllabusList = currentItem.getAllSyllabus() ;
+			} catch (Exception e) {
+				System.out.println("!!!!!!loadAllSyllabus Error: " + e.getMessage());
 			}
 		}
 		return allSyllabusList;
@@ -362,7 +354,7 @@ public class SyllabusBean {
     private int currentRow;
     private Set<Integer> keys = new HashSet<Integer>();
     private Syllabus currentItem = new Syllabus();
-    private List<Syllabus> allSyllabusList = null;
+    private List<Syllabus> allSyllabusList = new ArrayList<Syllabus>();
     private ArrayList<SelectItem> courseCodeList = null;
     private ArrayList<SelectItem> lecturerNameList = null;
     private ArrayList<SelectItem> classroomList = null;
