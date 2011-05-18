@@ -19,7 +19,7 @@ public class BasicScheduleUtilBean {
 	private String semester;
 	private int scheduleId;
 	private int syllabusArchiveId;
-	
+	private String lectureTitle;
 	
 
 	public BasicScheduleUtilBean(){
@@ -166,6 +166,19 @@ public class BasicScheduleUtilBean {
 	public void setSyllabusArchiveId(int syllabusArchiveId) {
 		this.syllabusArchiveId = syllabusArchiveId;
 	}
+
+
+
+	public String getLectureTitle() {
+		return lectureTitle;
+	}
+
+
+
+	public void setLectureTitle(String lectureTitle) {
+		this.lectureTitle = lectureTitle;
+	}
+	
 	
 	
 }
