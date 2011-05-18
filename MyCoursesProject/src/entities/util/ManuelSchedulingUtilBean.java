@@ -194,27 +194,38 @@ public class ManuelSchedulingUtilBean {
 	}
 	
 	public String clickGetCoursesButton() throws Exception{
-		System.out.println("Get Course Button");
-		editOrAddFlag = 0;// Add
-		allSyllabuses = null;
-		allBasicScheduleItems = null;
-		allRealScheduleItems = null;
-		allSyllabuses = getSyllabusBySemesterAndGrade();
-		allRealScheduleItems = getScheduleBySemesterAndYear();
-		this.fillMatrixForEditOperation();
-		return null;
+		if(semester.equals("") || selectedYearForAdd==0 || intGrade==0){
+			return null;
+		}else{
+			fillMatrix();
+			System.out.println("Get Course Button");
+			editOrAddFlag = 0;// Add
+			allSyllabuses = null;
+			allBasicScheduleItems = null;
+			allRealScheduleItems = null;
+			allSyllabuses = getSyllabusBySemesterAndGrade();
+			allRealScheduleItems = getScheduleBySemesterAndYear();
+			this.fillMatrixForEditOperation();
+			return null;
+		}
+		
 	}
 	
 	public String clickGetCoursesButtonForEdit() throws Exception{
-		System.out.println("Get Course Button For Edit");
-		editOrAddFlag = 1;//Edit
-		allSyllabuses = null;
-		allBasicScheduleItems = null;
-		allRealScheduleItems = null;
-		allSyllabuses = getSyllabusBySemesterAndGradeAndYear();
-		allRealScheduleItems = getScheduleBySemesterAndGradeAndYear();
-		this.fillMatrixForEditOperation();
-		return null;
+		if(semester.equals("") || intGrade==0 || selectedYearForEdit==0){
+			
+		}else {
+			fillMatrix();
+			System.out.println("Get Course Button For Edit");
+			editOrAddFlag = 1;//Edit
+			allSyllabuses = null;
+			allBasicScheduleItems = null;
+			allRealScheduleItems = null;
+			allSyllabuses = getSyllabusBySemesterAndGradeAndYear();
+			allRealScheduleItems = getScheduleBySemesterAndGradeAndYear();
+			this.fillMatrixForEditOperation();
+			return null;
+		}
 	}
 
 	public String clickResetCoordinateButton() throws Exception{
