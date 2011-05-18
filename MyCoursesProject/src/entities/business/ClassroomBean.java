@@ -19,10 +19,8 @@ public class ClassroomBean {
 	 * */
 	public void selectionChangedDepartmentEditCombo(ValueChangeEvent  evt) {
 		 String selectedDeptCode = (String) evt.getNewValue();
-		 
 		 department.setDeptCode(selectedDeptCode);
-		 department = new Department(department.getDepartmentByCode().get(0));
-		 
+		 department = new Department(department.getDepartmentByCode().get(0)); 
 		 if (!selectedDeptCode.equals("")) {
 			 currentItem.setDepartment(department);
 		 }
@@ -30,37 +28,27 @@ public class ClassroomBean {
 	
 	public void selectionChangedDepartmentAddCombo(ValueChangeEvent  evt) {
 		String selectedDeptCode = (String) evt.getNewValue();
-		 
-		 department.setDeptCode(selectedDeptCode);
-		 department = new Department(department.getDepartmentByCode().get(0));
-		 
-		 if (!selectedDeptCode.equals("")) {
+		department.setDeptCode(selectedDeptCode);
+		department = new Department(department.getDepartmentByCode().get(0));
+		if (!selectedDeptCode.equals("")) {
 			 currentItem.setDepartment(department);
-		 }
+		}
 	}
 	
 	public List<Classroom> getAllClassrooms() {
 		synchronized (this) {
-			if (allClassrooms == null) {
-				allClassrooms = new ArrayList<Classroom>();
-					try {
-						allClassrooms = currentItem.getAllClassroom();
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllUsers Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+			allClassrooms = new ArrayList<Classroom>();
+			try {
+				allClassrooms = currentItem.getAllClassroom();
+			} catch (Exception e) {
+				System.out.println("!Load AllClassrooms Error: " + e.getMessage());
 			}
 		}
 		return allClassrooms;
 	}
 
-	
-
 	public String addClassroom(){
-		try{
-			
-			
+		try{	
 			int size = allClassrooms.size();
 			Classroom classroom = new Classroom(currentItem);
 			allClassrooms.add(size,classroom);
@@ -76,11 +64,6 @@ public class ClassroomBean {
 	}
 	
 	public void store() {
-		/*
-		allCars.set(currentRow, currentItem);
-		keys.clear();
-		keys.add(currentRow);
-		*/
 		
 		/*try-catch blogu eklenecek*/
 		try{
@@ -94,10 +77,8 @@ public class ClassroomBean {
 			System.err.println(ex.getMessage());
 		}
 	}
-
 	
 	public void delete() {
-		
 		/* try-catch bloğu eklenecek
 		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
 		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
@@ -114,49 +95,37 @@ public class ClassroomBean {
 	}
 	
 	public List<SelectItem> getDepartmentCodeList(){
-		
-		synchronized (this) {
-            if (departmentCodeList == null) {
-            	departmentCodeList = new ArrayList<SelectItem>();
-                try {
-                	//Department nesnelerini al.
-                    List<Department> departmentList = department.getAllDepartments();
-                    int i;
-                    for(i=0; i<departmentList.size(); i++){
-                    	String strDepartmentCode = departmentList.get(i).getDeptCode();
-                    	departmentCodeList.add(new SelectItem(strDepartmentCode));
-                    }
-                                    
-                }catch (Exception e) {
-                	System.out.println("!!!!!!loadAllSyllabus Error: " + e.getMessage());
-                	e.printStackTrace();
+		synchronized (this) {   
+        	departmentCodeList = new ArrayList<SelectItem>();
+            try {
+            	//Department nesnelerini al.
+                List<Department> departmentList = department.getAllDepartments();
+                int i;
+                for(i=0; i<departmentList.size(); i++){
+                	String strDepartmentCode = departmentList.get(i).getDeptCode();
+                	departmentCodeList.add(new SelectItem(strDepartmentCode));
                 }
+            }catch (Exception e) {
+            	System.out.println("!!!!!!loadAllSyllabus Error: " + e.getMessage());
+            	e.printStackTrace();
             }
-		}
-		
+        }
 		return departmentCodeList;
 	}
 	
 	public List<SelectItem> getClassroomCodeList() {
 		
 		synchronized (this) {
-            if (classroomCodeList == null) {
-                    classroomCodeList = new ArrayList<SelectItem>();
-                            try {
-                                    
-                                    int i;
-                                    for(i=0; i<allClassrooms.size(); i++){
-                                            String strClassroomCode = allClassrooms.get(i).getClassroomCode();
-                                            classroomCodeList.add(new SelectItem(strClassroomCode));
-                                    }
-                                    
-                            } catch (Exception e) {
-                                    System.out.println("!!!!!!loadAllSyllabus Error: "
-                                                    + e.getMessage());
-                                    e.printStackTrace();
-                            }
-            }
-		}
+	        classroomCodeList = new ArrayList<SelectItem>();
+	        try {    
+	            for(int i=0; i<allClassrooms.size(); i++){
+                    String strClassroomCode = allClassrooms.get(i).getClassroomCode();
+                    classroomCodeList.add(new SelectItem(strClassroomCode));
+	            }
+	        }catch (Exception e) {
+	        	System.out.println("!Load All Classrooms Error: " + e.getMessage());
+	        }
+        } 
 		return classroomCodeList;
 	}
 
@@ -205,19 +174,13 @@ public class ClassroomBean {
 	}
 
 
-	
-
-
+	/********************Sınıf Alt Alanları*************************/
 	private Classroom currentItem = new Classroom();
-	private List<SelectItem> departmentCodeList;
-	private List<SelectItem> classroomCodeList;
+	private List<SelectItem> departmentCodeList = new ArrayList<SelectItem>() ;
+	private List<SelectItem> classroomCodeList = new ArrayList<SelectItem>();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
-	
-	
 	private Department department = new Department();
 	private String classroomCode;
-	
-	
-	private List<Classroom> allClassrooms = null;
+	private List<Classroom> allClassrooms = new ArrayList<Classroom>();
 }
