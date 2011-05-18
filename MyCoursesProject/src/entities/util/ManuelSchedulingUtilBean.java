@@ -581,9 +581,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
 					
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle()  + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						firstGradeSchedule[quotient-1][7]  = bs;
@@ -611,9 +611,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
 					
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						secondGradeSchedule[quotient-1][7]  = bs;
@@ -641,9 +641,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
 					
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() +  allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						thirdGradeSchedule[quotient-1][7]  = bs;
@@ -671,9 +671,9 @@ public class ManuelSchedulingUtilBean {
 					bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
 					
 					if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+						bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 					}
 					if(remainder == 0){
 						fourthGradeSchedule[quotient-1][7]  = bs;
@@ -790,6 +790,7 @@ public class ManuelSchedulingUtilBean {
 				bsub.setPracticeHours(allSyllabuses.get(i).getCourse().getPracticeLectureHourse());
 				bsub.setTeoricHours(allSyllabuses.get(i).getCourse().getTeoricLectureHours());
 				bsub.setLecturerName(allSyllabuses.get(i).getLecturer().getLecturerName());
+				bsub.setLectureTitle(allSyllabuses.get(i).getLecturer().getTitle());
 				bsub.setClassroomId(allSyllabuses.get(i).getClassroom().getClassroomId());
 				bsub.setSyllabusId(allSyllabuses.get(i).getSyllabusId());
 				bsub.setCourseId(allSyllabuses.get(i).getCourse().getCourseId());
@@ -816,7 +817,7 @@ public class ManuelSchedulingUtilBean {
 					BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
 					bs.setCourseType("theoric");
 					String newName = allBasicScheduleItems.get(i).getCourseName();
-					newName = newName + " (T), {" + allBasicScheduleItems.get(i).getLecturerName() + "}";
+					newName = newName + " (T), {" + allBasicScheduleItems.get(i).getLectureTitle() + allBasicScheduleItems.get(i).getLecturerName() + "}";
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
@@ -835,7 +836,7 @@ public class ManuelSchedulingUtilBean {
 					BasicScheduleUtilBean bs = new BasicScheduleUtilBean();
 					bs.setCourseType("practice");
 					String newName = allBasicScheduleItems.get(i).getCourseName();
-					newName = newName + "(P), {" + allBasicScheduleItems.get(i).getLecturerName() + "}";
+					newName = newName + "(P), {" + allBasicScheduleItems.get(i).getLectureTitle() + allBasicScheduleItems.get(i).getLecturerName() + "}";
 					bs.setCourseTheoricOrPraticName(newName);
 					bs.setClassroomId(allBasicScheduleItems.get(i).getClassroomId());
 					bs.setCourseName(allBasicScheduleItems.get(i).getCourseName());
