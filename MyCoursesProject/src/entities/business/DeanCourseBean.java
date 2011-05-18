@@ -2903,11 +2903,14 @@ public class DeanCourseBean
 				ScheduleAtomic item = this.freshmanMarkedList.get(i);
 				int hour = item.getStartHour();
 				int day = this.dayMapToIndexHash.get(item.getDay());
-				if(!retMatrix[hour][day].equals("")) {
-					retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
-				}
-				else {
-					retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				for(int j = 0; j < item.getCredit(); j++) {
+					if(!retMatrix[hour][day].equals("")) {
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					else {
+						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					hour++;
 				}
 			}
 			return retMatrix;
