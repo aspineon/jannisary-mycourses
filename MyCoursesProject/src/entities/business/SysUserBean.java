@@ -69,8 +69,7 @@ public class SysUserBean {
 	public void store() {
 		
 		/*try-catch blogu eklenecek*/
-		try{
-			currentItem = allUsers.get(currentRow);
+		try{			
 			currentItem.updateUser();
 			allUsers.set(currentRow, currentItem);
 			keys.clear();
