@@ -121,7 +121,6 @@ public class SyllabusBean {
 	public void store(){
 		/*try-catch blogu eklenecek*/
 		try{
-			currentItem = allSyllabusList.get(currentRow);
 			currentItem.setCourse(course);
 			currentItem.setLecturer(lecturer);
 			currentItem.setClassroom(classroom);
