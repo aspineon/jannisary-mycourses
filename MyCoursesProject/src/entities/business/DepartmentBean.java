@@ -15,16 +15,12 @@ public class DepartmentBean {
 	
 	public List<Department> getAllDepartments() {
 		synchronized (this) {
-			if (allDepartments == null) {
-				allDepartments = new ArrayList<Department>();
-					try {
-						allDepartments = currentItem.getAllDepartments();
-						//listSeperator();
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllDepartments Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+			allDepartments = new ArrayList<Department>();
+			try {
+				allDepartments = currentItem.getAllDepartments();
+				//listSeperator();
+			} catch (Exception e) {
+				System.out.println("!Load All Departments Error: " + e.getMessage());
 			}
 		}
 		return allDepartments;
@@ -32,11 +28,7 @@ public class DepartmentBean {
 
 	public String addDepartment(){
 		try{
-			
-			
 			int size = allDepartments.size();		
-			
-			
 			Department department = new Department(currentItem);
 			allDepartments.add(size,department);
 			department.addDepartment();
@@ -81,9 +73,7 @@ public class DepartmentBean {
 			System.err.println(ex.getMessage());
 		}
 	}
-	
-	
-	
+
 	public Department getCurrentItem() {
 		return currentItem;
 	}
@@ -108,8 +98,6 @@ public class DepartmentBean {
 		this.keys = keys;
 	}
 	
-	
-
 	public List<SelectItem> getSelectItemsDepartment() {
 		synchronized (this) {
             if (selectItemsDepartment == null) {
@@ -141,7 +129,5 @@ public class DepartmentBean {
 	List<SelectItem> selectItemsDepartment = null;
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
-	
-	
-	private List<Department> allDepartments = null;
+	private List<Department> allDepartments = new ArrayList<Department>();
 }
