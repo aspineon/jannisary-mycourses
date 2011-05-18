@@ -117,25 +117,21 @@ public class LecturerBean {
 		synchronized (this) {
 			selectItemsForDepartments = new ArrayList<SelectItem>();
             try {
-                    //Department nesnelerini al.
-                    List<Department> departmentList = department.getAllDepartments();
-                    int i;
-                    for(i=0; i<departmentList.size(); i++){
-                            String strDeptCode = departmentList.get(i).getDeptCode();
-                            selectItemsForDepartments.add(new SelectItem(strDeptCode));
-                    }
-                    
+                //Department nesnelerini al.
+                List<Department> departmentList = department.getAllDepartments();
+                int i;
+                for(i=0; i<departmentList.size(); i++){
+                    String strDeptCode = departmentList.get(i).getDeptCode();
+                    selectItemsForDepartments.add(new SelectItem(strDeptCode));
+                }
             } catch (Exception e) {
-                    System.out.println("!!!!!!loadAllSyllabus Error: "
-                                    + e.getMessage());
-                    e.printStackTrace();
+                    System.out.println("!Load All Lecturer Error: " + e.getMessage());
             }
 		}
 		return selectItemsForDepartments;
 	}
 
-	public void setSelectItemsForDepartments(
-			List<SelectItem> selectItemsForDepartments) {
+	public void setSelectItemsForDepartments(List<SelectItem> selectItemsForDepartments) {
 		this.selectItemsForDepartments = selectItemsForDepartments;
 	}
 
@@ -161,9 +157,9 @@ public class LecturerBean {
 
 	/******************Sınıf Alt Alanları**************/
 	private Department department = new Department();
-	private List<SelectItem> selectItemsForDepartments;
+	private List<SelectItem> selectItemsForDepartments = new ArrayList<SelectItem>();
 	private Lecturer currentItem = new Lecturer();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
-	private List<Lecturer> allLecturerList = null;
+	private List<Lecturer> allLecturerList = new ArrayList<Lecturer>();
 }
