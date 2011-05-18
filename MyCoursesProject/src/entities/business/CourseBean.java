@@ -141,7 +141,6 @@ public class CourseBean {
 	public void store() {
 		/*try-catch blogu eklenecek*/
 		try{
-			currentItem = allCourses.get(currentRow);
 			currentItem.updateCourse();
 			allCourses.set(currentRow, currentItem);
 			keys.clear();
