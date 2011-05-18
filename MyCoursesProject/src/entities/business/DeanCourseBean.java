@@ -2860,10 +2860,10 @@ public class DeanCourseBean
 		try
 		{
 			ExcelPOI excelObj = new ExcelPOI();
-			excelObj.generateFreshmanSheet(initFreshmanCourseTable);
-			excelObj.generateSophomoreSheet(initSophomoreCourseTable);
-			excelObj.generateJuniorSheet(initJuniorCourseTable);
-			excelObj.generateSeniorSheet(initSeniorCourseTable);
+			excelObj.generateFreshmanSheet(this.convertMatrix("Freshman"));
+			excelObj.generateSophomoreSheet(this.convertMatrix("Sophomore"));
+			excelObj.generateJuniorSheet(this.convertMatrix("Junior"));
+			excelObj.generateSeniorSheet(this.convertMatrix("Senior"));
 			excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal);
 		}
 		catch(Exception ex)
@@ -2915,9 +2915,57 @@ public class DeanCourseBean
 			}
 			return retMatrix;
 		}
-		if(grade.equals("Sophomore")) {}
-		if(grade.equals("Junior")) {}
-		if(grade.equals("Senior")) {}
+		if(grade.equals("Sophomore")) {			
+			for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
+				ScheduleAtomic item = this.sophomoreMarkedList.get(i);
+				int hour = item.getStartHour();
+				int day = this.dayMapToIndexHash.get(item.getDay());
+				for(int j = 0; j < item.getCredit(); j++) {
+					if(!retMatrix[hour][day].equals("")) {
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					else {
+						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					hour++;
+				}
+			}
+			return retMatrix;			
+		}
+		if(grade.equals("Junior")) {
+			for(int i = 0; i < this.juniorMarkedList.size(); i++) {
+				ScheduleAtomic item = this.juniorMarkedList.get(i);
+				int hour = item.getStartHour();
+				int day = this.dayMapToIndexHash.get(item.getDay());
+				for(int j = 0; j < item.getCredit(); j++) {
+					if(!retMatrix[hour][day].equals("")) {
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					else {
+						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					hour++;
+				}
+			}
+			return retMatrix;
+		}
+		if(grade.equals("Senior")) {
+			for(int i = 0; i < this.seniorMarkedList.size(); i++) {
+				ScheduleAtomic item = this.seniorMarkedList.get(i);
+				int hour = item.getStartHour();
+				int day = this.dayMapToIndexHash.get(item.getDay());
+				for(int j = 0; j < item.getCredit(); j++) {
+					if(!retMatrix[hour][day].equals("")) {
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					else {
+						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+					}
+					hour++;
+				}
+			}
+			return retMatrix;
+		}
 		return retMatrix;
 	}
 	
