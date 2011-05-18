@@ -199,7 +199,7 @@
             			<rich:dataTable id="freshmanDataTable" value="#{deanCourseBean.initFreshmanCourseTable}" var="item" style=" width : 700px;">	
 	        				
 	        				<f:facet name="header">
-	                			<h:outputText value="Schedule Table For Dean Course" />
+	                			<h:outputText value="Schedule Table" />
 	        				</f:facet>
         				
 	        				<rich:column style=" width : 180px; height: 19px; background-color:#FCDFFF;">
@@ -997,7 +997,7 @@
 					<td>
 					</td>
 					<td style=" width : 367px;background-color: lightgray">
-						<rich:panel header="Table" style=" width : 650px; height:350px">						
+						<rich:panel header="" style=" width : 650px; height:350px">						
 						
 						
 							<rich:dataTable id="deanWeekTable" value="#{deanCourseBean.initCourseTable}" 
