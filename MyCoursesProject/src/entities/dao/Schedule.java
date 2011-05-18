@@ -28,11 +28,12 @@ public class Schedule implements java.io.Serializable {
 	private String courseType;
 	private int timeofCourse;
 	private int hours;
-	private int savedYear;
+	private int savedYear;//deletePreviousSchedule fonksiyonu içinde kullanılmaktadır.
 	private int selectedYearForEdit;
 	private String semester;
 	private String savedSemester;
 	
+
 	//Manual Scheduling de gösterimde kullanılan alan, veritabanında tanımı yoktur.
 	private String courseTheoricOrPraticName;
 	
@@ -84,14 +85,41 @@ public class Schedule implements java.io.Serializable {
 		}
 	}
 	
+	private void deletePreviousSchedule(){
+		Session session=null;
+		try{
+			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+			session = sessionFactory.openSession();
+			Transaction tx = session.beginTransaction();
+			/*Tek bir bağlantı içerisinde ilgili yıl ve semesterın 1.,2.,3.,4. sınıf 
+			 * schedule bilgileri veritabanından silinecek.*/
+			for(int i=1; i<5;i++){
+				Query query = session.getNamedQuery("deletePreviousSchedule");
+				query.setParameter("pYear", savedYear);
+				query.setParameter("pSemester", semester);
+				query.setParameter("pGrade", i);
+				query.executeUpdate();
+			}//end of for loop
+			tx.commit();
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
+		}
+		finally{
+			session.close();
+		}
+	}
+	
 public void addScheduleMatrix(){
 		
 		Session session=null;
 		try{
+			//İlgili yıl ve semester bilgileri siliniyor daha sonra güncel veriler ekleniyor.
+			deletePreviousSchedule();
 			
 			SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
 			session = sessionFactory.openSession();
 			Transaction tx = session.beginTransaction();
+			
 			
 			for(int i = 0; i < 5;i++){
 				for(int j = 0;j < 8 ;j++){
@@ -680,6 +708,4 @@ public void updateScheduleMatrix(){
 		this.savedSemester = savedSemester;
 	}
 
-	
-	
 }
