@@ -4,28 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
-import entities.dao.Course;
 import entities.dao.Department;
 
 public class DepartmentBean {
 	
-	public List<Department> getAllDepartments() {
-		synchronized (this) {
-			allDepartments = new ArrayList<Department>();
-			try {
-				allDepartments = currentItem.getAllDepartments();
-				//listSeperator();
-			} catch (Exception e) {
-				System.out.println("!Load All Departments Error: " + e.getMessage());
-			}
-		}
-		return allDepartments;
-	}
-
+	/********************Sınıf Metodları****************************/
 	public String addDepartment(){
 		try{
 			int size = allDepartments.size();		
@@ -74,6 +58,18 @@ public class DepartmentBean {
 		}
 	}
 
+	public List<Department> getAllDepartments() {
+		synchronized (this) {
+			allDepartments = new ArrayList<Department>();
+			try {
+				allDepartments = currentItem.getAllDepartments();
+			} catch (Exception e) {
+				System.out.println("!Load All Departments Error: " + e.getMessage());
+			}
+		}
+		return allDepartments;
+	}
+	
 	public Department getCurrentItem() {
 		return currentItem;
 	}
@@ -100,22 +96,17 @@ public class DepartmentBean {
 	
 	public List<SelectItem> getSelectItemsDepartment() {
 		synchronized (this) {
-            if (selectItemsDepartment == null) {
-                    selectItemsDepartment = new ArrayList<SelectItem>();
-                            try {
-                                    int i;
-                                    for(i=0; i< allDepartments.size(); i++){
-                                            String strDeptCode = allDepartments.get(i).getDeptCode();
-                                            selectItemsDepartment.add(new SelectItem(strDeptCode));
-                                    }
-                                    
-                            } catch (Exception e) {
-                                    System.out.println("!!!!!!DepartmentBean getSelectItemsDepartment Error: "
-                                                    + e.getMessage());
-                                    e.printStackTrace();
-                            }
+            selectItemsDepartment = new ArrayList<SelectItem>();
+            try {
+                int i;
+                for(i=0; i< allDepartments.size(); i++){
+                	String strDeptCode = allDepartments.get(i).getDeptCode();
+                    selectItemsDepartment.add(new SelectItem(strDeptCode));
+                }   
+            }catch (Exception e) {
+            	System.out.println("Load Department Error: " + e.getMessage());
             }
-    }
+        }
 		return selectItemsDepartment;
 	}
 
@@ -124,9 +115,9 @@ public class DepartmentBean {
 	}
 
 
-
+	/***********************Sınıf Alt Alanları**************************/
 	private Department currentItem = new Department();
-	List<SelectItem> selectItemsDepartment = null;
+	List<SelectItem> selectItemsDepartment = new ArrayList<SelectItem>();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	private List<Department> allDepartments = new ArrayList<Department>();
