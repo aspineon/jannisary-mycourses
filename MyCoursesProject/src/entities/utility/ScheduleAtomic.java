@@ -171,7 +171,7 @@ public class ScheduleAtomic {
 		return retList;
 	}
 	
-	private ArrayList<Integer> generateKnowledge(int credit) {
+	public ArrayList<Integer> generateKnowledge(int credit) {
 		ArrayList<Integer> retList = new ArrayList<Integer>();
 		if(credit == 1) {
 			for(int i = 1; i < 41; i++) {
