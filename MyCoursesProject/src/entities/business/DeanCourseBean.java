@@ -46,7 +46,7 @@ public class DeanCourseBean
 	private ArrayList<ScheduleAtomic> juniorSchedules = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> seniorSchedules = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> deanSchedules = new ArrayList<ScheduleAtomic>();
-//**************************************************************************************	
+//*********************** DEAN ***************************************************************	
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
 	private String creditValuePrac = "";
@@ -208,11 +208,11 @@ public class DeanCourseBean
 			   									 {0, 0, 0, 0, 0}};
 //******************************************************************************
 	private String selectedDeanLecturer;
-	String selectedDeanDay = "";
-	String selectedOperation = "";
-	String selectedStartHour = "";
-	String selectedEndHour = "";
-	String selectedRoom = "";
+	private String selectedDeanDay = "";
+	private String selectedOperation = "";
+	private String selectedStartHour = "";
+	private String selectedEndHour = "";
+	private String selectedRoom = "";
 	boolean buttonStatus = false;
 	
 	Color testColor = Color.green;
@@ -240,9 +240,12 @@ public class DeanCourseBean
 	private boolean freshmanLockDayFlag = false;
 	private boolean freshmanLockHourFlag = false;
 	private ArrayList<Index> freshmanLockedIndexes = new ArrayList<Index>();
-	
+
 	private boolean splitFlagFreshman = false;
-	private boolean readyToGoFreshman = false;
+	private boolean freshmanCreditFlag = false;
+	private boolean freshmanDayFlag = false;
+	private boolean freshmanHourFlag = false;
+	
 //**************** Sophomore Subfields **********************************************
 	private String selectedSophomoreCourse = "";
 	private String selectedSophomoreSplitCourse = "";
@@ -319,7 +322,6 @@ public class DeanCourseBean
 	private ArrayList<Index> seniorLockedIndexes = new ArrayList<Index>();
 	
 //*************************************************************************************************
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** CONSTRUCTOR ***************************************************	
 	public DeanCourseBean()
 	{	
@@ -567,72 +569,16 @@ public class DeanCourseBean
 //********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
 	{	
-		try
-		{
-			if(selectedFreshmanOperation.equals("Theory Operation"))
-			{
-				if(!selectedFreshmanDay.equals("Choose Days"))
-				{
-					if(!selectedFreshmanStartHour.equals("Choose Start Hour")
-							&& !selectedFreshmanCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedFreshmanDay);
-						int startHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanStartHour);
-						int endHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanCredit);
-						
-						int startHourT = startHourOfFreshmanCourse - 1;
-						int endHourT = endHourOfFreshmanCourse - 1;
-						
-						if(initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";
-								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(T)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}	
-					}
-				}
+		String retStr = "";
+		if(this.freshmanHourFlag == true) {
+			if(this.splitFlagFreshman == true) {
+				System.out.println("Split Yes");
 			}
-			else if(selectedFreshmanOperation.equals("Practice Operation"))
-			{
-				if(!selectedFreshmanDay.equals("Choose Days"))
-				{
-					if(!selectedFreshmanStartHour.equals("Choose Start Hour")
-							&& !selectedFreshmanCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedFreshmanDay);
-						int startHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanStartHour);
-						int endHourOfFreshmanCourse = Integer.parseInt(selectedFreshmanCredit);
-						
-						int startHourT = startHourOfFreshmanCourse - 1;
-						int endHourT = endHourOfFreshmanCourse - 1;
-						
-						if(initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initFreshmanCourseTable[startHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";
-								initFreshmanCourseTable[endHourT][dayIndexOnCourseTable] = selectedFreshmanCourse + "(P)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}						
-					}
-				}
+			else {
+				System.out.println("Split No");
 			}
 		}
-		catch(Exception ex)
-		{
-			ex.getMessage();
-		}
-		return null;
+		return retStr;
 	}
 	
 	public String initSophomoreCourseTableEvent()
@@ -855,11 +801,8 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedYear = newValue;
-		this.readyToGoFreshman = false;
 		this.autoScheduleFlag = false;
 		if((!this.selectedYear.equals("Choose Year")) && (this.selectedYear != null)) {
-			this.testRandomMethod();
-			this.readyToGoFreshman = false;
 			if(this.semesterFlag == true) {
 				this.clearAllComponents();
 				this.loadAllLists(selectedYear, selectedSemester);
@@ -884,7 +827,6 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSemester = newValue;
-		this.readyToGoFreshman = false;
 		this.autoScheduleFlag = false;
 		if((!this.selectedSemester.equals("Choose Semester")) && (this.selectedSemester != null)) {
 			this.clearAllComponents();
@@ -1255,7 +1197,6 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanCourse = newValue;
-		this.readyToGoFreshman = false;
 		this.clearSubFields("Freshman");
 		this.clearTimeValues("Freshman");
 		if(!this.selectedFreshmanCourse.equals("Course Selection") && this.selectedFreshmanCourse != null) {
@@ -1270,45 +1211,49 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanOperation = newValue;
-		this.readyToGoFreshman = false;
 		this.topCreditFreshman = -1;
-		this.freshmanCredits.clear();
-		this.freshmanDays.clear();
-		this.freshmanHours.clear();
+		this.atomicIndexFreshman = -1;
+		this.clearTimeValues("Freshman");
 		if((!this.selectedFreshmanOperation.equals("Choose Course Type")) && (this.selectedFreshmanOperation != null)) {
-			this.clearTimeValues("Freshman");
-			this.loadCredits("Freshman", 0);
-			if(this.selectedScheduleAtomicFreshman != null && this.splitFlagFreshman == true) {
-				ScheduleAtomic boundedAtomic = this.freshmanUnmarkedList.get(atomicIndexFreshman);
-				System.out.println(boundedAtomic.toString());
-				boundedAtomic.mergeCredit(this.selectedScheduleAtomicFreshman, "Unmarked");
-				this.testMergeMethod();
-				this.atomicIndexFreshman = -1;
+			boolean permission = true;
+			if(this.selectedFreshmanOperation.equals("Theoretical")) { 
+				this.optFlagFreshman = "Theo";
+				if(Integer.parseInt(this.freshmanCreditValeuTeo) == 0) { permission = false; }
 			}
-			if(this.selectedFreshmanOperation.equals("Theoretical") && (this.optFlagFreshman != "T")) {
-				if(this.optFlagFreshman == "P") { 
-					this.selectedFreshmanCredit = null;
-				}
-				this.optFlagFreshman = "T";
-				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Theo", 0);
+			if(this.selectedFreshmanOperation.equals("Practice")) { 
+				this.optFlagFreshman = "Prac";
+				if(Integer.parseInt(this.freshmanCreditValuePrac) == 0) { permission = false; }
+			}	
+			if(permission == true) {
+				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, this.optFlagFreshman, 0);
 				this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
 				this.freshmanCredits.clear();
 				this.loadCredits("Freshman", this.topCreditFreshman);
-			} 
-			if(this.selectedFreshmanOperation.equals("Practice") && (this.optFlagFreshman != "P")) {
-				if(this.optFlagFreshman == "T") {
-					this.selectedFreshmanCredit = null;
+				if((this.freshmanCreditFlag == true) && (Integer.parseInt(this.selectedFreshmanCredit) <= this.topCreditFreshman)) {
+					if(Integer.parseInt(this.selectedFreshmanCredit) == this.topCreditFreshman) {
+						this.splitFlagFreshman = false;	
+					}
+					else { 
+						this.splitFlagFreshman = true; 
+					}
+					this.loadDays("Freshman");
+					if(this.freshmanDayFlag == true) {
+						this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
+						this.freshmanHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedFreshmanDay);
+						this.scheduleAtomicObj.getKnowledge().clear();
+						if(this.freshmanHours.contains(new SelectItem(this.selectedFreshmanStartHour))) {
+							this.freshmanHourFlag = true;
+						}
+						else {
+							this.freshmanHourFlag = false;
+						}
+					}
 				}
-				this.optFlagFreshman = "P";
-				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, "Prac", 0);
-				this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
-				this.freshmanCredits.clear();
-				this.loadCredits("Freshman", this.topCreditFreshman);
 			}
 		}
-		else { 
-			this.clearTimeValues("Freshman"); 
+		else {  
 			this.optFlagFreshman = "";
+			this.clearTimeValues("Freshman");
 		}
 	}
 	
@@ -1319,23 +1264,33 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanCredit = newValue;
-		this.readyToGoFreshman = false;
 		this.freshmanDays.clear();
 		this.freshmanHours.clear();
 		if(!this.selectedFreshmanCredit.equals("Choose Credit") && this.selectedFreshmanCredit != null) {
-			this.loadDays("Freshman");
-			if (this.atomicIndexFreshman != -1) {
-				if(this.topCreditFreshman != Integer.parseInt(this.selectedFreshmanCredit)) {
-					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));	
-					this.splitFlagFreshman = true;
+			if(this.topCreditFreshman != -1) {
+				this.freshmanCreditFlag = true;
+				if(this.topCreditFreshman != Integer.parseInt(this.selectedFreshmanCredit)) { 
+					this.splitFlagFreshman = true; 
 				}
-				else {
-					this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
-					this.splitFlagFreshman = false;
+				else { 
+					this.splitFlagFreshman = false; 
+				}
+				this.loadDays("Freshman");
+				if(this.freshmanDayFlag == true) {
+					this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
+					this.freshmanHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedFreshmanDay);
+					this.scheduleAtomicObj.getKnowledge().clear();
+					if(this.freshmanHours.contains(new SelectItem(this.selectedFreshmanStartHour))) {
+						this.freshmanHourFlag = true;
+					}
+					else {
+						this.freshmanHourFlag = false;
+					}
 				}
 			}
 		}
 		else {
+			this.freshmanCreditFlag = false;
 			this.freshmanDays.clear();
 			this.freshmanHours.clear();
 		}
@@ -1348,13 +1303,21 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanDay = newValue;
-		this.readyToGoFreshman = false;
 		this.freshmanHours.clear();
 		if((!this.selectedFreshmanDay.equals("Choose Day")) && (this.selectedFreshmanDay != null)) {
-			this.freshmanHours.clear();
-			this.freshmanHours = this.selectedScheduleAtomicFreshman.getKnowledgeByDay(this.selectedFreshmanDay);
+			this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
+			this.freshmanHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedFreshmanDay);
+			this.scheduleAtomicObj.getKnowledge().clear();
+			this.freshmanDayFlag = true;
+			if(this.freshmanHours.contains(new SelectItem(this.selectedFreshmanStartHour))) {
+				this.freshmanHourFlag = true;
+			}
+			else {
+				this.freshmanHourFlag = false;
+			}
 		}
 		else {
+			this.freshmanDayFlag = false;
 			this.freshmanHours.clear();
 		}
 	}
@@ -1366,15 +1329,12 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanStartHour = newValue;
-		this.readyToGoFreshman = false;
 		if((!this.selectedFreshmanStartHour.equals("Choose Start Hour")) && (this.selectedFreshmanStartHour != null)) {
-			this.readyToGoFreshman = true;
-			this.selectedScheduleAtomicFreshman = null;
-			return;
+			//this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));
+			this.freshmanHourFlag = true;
 		}
-		else {
-			this.readyToGoFreshman = false;
-			return;
+		else { 
+			this.freshmanHourFlag = false;
 		}
 	}
 //******************* SOPHOMORE EVENTS **************************************************
@@ -2913,6 +2873,51 @@ public class DeanCourseBean
 		return returnVal;
 	}
 
+	private String[][] convertMatrix(String grade) {
+		String[][] retMatrix = new String[9][6];
+		
+		retMatrix[0][0] = "Hours/Days";
+		retMatrix[0][1] = "Monday";
+		retMatrix[0][2] = "Tuesday";
+		retMatrix[0][3] = "Wednesday";
+		retMatrix[0][4] = "Thursday";
+		retMatrix[0][5] = "Friday";
+		
+		retMatrix[1][0] = "1";
+		retMatrix[2][0] = "2";
+		retMatrix[3][0] = "3";
+		retMatrix[4][0] = "4";
+		retMatrix[5][0] = "5";
+		retMatrix[6][0] = "6";
+		retMatrix[7][0] = "7";
+		retMatrix[8][0] = "8";
+		
+		for(int i = 1; i < 9; i++) {
+			for(int j = 1; j < 6; j++) {
+				retMatrix[i][j] = "";
+			}
+		}
+		
+		if(grade.equals("Freshman")) {
+			for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
+				ScheduleAtomic item = this.freshmanMarkedList.get(i);
+				int hour = item.getStartHour();
+				int day = this.dayMapToIndexHash.get(item.getDay());
+				if(!retMatrix[hour][day].equals("")) {
+					retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				}
+				else {
+					retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				}
+			}
+			return retMatrix;
+		}
+		if(grade.equals("Sophomore")) {}
+		if(grade.equals("Junior")) {}
+		if(grade.equals("Senior")) {}
+		return retMatrix;
+	}
+	
 	
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
