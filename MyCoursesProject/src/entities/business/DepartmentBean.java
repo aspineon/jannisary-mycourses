@@ -30,7 +30,6 @@ public class DepartmentBean {
 	public void store() {
 		
 		try{
-			currentItem = allDepartments.get(currentRow);
 			currentItem.updateDepartment();
 			allDepartments.set(currentRow, currentItem);
 			keys.clear();
