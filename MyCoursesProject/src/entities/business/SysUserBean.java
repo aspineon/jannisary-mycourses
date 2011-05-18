@@ -80,7 +80,6 @@ public class SysUserBean {
 	}
 
 	public void delete() {
-		
 		/* try-catch bloğu eklenecek
 		 *Önce veritabanımızdan siliyoruz, ardından listeden siliyoruz.
 		 *Olası bir veritabanı hatasında ve silmeme probleminde listeden
