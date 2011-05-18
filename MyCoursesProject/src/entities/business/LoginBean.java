@@ -1,10 +1,8 @@
 package entities.business;
 
 import java.util.List;
-
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
 import entities.dao.SysUser;
 
 public class LoginBean 
