@@ -31,39 +31,30 @@ public class LoginBean
 		SysUser sysUserObj = new SysUser();
 		List<SysUser> sysUserList;
 		
-		try
-		{
+		try{
 			sysUserObj.setUserName(userName);
 			sysUserObj.setUserPassword(password);
 			
 			sysUserList = sysUserObj.getSysUserByUsernameAndPassword();
 			
-			if(sysUserList.size() == 0)
-			{
+			if(sysUserList.size() == 0){
 				System.err.println("Login Fail");
 				returnString = "failure";
 				return returnString;
-				
 			}
-			else
-			{	
+			else{	
 				FacesContext context = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 				session.setAttribute("username", userName);
-				
 				System.out.println("Success");
 				returnString = "success";
-				return returnString;
-				//response.sendRedirect(response.encodeRedirectUrl("http://localhost:8080/MyCoursesProject/faces/PreProd/index.jsp"));
+				return returnString;				
 			}
 		
 		}
-		catch(Exception ex)
-		{
+		catch(Exception ex){
 			System.out.println(ex.getMessage());
 		}
 		return null;
 	}
-	
-	
 }
