@@ -17,13 +17,25 @@ public class ScheduleBean {
 	private Syllabus pSyllabus = new Syllabus();
 	private int pSyllabusId;
 	
-	public void addSchedule(BasicScheduleUtilBean[][] firstGradeSchedule, BasicScheduleUtilBean[][] secondGradeSchedule,
-			BasicScheduleUtilBean[][] thirdGradeSchedule,BasicScheduleUtilBean[][] fourthGradeSchedule){
+	public void addSchedule(BasicScheduleUtilBean[][] firstGradeSchedule, 
+							BasicScheduleUtilBean[][] secondGradeSchedule,
+							BasicScheduleUtilBean[][] thirdGradeSchedule,
+							BasicScheduleUtilBean[][] fourthGradeSchedule,
+							int intYear,
+							String strSemester){
+		
+		
+		
+		
 		
 		schedule.setFirstGradeSchedule(firstGradeSchedule);
 		schedule.setSecondGradeSchedule(secondGradeSchedule);
 		schedule.setThirdGradeSchedule(thirdGradeSchedule);
 		schedule.setFourthGradeSchedule(fourthGradeSchedule);
+		
+		//Bu alanlar ScheduleBean içerisinde deletePreviousSchedule methodunda kullanılmaktadır
+		schedule.setSavedYear(intYear);
+		schedule.setSemester(strSemester);
 		
 		schedule.addScheduleMatrix();
 	}
