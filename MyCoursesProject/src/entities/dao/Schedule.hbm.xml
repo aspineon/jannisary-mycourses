@@ -24,6 +24,11 @@
             <column name="Hours" not-null="true" />
         </property>
     </class>
+    <sql-query name="deletePreviousSchedule">
+    	<return alias="Schedule" class="entities.dao.Schedule"/>
+    	<![CDATA[CALL DeletePreviousSchedule(:pYear,:pSemester,:pGrade)]]>
+    </sql-query>
+    	
     <sql-query name="AddSchedule">
     		<return alias="Schedule" class="entities.dao.Schedule"/>
         	<![CDATA[CALL AddSchedule(:pCourseType,:pTimeofCourse,:pHours,:pSyllabusId,:pSyllabusArchive)]]>
