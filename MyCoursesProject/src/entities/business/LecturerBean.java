@@ -58,7 +58,7 @@ public class LecturerBean {
 	public void store(){
 		/*try-catch blogu eklenecek*/
 		try{
-			currentItem = allLecturerList.get(currentRow);
+			//currentItem = allLecturerList.get(currentRow);
 			currentItem.setDepartment(department);
 			currentItem. updateLecturer();
 			allLecturerList.set(currentRow, currentItem);
