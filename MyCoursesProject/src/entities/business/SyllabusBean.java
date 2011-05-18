@@ -41,7 +41,6 @@ public class SyllabusBean {
 	public void selectionChangedLecturerEditCombo(ValueChangeEvent  evt) {
 		 String selectedLecturerName = (String) evt.getNewValue();
 		 
-		 
 		 if (!selectedLecturerName.equals("")) {
 			 lecturer.setLecturerName(selectedLecturerName);
 			 lecturer = new Lecturer(lecturer.getIdByLecturerName().get(0));
@@ -52,7 +51,6 @@ public class SyllabusBean {
 	public void selectionChangedCourseEditCombo(ValueChangeEvent  evt) {
 		 String selectedCourseCode = (String) evt.getNewValue();
 		 
-
 		 if (!selectedCourseCode.equals("")) {
 			 course.setCourseCode(selectedCourseCode);
 			 Integer intCourseId = course.getIdByCourseCode().get(0).getCourseId();
@@ -64,7 +62,6 @@ public class SyllabusBean {
 	public void selectionChangedClassroomEditCombo(ValueChangeEvent  evt) {
 		String selectedClassroomCode = (String) evt.getNewValue();
 		 
-
 		 if (!selectedClassroomCode.equals("")) {
 			 classroom.setClassroomCode(selectedClassroomCode);
 			 classroom = new Classroom(classroom.getIdByClassroomCode().get(0));
@@ -75,7 +72,6 @@ public class SyllabusBean {
 	public void selectionChangedClassroomAddCombo(ValueChangeEvent  evt) {
 		String selectedClassroomCode = (String) evt.getNewValue();
 		 
-
 		 if (!selectedClassroomCode.equals("")) {
 			 classroom.setClassroomCode(selectedClassroomCode);
 			 Integer intClassroomId = classroom.getIdByClassroomCode().get(0).getClassroomId();
@@ -87,7 +83,6 @@ public class SyllabusBean {
 	public void selectionChangedLectureAddCombo(ValueChangeEvent  evt) {
 		 String selectedLectureName = (String) evt.getNewValue();
 
-		 
 		 if (!selectedLectureName.equals("")) {
 			 lecturer.setLecturerName(selectedLectureName);
 			 Integer intLecturerId = lecturer.getIdByLecturerName().get(0).getLecturerId();
@@ -123,8 +118,6 @@ public class SyllabusBean {
 		 }
 	}
 	
-	
-	
 	public void store(){
 		/*try-catch blogu eklenecek*/
 		try{
@@ -133,7 +126,6 @@ public class SyllabusBean {
 			currentItem.setLecturer(lecturer);
 			currentItem.setClassroom(classroom);
 			currentItem.updateSyllabus();
-			
 			allSyllabusList.set(currentRow, currentItem);
 			keys.clear();
 			keys.add(currentRow);
@@ -147,7 +139,6 @@ public class SyllabusBean {
 		currentItem = allSyllabusList.get(currentRow);
 		currentItem.deleteSyllabus();
 		allSyllabusList.remove(currentItem);
-	
 		}catch(Exception ex){
 			System.out.println(ex.getMessage());
 		}
@@ -155,7 +146,6 @@ public class SyllabusBean {
 	
 	public String addSyllabus(){
 		try{
-			
 			int size = allSyllabusList.size();		
 			Syllabus syllabus = new Syllabus(currentItem);
 			allSyllabusList.add(size,syllabus);
@@ -171,7 +161,6 @@ public class SyllabusBean {
 	
 	private int calculateYear(){
 		int year=-1;
-		
 		try {
 			Date d = new Date();
 			Calendar c = Calendar.getInstance();
@@ -181,7 +170,6 @@ public class SyllabusBean {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return year;
 	}
 	
@@ -209,7 +197,7 @@ public class SyllabusBean {
 			try {
 				allSyllabusList = currentItem.getAllSyllabus() ;
 			} catch (Exception e) {
-				System.out.println("!!!!!!loadAllSyllabus Error: " + e.getMessage());
+				System.out.println("!Load AllSyllabus Error: " + e.getMessage());
 			}
 		}
 		return allSyllabusList;
@@ -223,75 +211,55 @@ public class SyllabusBean {
      * Course Code 2 kez gösterilmemeli, bug çözülmeli.
      * */
     public ArrayList<SelectItem> getCourseCodeList() {
-            
-            synchronized (this) {
-                    if (courseCodeList == null) {
-                            courseCodeList = new ArrayList<SelectItem>();
-                                    try {
-                                            //Course nesnelerini al.
-                                            List<Course> courseList = course.getAllCourses();
-                                            int i;
-                                            for(i=0; i<courseList.size(); i++){
-                                                    String strCourseCode = courseList.get(i).getCourseCode();
-                                                    courseCodeList.add(new SelectItem(strCourseCode));
-                                            }
-                                            
-                                    } catch (Exception e) {
-                                            System.out.println("!!!!!!loadAllSyllabus Error: "
-                                                            + e.getMessage());
-                                            e.printStackTrace();
-                                    }
-                    }
-            }
-            
-            return courseCodeList;
+        synchronized (this) {
+	        courseCodeList = new ArrayList<SelectItem>();
+	        try {
+	            //Course nesnelerini al.
+	            List<Course> courseList = course.getAllCourses();
+	            int i;
+	            for(i=0; i<courseList.size(); i++){
+	                    String strCourseCode = courseList.get(i).getCourseCode();
+	                    courseCodeList.add(new SelectItem(strCourseCode));
+	            }
+	        } catch (Exception e) {
+	                System.out.println("!Load AllSyllabus Error: " + e.getMessage());
+	        }
+        }
+        return courseCodeList;
     }
+    
 	public void setCourseCodeList(ArrayList<SelectItem> courseNameList) {
 		this.courseCodeList = courseNameList;
 	}
 	public ArrayList<SelectItem> getLecturerNameList() {
 		List<Lecturer> lecturerList = lecturer.getAllLecturer();
 		synchronized (this) {
-			if (lecturerNameList == null) {
-				lecturerNameList = new ArrayList<SelectItem>();
-					try {
-						int i;
-						for(i=0; i<lecturerList.size(); i++){
-							String strLecturerName = lecturerList.get(i).getLecturerName();
-							lecturerNameList.add(new SelectItem(strLecturerName));
-						}
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabusBean:getLecturerNameList Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+			lecturerNameList = new ArrayList<SelectItem>();
+			try {
+				for(int i=0; i<lecturerList.size(); i++){
+					String strLecturerName = lecturerList.get(i).getLecturerName();
+					lecturerNameList.add(new SelectItem(strLecturerName));
+				}
+			}catch(Exception e) {
+				System.out.println("!Load All Syllabus Error: " + e.getMessage());
 			}
 		}
-		
 		return lecturerNameList;
 	}
 	
 	public ArrayList<SelectItem> getClassroomList() {
 		List<Classroom> classroomCodeList = classroom.getAllClassroom();
 		synchronized (this) {
-			if (classroomList == null) {
-				classroomList = new ArrayList<SelectItem>();
-					try {
-						int i;
-						for(i=0; i<classroomCodeList.size(); i++){
-							String strClassroomCode = classroomCodeList.get(i).getClassroomCode();
-							classroomList.add(new SelectItem(strClassroomCode));
-						}
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabusBean:getClassroomList Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+			classroomList = new ArrayList<SelectItem>();
+			try{
+				for(int i=0; i<classroomCodeList.size(); i++){
+					String strClassroomCode = classroomCodeList.get(i).getClassroomCode();
+					classroomList.add(new SelectItem(strClassroomCode));
+				}
+			}catch (Exception e) {
+				System.out.println("!Load AllSyllabus Error: " + e.getMessage());
 			}
 		}
-		
 		return classroomList;
 	}
 	
@@ -323,8 +291,6 @@ public class SyllabusBean {
 		this.currentRow = currentRow;
 	}
 	
-	
-	
     public ArrayList<SelectItem> getSemesterList() {
 		return semesterList;
 	}
@@ -340,13 +306,10 @@ public class SyllabusBean {
 	public void setYearList(ArrayList<SelectItem> yearList) {
 		this.yearList = yearList;
 	}
-
-
-
+	
 	private Integer syllabusId;
     private Integer sectionNo;
     private Classroom classroom = new Classroom();
-    
     private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();
     private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>();
     private Course course = new Course();
@@ -355,8 +318,8 @@ public class SyllabusBean {
     private Set<Integer> keys = new HashSet<Integer>();
     private Syllabus currentItem = new Syllabus();
     private List<Syllabus> allSyllabusList = new ArrayList<Syllabus>();
-    private ArrayList<SelectItem> courseCodeList = null;
-    private ArrayList<SelectItem> lecturerNameList = null;
-    private ArrayList<SelectItem> classroomList = null;
+    private ArrayList<SelectItem> courseCodeList = new ArrayList<SelectItem>();
+    private ArrayList<SelectItem> lecturerNameList = new ArrayList<SelectItem>();
+    private ArrayList<SelectItem> classroomList = new ArrayList<SelectItem>();
     private int currentYear;
 }
