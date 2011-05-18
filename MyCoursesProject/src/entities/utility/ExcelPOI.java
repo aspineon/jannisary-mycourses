@@ -2,6 +2,7 @@ package entities.utility;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -16,6 +17,37 @@ import entities.business.SyllabusArchiveBean;
 public class ExcelPOI 
 {
 	HSSFWorkbook scheduleWorkbook = new HSSFWorkbook();
+	
+	//**************************************************************************
+	// Writing Autoscheduling result to excel file******************************
+	//**************************************************************************
+	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester)
+	{
+		try
+		{									
+			File scheduleFolder = new File("C:\\Schedule Files\\");
+			
+			File scheduleFile = new File("C:\\Schedule Files\\"+pYear+"_"+pSemester+".xls");
+			if(!scheduleFolder.exists())
+			{
+				scheduleFolder.mkdir();
+			}
+			if(!scheduleFile.exists())
+			{
+				scheduleFile.createNewFile();
+			}
+			
+			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
+			scheduleWorkbook.write(fileOutputStream);
+			
+		}
+		catch(Exception ex)
+		{
+			ex.getMessage();
+		}
+	}
+	//******************************************************************************
+	
 	
 	//******************************************************************************
 	// seasonYearOne seasonYearTwo'dan kasit 2010-2011 gibi bir sezonun belirtilmesi
