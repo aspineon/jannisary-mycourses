@@ -596,6 +596,27 @@ public void updateScheduleMatrix(){
 	     return allSchedules;
 	}
 	
+	public List<Schedule> getScheduleBySemesterAndYear(){
+		List<Schedule> allSchedules = null;
+		
+	     Session session = null;
+	     
+	     try {
+	             SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+	             session = sessionFactory.openSession();
+	             
+	             Query query = session.getNamedQuery("getScheduleBySemesterAndYear");
+	             query.setParameter("pSemester", syllabus.getSemester());
+	             query.setParameter("pYear", syllabus.getYear());
+	             allSchedules =(List<Schedule>) query.list();
+	             
+	     } catch (Exception e) {
+	             // TODO: handle exception
+	             e.getMessage();
+	     } 
+	     return allSchedules;
+	}
+	
 	public String getCourseTheoricOrPraticName() {
 		return courseTheoricOrPraticName;
 	}
