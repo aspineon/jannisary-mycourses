@@ -2,11 +2,7 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
- <managed-bean>
-  <managed-bean-name>bean</managed-bean-name>
-  <managed-bean-class>entities.business.Bean</managed-bean-class>
-  <managed-bean-scope>session</managed-bean-scope>
- </managed-bean>
+
  <managed-bean>
   <managed-bean-name>lecturerBean</managed-bean-name>
   <managed-bean-class>entities.business.LecturerBean</managed-bean-class>
@@ -43,11 +39,6 @@
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
  <managed-bean>
-  <managed-bean-name>demoDragDropBean</managed-bean-name>
-  <managed-bean-class>entities.business.DemoDragDropBean</managed-bean-class>
-  <managed-bean-scope>session</managed-bean-scope>
- </managed-bean>
- <managed-bean>
   <managed-bean-name>manuelSchedulingUtilBean</managed-bean-name>
   <managed-bean-class>entities.util.ManuelSchedulingUtilBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
@@ -80,12 +71,4 @@
    <to-view-id>/PreProd/login.jsp</to-view-id>
   </navigation-case>
  </navigation-rule>
- <validator>
-  <validator-id>EmailValidator</validator-id>
-  <validator-class>entities.validator.EmailValidator</validator-class>
- </validator>
- <validator>
-  <validator-id>EmailValidatorWithRegex</validator-id>
-  <validator-class>entities.validator.EmailValidatorWithRegex</validator-class>
- </validator>
 </faces-config>
