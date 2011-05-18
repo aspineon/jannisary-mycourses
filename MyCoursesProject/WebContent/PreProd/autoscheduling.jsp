@@ -1097,7 +1097,7 @@
 		            				</tr>
 	            				</table>
 		            			<h:selectOneMenu id="autoArchiveSemesterComboBox" value="#{deanCourseBean.paramSemesterVal}" style=" width : 154px;">
-		            				<f:selectItem itemValue="Choose Semester"></f:selectItem>
+		            				
 		            				<f:selectItems value="#{deanCourseBean.semesterList}"/>
 		            			</h:selectOneMenu>
 		            			<h:outputLabel value="" />
