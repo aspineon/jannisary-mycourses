@@ -67,7 +67,6 @@ public class ClassroomBean {
 		
 		/*try-catch blogu eklenecek*/
 		try{
-			currentItem = allClassrooms.get(currentRow);
 			currentItem.setDepartment(department);
 			currentItem.updateClassroom();
 			allClassrooms.set(currentRow, currentItem);
