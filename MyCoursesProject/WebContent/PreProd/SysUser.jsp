@@ -101,14 +101,14 @@
                 <a4j:outputPanel ajaxRendered="true">
                     <h:panelGrid columns="2">
                         <h:outputText value="User" />
-                        <h:inputText value="#{sysUserBean.currentItem.userName}" />
+                        <h:inputText value="#{sysUserBean.currentItem.userName}" style = "width : 145px"/>
                         <h:outputText value="Status" />
-                        <rich:comboBox id="selectStatusIdForEdit" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" style="width : 149px;">
+                        <rich:comboBox id="selectStatusIdForEdit" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" width = "151px">
 							<f:selectItems value="#{sysUserBean.selectItems}"/>
 					</rich:comboBox>
                         <h:outputText value="Password" />
                         <h:inputText value="#{sysUserBean.currentItem.userPassword}"
-                            label="Password" immediate="true" />
+                            label="Password" immediate="true" style = "width : 145px"/>
                     </h:panelGrid>
                     <rich:message showSummary="true" showDetail="false" for="price" />
                 </a4j:outputPanel>
