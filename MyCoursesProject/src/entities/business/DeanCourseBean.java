@@ -50,6 +50,11 @@ public class DeanCourseBean
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
 	private String creditValuePrac = "";
+	
+	//******************************************************************************
+	private String paramYearVal = "";
+	private String paramSemesterVal = "";
+	//******************************************************************************
 //******************************************************************************
 	private ArrayList<SelectItem> freshmanOperations = new ArrayList<SelectItem>();
 	private ArrayList<SelectItem> sophomoreOperations = new ArrayList<SelectItem>();
@@ -2888,6 +2893,25 @@ public class DeanCourseBean
 			e.printStackTrace();
 		}		
 	}
+	
+	public String generateExcelReport()
+	{
+		String returnVal = "";		
+		try
+		{
+			ExcelPOI excelObj = new ExcelPOI();
+			excelObj.generateFreshmanSheet(initFreshmanCourseTable);
+			excelObj.generateSophomoreSheet(initSophomoreCourseTable);
+			excelObj.generateJuniorSheet(initJuniorCourseTable);
+			excelObj.generateSeniorSheet(initSeniorCourseTable);
+			excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return returnVal;
+	}
 
 	
 //************************* GETTER-SETTER METHODS ***************************************	
@@ -2923,6 +2947,18 @@ public class DeanCourseBean
 		return semesterList;
 	}
 
+	public String getParamYearVal() {
+		return paramYearVal;
+	}
+	public void setParamYearVal(String paramYearVal) {
+		this.paramYearVal = paramYearVal;
+	}
+	public String getParamSemesterVal() {
+		return paramSemesterVal;
+	}
+	public void setParamSemesterVal(String paramSemesterVal) {
+		this.paramSemesterVal = paramSemesterVal;
+	}
 	public void setSemesterList(ArrayList<SelectItem> semesterList) {
 		this.semesterList = semesterList;
 	}
