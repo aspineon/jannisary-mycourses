@@ -12,6 +12,8 @@ import entities.dao.*;
 
 public class LecturerBean {
 	
+	/**************Sınıf Olayları*****************/
+	
 	public void selectionChangedDepartmentEditCombo(ValueChangeEvent  evt) {
 		 String selectedDepartmentCode = (String) evt.getNewValue();
 		 department.setDeptCode(selectedDepartmentCode);
@@ -35,32 +37,28 @@ public class LecturerBean {
 		 }
 	}
 	
-	public List<Lecturer> getAllLecturerList() {
-		/*
-		 * ayni anda iki veya daha fazla thread tarafindan calistirilmamasi istenen metotlara verilen keyword.
-		 *  synchonized ve statik olmayan bir metot calistirilirken nesneleri kilitlenir,
-		 *  metodun sonunda tekrar unlock edilir
-		 * */
-		synchronized (this) {
-			
-				allLecturerList = new ArrayList<Lecturer>();
-					try {
-						allLecturerList = currentItem.getAllLecturer();
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabus Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+	/************Sınıf Metodları************/
+	
+	public String addLecturer(){
+		try{
+			int size = allLecturerList.size();		
+			Lecturer newlecturer = new Lecturer(currentItem);
+			allLecturerList.add(size,newlecturer);
+			newlecturer.addLecturer();
+			keys.clear();
+			keys.add(allLecturerList.size());
+			allLecturerList = newlecturer.getAllLecturer();
+			cleanTextBox();
+		}catch(Exception ex){
+			System.err.println(ex.getMessage());
 		}
-		return allLecturerList;
+		return null;
 	}
 	
 	public void store(){
 		/*try-catch blogu eklenecek*/
 		try{
 			currentItem = allLecturerList.get(currentRow);
-			
 			currentItem.setDepartment(department);
 			currentItem. updateLecturer();
 			allLecturerList.set(currentRow, currentItem);
@@ -73,33 +71,40 @@ public class LecturerBean {
 	
 	public void delete(){
 		try{
-		currentItem = allLecturerList.get(currentRow);
-		currentItem.deleteLecturer();
-		allLecturerList.remove(currentItem);
-	
+			currentItem = allLecturerList.get(currentRow);
+			currentItem.deleteLecturer();
+			allLecturerList.remove(currentItem);
 		}catch(Exception ex){
 			System.out.println(ex.getMessage());
 		}
 	}
 	
-	public String addLecturer(){
-		try{
-			
-			int size = allLecturerList.size();		
-			Lecturer newlecturer = new Lecturer(currentItem);
-			allLecturerList.add(size,newlecturer);
-			newlecturer.addLecturer();
-			keys.clear();
-			keys.add(allLecturerList.size());
-			allLecturerList = newlecturer.getAllLecturer();
-			
-		}catch(Exception ex){
-			System.err.println(ex.getMessage());
-		}
-		return null;
+	private void cleanTextBox(){
+		currentItem.setLecturerName("");
+		currentItem.setEmail("");
+		currentItem.setTelephone("");
+		currentItem.setTitle("");
 	}
 	
+	/*********Sınıf Getter-Setter Metodları**********/
 	
+	public List<Lecturer> getAllLecturerList() {
+		/*
+		 * ayni anda iki veya daha fazla thread tarafindan calistirilmamasi istenen metotlara verilen keyword.
+		 *  synchonized ve statik olmayan bir metot calistirilirken nesneleri kilitlenir,
+		 *  metodun sonunda tekrar unlock edilir
+		 * */
+		synchronized (this) {
+			allLecturerList = new ArrayList<Lecturer>();
+			try {
+				allLecturerList = currentItem.getAllLecturer();
+			} catch (Exception e) {
+				System.out.println("!Load AllLecturer Error: " + e.getMessage());
+			}
+		}
+		return allLecturerList;
+	}
+
 	public Lecturer getCurrentItem() {
 		return currentItem;
 	}
@@ -108,29 +113,24 @@ public class LecturerBean {
 		this.currentItem = currentItem;
 	}
 	
-	
-	
 	public List<SelectItem> getSelectItemsForDepartments() {
-		
 		synchronized (this) {
-            
-                    selectItemsForDepartments = new ArrayList<SelectItem>();
-                            try {
-                                    //Department nesnelerini al.
-                                    List<Department> departmentList = department.getAllDepartments();
-                                    int i;
-                                    for(i=0; i<departmentList.size(); i++){
-                                            String strDeptCode = departmentList.get(i).getDeptCode();
-                                            selectItemsForDepartments.add(new SelectItem(strDeptCode));
-                                    }
-                                    
-                            } catch (Exception e) {
-                                    System.out.println("!!!!!!loadAllSyllabus Error: "
-                                                    + e.getMessage());
-                                    e.printStackTrace();
-                            }
-    }
-		
+			selectItemsForDepartments = new ArrayList<SelectItem>();
+            try {
+                    //Department nesnelerini al.
+                    List<Department> departmentList = department.getAllDepartments();
+                    int i;
+                    for(i=0; i<departmentList.size(); i++){
+                            String strDeptCode = departmentList.get(i).getDeptCode();
+                            selectItemsForDepartments.add(new SelectItem(strDeptCode));
+                    }
+                    
+            } catch (Exception e) {
+                    System.out.println("!!!!!!loadAllSyllabus Error: "
+                                    + e.getMessage());
+                    e.printStackTrace();
+            }
+		}
 		return selectItemsForDepartments;
 	}
 
@@ -159,13 +159,11 @@ public class LecturerBean {
 		this.allLecturerList = allLecturerList;
 	}
 
-
+	/******************Sınıf Alt Alanları**************/
 	private Department department = new Department();
 	private List<SelectItem> selectItemsForDepartments;
 	private Lecturer currentItem = new Lecturer();
 	private Set<Integer> keys = new HashSet<Integer>();
 	private int currentRow;
 	private List<Lecturer> allLecturerList = null;
-	private List<Department> allDepartments = null;
-	
 }
