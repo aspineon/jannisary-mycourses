@@ -1084,8 +1084,9 @@
 		            					</td>
 		            				</tr>
 	            				</table>
-		            			<h:selectOneMenu id="autoArchiveYearComboBox" value="" style=" width : 154px;">
+		            			<h:selectOneMenu id="autoArchiveYearComboBox" value="#{deanCourseBean.paramYearVal}" style=" width : 154px;">
 		            				<f:selectItem itemValue="Choose Year"></f:selectItem>
+		            				<f:selectItems value="#{deanCourseBean.yearList}"/>
 		            			</h:selectOneMenu>
 		            			<h:outputLabel value="" />
 	            			
@@ -1095,8 +1096,9 @@
 		            					</td>
 		            				</tr>
 	            				</table>
-		            			<h:selectOneMenu id="autoArchiveSemesterComboBox" value="" style=" width : 154px;">
+		            			<h:selectOneMenu id="autoArchiveSemesterComboBox" value="#{deanCourseBean.paramSemesterVal}" style=" width : 154px;">
 		            				<f:selectItem itemValue="Choose Semester"></f:selectItem>
+		            				<f:selectItems value="#{deanCourseBean.semesterList}"/>
 		            			</h:selectOneMenu>
 		            			<h:outputLabel value="" />
 		            			
@@ -1107,11 +1109,8 @@
 		            					</td>
 		            				</tr>
 	            				</table>	
-		            			<h:selectOneMenu id="autoArchiveStatus" value="">
-		            				<f:selectItem itemValue="Select Archive Status"/>
-		            				<f:selectItem itemValue="Yes"/>
-		            				<f:selectItem itemValue="No"/>
-		            			</h:selectOneMenu>
+	            				<h:outputLabel value="" />
+	            				
 		            			<h:outputLabel value="" />
 		            			<h:outputLabel value="Version Name : "/>
 			            			<h:inputText value="" >
@@ -1119,7 +1118,7 @@
 			            			</h:inputText>
 			            			<rich:message style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
 		            				<h:outputLabel value="" />
-		            				<h:commandButton value="Save Archive" />
+		            				<h:commandButton value="Save Archive" action="#{deanCourseBean.generateExcelReport}"/>
 		            				
 		            				<h:outputLabel value="" />
 		            					            				            			            				
