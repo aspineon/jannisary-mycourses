@@ -2859,12 +2859,16 @@ public class DeanCourseBean
 		String returnVal = "";		
 		try
 		{
-			ExcelPOI excelObj = new ExcelPOI();
-			excelObj.generateFreshmanSheet(this.convertMatrix("Freshman"));
-			excelObj.generateSophomoreSheet(this.convertMatrix("Sophomore"));
-			excelObj.generateJuniorSheet(this.convertMatrix("Junior"));
-			excelObj.generateSeniorSheet(this.convertMatrix("Senior"));
-			excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal);
+			if((!paramYearVal.equals("Choose Year")) && (paramYearVal != null) 
+					&& (!paramSemesterVal.equals("Choose Semester")) && (paramSemesterVal != null))
+			{
+				ExcelPOI excelObj = new ExcelPOI();
+				excelObj.generateFreshmanSheet(this.convertMatrix("Freshman"));
+				excelObj.generateSophomoreSheet(this.convertMatrix("Sophomore"));
+				excelObj.generateJuniorSheet(this.convertMatrix("Junior"));
+				excelObj.generateSeniorSheet(this.convertMatrix("Senior"));
+				excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal);
+			}
 		}
 		catch(Exception ex)
 		{
