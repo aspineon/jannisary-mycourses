@@ -24,8 +24,10 @@ public class ExcelPOI
 	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester)
 	{
 		try
-		{									
-			File scheduleFolder = new File("C:\\Schedule Files\\");
+		{			
+			/*String strPath = new java.io.File(".").getCanonicalPath();
+			strPath = strPath + "/ScheduleFiles/";
+			File scheduleFolder = new File(strPath);
 			
 			File scheduleFile = new File("C:\\Schedule Files\\"+pYear+"_"+pSemester+".xls");
 			if(!scheduleFolder.exists())
@@ -35,7 +37,16 @@ public class ExcelPOI
 			if(!scheduleFile.exists())
 			{
 				scheduleFile.createNewFile();
-			}
+			}*/
+			
+			String strPath = new java.io.File(".").getCanonicalPath();
+			strPath = strPath + "/ScheduleFiles/";
+			File scheduleFolder = new File(strPath);
+			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
+			// siniflara ait excel dosyasinin yaratilmasi ***********************
+			String strFilePath =  strPath + pYear + "_"+ pSemester  + ".xls";
+			File scheduleFile = new File(strFilePath);
+			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
 			scheduleWorkbook.write(fileOutputStream);
