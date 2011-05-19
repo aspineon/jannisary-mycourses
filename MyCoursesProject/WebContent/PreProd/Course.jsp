@@ -143,39 +143,41 @@
                     <h:panelGrid columns="2">
                         <h:outputText value="Code" />
                         <h:inputText value="#{courseBean.currentItem.courseCode}" style="width:130px;"/>
+                        
                         <h:outputText value="Name" />
                         <h:inputText value="#{courseBean.currentItem.courseName}" style="width:130px;"/>
+                        
                         <h:outputText value="Teoric H." />
                         <h:inputText value="#{courseBean.currentItem.teoricLectureHours}"
                             label="Password" immediate="true" style="width:130px;"/>
+                        
                         <h:outputText value="Practice H." />
                         <h:inputText value="#{courseBean.currentItem.practiceLectureHourse}" style="width:130px;"/>
+                        
                         <h:outputText value="Attendance" />
-
-                        <rich:comboBox id="selectAttendanceIdForEdit" value="Select Attendance" valueChangeListener="#{courseBean.selectionChangedAttendanceCombo}">
+                        <rich:comboBox id="selectAttendanceIdForEdit"  width="132px" value="Select Attendance" valueChangeListener="#{courseBean.selectionChangedAttendanceCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForAttendance}"/>
 						</rich:comboBox>
 
                         <h:outputText value="Grade" />
-                        <rich:comboBox id="selectGradeIdForEdit" value="Select Grade" valueChangeListener="#{courseBean.selectionChangedGradeCombo}">
+                        <rich:comboBox id="selectGradeIdForEdit" width="132px" value="Select Grade" valueChangeListener="#{courseBean.selectionChangedGradeCombo}">
 							<f:selectItems value="#{courseBean.selectItemsGrades}"/>
 						</rich:comboBox>
 
                         <h:outputText value="Type" />
-                        <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="130px" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
+                        <rich:comboBox id="selectTypeofCourseIdForEditPanel" width="132px" value="Select Type of Course" valueChangeListener="#{courseBean.selectionChangedTypeofCourseCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForTypeofCourses}"/>
 						</rich:comboBox>
+                        
                         <h:outputText value="Department" />
-                        <rich:comboBox id="selectDepartmentForEditPanel" width="130px" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
+                        <rich:comboBox id="selectDepartmentForEditPanel" width="132px" value="Select Department" valueChangeListener="#{courseBean.selectionChangedDepartmentCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForDepartments}"/>
 						</rich:comboBox>
+                        
                         <h:outputText value="Precondition" />
-
-                        <rich:comboBox id="selectPreconditionCourseCode" value="Select Course Code" valueChangeListener="#{courseBean.selectionChangedPreconditionCombo}">
+                        <rich:comboBox id="selectPreconditionCourseCode" width="132px" value="Select Course Code" valueChangeListener="#{courseBean.selectionChangedPreconditionCombo}">
 							<f:selectItems value="#{courseBean.selectItemsForPreconditions}"/>
 						</rich:comboBox>
-
-                        <h:inputText value="#{courseBean.currentItem.precondition}" style="width:130px;"/>
 
                         <h:outputText value="Description" />
                         <h:inputText value="#{courseBean.currentItem.courseDescription}" style="width:130px;"/>
@@ -209,8 +211,8 @@
                         <td align="center" width="50%"><a4j:commandButton value="Yes" ajaxSingle="true" action="#{courseBean.delete}"
                             oncomplete="#{rich:component('deletePanel')}.hide();"
                             reRender="table" />
-                        </td>
-                        <td align="center" width="50%"><a4j:commandButton
+                       </td>
+                      <td align="center" width="50%"><a4j:commandButton
                             value="Cancel"
                             onclick="#{rich:component('deletePanel')}.hide();return false;" />
                         </td>
