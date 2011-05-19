@@ -51,6 +51,11 @@ public class DeanCourseBean
 	private ArrayList<ScheduleAtomic> juniorSchedules = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> seniorSchedules = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> deanSchedules = new ArrayList<ScheduleAtomic>();
+//*******************************************************************************************	
+	private ArrayList<ScheduleAtomic> freshmanBackup = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> sophomoreBackup = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> juniorBackup = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> seniorBackup = new ArrayList<ScheduleAtomic>();
 //*********************** DEAN ***************************************************************	
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
@@ -963,10 +968,32 @@ public class DeanCourseBean
 			this.juniorAutoScheduling();
 			this.seniorAutoScheduling();
 			
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
+			
+			this.clearControlTables("Freshman");
+			this.clearControlTables("Sophomore");
+			this.clearControlTables("Junior");
+			this.clearControlTables("Senior");
+			
+			this.loadLockedIndexes();
+			
 			this.writeFreshmanSchedule();
 			this.writeSophomoreSchedule();
 			this.writeJuniorSchedule();
 			this.writeSeniorSchedule();
+			
+			this.retrieveFromBackup("Freshman");
+			this.retrieveFromBackup("Sophomore");
+			this.retrieveFromBackup("Junior");
+			this.retrieveFromBackup("Senior");
+			
+			this.freshmanMarkedList.clear();
+			this.sophomoreMarkedList.clear();
+			this.juniorMarkedList.clear();
+			this.seniorMarkedList.clear();
 		}	
 		return retVal;
 	}
@@ -1963,6 +1990,7 @@ public class DeanCourseBean
 		ArrayList<Syllabus> itemList = syllabusObj.getSyllabusByGrade(year, semester, 1);
 		if(itemList.size() != 0) {
 			this.freshmanUnmarkedList = this.generateAtomic(itemList);
+			this.freshmanBackup = this.generateAtomic(itemList);
 			this.freshmanCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
 				this.freshmanCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
@@ -1972,6 +2000,7 @@ public class DeanCourseBean
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 2);
 		if(itemList.size() != 0) {
 			this.sophomoreUnmarkedList = this.generateAtomic(itemList);
+			this.sophomoreBackup = this.generateAtomic(itemList);
 			this.sophomoreCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
 				this.sophomoreCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
@@ -1981,6 +2010,7 @@ public class DeanCourseBean
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 3);
 		if(itemList.size() != 0) {
 			this.juniorUnmarkedList = this.generateAtomic(itemList);
+			this.juniorBackup = this.generateAtomic(itemList);
 			this.juniorCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
 				this.juniorCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
@@ -1990,6 +2020,7 @@ public class DeanCourseBean
 		itemList = syllabusObj.getSyllabusByGrade(year, semester, 4);
 		if(itemList.size() != 0) {
 			this.seniorUnmarkedList = this.generateAtomic(itemList);
+			this.seniorBackup = this.generateAtomic(itemList);
 			this.seniorCourses.add(new SelectItem("Course Selection"));
 			for(int i = 0; i < itemList.size(); i++) {
 				this.seniorCourses.add(new SelectItem(itemList.get(i).getCourse().getCourseCode()));
@@ -2108,6 +2139,37 @@ public class DeanCourseBean
 		this.creditValuePrac = Integer.toString(itemList.get(0).getCourse().getPracticeLectureHourse());
 		for(int i = 0; i < itemList.size(); i++) {
 			this.deanLecturerList.add(new SelectItem(itemList.get(i).getLecturer().getLecturerName()));
+		}
+	}
+	
+	private void retrieveFromBackup(String grade) {
+		if(grade.equals("Freshman")) {
+			this.freshmanUnmarkedList.clear();
+			for(int i = 0; i < this.freshmanBackup.size(); i++) {
+				 this.freshmanUnmarkedList.add(new ScheduleAtomic(this.freshmanBackup.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Sophomore")) {
+			this.sophomoreUnmarkedList.clear();
+			for(int i = 0; i < this.sophomoreBackup.size(); i++) {
+				 this.sophomoreUnmarkedList.add(new ScheduleAtomic(this.sophomoreBackup.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Junior")) {
+			this.juniorUnmarkedList.clear();
+			for(int i = 0; i < this.juniorBackup.size(); i++) {
+				 this.juniorUnmarkedList.add(new ScheduleAtomic(this.juniorBackup.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Senior")) {
+			this.seniorUnmarkedList.clear();
+			for(int i = 0; i < this.seniorBackup.size(); i++) {
+				 this.seniorUnmarkedList.add(new ScheduleAtomic(this.seniorBackup.get(i)));
+			}
+			return;
 		}
 	}
 	
