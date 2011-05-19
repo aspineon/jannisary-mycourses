@@ -188,14 +188,6 @@ public class SyllabusBean {
 		this.sectionNo = sectionNo;
 	}
 	public List<Syllabus> getAllSyllabusList() {
-		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
-	 		try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 	}
 		/*
 		 * ayni anda iki veya daha fazla thread tarafindan calistirilmamasi istenen metotlara verilen keyword.
 		 *  synchonized ve statik olmayan bir metot calistirilirken nesneleri kilitlenir,
