@@ -20,7 +20,7 @@
 <body>
 <f:view>
 
-
+<h:inputHidden value="#{loginBean.isAdmin}" />
     <h:form>
         <script type="text/javascript">
             var row;
