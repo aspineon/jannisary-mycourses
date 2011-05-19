@@ -204,8 +204,8 @@ public class ManuelSchedulingUtilBean {
 			allSyllabuses = null;
 			allBasicScheduleItems = null;
 			allRealScheduleItems = null;
-			allSyllabuses = getSyllabusBySemesterAndGrade();
-			allRealScheduleItems = getScheduleBySemesterAndYear();
+			allSyllabuses = getSyllabusBySemesterAndGradeAndYearForAdd();
+			allRealScheduleItems = getScheduleBySemesterAndYearForAdd();
 			this.fillMatrixForAddOperation();
 			return null;
 		}
@@ -222,8 +222,8 @@ public class ManuelSchedulingUtilBean {
 			allSyllabuses = null;
 			allBasicScheduleItems = null;
 			allRealScheduleItems = null;
-			allSyllabuses = getSyllabusBySemesterAndGradeAndYear();
-			allRealScheduleItems = getScheduleBySemesterAndGradeAndYear();
+			allSyllabuses = getSyllabusBySemesterAndGradeAndYearForEdit();
+			allRealScheduleItems = getScheduleBySemesterAndYearForEdit();
 			this.fillMatrixForEditOperation();
 			return null;
 		}
@@ -713,7 +713,7 @@ public class ManuelSchedulingUtilBean {
 		return year;
 	}
 		
-	public List<Syllabus> getSyllabusBySemesterAndGrade() {
+	public List<Syllabus> getSyllabusBySemesterAndGradeAndYearForAdd() {
 		
 		synchronized (this) {
 			if (allSyllabuses == null) {
@@ -740,7 +740,7 @@ public class ManuelSchedulingUtilBean {
 		return allSyllabuses;
 	}
 	
-	public List<Syllabus> getSyllabusBySemesterAndGradeAndYear() {
+	public List<Syllabus> getSyllabusBySemesterAndGradeAndYearForEdit() {
 		
 		synchronized (this) {
 			if (allSyllabuses == null) {
@@ -791,7 +791,7 @@ public class ManuelSchedulingUtilBean {
 		return allRealScheduleItems;
 	}
 	
-	public List<Schedule> getScheduleBySemesterAndYear() {
+	public List<Schedule> getScheduleBySemesterAndYearForAdd() {
 		
 		synchronized (this) {
 			if (allRealScheduleItems == null) {
@@ -799,6 +799,27 @@ public class ManuelSchedulingUtilBean {
 					try {
 						paramSyllabus.setSemester(semester);
 						paramSyllabus.setYear(selectedYearForAdd);
+						paramSchedule.setSyllabus(paramSyllabus);
+						allRealScheduleItems = paramSchedule.getScheduleBySemesterAndYear();
+						
+					} catch (Exception e) {
+						System.out.println("!!!!!!loadAllSchedules Error: "
+								+ e.getMessage());
+						e.printStackTrace();
+					}
+			}
+		}
+		return allRealScheduleItems;
+	}
+	
+public List<Schedule> getScheduleBySemesterAndYearForEdit() {
+		
+		synchronized (this) {
+			if (allRealScheduleItems == null) {
+				allRealScheduleItems = new ArrayList<Schedule>();
+					try {
+						paramSyllabus.setSemester(semester);
+						paramSyllabus.setYear(selectedYearForEdit);
 						paramSchedule.setSyllabus(paramSyllabus);
 						allRealScheduleItems = paramSchedule.getScheduleBySemesterAndYear();
 						
@@ -976,7 +997,7 @@ public class ManuelSchedulingUtilBean {
 	}
 	public List<Syllabus> getAllSyllabuses() {
 		
-		allSyllabuses = getSyllabusBySemesterAndGrade();
+		//allSyllabuses = getSyllabusBySemesterAndGrade();
 		return allSyllabuses;
 	}
 	public void setAllSyllabuses(List<Syllabus> allSyllabuses) {
