@@ -324,7 +324,9 @@
 							        </h:selectOneMenu>
 			            			
 			            			<h:outputText value="StartHour : " />
-			            			<h:selectOneMenu id="sophomoreStartHourComboBox" value="#{deanCourseBean.selectedSophomoreStartHour}">            				
+			            			<h:selectOneMenu id="sophomoreStartHourComboBox" 
+			            							 value="#{deanCourseBean.selectedSophomoreStartHour}"
+			            							 valueChangeListener="#{deanCourseBean.sophomoreHourChange}" onchange="submit()">            				
 			            				<f:selectItems value="#{deanCourseBean.sophomoreHours}"/>        			
 			            			</h:selectOneMenu>
 			            			
@@ -518,7 +520,8 @@
 		            			
 		            			<h:outputText value="StartHour : " />
 		            			<h:selectOneMenu id="juniorStartHourComboBox" 
-		            							 value="#{deanCourseBean.selectedJuniorStartHour}">            				
+		            							 value="#{deanCourseBean.selectedJuniorStartHour}"
+		            							 valueChangeListener="#{deanCourseBean.juniorHourChange}" onchange="submit()">            				
 		            				<f:selectItems  value="#{deanCourseBean.juniorHours}"/>        			
 		            			</h:selectOneMenu>
 		            			
@@ -705,7 +708,9 @@
 		            			
 		            			
 		            			<h:outputText value="StartHour : " />
-		            			<h:selectOneMenu id="seniorStartHourComboBox" value="#{deanCourseBean.selectedSeniorStartHour}">            				
+		            			<h:selectOneMenu id="seniorStartHourComboBox" 
+		            							 value="#{deanCourseBean.selectedSeniorStartHour}"
+		            							 valueChangeListener="#{deanCourseBean.seniorHourChange}" onchange="submit()">            				
 		            				<f:selectItems  value="#{deanCourseBean.seniorHours}"/>        			
 		            			</h:selectOneMenu>
 		            			
