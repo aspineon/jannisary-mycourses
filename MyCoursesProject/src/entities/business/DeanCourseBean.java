@@ -351,6 +351,12 @@ public class DeanCourseBean
 		initCourseTable[6][0] = "7";
 		initCourseTable[7][0] = "8";	
 		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 1; j < 6; j++) {
+				initCourseTable[i][j] = "";
+			}
+		}
+		
 		initFreshmanCourseTable[0][0] = "1";
 		initFreshmanCourseTable[1][0] = "2";
 		initFreshmanCourseTable[2][0] = "3";
@@ -359,6 +365,12 @@ public class DeanCourseBean
 		initFreshmanCourseTable[5][0] = "6";
 		initFreshmanCourseTable[6][0] = "7";
 		initFreshmanCourseTable[7][0] = "8";
+		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 1; j < 6; j++) {
+				initFreshmanCourseTable[i][j] = "";
+			}
+		}
 		
 		initSophomoreCourseTable[0][0] = "1";
 		initSophomoreCourseTable[1][0] = "2";
@@ -369,6 +381,12 @@ public class DeanCourseBean
 		initSophomoreCourseTable[6][0] = "7";
 		initSophomoreCourseTable[7][0] = "8";
 		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 1; j < 6; j++) {
+				initSophomoreCourseTable[i][j] = "";
+			}
+		}
+		
 		initJuniorCourseTable[0][0] = "1";
 		initJuniorCourseTable[1][0] = "2";
 		initJuniorCourseTable[2][0] = "3";
@@ -378,6 +396,12 @@ public class DeanCourseBean
 		initJuniorCourseTable[6][0] = "7";
 		initJuniorCourseTable[7][0] = "8";
 		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 1; j < 6; j++) {
+				initJuniorCourseTable[i][j] = "";
+			}
+		}
+		
 		initSeniorCourseTable[0][0] = "1";
 		initSeniorCourseTable[1][0] = "2";
 		initSeniorCourseTable[2][0] = "3";
@@ -385,7 +409,13 @@ public class DeanCourseBean
 		initSeniorCourseTable[4][0] = "5";
 		initSeniorCourseTable[5][0] = "6";
 		initSeniorCourseTable[6][0] = "7";
-		initSeniorCourseTable[7][0] = "8";		
+		initSeniorCourseTable[7][0] = "8";
+		
+		for(int i = 0; i < 8; i++) {
+			for(int j = 1; j < 6; j++) {
+				initSeniorCourseTable[i][j] = "";
+			}
+		}
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //******************** TABLE CLEANING ************************************************
@@ -402,6 +432,12 @@ public class DeanCourseBean
 			initCourseTable[5][0] = "6";
 			initCourseTable[6][0] = "7";
 			initCourseTable[7][0] = "8";
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 1; j < 6; j++) {
+					initCourseTable[i][j] = "";
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -423,6 +459,12 @@ public class DeanCourseBean
 			initFreshmanCourseTable[5][0] = "6";
 			initFreshmanCourseTable[6][0] = "7";
 			initFreshmanCourseTable[7][0] = "8";
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 1; j < 6; j++) {
+					initFreshmanCourseTable[i][j] = "";
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -430,6 +472,7 @@ public class DeanCourseBean
 		}
 		return null;
 	}
+	
 	
 	public String clearSophomoreCourseTable()
 	{
@@ -444,6 +487,12 @@ public class DeanCourseBean
 			initSophomoreCourseTable[5][0] = "6";
 			initSophomoreCourseTable[6][0] = "7";
 			initSophomoreCourseTable[7][0] = "8";
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 1; j < 6; j++) {
+					initSophomoreCourseTable[i][j] = "";
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -465,6 +514,12 @@ public class DeanCourseBean
 			initJuniorCourseTable[5][0] = "6";
 			initJuniorCourseTable[6][0] = "7";
 			initJuniorCourseTable[7][0] = "8";
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 1; j < 6; j++) {
+					initJuniorCourseTable[i][j] = "";
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -486,6 +541,12 @@ public class DeanCourseBean
 			initSeniorCourseTable[5][0] = "6";
 			initSeniorCourseTable[6][0] = "7";
 			initSeniorCourseTable[7][0] = "8";
+			
+			for(int i = 0; i < 8; i++) {
+				for(int j = 1; j < 6; j++) {
+					initSeniorCourseTable[i][j] = "";
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -574,223 +635,97 @@ public class DeanCourseBean
 	{	
 		String retStr = "";
 		if(this.freshmanHourFlag == true) {
-			if(this.splitFlagFreshman == true) {
-				System.out.println("Split Yes");
+			if(this.splitFlagFreshman == false) {
+				this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
 			}
 			else {
-				System.out.println("Split No");
+				this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));
+			}
+			
+			ScheduleAtomic sItem = new ScheduleAtomic(this.selectedScheduleAtomicFreshman);
+			sItem.setDay(this.selectedFreshmanDay);
+			sItem.setStartHour(Integer.parseInt(this.selectedFreshmanStartHour));
+				
+			int day = this.dayMapToIntegerHash.get(sItem.getDay());
+			int hour = sItem.getStartHour();
+			hour--;
+			int limit = hour + sItem.getCredit();
+				
+			boolean controlCheck = true;
+			for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+				controlCheck = this.controlCourse("Freshman", day, h);
+			}
+					
+			for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+				controlCheck = this.controlLecturer("Freshman", day, j, sItem.getLecturerId());
+			}
+			for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+				controlCheck = this.controlClassroom("Freshman", day, k, sItem.getClassroomId());
+			}
+					
+			if(controlCheck == true) {
+				int dayMatrix = this.dayMapToIntegerHash.get(sItem.getDay());
+				int hourForward = sItem.getStartHour() - 1;
+				if(sItem.isAttendance() == true) {
+					for(int p = 0; p < sItem.getCredit(); p++) { 
+						this.controlFreshmanLecturer[hourForward][dayMatrix] = sItem.getLecturerId();
+						this.controlFreshmanClassroom[hourForward][dayMatrix] = sItem.getClassroomId();
+						this.controlFreshmanCourse[hourForward][dayMatrix] = sItem.getCourseId();
+						if(initFreshmanCourseTable[hourForward][dayMatrix].equals("")) {
+							this.initFreshmanCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initFreshmanCourseTable[hourForward][dayMatrix + 1] = this.initFreshmanCourseTable[hourForward][dayMatrix] + "   " + sItem.writeInfo();
+						}
+						hourForward++;
+					}
+				}
+				else {
+					for(int p = 0; p < sItem.getCredit(); p++) {
+						if(initFreshmanCourseTable[hourForward][dayMatrix + 1].equals("")) {
+							this.initFreshmanCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initFreshmanCourseTable[hourForward][dayMatrix + 1] = this.initFreshmanCourseTable[hourForward][dayMatrix] + "\n" + sItem.writeInfo();
+						}
+						hourForward++;
+					}		
+				}
+				this.freshmanMarkedList.add(sItem);	
+				if(this.splitFlagFreshman == false) {
+					this.freshmanUnmarkedList.remove(this.atomicIndexFreshman);
+				}
+				else {
+					this.selectedScheduleAtomicFreshman = new ScheduleAtomic();
+				}
+				
+				this.clearTimeValues("Freshman");
+				return retStr;
+			}//controlCheck if				
+			if(this.splitFlagFreshman == true) {
+				ScheduleAtomic boundedAtomic = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
+				boundedAtomic.mergeCredit(sItem, "Marked");
 			}
 		}
 		return retStr;
 	}
 	
 	public String initSophomoreCourseTableEvent()
-	{
-		try
-		{
-			if(selectedSophomoreOperation.equals("Theory Operation"))
-			{
-				if(!selectedSophomoreDay.equals("Choose Days"))
-				{
-					if(!selectedSophomoreStartHour.equals("Choose Start Hour")
-							&& !selectedSophomoreCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSophomoreDay);
-						int startHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreStartHour);
-						int endHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreCredit);
-						
-						int startHourT = startHourOfSophomoreCourse - 1;
-						int endHourT = endHourOfSophomoreCourse - 1;
-						
-						if(initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(T)";
-								initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(T)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}
-					}
-				}
-			}
-			else if(selectedSophomoreOperation.equals("Practice Operation"))
-			{
-				if(!selectedSophomoreDay.equals("Choose Days"))
-				{
-					if(!selectedSophomoreStartHour.equals("Choose Start Hour")
-							&& !selectedSophomoreCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSophomoreDay);
-						int startHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreStartHour);
-						int endHourOfSophomoreCourse = Integer.parseInt(selectedSophomoreCredit);
-						
-						int startHourT = startHourOfSophomoreCourse - 1;
-						int endHourT = endHourOfSophomoreCourse - 1;
-						
-						if(initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initSophomoreCourseTable[startHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(P)";
-								initSophomoreCourseTable[endHourT][dayIndexOnCourseTable] = selectedSophomoreCourse + "(P)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}						
-					}
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			ex.getMessage();
-		}
-		return null;
+	{	
+		String retStr = "";
+		return retStr;
 	}
 	
 	public String initJuniorCourseTableEvent()
 	{
-		try
-		{
-				if(selectedJuniorOperation.equals("Theory Operation"))
-				{
-					if(!selectedJuniorDay.equals("Choose Days"))
-					{
-						if(!selectedJuniorStartHour.equals("Choose Start Hour")
-								&& !selectedJuniorCredit.equals("Choose End Hour"))
-						{
-							int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedJuniorDay);
-							int startHourOfJuniorCourse = Integer.parseInt(selectedJuniorStartHour);
-							int endHourOfJuniorCourse = Integer.parseInt(selectedJuniorCredit);
-							
-							int startHourT = startHourOfJuniorCourse - 1;
-							int endHourT = endHourOfJuniorCourse - 1;
-							
-							if(initJuniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
-							{
-								if(initJuniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
-								{
-									initJuniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(T)";
-									initJuniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(T)";							
-								}
-							}
-							else
-							{
-								System.out.println("Indices are not available");
-							}
-						}
-					}
-				}
-				else if(selectedJuniorOperation.equals("Practice Operation"))
-				{
-					if(!selectedJuniorDay.equals("Choose Days"))
-					{
-						if(!selectedJuniorStartHour.equals("Choose Start Hour")
-								&& !selectedJuniorCredit.equals("Choose Credit"))
-						{
-							int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedJuniorDay);
-							int startHourOfJuniorCourse = Integer.parseInt(selectedJuniorStartHour);
-							int endHourOfJuniorCourse = Integer.parseInt(selectedJuniorCredit);							
-							int startHourT = startHourOfJuniorCourse - 1;
-							int endHourT = endHourOfJuniorCourse - 1;
-							
-							if(initJuniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
-							{
-								if(initJuniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
-								{
-									initJuniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(P)";
-									initJuniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedJuniorCourse + "(P)";							
-								}
-							}
-							else
-							{
-								System.out.println("Indices are not available");
-							}						
-						}
-					}
-				}
-		}
-		catch(Exception ex)
-		{
-			ex.getMessage();
-		}
-		return null;
+		String retStr = "";
+		return retStr;
 	}
 	
 	public String initSeniorCourseTableEvent()
 	{
-		try
-		{
-			if(selectedSeniorOperation.equals("Theory Operation"))
-			{
-				if(!selectedSeniorDay.equals("Choose Days"))
-				{
-					if(!selectedSeniorStartHour.equals("Choose Start Hour")
-							&& !selectedSeniorCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSeniorDay);
-						int startHourOfSeniorCourse = Integer.parseInt(selectedSeniorStartHour);
-						int endHourOfSeniorCourse = Integer.parseInt(selectedSeniorCredit);
-						
-						int startHourT = startHourOfSeniorCourse - 1;
-						int endHourT = endHourOfSeniorCourse - 1;
-						
-						if(initSeniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initSeniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initSeniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(T)";
-								initSeniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(T)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}
-					}
-				}
-			}
-			else if(selectedSeniorOperation.equals("Practice Operation"))
-			{
-				if(!selectedSeniorDay.equals("Choose Days"))
-				{
-					if(!selectedSeniorStartHour.equals("Choose Start Hour")
-							&& !selectedSeniorCredit.equals("Choose Credit"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedSeniorDay);
-						int startHourOfSeniorCourse = Integer.parseInt(selectedSeniorStartHour);
-						int endHourOfSeniorCourse = Integer.parseInt(selectedSeniorCredit);
-						
-						int startHourT = startHourOfSeniorCourse - 1;
-						int endHourT = endHourOfSeniorCourse - 1;
-						
-						if(initSeniorCourseTable[startHourT][dayIndexOnCourseTable] == null)
-						{
-							if(initSeniorCourseTable[endHourT][dayIndexOnCourseTable] == null)
-							{
-								initSeniorCourseTable[startHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(P)";
-								initSeniorCourseTable[endHourT][dayIndexOnCourseTable] = selectedSeniorCourse + "(P)";							
-							}
-						}
-						else
-						{
-							System.out.println("Indices are not available");
-						}						
-					}
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			ex.getMessage();
-		}
-		return null;
+		String retStr = "";
+		return retStr;
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
 //********************** EVENTS **********************************************************
@@ -846,16 +781,6 @@ public class DeanCourseBean
 	public String runAutoScheduling() {
 		String retVal = "";
 		if(this.autoScheduleFlag == true) {
-			this.clearControlTables("Freshman");
-			this.clearControlTables("Sophomore");
-			this.clearControlTables("Junior");
-			this.clearControlTables("Senior");
-			
-			this.clearFreshmanCourseTable();
-			this.clearSophomoreCourseTable();
-			this.clearJuniorCourseTable();
-			this.clearSeniorCourseTable();
-			
 			this.refreshKnowledges("Freshman");
 			this.refreshKnowledges("Sophomore");
 			this.refreshKnowledges("Junior");
@@ -865,8 +790,6 @@ public class DeanCourseBean
 			this.sophomoreUnmarkedList = this.scheduleAtomicObj.clearSpots(this.sophomoreUnmarkedList);
 			this.juniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.juniorUnmarkedList);
 			this.seniorUnmarkedList = this.scheduleAtomicObj.clearSpots(this.seniorUnmarkedList);
-			
-			this.loadLockedIndexes();
 			
 			this.freshmanAutoScheduling();
 			this.sophomoreAutoScheduling();
@@ -1229,30 +1152,32 @@ public class DeanCourseBean
 			}	
 			if(permission == true) {
 				this.atomicIndexFreshman = this.findRelatedAtomic("Freshman", "Unmarked", "SEEK", this.selectedFreshmanSyllabus, this.optFlagFreshman, 0);
-				this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
-				this.freshmanCredits.clear();
-				this.loadCredits("Freshman", this.topCreditFreshman);
-				if((this.freshmanCreditFlag == true) && (Integer.parseInt(this.selectedFreshmanCredit) <= this.topCreditFreshman)) {
-					if(Integer.parseInt(this.selectedFreshmanCredit) == this.topCreditFreshman) {
-						this.splitFlagFreshman = false;	
-					}
-					else { 
-						this.splitFlagFreshman = true; 
-					}
-					this.loadDays("Freshman");
-					if(this.freshmanDayFlag == true) {
-						this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
-						this.freshmanHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedFreshmanDay);
-						this.scheduleAtomicObj.getKnowledge().clear();
-						if(this.freshmanHours.contains(new SelectItem(this.selectedFreshmanStartHour))) {
-							this.freshmanHourFlag = true;
+				if(this.atomicIndexFreshman != -1) {
+					this.topCreditFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).getCredit();
+					this.freshmanCredits.clear();
+					this.loadCredits("Freshman", this.topCreditFreshman);
+					if((this.freshmanCreditFlag == true) && (Integer.parseInt(this.selectedFreshmanCredit) <= this.topCreditFreshman)) {
+						if(Integer.parseInt(this.selectedFreshmanCredit) == this.topCreditFreshman) {
+							this.splitFlagFreshman = false;	
 						}
-						else {
-							this.freshmanHourFlag = false;
+						else { 
+							this.splitFlagFreshman = true; 
 						}
-					}
-				}
-			}
+						this.loadDays("Freshman");
+						if(this.freshmanDayFlag == true) {
+							this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedFreshmanCredit));
+							this.freshmanHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedFreshmanDay);
+							this.scheduleAtomicObj.getKnowledge().clear();
+							if(this.freshmanHours.contains(new SelectItem(this.selectedFreshmanStartHour))) {
+								this.freshmanHourFlag = true;
+							}
+							else {
+								this.freshmanHourFlag = false;
+							}
+						}//day flag
+					}//credit flag
+				}//atomicIndexFreshman
+			}//permission
 		}
 		else {  
 			this.optFlagFreshman = "";
@@ -2022,16 +1947,57 @@ public class DeanCourseBean
 		if(grade.equals("Freshman")) {
 			if(sign.equals("Unmarked")) {
 				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
-					if(sAtom.equals(this.freshmanUnmarkedList.get(i))) {
-						return i;
-					}
+					if(sAtom.equals(this.freshmanUnmarkedList.get(i))) { return i; }
 				}
 				return -1;
 			}
 			if(sign.equals("Marked")) {
 				for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
-					
+					if(sAtom.equals(this.freshmanMarkedList.get(i))) { return i; }
 				}
+				return -1;
+			}
+		}
+		if(grade.equals("Sophomore")) {
+			if(sign.equals("Unmarked")) {
+				for(int i = 0; i < this.sophomoreUnmarkedList.size(); i++) {
+					if(sAtom.equals(this.sophomoreUnmarkedList.get(i))) { return i; }
+				}
+				return -1;
+			}
+			if(sign.equals("Marked")) {
+				for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
+					if(sAtom.equals(this.sophomoreMarkedList.get(i))) { return i; }
+				}
+				return -1;
+			}
+		}
+		if(grade.equals("Junior")) {
+			if(sign.equals("Unmarked")) {
+				for(int i = 0; i < this.juniorUnmarkedList.size(); i++) {
+					if(sAtom.equals(this.juniorUnmarkedList.get(i))) { return i; }
+				}
+				return -1;
+			}
+			if(sign.equals("Marked")) {
+				for(int i = 0; i < this.juniorMarkedList.size(); i++) {
+					if(sAtom.equals(this.juniorMarkedList.get(i))) { return i; }
+				}
+				return -1;
+			}
+		}
+		if(grade.equals("Senior")) {
+			if(sign.equals("Unmarked")) {
+				for(int i = 0; i < this.seniorUnmarkedList.size(); i++) {
+					if(sAtom.equals(this.seniorUnmarkedList.get(i))) { return i; }
+				}
+				return -1;
+			}
+			if(sign.equals("Marked")) {
+				for(int i = 0; i < this.seniorMarkedList.size(); i++) {
+					if(sAtom.equals(this.seniorMarkedList.get(i))) { return i; }
+				}
+				return -1;
 			}
 		}
 		return -1;
@@ -2466,7 +2432,7 @@ public class DeanCourseBean
 					}
 				}//end of while inner
 			}//end of while outer
-			this.freshmanMarkedList = stack;
+			this.addToMarkedList(stack, "Freshman");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2594,7 +2560,7 @@ public class DeanCourseBean
 					}
 				}//end of while inner
 			}//end of while outer
-			this.sophomoreMarkedList = stack;
+			this.addToMarkedList(stack, "Sophomore");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2722,7 +2688,7 @@ public class DeanCourseBean
 					}
 				}//end of while inner
 			}//end of while outer
-			this.juniorMarkedList = stack;
+			this.addToMarkedList(stack, "Junior");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2850,7 +2816,7 @@ public class DeanCourseBean
 					}
 				}//end of while inner
 			}//end of while outer
-			this.seniorMarkedList = stack;
+			this.addToMarkedList(stack, "Senior");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2976,6 +2942,36 @@ public class DeanCourseBean
 		return retMatrix;
 	}
 	
+	private void addToMarkedList(ArrayList<ScheduleAtomic> sList, String grade) {
+		if(grade.equals("Freshman")) {
+			for(int i = 0; i < sList.size(); i++) {
+				ScheduleAtomic item = new ScheduleAtomic(sList.get(i));
+				this.freshmanMarkedList.add(item);
+			}
+			return;
+		}
+		if(grade.equals("Sophomore")) {
+			for(int i = 0; i < sList.size(); i++) {
+				ScheduleAtomic item = new ScheduleAtomic(sList.get(i));
+				this.sophomoreMarkedList.add(item);
+			}
+			return;
+		}
+		if(grade.equals("Junior")) {
+			for(int i = 0; i < sList.size(); i++) {
+				ScheduleAtomic item = new ScheduleAtomic(sList.get(i));
+				this.juniorMarkedList.add(item);
+			}
+			return;
+		}
+		if(grade.equals("Senior")) {
+			for(int i = 0; i < sList.size(); i++) {
+				ScheduleAtomic item = new ScheduleAtomic(sList.get(i));
+				this.seniorMarkedList.add(item);
+			}
+			return;
+		}
+	}
 	
 //************************* GETTER-SETTER METHODS ***************************************	
 //***1***********************************************************************************
