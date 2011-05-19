@@ -60,14 +60,6 @@ public class TypeofCourseBean {
 
 	/*****************Sınıf Getter-Setter Metodları****************************/
 	public List<TypeofCourse> getAllTypeofCourses() {
-		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
-	 		try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 	}
 		synchronized (this) {
 			allTypeofCourses = new ArrayList<TypeofCourse>();
 			try {
