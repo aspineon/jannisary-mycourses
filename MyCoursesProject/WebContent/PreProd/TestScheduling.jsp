@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Manual Scheduling</title>
   <style>
   
   		.footerPanelStyle{
@@ -43,6 +43,7 @@
 </head>
 <body bgcolor="#566D7E">
 <f:view>
+<h:inputHidden value="#{loginBean.isUser}" />
 <rich:dragIndicator id="indicator"/>
 
  <rich:panel style="pacategorying:0" headerClass="outpanelHeader">
