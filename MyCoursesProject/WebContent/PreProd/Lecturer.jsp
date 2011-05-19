@@ -8,7 +8,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Lecture Admin Page</title>
+		<title>Lecture Administration</title>
 		<style>
 			.active-row {
     		background-color: #FFEBDA;
@@ -17,6 +17,7 @@
 	</head>
 	<body>
 		<f:view>
+		<h:inputHidden value="#{loginBean.isAdmin}" />
     		<h:form>
         		<script type="text/javascript">
             		var row;
