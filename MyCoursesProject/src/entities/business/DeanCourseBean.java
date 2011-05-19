@@ -2983,15 +2983,6 @@ public class DeanCourseBean
 // This getter method returns the list of years(YEARLIST) which are contained in syllabus 
 // table. Via of 'checkList' utility method, duplication of year data is averted.
 	public ArrayList<SelectItem> getYearList() {
-		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
-	 		try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
-				return this.yearList;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 	}
 		if(this.yearFlag == false)	{
 			SelectItem stm = new SelectItem("Choose Year");
 			this.yearList.add(stm);
