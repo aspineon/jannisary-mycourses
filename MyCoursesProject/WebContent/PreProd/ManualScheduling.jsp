@@ -43,6 +43,7 @@
 </head>
 <body bgcolor="#566D7E">
 <f:view>
+<h:inputHidden value="#{loginBean.isUser}" />
 <rich:dragIndicator id="indicator"/>
 
  <rich:panel style="pacategorying:0" headerClass="outpanelHeader">
