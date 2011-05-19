@@ -132,6 +132,15 @@ public class ScheduleAtomic {
         
         return true;
     }
+	
+	public String writeInfo() {
+		String type = "";
+		if(this.courseType == "Theo") { type = " (T)"; }
+		if(this.courseType == "Prac") { type = " (P)"; }
+		String retStr = this.courseName + " - " + this.lecturerTitle + " " + this.lecturerName + type;
+		return retStr;
+	}
+	
 //*****************************************************************************************	
 	public ArrayList<SelectItem> getKnowledgeByDay(String day) {
 		ArrayList<SelectItem> retList = new ArrayList<SelectItem>();
