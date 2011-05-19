@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.hibernate.validator.NotEmpty;
+
 import entities.dao.Course;
 import entities.dao.Syllabus;
 
@@ -57,6 +59,8 @@ public class DeanCourseBean
 	//******************************************************************************
 	private String paramYearVal = "";
 	private String paramSemesterVal = "";
+	
+	private String paramVersion = "";
 	//******************************************************************************
 //******************************************************************************
 	private ArrayList<SelectItem> freshmanOperations = new ArrayList<SelectItem>();
@@ -2836,7 +2840,7 @@ public class DeanCourseBean
 				excelObj.generateSophomoreSheet(this.convertMatrix("Sophomore"));
 				excelObj.generateJuniorSheet(this.convertMatrix("Junior"));
 				excelObj.generateSeniorSheet(this.convertMatrix("Senior"));
-				excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal);
+				excelObj.writeAutoSchedulingToExcelPOI(paramYearVal, paramSemesterVal, paramVersion);
 			}
 		}
 		catch(Exception ex)
@@ -3005,7 +3009,13 @@ public class DeanCourseBean
 	public ArrayList<SelectItem> getSemesterList() {
 		return semesterList;
 	}
-
+	
+	public String getParamVersion() {
+		return paramVersion;
+	}
+	public void setParamVersion(String paramVersion) {
+		this.paramVersion = paramVersion;
+	}
 	public String getParamYearVal() {
 		return paramYearVal;
 	}
