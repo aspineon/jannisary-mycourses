@@ -89,7 +89,7 @@
 		<br/>
 		
 		</h:form>
-	<center><iframe style="background-image: url(../images/background7.jpg)" name="centerFrame" width="1330px" height="600px" align="middle"></iframe></center>
+	<center><iframe style="background-image: url(../images/background9.jpg)" name="centerFrame" width="1330px" height="600px" align="middle"></iframe></center>
 </f:view>
 </body>
 </html>
