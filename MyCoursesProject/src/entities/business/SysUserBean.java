@@ -42,14 +42,6 @@ public class SysUserBean {
 	}
 	
 	public List<SysUser> getAllUsers() {
-		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
-	 		try {
-				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	 	}
 		synchronized (this) {	
 			allUsers = new ArrayList<SysUser>();
 			try {
