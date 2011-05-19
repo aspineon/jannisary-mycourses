@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.validator.Email;
+import org.hibernate.validator.Length;
 import org.hibernate.validator.NotEmpty;
 import org.hibernate.validator.Pattern;
 
@@ -27,9 +28,8 @@ public class TypeofCourse implements java.io.Serializable {
 
 	private Integer typeofCourseId;
 	
-	@Email
     @NotEmpty
-    @Pattern(regex="^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message="Invalid Email Address")
+    @Length(min=3,max=50)
 	private String typeofCourse;
 	
 	private Set courses = new HashSet(0);
