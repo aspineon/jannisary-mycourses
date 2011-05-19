@@ -11,6 +11,7 @@
 </head>
 <body>
 <f:view>
+<h:inputHidden value="#{loginBean.isUser}" />
 	<h:form>
 		<rich:toolBar>
 			<rich:dropDownMenu>
@@ -86,7 +87,5 @@
 		</h:form>
 	<center><iframe name="centerFrame" width="1330px" height="600px" align="middle"></iframe></center>
 </f:view>
-
-
 </body>
 </html>
