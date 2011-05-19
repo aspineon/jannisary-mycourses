@@ -56,18 +56,17 @@ public class ExcelPOI
 	public int writeToExcelPOI(String strYear, String strSemester, String versionName){
 		int intSyllabusArhiveId = -1;
 		try{
-			
-			File scheduleFolder = new File("ScheduleFiles");
+			String strPath = new java.io.File(".").getCanonicalPath();
+			strPath = strPath + "/ScheduleFiles/";
+			File scheduleFolder = new File(strPath);
 			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
 			// siniflara ait excel dosyasinin yaratilmasi ***********************
-			String strFilePath =  "ScheduleFiles/" + strYear + "_"+ strSemester + "_" + versionName + ".xls";
+			String strFilePath =  strPath + strYear + "_"+ strSemester + "_" + versionName + ".xls";
 			File scheduleFile = new File(strFilePath);
-			
 			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
 			scheduleWorkbook.write(fileOutputStream);
-			
 			/*Veritabanına syllabusArchive bilgileri atılıyor*/
 			SyllabusArchiveBean syllabusArchiveBean = new SyllabusArchiveBean(strSemester, Integer.parseInt(strYear), strFilePath, versionName);
 			syllabusArchiveBean.addSyllabusArchive();
