@@ -80,9 +80,9 @@
 						</h:outputLink>										
 				</rich:menuItem>
 			</rich:dropDownMenu>
-			<rich:spacer  width="400"/>
-			<h:commandButton id="btnLogOutId" value="Log Out" action="#{loginBean.clickBtnLogOut}" />
-			<h:outputLabel id="lblWelcomeId" value=" Welcome : ">
+			<rich:spacer  width="700"/>
+			<h:commandButton id="btnLogOutId" value="Log Out" action="#{loginBean.clickBtnLogOut}"/>
+			<h:outputLabel id="lblWelcomeId" value=" Welcome  ">
 			<h:outputLabel value="#{loginBean.userName}" />
 			</h:outputLabel>
 		</rich:toolBar>	
