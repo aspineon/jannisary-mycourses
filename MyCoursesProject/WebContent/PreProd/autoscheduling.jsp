@@ -849,7 +849,7 @@
 								
 								<h:outputText value="Lecturer" style="color:white"/>
 					           
-					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}" style=" width : 195px;">
+					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}" style=" width : 194px;">
 					                <f:selectItems value="#{deanCourseBean.deanLecturerList}" />
 					            </h:selectOneMenu>
 			            		
@@ -863,12 +863,14 @@
 					            
 					            
 					            <table bgcolor="#566D7E">
+						            <tr>
+						            	<td></td>
+						            </tr>
 					            	<tr >
 					            	<td>
 					            	</td>
-					            		<td>
-					            			
-					            			<h:outputText value="Locking Operations" style="color:white;"></h:outputText>					            								            		
+					            		<td style=" width : 59px;">           			
+					            			<h:outputText value="Locking" style="color:white; width:160px;"></h:outputText>					            								            		
 					            		</td>
 					            		<td>
 					            		</td>
@@ -912,7 +914,7 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanDaysComboBox"
-						            			value="#{deanCourseBean.selectedDeanDay}"
+						            			value="#{deanCourseBean.selectedDeanDay}" style=" width : 151px;"
 						            		 	>
 						            			<f:selectItem itemValue="Choose Days" />
 						            			<f:selectItem itemValue="Monday" />
@@ -934,7 +936,7 @@
 						            		<h:outputLabel value="Start Hour : " style="color:white"></h:outputLabel>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="deanStartHour" value="#{deanCourseBean.selectedStartHour}"
+						            		<h:selectOneMenu id="deanStartHour" value="#{deanCourseBean.selectedStartHour}" style=" width : 151px;"
 						            		>
 						            			<f:selectItem itemValue="Choose Start Hour"/>
 						            			<f:selectItem itemValue="1"/>
@@ -959,7 +961,7 @@
 					            			<h:outputLabel value="End Hour : " style="color:white"></h:outputLabel>
 					            		</td>
 					            		<td>
-					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" 
+					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" style=" width : 151px;" 
 					            			>
 						            			<f:selectItem itemValue="Choose End Hour"/>
 						            			<f:selectItem itemValue="1"/>
