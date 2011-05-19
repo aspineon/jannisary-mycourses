@@ -1,6 +1,7 @@
 package entities.business;
 
 
+import java.io.IOException;
 import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -15,7 +16,11 @@ public class LoginBean
 		return null;
 	}
 	
+	
+	
 	/********************Sınıf Metodları****************************/
+	
+	
 	
 	public String checkLogin()
 	{
@@ -82,8 +87,53 @@ public class LoginBean
 		return loginUser;
 	}
 	
-	
+	public String getIsUser() {
+		if(!(LoginBean.getLoginUser().getUserStatus().equals("admin") || LoginBean.getLoginUser().getUserStatus().equals("user")) ){
+	 		try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 	}
+		return isUser;
+	}
+
+	public String getIsAdmin() {
+		if(LoginBean.getLoginUser().getUserStatus().equals("user")){
+	 		try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/index.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 	}
+		else if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
+	 		try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 	}
+		
+		
+		return isAdmin;
+	}
+
+	public void setIsUser(String isUser) {
+		this.isUser = isUser;
+	}
+
+
+
+	public void setIsAdmin(String isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	/**********Sınıf Alt Alanları*******/
+	private String isUser="";
+	private String isAdmin="";
 	private static LoginBean loginUser;
 	private String userName="";
 	private String password="";
