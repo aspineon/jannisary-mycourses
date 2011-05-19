@@ -206,7 +206,7 @@ public class ManuelSchedulingUtilBean {
 			allRealScheduleItems = null;
 			allSyllabuses = getSyllabusBySemesterAndGradeAndYearForAdd();
 			allRealScheduleItems = getScheduleBySemesterAndYearForAdd();
-			this.fillMatrixForAddOperation();
+			this.fillMatrixForAddAndEditOperation();
 			return null;
 		}
 		
@@ -224,7 +224,7 @@ public class ManuelSchedulingUtilBean {
 			allRealScheduleItems = null;
 			allSyllabuses = getSyllabusBySemesterAndGradeAndYearForEdit();
 			allRealScheduleItems = getScheduleBySemesterAndYearForEdit();
-			this.fillMatrixForEditOperation();
+			this.fillMatrixForAddAndEditOperation();
 			return null;
 		}
 	}
@@ -571,70 +571,7 @@ public class ManuelSchedulingUtilBean {
 		}
 	}
 	
-	private void fillMatrixForAddOperation(){
-		if(allRealScheduleItems.size() != 0){
-			int grade;
-			int quotient;
-			int remainder;
-			BasicScheduleUtilBean bs = null;
-			fillMatrix();
-			for(int i=0;i<allRealScheduleItems.size();i++){
-				bs = new BasicScheduleUtilBean();
-				quotient = allRealScheduleItems.get(i).getTimeofCourse();
-				remainder = quotient % 8;
-				quotient = (int) Math.floor(quotient/8);
-				bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
-				bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
-				grade = allRealScheduleItems.get(i).getSyllabus().getCourse().getGrade();
-				bs.setHours(1);
-				bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
-				bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
-				bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
-				bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
-				bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
-				bs.setCourseId(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseId());
-				bs.setLecturerId(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerId());
-				//bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
-				
-				if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle()  + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
-				}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
-				}
-				if(grade==1 && intGrade != 1){
-					if(remainder == 0){
-						firstGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						firstGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==2 && intGrade != 2){
-					if(remainder == 0){
-						secondGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						secondGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==3 && intGrade != 3){
-					if(remainder == 0){
-						thirdGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						thirdGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==4 && intGrade != 4){
-					if(remainder == 0){
-						fourthGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						fourthGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}
-			}
-		}
-	}
-	
-	private void fillMatrixForEditOperation(){
+	private void fillMatrixForAddAndEditOperation(){
 		if(allRealScheduleItems.size() != 0){
 			int grade;
 			int quotient;
@@ -696,6 +633,69 @@ public class ManuelSchedulingUtilBean {
 			}
 		}
 	}
+	
+	/*private void fillMatrixForEditOperation(){
+		if(allRealScheduleItems.size() != 0){
+			int grade;
+			int quotient;
+			int remainder;
+			BasicScheduleUtilBean bs = null;
+			fillMatrix();
+			for(int i=0;i<allRealScheduleItems.size();i++){
+				bs = new BasicScheduleUtilBean();
+				quotient = allRealScheduleItems.get(i).getTimeofCourse();
+				remainder = quotient % 8;
+				quotient = (int) Math.floor(quotient/8);
+				bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
+				bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
+				grade = allRealScheduleItems.get(i).getSyllabus().getCourse().getGrade();
+				bs.setHours(1);
+				bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
+				bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
+				bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
+				bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
+				bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
+				bs.setCourseId(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseId());
+				bs.setLecturerId(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerId());
+				//bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
+				
+				if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
+					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle()  + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+				}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
+					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
+				}
+				if(grade==1){
+					if(remainder == 0){
+						firstGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						firstGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}else if(grade==2){
+					if(remainder == 0){
+						secondGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						secondGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}else if(grade==3){
+					if(remainder == 0){
+						thirdGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						thirdGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}else if(grade==4){
+					if(remainder == 0){
+						fourthGradeSchedule[quotient-1][7]  = bs;
+						
+					}else{
+						fourthGradeSchedule[quotient][remainder-1] = bs;
+					}
+				}
+			}
+		}
+	}*/
 	
 	private int calculateYear(){
 		int year=-1;
