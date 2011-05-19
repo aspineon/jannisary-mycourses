@@ -103,7 +103,7 @@
                         <h:outputText value="User" />
                         <h:inputText value="#{sysUserBean.currentItem.userName}" style = "width : 145px"/>
                         <h:outputText value="Status" />
-                        <rich:comboBox id="selectStatusIdForEdit" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" width = "151px">
+                        <rich:comboBox id="selectStatusIdForEdit" value="Select Status" valueChangeListener="#{sysUserBean.selectionChanged}" width = "148px">
 							<f:selectItems value="#{sysUserBean.selectItems}"/>
 					</rich:comboBox>
                         <h:outputText value="Password" />
