@@ -1113,7 +1113,7 @@
 	            				
 		            			<h:outputLabel value="" />
 		            			<h:outputLabel value="Version Name : "/>
-			            			<h:inputText value="" >
+			            			<h:inputText value="#{deanCourseBean.paramVersion}" >
 			            				<rich:ajaxValidator event="onblur"/>
 			            			</h:inputText>
 			            			<rich:message style="color:red;FONT-SIZE: small; FONT-FAMILY: 'Verdana';"></rich:message>
