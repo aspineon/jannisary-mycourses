@@ -13,7 +13,7 @@
 </head>
 <body>
 <f:view>
-
+<h:inputHidden value="#{loginBean.isUser}" />
 	<h:outputLabel value="Auto Scheduling" style="color:blue;font-family:Tahoma;font-style:bold;" />
 	<br/>
 	<br/>
