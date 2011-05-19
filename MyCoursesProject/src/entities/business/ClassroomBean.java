@@ -1,10 +1,12 @@
 package entities.business;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -12,6 +14,7 @@ import entities.dao.Classroom;
 import entities.dao.Department;
 
 public class ClassroomBean {
+	
 	/* Bug Fixed
 	 * Bug selectionChanged method***********
 	 * Su an bu olay en son değişikliği kaydediyor, o yüzden ekranda ekleme
@@ -36,6 +39,15 @@ public class ClassroomBean {
 	}
 	
 	public List<Classroom> getAllClassrooms() {
+		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
+	 		try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 	}
+		
 		synchronized (this) {
 			allClassrooms = new ArrayList<Classroom>();
 			try {
