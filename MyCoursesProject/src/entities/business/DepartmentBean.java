@@ -1,13 +1,25 @@
 package entities.business;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.HttpJspPage;
+
+import org.apache.catalina.connector.Response;
+
 import entities.dao.Department;
 
 public class DepartmentBean {
+	
+	public DepartmentBean(){
+	 	
+	}
 	
 	/********************Sınıf Metodları****************************/
 	public String addDepartment(){
@@ -58,6 +70,14 @@ public class DepartmentBean {
 	}
 
 	public List<Department> getAllDepartments() {
+		if(!LoginBean.getLoginUser().getUserStatus().equals("admin")){
+	 		try {
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	 	}
 		synchronized (this) {
 			allDepartments = new ArrayList<Department>();
 			try {
