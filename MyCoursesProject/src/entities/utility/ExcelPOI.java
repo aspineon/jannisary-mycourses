@@ -21,7 +21,7 @@ public class ExcelPOI
 	//**************************************************************************
 	// Writing Autoscheduling result to excel file******************************
 	//**************************************************************************
-	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester)
+	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester, String pVersion)
 	{
 		try
 		{			
@@ -29,7 +29,7 @@ public class ExcelPOI
 			strPath = strPath + "/ScheduleFiles/";
 			File scheduleFolder = new File(strPath);
 			
-			File scheduleFile = new File("C:\\Schedule Files\\"+pYear+"_"+pSemester+".xls");
+			File scheduleFile = new File("C:\\Schedule Files\\"+pYear+"_"+pSemester+"_"+pVersion+".xls");
 			if(!scheduleFolder.exists())
 			{
 				scheduleFolder.mkdir();
