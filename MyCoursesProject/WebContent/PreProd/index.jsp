@@ -79,6 +79,7 @@
 						</h:outputLink>										
 				</rich:menuItem>
 			</rich:dropDownMenu>
+			<h:commandButton id="btnLogOutId" value="Log Out" action="#{loginBean.clickBtnLogOut}" />
 		</rich:toolBar>	
 		<br/>
 		
