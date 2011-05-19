@@ -175,8 +175,8 @@ public class ManuelSchedulingUtilBean {
 		/*Başlangıçta Syllabus verilerini almak için (Course List tablosunu
 		 * doldurmak için) grade ve semester değerleri ilkleniyor.
 		 * */
-		intGrade = 1;
-		semester="Fall";
+		intGrade = 0;
+		semester="";
 		
 		
 		fillMatrix();
