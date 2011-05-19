@@ -19,7 +19,7 @@
 					<h:outputText value="Scheduling"/>
 				</f:facet>
 				<rich:menuItem submitMode="none" >									
-						<h:outputLink value="../PreProd/TestScheduling.jsp" target="centerFrame">
+						<h:outputLink value="../PreProd/ManualScheduling.jsp" target="centerFrame">
 							<h:outputText value="Manual Scheduling" />
 						</h:outputLink>										
 				</rich:menuItem>
