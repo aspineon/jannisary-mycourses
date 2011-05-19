@@ -1074,8 +1074,10 @@
 									<h:outputLabel value="" />
 			            			<h:commandButton id="AutoScheduling" value="RunAutoScheduling" action="#{deanCourseBean.runAutoScheduling}" onclick="submit()"></h:commandButton>	
 		            			<h:outputLabel value="" />        			
-	            			<h:panelGrid columns="3" style="background-color:#AFDCEC; width : 197px;">
-	            				
+	            			<h:panelGrid columns="3" style="COLOR: #ffffff; background-color:#AFDCEC; width : 197px;">
+	            				<f:facet name="header">
+                   	   				<h:outputText value="Excel Operation for AutoScheduling" style="COLOR: #000000;"/>
+                   	   			</f:facet>
 	            				<h:outputLabel value="" />
 	            				<table>
 		            				<tr style=" height : 9px;">
