@@ -198,7 +198,7 @@ public class ManuelSchedulingUtilBean {
 		if(semester.equals("") || selectedYearForAdd==0 || intGrade==0){
 			return null;
 		}else{
-			fillMatrix();
+			//fillMatrix();
 			System.out.println("Get Course Button");
 			editOrAddFlag = 0;// Add
 			allSyllabuses = null;
@@ -577,6 +577,7 @@ public class ManuelSchedulingUtilBean {
 			int quotient;
 			int remainder;
 			BasicScheduleUtilBean bs = null;
+			fillMatrix();
 			for(int i=0;i<allRealScheduleItems.size();i++){
 				bs = new BasicScheduleUtilBean();
 				quotient = allRealScheduleItems.get(i).getTimeofCourse();
@@ -593,35 +594,35 @@ public class ManuelSchedulingUtilBean {
 				bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
 				bs.setCourseId(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseId());
 				bs.setLecturerId(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerId());
-				bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
+				//bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
 				
 				if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
 					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle()  + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 				}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
 					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
 				}
-				if(grade==1){
+				if(grade==1 && intGrade != 1){
 					if(remainder == 0){
 						firstGradeSchedule[quotient-1][7]  = bs;
 						
 					}else{
 						firstGradeSchedule[quotient][remainder-1] = bs;
 					}
-				}else if(grade==2){
+				}else if(grade==2 && intGrade != 2){
 					if(remainder == 0){
 						secondGradeSchedule[quotient-1][7]  = bs;
 						
 					}else{
 						secondGradeSchedule[quotient][remainder-1] = bs;
 					}
-				}else if(grade==3){
+				}else if(grade==3 && intGrade != 3){
 					if(remainder == 0){
 						thirdGradeSchedule[quotient-1][7]  = bs;
 						
 					}else{
 						thirdGradeSchedule[quotient][remainder-1] = bs;
 					}
-				}else if(grade==4){
+				}else if(grade==4 && intGrade != 4){
 					if(remainder == 0){
 						fourthGradeSchedule[quotient-1][7]  = bs;
 						
