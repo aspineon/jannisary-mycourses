@@ -141,6 +141,7 @@ public class ManuelSchedulingUtilBean {
 		listArchiveToSave.add(new SelectItem("Yes"));
 		listArchiveToSave.add(new SelectItem("No"));
 		
+		listYear.add(new SelectItem(Integer.toString(currentYear+1)));
 		listYear.add(new SelectItem(Integer.toString(currentYear)));
 		listYear.add(new SelectItem(Integer.toString(currentYear-1)));
 		listYear.add(new SelectItem(Integer.toString(currentYear-2)));
@@ -213,7 +214,7 @@ public class ManuelSchedulingUtilBean {
 	
 	public String clickGetCoursesButtonForEdit() throws Exception{
 		if(semester.equals("") || intGrade==0 || selectedYearForEdit==0){
-			
+			return null;
 		}else {
 			fillMatrix();
 			System.out.println("Get Course Button For Edit");
