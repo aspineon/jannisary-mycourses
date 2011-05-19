@@ -66,12 +66,13 @@
 			        				<f:selectItems value="#{manuelSchedulingUtilBean.listNextTwoYearsToSave}"/>
 			        				<a4j:support event="onselect" ajaxSingle="true"/>
 			        			</rich:comboBox>
-            		<rich:comboBox id="courseGradeComboBoxId" value="Select Course Grade" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" width="110">
-	        				<f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
-	        				<a4j:support event="onselect" ajaxSingle="true"/>
-	        		</rich:comboBox>
+            		
 	        		<rich:comboBox id="courseSemesterComboBoxId" value="Select Course Semester" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedSemesterCombo}" width="110">
 	        				<f:selectItems value="#{manuelSchedulingUtilBean.listSemester}"/>
+	        				<a4j:support event="onselect" ajaxSingle="true"/>
+	        		</rich:comboBox>
+	        		<rich:comboBox id="courseGradeComboBoxId" value="Select Course Grade" valueChangeListener ="#{manuelSchedulingUtilBean.selectionChangedGradeCombo}" width="110">
+	        				<f:selectItems value="#{manuelSchedulingUtilBean.listGrade}"/>
 	        				<a4j:support event="onselect" ajaxSingle="true"/>
 	        		</rich:comboBox>
             		<h:commandButton value="Get Course" action="#{manuelSchedulingUtilBean.clickGetCoursesButton}" style=" width : 110px; height : 20px;">
