@@ -1069,11 +1069,10 @@
             			<f:facet name="label">
         					<h:outputLabel value="Select Year and Semester" style="FONT-WEIGHT: bold; FONT-SIZE: medium; FONT-FAMILY: 'Verdana';"/>
             			</f:facet>
-            			  <h:panelGrid columns="1">
             			  		<h:outputLabel value="" />
 									<h:outputLabel value="" />
 			            			<h:commandButton id="AutoScheduling" value="RunAutoScheduling" action="#{deanCourseBean.runAutoScheduling}" onclick="submit()"></h:commandButton>	
-		            			<h:outputLabel value="" />        			
+		            			<h:outputLabel value="" />
 	            			<h:panelGrid columns="3" style="COLOR: #ffffff; background-color:#AFDCEC; width : 197px;">
 	            				<f:facet name="header">
                    	   				<h:outputText value="Excel Operation for AutoScheduling" style="COLOR: #000000;"/>
@@ -1137,11 +1136,8 @@
 		            					</td>
 		            				</tr>
 	            				</table>
-								</h:panelGrid>								
-
             		</h:panelGrid>
             	</rich:panel>
-            
             </rich:panel>
         </rich:tab>		
 	</rich:tabPanel>
