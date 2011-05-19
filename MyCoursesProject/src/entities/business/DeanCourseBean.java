@@ -278,6 +278,11 @@ public class DeanCourseBean
 	private boolean sophomoreLockHourFlag = false;
 	private ArrayList<Index> sophomoreLockedIndexes = new ArrayList<Index>();
 	
+	private boolean splitFlagSophomore = false;
+	private boolean sophomoreCreditFlag = false;
+	private boolean sophomoreDayFlag = false;
+	private boolean sophomoreHourFlag = false;
+	
 //**************** Junior Subfields *************************************************
 	private String selectedJuniorCourse = "";
 	private String selectedJuniorSplitCourse = "";
@@ -303,6 +308,11 @@ public class DeanCourseBean
 	private boolean juniorLockHourFlag = false;
 	private ArrayList<Index> juniorLockedIndexes = new ArrayList<Index>();
 	
+	private boolean splitFlagJunior = false;
+	private boolean juniorCreditFlag = false;
+	private boolean juniorDayFlag = false;
+	private boolean juniorHourFlag = false;
+	
 //**************** Senior Subfields **************************************************
 	private String selectedSeniorCourse = "";
 	private String selectedSeniorSplitCourse = "";
@@ -327,6 +337,11 @@ public class DeanCourseBean
 	private boolean seniorLockDayFlag = false;
 	private boolean seniorLockHourFlag = false;
 	private ArrayList<Index> seniorLockedIndexes = new ArrayList<Index>();
+	
+	private boolean splitFlagSenior = false;
+	private boolean seniorCreditFlag = false;
+	private boolean seniorDayFlag = false;
+	private boolean seniorHourFlag = false;
 	
 //*************************************************************************************************
 //******************** CONSTRUCTOR ***************************************************	
@@ -477,7 +492,6 @@ public class DeanCourseBean
 		return null;
 	}
 	
-	
 	public String clearSophomoreCourseTable()
 	{
 		try
@@ -561,78 +575,8 @@ public class DeanCourseBean
 // ******************** INITIALIZING DEAN COURSES TAB ***********************************
 	public String initDeanCourseTable()
 	{
-		try
-		{						
-			if(selectedOperation.equals("Theory Operation"))
-			{
-				System.out.println("Function 2*****");
-				if(!selectedDeanDay.equals("Choose Days"))
-				{	
-					if(!selectedStartHour.equals("Choose Start Hour") && !selectedEndHour.equals("Choose End Hour"))
-					{		
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedDeanDay);
-						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
-						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);	
-						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;					
-						int startHourT = startHourOfDeanCourse - 1;
-						int endHourT = endHourOfDeanCourse - 1;
-						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
-						//{	
-							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
-							{
-								if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
-								{
-									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
-									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(T)";
-									//System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
-								}
-							}
-							else
-							{
-								System.out.println("Indices are not available");
-							}
-						//}
-						System.out.println(initCourseTable);
-					}
-				}
-			}		
-			else if(selectedOperation.equals("Practice Operation"))
-			{
-				if(!selectedDeanDay.equals("Choose Days"))
-				{
-					if(!selectedStartHour.equals("Choose Start Hour") && !selectedEndHour.equals("Choose End Hour"))
-					{
-						int dayIndexOnCourseTable = dayMapToIndexHash.get(selectedDeanDay);
-						int startHourOfDeanCourse = Integer.parseInt(selectedStartHour);
-						int endHourOfDeanCourse = Integer.parseInt(selectedEndHour);
-						//int totalCourseHour = endHourOfDeanCourse - startHourOfDeanCourse;
-						int startHourT = startHourOfDeanCourse - 1;
-						int endHourT = endHourOfDeanCourse - 1;
-						//for(int acc = 0; acc < totalCourseHour + 1; acc++)
-						//{	
-							if(initCourseTable[startHourT][dayIndexOnCourseTable] == null)
-							{
-								if(initCourseTable[endHourT][dayIndexOnCourseTable] == null)
-								{
-									initCourseTable[startHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
-									initCourseTable[endHourT][dayIndexOnCourseTable] = selectedDeanCourse + "(P)";
-									//System.out.println("Test Result ::: "+initCourseTable[startHourOfDeanCourse][dayIndexOnCourseTable]);							
-								}
-							}
-							else
-							{
-								System.out.println("Indices are not available");
-							}
-						//}
-					}
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			System.out.println(ex.getMessage());
-		}
-		return null;
+		String retStr = "";
+		return retStr;
 	}
 //********************* INITIALIZING FOUR GRADEs TABS ***********************************	
 	public String initFreshmanCourseTableEvent()
@@ -717,18 +661,237 @@ public class DeanCourseBean
 	public String initSophomoreCourseTableEvent()
 	{	
 		String retStr = "";
+		if(this.sophomoreHourFlag == true) {
+			if(this.splitFlagSophomore == false) {
+				this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore);
+			}
+			else {
+				this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore).splitCredit(Integer.parseInt(this.selectedSophomoreCredit));
+			}
+			
+			ScheduleAtomic sItem = new ScheduleAtomic(this.selectedScheduleAtomicSophomore);
+			sItem.setDay(this.selectedSophomoreDay);
+			sItem.setStartHour(Integer.parseInt(this.selectedSophomoreStartHour));
+				
+			int day = this.dayMapToIntegerHash.get(sItem.getDay());
+			int hour = sItem.getStartHour();
+			hour--;
+			int limit = hour + sItem.getCredit();
+				
+			boolean controlCheck = true;
+			for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+				controlCheck = this.controlCourse("Sophomore", day, h);
+			}
+					
+			for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+				controlCheck = this.controlLecturer("Sophomore", day, j, sItem.getLecturerId());
+			}
+			for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+				controlCheck = this.controlClassroom("Sophomore", day, k, sItem.getClassroomId());
+			}
+					
+			if(controlCheck == true) {
+				int dayMatrix = this.dayMapToIntegerHash.get(sItem.getDay());
+				int hourForward = sItem.getStartHour() - 1;
+				if(sItem.isAttendance() == true) {
+					for(int p = 0; p < sItem.getCredit(); p++) { 
+						this.controlSophomoreLecturer[hourForward][dayMatrix] = sItem.getLecturerId();
+						this.controlSophomoreClassroom[hourForward][dayMatrix] = sItem.getClassroomId();
+						this.controlSophomoreCourse[hourForward][dayMatrix] = sItem.getCourseId();
+						if(initSophomoreCourseTable[hourForward][dayMatrix].equals("")) {
+							this.initSophomoreCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initSophomoreCourseTable[hourForward][dayMatrix + 1] = this.initSophomoreCourseTable[hourForward][dayMatrix] + "   " + sItem.writeInfo();
+						}
+						hourForward++;
+					}
+				}
+				else {
+					for(int p = 0; p < sItem.getCredit(); p++) {
+						if(initSophomoreCourseTable[hourForward][dayMatrix + 1].equals("")) {
+							this.initSophomoreCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initSophomoreCourseTable[hourForward][dayMatrix + 1] = this.initSophomoreCourseTable[hourForward][dayMatrix] + "\n" + sItem.writeInfo();
+						}
+						hourForward++;
+					}		
+				}
+				this.sophomoreMarkedList.add(sItem);	
+				if(this.splitFlagSophomore == false) {
+					this.sophomoreUnmarkedList.remove(this.atomicIndexSophomore);
+				}
+				else {
+					this.selectedScheduleAtomicSophomore = new ScheduleAtomic();
+				}
+				
+				this.clearTimeValues("Sophomore");
+				return retStr;
+			}//controlCheck if				
+			if(this.splitFlagSophomore == true) {
+				ScheduleAtomic boundedAtomic = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore);
+				boundedAtomic.mergeCredit(sItem, "Marked");
+			}
+		}
 		return retStr;
 	}
 	
 	public String initJuniorCourseTableEvent()
 	{
 		String retStr = "";
+		if(this.juniorHourFlag == true) {
+			if(this.splitFlagJunior == false) {
+				this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior);
+			}
+			else {
+				this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior).splitCredit(Integer.parseInt(this.selectedJuniorCredit));
+			}
+			
+			ScheduleAtomic sItem = new ScheduleAtomic(this.selectedScheduleAtomicJunior);
+			sItem.setDay(this.selectedJuniorDay);
+			sItem.setStartHour(Integer.parseInt(this.selectedJuniorStartHour));
+				
+			int day = this.dayMapToIntegerHash.get(sItem.getDay());
+			int hour = sItem.getStartHour();
+			hour--;
+			int limit = hour + sItem.getCredit();
+				
+			boolean controlCheck = true;
+			for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+				controlCheck = this.controlCourse("Junior", day, h);
+			}
+					
+			for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+				controlCheck = this.controlLecturer("Junior", day, j, sItem.getLecturerId());
+			}
+			for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+				controlCheck = this.controlClassroom("Junior", day, k, sItem.getClassroomId());
+			}
+					
+			if(controlCheck == true) {
+				int dayMatrix = this.dayMapToIntegerHash.get(sItem.getDay());
+				int hourForward = sItem.getStartHour() - 1;
+				if(sItem.isAttendance() == true) {
+					for(int p = 0; p < sItem.getCredit(); p++) { 
+						this.controlJuniorLecturer[hourForward][dayMatrix] = sItem.getLecturerId();
+						this.controlJuniorClassroom[hourForward][dayMatrix] = sItem.getClassroomId();
+						this.controlJuniorCourse[hourForward][dayMatrix] = sItem.getCourseId();
+						if(initJuniorCourseTable[hourForward][dayMatrix].equals("")) {
+							this.initJuniorCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initJuniorCourseTable[hourForward][dayMatrix + 1] = this.initJuniorCourseTable[hourForward][dayMatrix] + "   " + sItem.writeInfo();
+						}
+						hourForward++;
+					}
+				}
+				else {
+					for(int p = 0; p < sItem.getCredit(); p++) {
+						if(initJuniorCourseTable[hourForward][dayMatrix + 1].equals("")) {
+							this.initJuniorCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initJuniorCourseTable[hourForward][dayMatrix + 1] = this.initJuniorCourseTable[hourForward][dayMatrix] + "\n" + sItem.writeInfo();
+						}
+						hourForward++;
+					}		
+				}
+				this.juniorMarkedList.add(sItem);	
+				if(this.splitFlagJunior == false) {
+					this.juniorUnmarkedList.remove(this.atomicIndexJunior);
+				}
+				else {
+					this.selectedScheduleAtomicJunior = new ScheduleAtomic();
+				}
+				
+				this.clearTimeValues("Junior");
+				return retStr;
+			}//controlCheck if				
+			if(this.splitFlagJunior == true) {
+				ScheduleAtomic boundedAtomic = this.juniorUnmarkedList.get(this.atomicIndexJunior);
+				boundedAtomic.mergeCredit(sItem, "Marked");
+			}
+		}
 		return retStr;
 	}
 	
 	public String initSeniorCourseTableEvent()
 	{
 		String retStr = "";
+		if(this.seniorHourFlag == true) {
+			if(this.splitFlagSenior == false) {
+				this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior);
+			}
+			else {
+				this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior).splitCredit(Integer.parseInt(this.selectedSeniorCredit));
+			}
+			
+			ScheduleAtomic sItem = new ScheduleAtomic(this.selectedScheduleAtomicSenior);
+			sItem.setDay(this.selectedSeniorDay);
+			sItem.setStartHour(Integer.parseInt(this.selectedSeniorStartHour));
+				
+			int day = this.dayMapToIntegerHash.get(sItem.getDay());
+			int hour = sItem.getStartHour();
+			hour--;
+			int limit = hour + sItem.getCredit();
+				
+			boolean controlCheck = true;
+			for(int h = hour; ((controlCheck != false) && (h < limit)); h++) {
+				controlCheck = this.controlCourse("Senior", day, h);
+			}
+					
+			for(int j = hour; ((controlCheck != false) && (j < limit)); j++) {
+				controlCheck = this.controlLecturer("Senior", day, j, sItem.getLecturerId());
+			}
+			for(int k = hour; ((controlCheck != false) && (k < limit)); k++) {
+				controlCheck = this.controlClassroom("Senior", day, k, sItem.getClassroomId());
+			}
+					
+			if(controlCheck == true) {
+				int dayMatrix = this.dayMapToIntegerHash.get(sItem.getDay());
+				int hourForward = sItem.getStartHour() - 1;
+				if(sItem.isAttendance() == true) {
+					for(int p = 0; p < sItem.getCredit(); p++) { 
+						this.controlSeniorLecturer[hourForward][dayMatrix] = sItem.getLecturerId();
+						this.controlSeniorClassroom[hourForward][dayMatrix] = sItem.getClassroomId();
+						this.controlSeniorCourse[hourForward][dayMatrix] = sItem.getCourseId();
+						if(initSeniorCourseTable[hourForward][dayMatrix].equals("")) {
+							this.initSeniorCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initSeniorCourseTable[hourForward][dayMatrix + 1] = this.initSeniorCourseTable[hourForward][dayMatrix] + "   " + sItem.writeInfo();
+						}
+						hourForward++;
+					}
+				}
+				else {
+					for(int p = 0; p < sItem.getCredit(); p++) {
+						if(initSeniorCourseTable[hourForward][dayMatrix + 1].equals("")) {
+							this.initSeniorCourseTable[hourForward][dayMatrix + 1] = sItem.writeInfo();
+						}
+						else {
+							this.initSeniorCourseTable[hourForward][dayMatrix + 1] = this.initSeniorCourseTable[hourForward][dayMatrix] + "\n" + sItem.writeInfo();
+						}
+						hourForward++;
+					}		
+				}
+				this.seniorMarkedList.add(sItem);	
+				if(this.splitFlagSenior == false) {
+					this.seniorUnmarkedList.remove(this.atomicIndexSenior);
+				}
+				else {
+					this.selectedScheduleAtomicSenior = new ScheduleAtomic();
+				}
+				
+				this.clearTimeValues("Senior");
+				return retStr;
+			}//controlCheck if				
+			if(this.splitFlagSenior == true) {
+				ScheduleAtomic boundedAtomic = this.seniorUnmarkedList.get(this.atomicIndexSenior);
+				boundedAtomic.mergeCredit(sItem, "Marked");
+			}
+		}
 		return retStr;
 	}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
@@ -1262,7 +1425,6 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedFreshmanStartHour = newValue;
 		if((!this.selectedFreshmanStartHour.equals("Choose Start Hour")) && (this.selectedFreshmanStartHour != null)) {
-			//this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman).splitCredit(Integer.parseInt(this.selectedFreshmanCredit));
 			this.freshmanHourFlag = true;
 		}
 		else { 
@@ -1291,36 +1453,51 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSophomoreOperation = newValue;
-		this.atomicIndexSophomore = -1;
 		this.topCreditSophomore = -1;
+		this.atomicIndexSophomore = -1;
 		this.clearTimeValues("Sophomore");
 		if((!this.selectedSophomoreOperation.equals("Choose Course Type")) && (this.selectedSophomoreOperation != null)) {
-			if(this.selectedSophomoreOperation.equals("Theoretical")) {
-				if(this.optFlagSophomore == "P") { 
-					this.clearTimeValues("Sophomore");
-					this.selectedSophomoreCredit = null;
-				}
-				this.optFlagSophomore = "T";
-				this.topCreditSophomore = Integer.parseInt(this.sophomoreCreditValeuTeo);
-				this.loadCredits("Sophomore", this.topCreditSophomore);
-				this.atomicIndexSophomore = this.findRelatedAtomic("Sophomore", "Unmarked", "SEEK", this.selectedSophomoreSyllabus, "Theo", this.topCreditSophomore);
-				return;
-			} 
-			if(this.selectedSophomoreOperation.equals("Practice")) {
-				if(this.optFlagSophomore == "T") {
-					this.clearTimeValues("Sophomore");
-					this.selectedSophomoreCredit = null;
-				}
-				this.optFlagSophomore = "P";
-				this.topCreditSophomore = Integer.parseInt(this.sophomoreCreditValuePrac);
-				this.loadCredits("Sophomore", this.topCreditSophomore);
-				this.atomicIndexSophomore = this.findRelatedAtomic("Sophomore", "Unmarked", "SEEK", this.selectedSophomoreSyllabus, "Prac", this.topCreditSophomore);
-				return;
+			boolean permission = true;
+			if(this.selectedSophomoreOperation.equals("Theoretical")) { 
+				this.optFlagSophomore = "Theo";
+				if(Integer.parseInt(this.sophomoreCreditValeuTeo) == 0) { permission = false; }
 			}
+			if(this.selectedSophomoreOperation.equals("Practice")) { 
+				this.optFlagSophomore = "Prac";
+				if(Integer.parseInt(this.sophomoreCreditValuePrac) == 0) { permission = false; }
+			}	
+			if(permission == true) {
+				this.atomicIndexSophomore = this.findRelatedAtomic("Sophomore", "Unmarked", "SEEK", this.selectedSophomoreSyllabus, this.optFlagSophomore, 0);
+				if(this.atomicIndexSophomore != -1) {
+					this.topCreditSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore).getCredit();
+					this.sophomoreCredits.clear();
+					this.loadCredits("Sophomore", this.topCreditSophomore);
+					if((this.sophomoreCreditFlag == true) && (Integer.parseInt(this.selectedSophomoreCredit) <= this.topCreditSophomore)) {
+						if(Integer.parseInt(this.selectedSophomoreCredit) == this.topCreditSophomore) {
+							this.splitFlagSophomore = false;	
+						}
+						else { 
+							this.splitFlagSophomore = true; 
+						}
+						this.loadDays("Sophomore");
+						if(this.sophomoreDayFlag == true) {
+							this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSophomoreCredit));
+							this.sophomoreHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSophomoreDay);
+							this.scheduleAtomicObj.getKnowledge().clear();
+							if(this.sophomoreHours.contains(new SelectItem(this.selectedSophomoreStartHour))) {
+								this.sophomoreHourFlag = true;
+							}
+							else {
+								this.sophomoreHourFlag = false;
+							}
+						}//day flag
+					}//credit flag
+				}//atomicIndexsophomore
+			}//permission
 		}
-		else { 
-			this.clearTimeValues("Sophomore"); 
+		else {  
 			this.optFlagSophomore = "";
+			this.clearTimeValues("Sophomore");
 		}
 	}
 	
@@ -1333,18 +1510,33 @@ public class DeanCourseBean
 		this.selectedSophomoreCredit = newValue;
 		this.sophomoreDays.clear();
 		this.sophomoreHours.clear();
-		if(!this.selectedSophomoreCredit.equals("Choose Credit") && this.selectedSophomoreCredit != "") {
-			this.loadDays("Sophomore");
-			if (this.atomicIndexSophomore != -1) {
-				if(this.topCreditSophomore != Integer.parseInt(this.selectedSophomoreCredit)) {
-					this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore).splitCredit(Integer.parseInt(this.selectedSophomoreCredit));
+		if(!this.selectedSophomoreCredit.equals("Choose Credit") && this.selectedSophomoreCredit != null) {
+			if(this.topCreditSophomore != -1) {
+				this.sophomoreCreditFlag = true;
+				if(this.topCreditSophomore != Integer.parseInt(this.selectedSophomoreCredit)) { 
+					this.splitFlagSophomore = true; 
 				}
-				else {
-					this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore);	
+				else { 
+					this.splitFlagSophomore = false; 
+				}
+				this.loadDays("Sophomore");
+				if(this.sophomoreDayFlag == true) {
+					this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSophomoreCredit));
+					this.sophomoreHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSophomoreDay);
+					this.scheduleAtomicObj.getKnowledge().clear();
+					if(this.sophomoreHours.contains(new SelectItem(this.selectedSophomoreStartHour))) {
+						this.sophomoreHourFlag = true;
+					}
+					else {
+						this.sophomoreHourFlag = false;
+					}
 				}
 			}
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSophomore.getCredit()));
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSophomore.getSyllabus().getSyllabusId()));
+		}
+		else {
+			this.sophomoreCreditFlag = false;
+			this.sophomoreDays.clear();
+			this.sophomoreHours.clear();
 		}
 	}
 	
@@ -1356,8 +1548,36 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedSophomoreDay = newValue;
 		this.sophomoreHours.clear();
-		if(!this.selectedSophomoreDay.equals("Choose Day") && this.selectedSophomoreDay != "") {
-			this.sophomoreHours = this.selectedScheduleAtomicSophomore.getKnowledgeByDay(this.selectedSophomoreDay);
+		if((!this.selectedSophomoreDay.equals("Choose Day")) && (this.selectedSophomoreDay != null)) {
+			this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSophomoreCredit));
+			this.sophomoreHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSophomoreDay);
+			this.scheduleAtomicObj.getKnowledge().clear();
+			this.sophomoreDayFlag = true;
+			if(this.sophomoreHours.contains(new SelectItem(this.selectedSophomoreStartHour))) {
+				this.sophomoreHourFlag = true;
+			}
+			else {
+				this.sophomoreHourFlag = false;
+			}
+		}
+		else {
+			this.sophomoreDayFlag = false;
+			this.sophomoreHours.clear();
+		}
+	}
+	
+	public void sophomoreHourChange(ValueChangeEvent event) {
+		System.out.println("Sophomore Hour has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedSophomoreStartHour = newValue;
+		if((!this.selectedSophomoreStartHour.equals("Choose Start Hour")) && (this.selectedSophomoreStartHour != null)) {
+			this.sophomoreHourFlag = true;
+		}
+		else { 
+			this.sophomoreHourFlag = false;
 		}
 	}
 	
@@ -1383,36 +1603,51 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedJuniorOperation = newValue;
-		this.atomicIndexJunior = -1;
 		this.topCreditJunior = -1;
+		this.atomicIndexJunior = -1;
 		this.clearTimeValues("Junior");
 		if((!this.selectedJuniorOperation.equals("Choose Course Type")) && (this.selectedJuniorOperation != null)) {
-			if(this.selectedJuniorOperation.equals("Theoretical")) {
-				if(this.optFlagJunior == "P") { 
-					this.clearTimeValues("Junior");
-					this.selectedJuniorCredit = null;
-				}
-				this.optFlagJunior = "T";
-				this.topCreditJunior = Integer.parseInt(this.juniorCreditValueTeo);
-				this.loadCredits("Junior", this.topCreditJunior);
-				this.atomicIndexJunior = this.findRelatedAtomic("Junior", "Unmarked", "SEEK", this.selectedJuniorSyllabus, "Theo", this.topCreditJunior);
-				return;
-			} 
-			if(this.selectedJuniorOperation.equals("Practice")) {
-				if(this.optFlagJunior == "T") {
-					this.clearTimeValues("Junior");
-					this.selectedJuniorCredit = null;
-				}
-				this.optFlagJunior = "P";
-				this.topCreditJunior = Integer.parseInt(this.juniorCreditValuePrac);
-				this.loadCredits("Junior", this.topCreditJunior);
-				this.atomicIndexJunior = this.findRelatedAtomic("Junior", "Unmarked", "SEEK", this.selectedJuniorSyllabus, "Prac", this.topCreditJunior);
-				return;
+			boolean permission = true;
+			if(this.selectedJuniorOperation.equals("Theoretical")) { 
+				this.optFlagJunior = "Theo";
+				if(Integer.parseInt(this.juniorCreditValueTeo) == 0) { permission = false; }
 			}
+			if(this.selectedJuniorOperation.equals("Practice")) { 
+				this.optFlagJunior = "Prac";
+				if(Integer.parseInt(this.juniorCreditValuePrac) == 0) { permission = false; }
+			}	
+			if(permission == true) {
+				this.atomicIndexJunior = this.findRelatedAtomic("Junior", "Unmarked", "SEEK", this.selectedJuniorSyllabus, this.optFlagJunior, 0);
+				if(this.atomicIndexJunior != -1) {
+					this.topCreditJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior).getCredit();
+					this.juniorCredits.clear();
+					this.loadCredits("Junior", this.topCreditJunior);
+					if((this.juniorCreditFlag == true) && (Integer.parseInt(this.selectedJuniorCredit) <= this.topCreditJunior)) {
+						if(Integer.parseInt(this.selectedJuniorCredit) == this.topCreditJunior) {
+							this.splitFlagJunior = false;	
+						}
+						else { 
+							this.splitFlagJunior = true; 
+						}
+						this.loadDays("Junior");
+						if(this.juniorDayFlag == true) {
+							this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedJuniorCredit));
+							this.juniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedJuniorDay);
+							this.scheduleAtomicObj.getKnowledge().clear();
+							if(this.juniorHours.contains(new SelectItem(this.selectedJuniorStartHour))) {
+								this.juniorHourFlag = true;
+							}
+							else {
+								this.juniorHourFlag = false;
+							}
+						}//day flag
+					}//credit flag
+				}//atomicIndexJunior
+			}//permission
 		}
-		else { 
-			this.clearTimeValues("Junior"); 
+		else {  
 			this.optFlagJunior = "";
+			this.clearTimeValues("Junior");
 		}
 	}
 	
@@ -1425,18 +1660,33 @@ public class DeanCourseBean
 		this.selectedJuniorCredit = newValue;
 		this.juniorDays.clear();
 		this.juniorHours.clear();
-		if(!this.selectedJuniorCredit.equals("Choose Credit") && this.selectedJuniorCredit != "") {
-			this.loadDays("Junior");
-			if (this.atomicIndexJunior != -1) {
-				if(this.topCreditJunior != Integer.parseInt(this.selectedJuniorCredit)) {
-					this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior).splitCredit(Integer.parseInt(this.selectedJuniorCredit));
+		if(!this.selectedJuniorCredit.equals("Choose Credit") && this.selectedJuniorCredit != null) {
+			if(this.topCreditJunior != -1) {
+				this.juniorCreditFlag = true;
+				if(this.topCreditJunior != Integer.parseInt(this.selectedJuniorCredit)) { 
+					this.splitFlagJunior = true; 
 				}
-				else {
-					this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior);	
+				else { 
+					this.splitFlagJunior = false; 
+				}
+				this.loadDays("Junior");
+				if(this.juniorDayFlag == true) {
+					this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedJuniorCredit));
+					this.juniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedJuniorDay);
+					this.scheduleAtomicObj.getKnowledge().clear();
+					if(this.juniorHours.contains(new SelectItem(this.selectedJuniorStartHour))) {
+						this.juniorHourFlag = true;
+					}
+					else {
+						this.juniorHourFlag = false;
+					}
 				}
 			}
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicJunior.getCredit()));
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicJunior.getSyllabus().getSyllabusId()));
+		}
+		else {
+			this.juniorCreditFlag = false;
+			this.juniorDays.clear();
+			this.juniorHours.clear();
 		}
 	}
 	
@@ -1448,12 +1698,41 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedJuniorDay = newValue;
 		this.juniorHours.clear();
-		if(!this.selectedJuniorDay.equals("Choose Day") && this.selectedJuniorDay != "") {
-			this.juniorHours = this.selectedScheduleAtomicJunior.getKnowledgeByDay(this.selectedJuniorDay);
+		if((!this.selectedJuniorDay.equals("Choose Day")) && (this.selectedJuniorDay != null)) {
+			this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedJuniorCredit));
+			this.juniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedJuniorDay);
+			this.scheduleAtomicObj.getKnowledge().clear();
+			this.juniorDayFlag = true;
+			if(this.juniorHours.contains(new SelectItem(this.selectedJuniorStartHour))) {
+				this.juniorHourFlag = true;
+			}
+			else {
+				this.juniorHourFlag = false;
+			}
+		}
+		else {
+			this.juniorDayFlag = false;
+			this.juniorHours.clear();
+		}
+	}
+	
+	public void juniorHourChange(ValueChangeEvent event) {
+		System.out.println("Junior Hour has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedJuniorStartHour = newValue;
+		if((!this.selectedJuniorStartHour.equals("Choose Start Hour")) && (this.selectedJuniorStartHour != null)) {
+			this.juniorHourFlag = true;
+		}
+		else { 
+			this.juniorHourFlag = false;
 		}
 	}
 	
 //******************* SENIOR EVENTS *****************************************************
+
 	public void seniorSplitChange(ValueChangeEvent event) {
 		System.out.println("Senior course has been changed!!!");
 		String oldValue = (String)event.getOldValue();
@@ -1475,36 +1754,51 @@ public class DeanCourseBean
 		System.out.println("Old Value : "+oldValue);
 		System.out.println("New Value : "+newValue);
 		this.selectedSeniorOperation = newValue;
-		this.atomicIndexSenior = -1;
 		this.topCreditSenior = -1;
+		this.atomicIndexSenior = -1;
 		this.clearTimeValues("Senior");
 		if((!this.selectedSeniorOperation.equals("Choose Course Type")) && (this.selectedSeniorOperation != null)) {
-			if(this.selectedSeniorOperation.equals("Theoretical")) {
-				if(this.optFlagSenior == "P") { 
-					this.clearTimeValues("Senior");
-					this.selectedSeniorCredit = null;
-				}
-				this.optFlagSenior = "T";
-				this.topCreditSenior = Integer.parseInt(this.seniorCreditValueTeo);
-				this.loadCredits("Senior", this.topCreditSenior);
-				this.atomicIndexSenior = this.findRelatedAtomic("Senior", "Unmarked", "SEEK", this.selectedSeniorSyllabus, "Theo", this.topCreditSenior);
-				return;
-			} 
-			if(this.selectedSeniorOperation.equals("Practice")) {
-				if(this.optFlagSenior == "T") {
-					this.clearTimeValues("Senior");
-					this.selectedSeniorCredit = null;
-				}
-				this.optFlagSenior = "P";
-				this.topCreditSenior = Integer.parseInt(this.seniorCreditValuePrac);
-				this.loadCredits("Senior", this.topCreditSenior);
-				this.atomicIndexSenior = this.findRelatedAtomic("Senior", "Unmarked", "SEEK", this.selectedSeniorSyllabus, "Prac", this.topCreditSenior);
-				return;
+			boolean permission = true;
+			if(this.selectedSeniorOperation.equals("Theoretical")) { 
+				this.optFlagSenior = "Theo";
+				if(Integer.parseInt(this.seniorCreditValueTeo) == 0) { permission = false; }
 			}
+			if(this.selectedSeniorOperation.equals("Practice")) { 
+				this.optFlagSenior = "Prac";
+				if(Integer.parseInt(this.seniorCreditValuePrac) == 0) { permission = false; }
+			}	
+			if(permission == true) {
+				this.atomicIndexSenior = this.findRelatedAtomic("Senior", "Unmarked", "SEEK", this.selectedSeniorSyllabus, this.optFlagSenior, 0);
+				if(this.atomicIndexSenior != -1) {
+					this.topCreditSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior).getCredit();
+					this.seniorCredits.clear();
+					this.loadCredits("Senior", this.topCreditSenior);
+					if((this.seniorCreditFlag == true) && (Integer.parseInt(this.selectedSeniorCredit) <= this.topCreditSenior)) {
+						if(Integer.parseInt(this.selectedSeniorCredit) == this.topCreditSenior) {
+							this.splitFlagSenior = false;	
+						}
+						else { 
+							this.splitFlagSenior = true; 
+						}
+						this.loadDays("Senior");
+						if(this.seniorDayFlag == true) {
+							this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSeniorCredit));
+							this.seniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSeniorDay);
+							this.scheduleAtomicObj.getKnowledge().clear();
+							if(this.seniorHours.contains(new SelectItem(this.selectedSeniorStartHour))) {
+								this.seniorHourFlag = true;
+							}
+							else {
+								this.seniorHourFlag = false;
+							}
+						}//day flag
+					}//credit flag
+				}//atomicIndexSenior
+			}//permission
 		}
-		else { 
-			this.clearTimeValues("Senior"); 
+		else {  
 			this.optFlagSenior = "";
+			this.clearTimeValues("Senior");
 		}
 	}
 	
@@ -1517,18 +1811,33 @@ public class DeanCourseBean
 		this.selectedSeniorCredit = newValue;
 		this.seniorDays.clear();
 		this.seniorHours.clear();
-		if(!this.selectedSeniorCredit.equals("Choose Credit") && this.selectedSeniorCredit != "") {
-			this.loadDays("Senior");
-			if (this.atomicIndexSenior != -1) {
-				if(this.topCreditSenior != Integer.parseInt(this.selectedSeniorCredit)) {
-					this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior).splitCredit(Integer.parseInt(this.selectedSeniorCredit));
+		if(!this.selectedSeniorCredit.equals("Choose Credit") && this.selectedSeniorCredit != null) {
+			if(this.topCreditSenior != -1) {
+				this.seniorCreditFlag = true;
+				if(this.topCreditSenior != Integer.parseInt(this.selectedSeniorCredit)) { 
+					this.splitFlagSenior = true; 
 				}
-				else {
-					this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior);	
+				else { 
+					this.splitFlagSenior = false; 
+				}
+				this.loadDays("Senior");
+				if(this.seniorDayFlag == true) {
+					this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSeniorCredit));
+					this.seniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSeniorDay);
+					this.scheduleAtomicObj.getKnowledge().clear();
+					if(this.seniorHours.contains(new SelectItem(this.selectedSeniorStartHour))) {
+						this.seniorHourFlag = true;
+					}
+					else {
+						this.seniorHourFlag = false;
+					}
 				}
 			}
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSenior.getCredit()));
-			System.out.println("Credit "+ Integer.toString(this.selectedScheduleAtomicSenior.getSyllabus().getSyllabusId()));
+		}
+		else {
+			this.seniorCreditFlag = false;
+			this.seniorDays.clear();
+			this.seniorHours.clear();
 		}
 	}
 	
@@ -1540,8 +1849,36 @@ public class DeanCourseBean
 		System.out.println("New Value : "+newValue);
 		this.selectedSeniorDay = newValue;
 		this.seniorHours.clear();
-		if(!this.selectedSeniorDay.equals("Choose Day") && this.selectedSeniorDay != "") {
-			this.seniorHours = this.selectedScheduleAtomicSenior.getKnowledgeByDay(this.selectedSeniorDay);
+		if((!this.selectedSeniorDay.equals("Choose Day")) && (this.selectedSeniorDay != null)) {
+			this.scheduleAtomicObj.setCredit(Integer.parseInt(this.selectedSeniorCredit));
+			this.seniorHours = this.scheduleAtomicObj.getKnowledgeByDay(this.selectedSeniorDay);
+			this.scheduleAtomicObj.getKnowledge().clear();
+			this.seniorDayFlag = true;
+			if(this.seniorHours.contains(new SelectItem(this.selectedSeniorStartHour))) {
+				this.seniorHourFlag = true;
+			}
+			else {
+				this.seniorHourFlag = false;
+			}
+		}
+		else {
+			this.seniorDayFlag = false;
+			this.seniorHours.clear();
+		}
+	}
+	
+	public void seniorHourChange(ValueChangeEvent event) {
+		System.out.println("Junior Hour has been changed!!!");
+		String oldValue = (String)event.getOldValue();
+		String newValue = (String)event.getNewValue();
+		System.out.println("Old Value : "+oldValue);
+		System.out.println("New Value : "+newValue);
+		this.selectedSeniorStartHour = newValue;
+		if((!this.selectedSeniorStartHour.equals("Choose Start Hour")) && (this.selectedSeniorStartHour != null)) {
+			this.seniorHourFlag = true;
+		}
+		else { 
+			this.seniorHourFlag = false;
 		}
 	}
 	
@@ -1875,24 +2212,40 @@ public class DeanCourseBean
 			this.freshmanCredits.clear();
 			this.freshmanDays.clear();
 			this.freshmanHours.clear(); 
+			
+			this.selectedFreshmanCredit = "";
+			this.selectedFreshmanDay = "";
+			this.selectedFreshmanStartHour = "";
 			return;
 		}
 		if(grade.equals("Sophomore")) {
 			this.sophomoreCredits.clear();
 			this.sophomoreDays.clear();
 			this.sophomoreHours.clear();
+			
+			this.selectedSophomoreCredit = "";
+			this.selectedSophomoreDay = "";
+			this.selectedSophomoreStartHour = "";
 			return;
 		}
 		if(grade.equals("Junior")) { 
 			this.juniorCredits.clear();
 			this.juniorDays.clear();
 			this.juniorHours.clear();
+			
+			this.selectedJuniorCredit = "";
+			this.selectedJuniorDay = "";
+			this.selectedJuniorStartHour = "";
 			return;
 		}
 		if(grade.equals("Senior")) { 
 			this.seniorCredits.clear();
 			this.seniorDays.clear();
 			this.seniorHours.clear();
+			
+			this.selectedSeniorCredit = "";
+			this.selectedSeniorDay = "";
+			this.selectedSeniorStartHour = "";
 			return;
 		}
 	}
@@ -2053,13 +2406,14 @@ public class DeanCourseBean
 			String day = item.getDay();
 			int hour = item.getStartHour() - 1;
 			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
 			int dayTable = this.dayMapToIndexHash.get(day);
 			for(int j = 0; j < credit; j++) {
-				initFreshmanCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				if(!this.initFreshmanCourseTable[hour][dayTable].equals("")) {
+					this.initFreshmanCourseTable[hour][dayTable] = this.initFreshmanCourseTable[hour][dayTable] + "\n" + item.writeInfo();
+				}
+				else {
+					this.initFreshmanCourseTable[hour][dayTable] = item.writeInfo();
+				}
 				hour++;
 			}
 		}
@@ -2071,13 +2425,14 @@ public class DeanCourseBean
 			String day = item.getDay();
 			int hour = item.getStartHour() - 1;
 			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
 			int dayTable = this.dayMapToIndexHash.get(day);
 			for(int j = 0; j < credit; j++) {
-				initSophomoreCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				if(!this.initSophomoreCourseTable[hour][dayTable].equals("")) {
+					this.initSophomoreCourseTable[hour][dayTable] = this.initSophomoreCourseTable[hour][dayTable] + "\n" + item.writeInfo();
+				}
+				else {
+					this.initSophomoreCourseTable[hour][dayTable] = item.writeInfo();
+				}
 				hour++;
 			}
 		}
@@ -2089,13 +2444,14 @@ public class DeanCourseBean
 			String day = item.getDay();
 			int hour = item.getStartHour() - 1;
 			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
 			int dayTable = this.dayMapToIndexHash.get(day);
 			for(int j = 0; j < credit; j++) {
-				initJuniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				if(!this.initJuniorCourseTable[hour][dayTable].equals("")) {
+					this.initJuniorCourseTable[hour][dayTable] = this.initJuniorCourseTable[hour][dayTable] + "\n" + item.writeInfo();
+				}
+				else {
+					this.initJuniorCourseTable[hour][dayTable] = item.writeInfo();
+				}
 				hour++;
 			}
 		}
@@ -2107,13 +2463,14 @@ public class DeanCourseBean
 			String day = item.getDay();
 			int hour = item.getStartHour() - 1;
 			int credit = item.getCredit();
-			String type = item.getCourseType();
-			String addStr = "";
-			if(type.equals("Theo")) { addStr = "(T)"; }
-			if(type.equals("Prac")) { addStr = "(P)"; }
 			int dayTable = this.dayMapToIndexHash.get(day);
 			for(int j = 0; j < credit; j++) {
-				initSeniorCourseTable[hour][dayTable] = item.getCourseName() + "" + addStr + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+				if(!this.initSeniorCourseTable[hour][dayTable].equals("")) {
+					this.initSeniorCourseTable[hour][dayTable] = this.initSeniorCourseTable[hour][dayTable] + "\n" + item.writeInfo();
+				}
+				else {
+					this.initSeniorCourseTable[hour][dayTable] = item.writeInfo();
+				}
 				hour++;
 			}
 		}
@@ -2437,6 +2794,8 @@ public class DeanCourseBean
 				}//end of while inner
 			}//end of while outer
 			this.addToMarkedList(stack, "Freshman");
+			ArrayList<ScheduleAtomic> attFalseList = this.autoScheduleForAttendanceFalse(attList);
+			this.addToMarkedList(attFalseList, "Freshman");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2565,6 +2924,8 @@ public class DeanCourseBean
 				}//end of while inner
 			}//end of while outer
 			this.addToMarkedList(stack, "Sophomore");
+			ArrayList<ScheduleAtomic> attFalseList = this.autoScheduleForAttendanceFalse(attList);
+			this.addToMarkedList(attFalseList, "Sophomore");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2693,6 +3054,8 @@ public class DeanCourseBean
 				}//end of while inner
 			}//end of while outer
 			this.addToMarkedList(stack, "Junior");
+			ArrayList<ScheduleAtomic> attFalseList = this.autoScheduleForAttendanceFalse(attList);
+			this.addToMarkedList(attFalseList, "Junior");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -2821,10 +3184,35 @@ public class DeanCourseBean
 				}//end of while inner
 			}//end of while outer
 			this.addToMarkedList(stack, "Senior");
+			ArrayList<ScheduleAtomic> attFalseList = this.autoScheduleForAttendanceFalse(attList);
+			this.addToMarkedList(attFalseList, "Senior");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+	}
+	
+	private ArrayList<ScheduleAtomic> autoScheduleForAttendanceFalse(ArrayList<ScheduleAtomic> attList) {
+		int unmarkedIndex, range, randomPosition, randomVal;
+		ScheduleAtomic workingAtomic = new ScheduleAtomic();
+		Index iVal = new Index();
+		ArrayList<ScheduleAtomic> retList = new ArrayList<ScheduleAtomic>();
+		ArrayList<ScheduleAtomic> iniList = attList;		
+		while(iniList.size() > 0) {
+			unmarkedIndex = this.scheduleAtomicObj.getRandomValue(iniList.size());
+			workingAtomic = iniList.get(unmarkedIndex);
+			range = workingAtomic.getKnowledgeSize();
+			randomPosition = this.scheduleAtomicObj.getRandomValue(range);
+			randomVal = workingAtomic.getKnowledgeByIndex(randomPosition);
+			iVal = this.scheduleAtomicObj.convertIntToIndex(randomVal);
+			
+			ScheduleAtomic tempAtomic = new ScheduleAtomic(workingAtomic);
+			iniList.remove(unmarkedIndex);
+			tempAtomic.setDay(iVal.getDay());
+			tempAtomic.setStartHour(iVal.getHour());
+			retList.add(tempAtomic);
+		}
+		return retList;
 	}
 	
 	public String generateExcelReport()
@@ -2882,10 +3270,10 @@ public class DeanCourseBean
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
 					if(!retMatrix[hour][day].equals("")) {
-						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.writeInfo();
 					}
 					else {
-						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = item.writeInfo();
 					}
 					hour++;
 				}
@@ -2899,10 +3287,10 @@ public class DeanCourseBean
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
 					if(!retMatrix[hour][day].equals("")) {
-						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.writeInfo();
 					}
 					else {
-						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = item.writeInfo();
 					}
 					hour++;
 				}
@@ -2916,10 +3304,10 @@ public class DeanCourseBean
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
 					if(!retMatrix[hour][day].equals("")) {
-						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.writeInfo();
 					}
 					else {
-						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = item.writeInfo();
 					}
 					hour++;
 				}
@@ -2933,10 +3321,10 @@ public class DeanCourseBean
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
 					if(!retMatrix[hour][day].equals("")) {
-						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = retMatrix[hour][day] + "\n" + item.writeInfo();
 					}
 					else {
-						retMatrix[hour][day] = item.getCourseName() + " - " + item.getLecturerTitle() + " " + item.getLecturerName();
+						retMatrix[hour][day] = item.writeInfo();
 					}
 					hour++;
 				}
