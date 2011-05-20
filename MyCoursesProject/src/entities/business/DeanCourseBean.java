@@ -489,6 +489,10 @@ public class DeanCourseBean
 					initFreshmanCourseTable[i][j] = "";
 				}
 			}
+			
+			this.clearControlTables("Freshman");
+			this.freshmanMarkedList.clear();
+			this.retrieveFromBackup("Freshman");
 		}
 		catch(Exception ex)
 		{
@@ -978,7 +982,7 @@ public class DeanCourseBean
 			this.clearControlTables("Junior");
 			this.clearControlTables("Senior");
 			
-			this.loadLockedIndexes();
+//			this.loadLockedIndexes();
 			
 			this.writeFreshmanSchedule();
 			this.writeSophomoreSchedule();
@@ -2348,21 +2352,21 @@ public class DeanCourseBean
 			String lecturerTitle = sItem.getLecturer().getTitle();
 			
 			int classroomId = sItem.getClassroom().getClassroomId();
-			
+			String classroomCode = sItem.getClassroom().getClassroomCode();
 			int tHour = sItem.getCourse().getTeoricLectureHours();
 			if(tHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle));
+				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle, classroomCode));
 			}
 			int pHour = sItem.getCourse().getPracticeLectureHourse();
 			if(pHour != 0) {
-				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle));
+				retList.add(new ScheduleAtomic(sItem, "Prac", "", 0, pHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle, classroomCode));
 			}
 		}
 		return retList;
 	}
 	
 	private int findRelatedAtomic(String grade, String sign, String opType, Syllabus syllabus, String courseType, int credit) {
-		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit, false, 0, 0, 0, "", "", "", "");
+		ScheduleAtomic sAtom = new ScheduleAtomic(syllabus, courseType, "", 0, credit, false, 0, 0, 0, "", "", "", "", "");
 		if(grade.equals("Freshman")) {
 			if(sign.equals("Unmarked")) {
 				for(int i = 0; i < this.freshmanUnmarkedList.size(); i++) {
