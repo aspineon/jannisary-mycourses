@@ -849,7 +849,8 @@
 								
 								<h:outputText value="Lecturer" style="color:white"/>
 					           
-					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}" style=" width : 194px;">
+					            <h:selectOneMenu value="#{deanCourseBean.selectedDeanLecturer}" style=" width : 194px;"
+					                			 valueChangeListener="#{deanCourseBean.deanLecturerChange}" onchange="submit()">
 					                <f:selectItems value="#{deanCourseBean.deanLecturerList}" />
 					            </h:selectOneMenu>
 			            		
@@ -877,10 +878,7 @@
 					            		<td>
 					            		</td>
 					            	</tr>
-					            	<tr style=" height : 22px;">
-						            	<td>
-						            	</td>
-					            	</tr>	
+					            	
 					            	<tr>
 					            	<td style=" width : 17px;">
 					            	</td>
@@ -888,15 +886,13 @@
 						            		 <h:outputText value="Type : " style="color:white"/>
 						            	</td>
 						            	<td>
-						            		
-							            		<h:selectOneMenu id="operationTypeComboBox" 
-							            		style=" width : 151px;" value="#{deanCourseBean.selectedOperation}"
-							            		>
+							            		<h:selectOneMenu id="operationTypeComboBox" style=" width : 151px;" 
+							            						 value="#{deanCourseBean.selectedDeanOperation}"
+							            						 valueChangeListener="#{deanCourseBean.deanOperationChange}" onchange="submit()">
 									            	<f:selectItem itemValue="Choose Operation" />
-									            	<f:selectItem itemValue="Theory Operation"/>
-									            	<f:selectItem itemValue="Practice Operation" />
+									            	<f:selectItem itemValue="Theory"/>
+									            	<f:selectItem itemValue="Practice" />
 								            	</h:selectOneMenu>
-							            	
 						            	</td>
 						            	<td style=" width : 30px;">
 						            	</td>
@@ -914,7 +910,8 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanDaysComboBox"
-						            						 value="#{deanCourseBean.selectedDeanDay}" style=" width : 151px;">
+						            						 value="#{deanCourseBean.selectedDeanDay}" style=" width : 151px;"
+						            						 valueChangeListener="#{deanCourseBean.deanDayChange}" onchange="submit()">
 						            			<f:selectItem itemValue="Choose Days" />
 						            			<f:selectItem itemValue="Monday" />
 						            			<f:selectItem itemValue="Tuesday" />
@@ -936,7 +933,8 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanStartHour" 
-						            						 value="#{deanCourseBean.selectedStartHour}" style=" width : 151px;">
+						            						 value="#{deanCourseBean.selectedDeanStartHour}" style=" width : 151px;"
+						            						 valueChangeListener="#{deanCourseBean.deanStartHourChange}" onchange="submit()">
 						            			<f:selectItem itemValue="Choose Start Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -952,29 +950,8 @@
 					            	<tr style=" height : 6px;">
 						            	<td>
 						            	</td>
-					            	</tr>
-					            	<tr>
-					            		<td>
-					            		</td>
-					            		<td>
-					            			<h:outputLabel value="End Hour : " style="color:white"></h:outputLabel>
-					            		</td>
-					            		<td>
-					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" style=" width : 151px;" >
-						            			<f:selectItem itemValue="Choose End Hour"/>
-						            			<f:selectItem itemValue="1"/>
-						            			<f:selectItem itemValue="2"/>
-						            			<f:selectItem itemValue="3"/>
-						            			<f:selectItem itemValue="4"/>
-						            			<f:selectItem itemValue="5"/>
-						            			<f:selectItem itemValue="6"/>
-						            			<f:selectItem itemValue="7"/>
-						            			<f:selectItem itemValue="8"/>
-						            		</h:selectOneMenu>
-					            		</td>
-					            	</tr>
-					           
-					            	
+					            	</tr>  	
+					         
 					            	<tr style=" height : 16px;">
 						            	<td>
 						            	</td>
@@ -983,7 +960,7 @@
 						            	<td>
 						            	</td>
 						            	<td>
-						            		
+						            				
 						            	</td>
 						            	<td>						            		
 							            	<h:commandButton value="Submit" action="#{deanCourseBean.initDeanCourseTable}" onclick="submit()"></h:commandButton>
