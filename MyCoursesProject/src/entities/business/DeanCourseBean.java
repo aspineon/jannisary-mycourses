@@ -2353,6 +2353,7 @@ public class DeanCourseBean
 			
 			int classroomId = sItem.getClassroom().getClassroomId();
 			String classroomCode = sItem.getClassroom().getClassroomCode();
+			
 			int tHour = sItem.getCourse().getTeoricLectureHours();
 			if(tHour != 0) {
 				retList.add(new ScheduleAtomic(sItem, "Theo", "", 0, tHour, att, courseId, lecturerId, classroomId, preCondition, courseName, lecturerName, lecturerTitle, classroomCode));
