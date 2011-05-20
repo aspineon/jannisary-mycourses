@@ -1016,8 +1016,6 @@ public class DeanCourseBean
 			this.clearControlTables("Junior");
 			this.clearControlTables("Senior");
 			
-//			this.loadLockedIndexes();
-			
 			this.writeFreshmanSchedule();
 			this.writeSophomoreSchedule();
 			this.writeJuniorSchedule();
