@@ -16,15 +16,10 @@ public class LoginBean
 		return null;
 	}
 	
-	
-	
 	/********************Sınıf Metodları****************************/
-	
-	
-	
 	public String checkLogin()
 	{
-		String returnString = "success";
+		//String returnString = "success";
 		SysUser sysUserObj = new SysUser();
 		List<SysUser> sysUserList;
 		
@@ -35,10 +30,11 @@ public class LoginBean
 			sysUserList = sysUserObj.getSysUserByUsernameAndPassword();
 			
 			if(sysUserList.size() == 0){
-				System.err.println("Login Fail");
+				//System.err.println("Login Fail");
 				getLoginUser().setUserName("");
-				returnString = "failure";
-				return returnString;
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/login.jsp");
+				//returnString = "failure";
+				return null;
 			}
 			else{	
 				FacesContext context = FacesContext.getCurrentInstance();
@@ -46,9 +42,10 @@ public class LoginBean
 				session.setAttribute("username", sysUserList.get(0).getUserName());
 				getLoginUser().setUserName(sysUserList.get(0).getUserName());
 				getLoginUser().setUserStatus(sysUserList.get(0).getUserStatus().toLowerCase());
-				System.out.println("Success");
-				returnString = "success";
-				return returnString;				
+				FacesContext.getCurrentInstance().getExternalContext().redirect("http://localhost:8080/MyCoursesProject/faces/PreProd/index.jsp");
+				//System.out.println("Success");
+				//returnString = "success";
+				return null;				
 			}
 		
 		}
