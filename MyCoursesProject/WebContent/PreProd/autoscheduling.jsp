@@ -914,8 +914,7 @@
 						            	</td>
 						            	<td>
 						            		<h:selectOneMenu id="deanDaysComboBox"
-						            			value="#{deanCourseBean.selectedDeanDay}" style=" width : 151px;"
-						            		 	>
+						            						 value="#{deanCourseBean.selectedDeanDay}" style=" width : 151px;">
 						            			<f:selectItem itemValue="Choose Days" />
 						            			<f:selectItem itemValue="Monday" />
 						            			<f:selectItem itemValue="Tuesday" />
@@ -936,8 +935,8 @@
 						            		<h:outputLabel value="Start Hour : " style="color:white"></h:outputLabel>
 						            	</td>
 						            	<td>
-						            		<h:selectOneMenu id="deanStartHour" value="#{deanCourseBean.selectedStartHour}" style=" width : 151px;"
-						            		>
+						            		<h:selectOneMenu id="deanStartHour" 
+						            						 value="#{deanCourseBean.selectedStartHour}" style=" width : 151px;">
 						            			<f:selectItem itemValue="Choose Start Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
@@ -961,8 +960,7 @@
 					            			<h:outputLabel value="End Hour : " style="color:white"></h:outputLabel>
 					            		</td>
 					            		<td>
-					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" style=" width : 151px;" 
-					            			>
+					            			<h:selectOneMenu id="deanEndHour" value="#{deanCourseBean.selectedEndHour}" style=" width : 151px;" >
 						            			<f:selectItem itemValue="Choose End Hour"/>
 						            			<f:selectItem itemValue="1"/>
 						            			<f:selectItem itemValue="2"/>
