@@ -376,6 +376,7 @@ public class ScheduleAtomic {
 			splitObj.setCourseName(this.courseName);
 			splitObj.setLecturerName(this.lecturerName);
 			splitObj.setLecturerTitle(this.lecturerTitle);
+			splitObj.setClassroomCode(this.classroomCode);
 			this.setCredit(this.credit - pCredit);
 		}		
 		return splitObj;
@@ -542,5 +543,15 @@ public class ScheduleAtomic {
 	public void setLecturerTitle(String lecturerTitle) {
 		this.lecturerTitle = lecturerTitle;
 	}
+
+	public String getClassroomCode() {
+		return classroomCode;
+	}
+
+	public void setClassroomCode(String classroomCode) {
+		this.classroomCode = classroomCode;
+	}
+	
+	
 }
 
