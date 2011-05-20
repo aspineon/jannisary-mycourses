@@ -594,6 +594,9 @@ public class DeanCourseBean
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
 			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -677,7 +680,10 @@ public class DeanCourseBean
 	{	
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
 			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -761,7 +767,10 @@ public class DeanCourseBean
 	{
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
 			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -845,6 +854,9 @@ public class DeanCourseBean
 	{
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
 			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
@@ -1065,6 +1077,9 @@ public class DeanCourseBean
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
 			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1088,6 +1103,9 @@ public class DeanCourseBean
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
 			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1147,7 +1165,10 @@ public class DeanCourseBean
 	public String sophomoreLockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
 			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1172,7 +1193,10 @@ public class DeanCourseBean
 	public String sophomoreUnlockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
 			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1233,7 +1257,10 @@ public class DeanCourseBean
 	public String juniorLockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
 			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1256,7 +1283,10 @@ public class DeanCourseBean
 	public String juniorUnlockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
 			this.clearJuniorCourseTable();
+			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
 		
@@ -1316,6 +1346,9 @@ public class DeanCourseBean
 	public String seniorLockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
 			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
@@ -1339,6 +1372,9 @@ public class DeanCourseBean
 	public String seniorUnlockOperation() {
 		String retStr = "";
 		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.clearSophomoreCourseTable();
+			this.clearJuniorCourseTable();
 			this.clearSeniorCourseTable();
 			this.autoScheduleResultFlag = false;
 		}
