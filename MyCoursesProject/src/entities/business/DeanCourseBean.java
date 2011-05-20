@@ -57,6 +57,11 @@ public class DeanCourseBean
 	private ArrayList<ScheduleAtomic> sophomoreBackup = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> juniorBackup = new ArrayList<ScheduleAtomic>();
 	private ArrayList<ScheduleAtomic> seniorBackup = new ArrayList<ScheduleAtomic>();
+	
+	private ArrayList<ScheduleAtomic> freshmanBackupMarked = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> sophomoreBackupMarked = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> juniorBackupMarked = new ArrayList<ScheduleAtomic>();
+	private ArrayList<ScheduleAtomic> seniorBackupMarked = new ArrayList<ScheduleAtomic>();
 //*********************** DEAN ***************************************************************	
 	private String selectedDeanCourse = "";
 	private String creditValueTheo = "";
@@ -1022,6 +1027,11 @@ public class DeanCourseBean
 			this.retrieveFromBackup("Sophomore");
 			this.retrieveFromBackup("Junior");
 			this.retrieveFromBackup("Senior");
+			
+			this.loadToBackup("Freshman");
+			this.loadToBackup("Sophomore");
+			this.loadToBackup("Junior");
+			this.loadToBackup("Senior");
 			
 			this.freshmanMarkedList.clear();
 			this.sophomoreMarkedList.clear();
@@ -2272,6 +2282,37 @@ public class DeanCourseBean
 		}
 	}
 	
+	private void loadToBackup(String grade) {
+		if(grade.equals("Freshman")) {
+			this.freshmanBackupMarked.clear();
+			for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
+				this.freshmanBackupMarked.add(new ScheduleAtomic(this.freshmanMarkedList.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Sophomore")) {
+			this.sophomoreBackupMarked.clear();
+			for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
+				this.sophomoreBackupMarked.add(new ScheduleAtomic(this.sophomoreMarkedList.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Junior")) {
+			this.juniorBackupMarked.clear();
+			for(int i = 0; i < this.juniorMarkedList.size(); i++) {
+				this.juniorBackupMarked.add(new ScheduleAtomic(this.juniorMarkedList.get(i)));
+			}
+			return;
+		}
+		if(grade.equals("Senior")) {
+			this.seniorBackupMarked.clear();
+			for(int i = 0; i < this.seniorMarkedList.size(); i++) {
+				this.seniorBackupMarked.add(new ScheduleAtomic(this.seniorMarkedList.get(i)));
+			}
+			return;
+		}
+	}
+	
 //****************** FIELD CLEAR & LOAD METHODS OF GRADES ******************************
 	private void loadSubFields(String grade) {
 		int year = Integer.parseInt(this.selectedYear);
@@ -3426,8 +3467,8 @@ public class DeanCourseBean
 		}
 		
 		if(grade.equals("Freshman")) {
-			for(int i = 0; i < this.freshmanMarkedList.size(); i++) {
-				ScheduleAtomic item = this.freshmanMarkedList.get(i);
+			for(int i = 0; i < this.freshmanBackupMarked.size(); i++) {
+				ScheduleAtomic item = this.freshmanBackupMarked.get(i);
 				int hour = item.getStartHour();
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
@@ -3440,11 +3481,12 @@ public class DeanCourseBean
 					hour++;
 				}
 			}
+			this.freshmanBackupMarked.clear();
 			return retMatrix;
 		}
 		if(grade.equals("Sophomore")) {			
-			for(int i = 0; i < this.sophomoreMarkedList.size(); i++) {
-				ScheduleAtomic item = this.sophomoreMarkedList.get(i);
+			for(int i = 0; i < this.sophomoreBackupMarked.size(); i++) {
+				ScheduleAtomic item = this.sophomoreBackupMarked.get(i);
 				int hour = item.getStartHour();
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
@@ -3457,11 +3499,12 @@ public class DeanCourseBean
 					hour++;
 				}
 			}
+			this.sophomoreBackupMarked.clear();
 			return retMatrix;			
 		}
 		if(grade.equals("Junior")) {
-			for(int i = 0; i < this.juniorMarkedList.size(); i++) {
-				ScheduleAtomic item = this.juniorMarkedList.get(i);
+			for(int i = 0; i < this.juniorBackupMarked.size(); i++) {
+				ScheduleAtomic item = this.juniorBackupMarked.get(i);
 				int hour = item.getStartHour();
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
@@ -3474,11 +3517,12 @@ public class DeanCourseBean
 					hour++;
 				}
 			}
+			this.juniorBackupMarked.clear();
 			return retMatrix;
 		}
 		if(grade.equals("Senior")) {
-			for(int i = 0; i < this.seniorMarkedList.size(); i++) {
-				ScheduleAtomic item = this.seniorMarkedList.get(i);
+			for(int i = 0; i < this.seniorBackupMarked.size(); i++) {
+				ScheduleAtomic item = this.seniorBackupMarked.get(i);
 				int hour = item.getStartHour();
 				int day = this.dayMapToIndexHash.get(item.getDay());
 				for(int j = 0; j < item.getCredit(); j++) {
@@ -3491,6 +3535,7 @@ public class DeanCourseBean
 					hour++;
 				}
 			}
+			this.seniorBackupMarked.clear();
 			return retMatrix;
 		}
 		return retMatrix;
