@@ -27,12 +27,13 @@ public class ScheduleAtomic {
 	private String lecturerName;
 	private String lecturerTitle;
 	private String classroomCode;
+	private int grade;
 	
 	public ScheduleAtomic() {
 		super();
 	}
 	
-	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName, String pLecturerTitle, String pClassromCode) {
+	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName, String pLecturerTitle, String pClassromCode, int pGrade) {
 		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
@@ -50,6 +51,7 @@ public class ScheduleAtomic {
 		this.lecturerName = pLecturerName;
 		this.lecturerTitle = pLecturerTitle;
 		this.classroomCode = pClassromCode;
+		this.grade = pGrade;
 	}
 	//Copy Constructor
 	public ScheduleAtomic(ScheduleAtomic sItem) {
@@ -71,6 +73,7 @@ public class ScheduleAtomic {
 		this.lecturerName = sItem.lecturerName;
 		this.lecturerTitle = sItem.lecturerTitle;
 		this.classroomCode = sItem.classroomCode;
+		this.grade = sItem.grade;
 	}
 	
 	@Override
@@ -377,6 +380,7 @@ public class ScheduleAtomic {
 			splitObj.setLecturerName(this.lecturerName);
 			splitObj.setLecturerTitle(this.lecturerTitle);
 			splitObj.setClassroomCode(this.classroomCode);
+			splitObj.setGrade(this.grade);
 			this.setCredit(this.credit - pCredit);
 		}		
 		return splitObj;
@@ -550,6 +554,14 @@ public class ScheduleAtomic {
 
 	public void setClassroomCode(String classroomCode) {
 		this.classroomCode = classroomCode;
+	}
+
+	public int getGrade() {
+		return grade;
+	}
+
+	public void setGrade(int grade) {
+		this.grade = grade;
 	}
 	
 	
