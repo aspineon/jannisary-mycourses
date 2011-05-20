@@ -592,6 +592,11 @@ public class DeanCourseBean
 	public String initFreshmanCourseTableEvent()
 	{	
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.freshmanHourFlag == true) {
 			if(this.splitFlagFreshman == false) {
 				this.selectedScheduleAtomicFreshman = this.freshmanUnmarkedList.get(this.atomicIndexFreshman);
@@ -671,6 +676,11 @@ public class DeanCourseBean
 	public String initSophomoreCourseTableEvent()
 	{	
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSophomoreCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.sophomoreHourFlag == true) {
 			if(this.splitFlagSophomore == false) {
 				this.selectedScheduleAtomicSophomore = this.sophomoreUnmarkedList.get(this.atomicIndexSophomore);
@@ -750,6 +760,11 @@ public class DeanCourseBean
 	public String initJuniorCourseTableEvent()
 	{
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearJuniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.juniorHourFlag == true) {
 			if(this.splitFlagJunior == false) {
 				this.selectedScheduleAtomicJunior = this.juniorUnmarkedList.get(this.atomicIndexJunior);
@@ -829,6 +844,11 @@ public class DeanCourseBean
 	public String initSeniorCourseTableEvent()
 	{
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSeniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.seniorHourFlag == true) {
 			if(this.splitFlagSenior == false) {
 				this.selectedScheduleAtomicSenior = this.seniorUnmarkedList.get(this.atomicIndexSenior);
