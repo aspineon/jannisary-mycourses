@@ -26,12 +26,13 @@ public class ScheduleAtomic {
 	private String courseName;
 	private String lecturerName;
 	private String lecturerTitle;
+	private String classroomCode;
 	
 	public ScheduleAtomic() {
 		super();
 	}
 	
-	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName, String pLecturerTitle) {
+	public ScheduleAtomic(Syllabus pSyllabus, String pCourseType, String pDay, int pStartHour, int pCredit, boolean pAttendance, int pCourseId, int pLecturerId, int pClassroomId, String pPreCondition, String pCourseName, String pLecturerName, String pLecturerTitle, String pClassromCode) {
 		super();
 		this.syllabus = pSyllabus;
 		this.courseType = pCourseType;
@@ -48,6 +49,7 @@ public class ScheduleAtomic {
 		this.courseName = pCourseName;
 		this.lecturerName = pLecturerName;
 		this.lecturerTitle = pLecturerTitle;
+		this.classroomCode = pClassromCode;
 	}
 	//Copy Constructor
 	public ScheduleAtomic(ScheduleAtomic sItem) {
@@ -68,6 +70,7 @@ public class ScheduleAtomic {
 		this.courseName = sItem.courseName;
 		this.lecturerName = sItem.lecturerName;
 		this.lecturerTitle = sItem.lecturerTitle;
+		this.classroomCode = sItem.classroomCode;
 	}
 	
 	@Override
@@ -81,7 +84,7 @@ public class ScheduleAtomic {
 		retStr = retStr + "| Course Name: " + this.courseName + "\n";
 		retStr = retStr + "Lecturer Id: " + this.lecturerId;
 		retStr = retStr + "| Lecturer Name: " + this.lecturerTitle + " " + this.lecturerName + "\n";
-		retStr = retStr + "Classroom Id: " + this.classroomId + "\n";
+		retStr = retStr + "Classroom Id: " + this.classroomId + "" + "\n";
 		retStr = retStr + "Day: " + this.day;
 		retStr = retStr + "| StartHour: " + this.startHour + "\n";
 		boolean att = this.syllabus.getCourse().isAttendance();
@@ -137,7 +140,7 @@ public class ScheduleAtomic {
 		String type = "";
 		if(this.courseType == "Theo") { type = " (T)"; }
 		if(this.courseType == "Prac") { type = " (P)"; }
-		String retStr = this.courseName + " - " + this.lecturerTitle + " " + this.lecturerName + type;
+		String retStr = this.courseName + " - " + this.lecturerTitle + " " + this.lecturerName + type + " " + this.classroomCode;
 		return retStr;
 	}
 	
