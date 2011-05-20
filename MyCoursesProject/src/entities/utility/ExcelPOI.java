@@ -53,13 +53,26 @@ public class ExcelPOI
 	public int writeToExcelPOI(String strYear, String strSemester, String versionName){
 		int intSyllabusArhiveId = -1;
 		try{
-			String strPath = "C:\\Schedule Files\\";
+			/*String strPath = "C:\\Schedule Files\\";
 			File scheduleFolder = new File(strPath);
 			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
 			// siniflara ait excel dosyasinin yaratilmasi ***********************
 			String strFilePath =  strPath + strYear + "_"+ strSemester + "_" + versionName + ".xls";
 			File scheduleFile = new File(strFilePath);
 			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
+			*/
+			
+			File scheduleFolder = new File("C:\\Schedule Files\\");
+			String strFilePath = "C:\\Schedule Files\\" + strYear + "_" + strSemester  + "_" + versionName + ".xls";
+			File scheduleFile = new File(strFilePath);
+			if(!scheduleFolder.exists())
+			{
+				scheduleFolder.mkdir();
+			}
+			if(!scheduleFile.exists())
+			{
+				scheduleFile.createNewFile();
+			}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
 			scheduleWorkbook.write(fileOutputStream);
