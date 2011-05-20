@@ -31,6 +31,7 @@ public class DeanCourseBean
 	private boolean yearFlag = false;
 	private boolean semesterFlag = false;
 	private boolean autoScheduleFlag = false;
+	private boolean autoScheduleResultFlag = false;
 // Year and semester data are hold in these subfields.
 	private ArrayList<SelectItem> yearList = new ArrayList<SelectItem>(); 			//3
 	private ArrayList<SelectItem> semesterList = new ArrayList<SelectItem>();		//4
@@ -998,6 +999,8 @@ public class DeanCourseBean
 			this.sophomoreMarkedList.clear();
 			this.juniorMarkedList.clear();
 			this.seniorMarkedList.clear();
+			
+			this.autoScheduleResultFlag = true;
 		}	
 		return retVal;
 	}
@@ -1040,6 +1043,11 @@ public class DeanCourseBean
 	
 	public String freshmanLockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.freshmanReadyToLock == true) {
 			Index item = new Index(this.freshmanLockedDay, Integer.parseInt(this.freshmanLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1058,6 +1066,11 @@ public class DeanCourseBean
 	
 	public String freshmanUnlockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearFreshmanCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		for(int i = 0; i < this.freshmanLockedIndexes.size(); i++) {
 			Index item = this.freshmanLockedIndexes.get(i);
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1113,6 +1126,11 @@ public class DeanCourseBean
 	
 	public String sophomoreLockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSophomoreCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.sophomoreReadyToLock == true) {
 			Index item = new Index(this.sophomoreLockedDay, Integer.parseInt(this.sophomoreLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1133,6 +1151,11 @@ public class DeanCourseBean
 	
 	public String sophomoreUnlockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSophomoreCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		for(int i = 0; i < this.sophomoreLockedIndexes.size(); i++) {
 			Index item = this.sophomoreLockedIndexes.get(i);
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1189,6 +1212,11 @@ public class DeanCourseBean
 	
 	public String juniorLockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearJuniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.juniorReadyToLock == true) {
 			Index item = new Index(this.juniorLockedDay, Integer.parseInt(this.juniorLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1207,6 +1235,11 @@ public class DeanCourseBean
 	
 	public String juniorUnlockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearJuniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		for(int i = 0; i < this.juniorLockedIndexes.size(); i++) {
 			Index item = this.juniorLockedIndexes.get(i);
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1262,6 +1295,11 @@ public class DeanCourseBean
 	
 	public String seniorLockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSeniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		if(this.seniorReadyToLock == true) {
 			Index item = new Index(this.seniorLockedDay, Integer.parseInt(this.seniorLockedHour));
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
@@ -1280,6 +1318,11 @@ public class DeanCourseBean
 	
 	public String seniorUnlockOperation() {
 		String retStr = "";
+		if(this.autoScheduleResultFlag == true) {
+			this.clearSeniorCourseTable();
+			this.autoScheduleResultFlag = false;
+		}
+		
 		for(int i = 0; i < this.seniorLockedIndexes.size(); i++) {
 			Index item = this.seniorLockedIndexes.get(i);
 			int dayMatrix = this.dayMapToIntegerHash.get(item.getDay());
