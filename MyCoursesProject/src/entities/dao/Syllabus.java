@@ -180,7 +180,7 @@ public ArrayList<Syllabus> getSyllabusByGrade(int year, String semester, int gra
 }
 //AutoScheduling Part
 @SuppressWarnings("unchecked")
-public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
+public ArrayList<Syllabus> getSyllabusByCourseName(String courseName, int year, String semester)
 {
         Session session = null;
         ArrayList<Syllabus> syllabusList = new ArrayList<Syllabus>();
@@ -191,6 +191,8 @@ public ArrayList<Syllabus> getSyllabusByCourseName(String courseName)
                  
                  Query query = session.getNamedQuery("getSyllabusByCourseName");
                  query.setParameter("pCourseName", courseName);
+                 query.setParameter("pYear", year);
+                 query.setParameter("pSemester", semester);
                  syllabusList = (ArrayList<Syllabus>)query.list();
         }
         catch(Exception ex)
