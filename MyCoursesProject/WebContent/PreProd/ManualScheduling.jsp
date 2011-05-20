@@ -51,7 +51,7 @@
             <h:outputText value="Manual Scheduling"  />
         </f:facet>
        
-        <h:outputText value="#{manuelSchedulingUtilBean.errorLabel}" />
+
         <h:panelGrid columns="4" columnClasses="gridContent"  style="background-color:#8EEBEC;">
        
        
@@ -940,20 +940,12 @@
             	</h:panelGrid>
             	
             	<rich:panel id="errorPanel" style="background-color:#A0CFEC;">
-            	<h:panelGrid columns="3" style="background-color:#A0CFEC;">
-            		<rich:panel id="SaveSchedulePanelId" bodyClass="footerPanelStyle" style="background-color:#CFECEC;">
-            			<rich:messages for="form" layout="list">
-                        	<h:panelGrid columns="2">
-	                        	<h:graphicImage value="/images/modal/error.gif"/> 
-	                        	<h:outputText value="#{manuelSchedulingUtilBean.errorLabel}"></h:outputText>        	
-                        	</h:panelGrid>
-                   		</rich:messages>	
-            		</rich:panel>
-	        		
+            	<h:panelGrid columns="2" style="background-color:#A0CFEC;">
+            		
                    <rich:panel id="UpdatePanelId" bodyClass="footerPanelStyle" style="background-color:#CFECEC; width : 404px;">
                    	<h:panelGrid columns="1" id="UpdatePanelGridId">
                    	   	<f:facet name="header">
-                   	   		<h:outputText value="Select year and semester" />
+                   	   		<h:outputText value="Excel Operations for Manual Scheduling" />
                    	   	</f:facet>
 							
 							<h:form id="UpdateFormId">
