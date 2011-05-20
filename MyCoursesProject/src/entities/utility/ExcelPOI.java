@@ -2,7 +2,6 @@ package entities.utility;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Calendar;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -54,8 +53,7 @@ public class ExcelPOI
 	public int writeToExcelPOI(String strYear, String strSemester, String versionName){
 		int intSyllabusArhiveId = -1;
 		try{
-			String strPath = new java.io.File(".").getCanonicalPath();
-			strPath = strPath + "/ScheduleFiles/";
+			String strPath = "C:\\Schedule Files\\";
 			File scheduleFolder = new File(strPath);
 			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
 			// siniflara ait excel dosyasinin yaratilmasi ***********************
