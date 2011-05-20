@@ -252,8 +252,24 @@ public class ManuelSchedulingUtilBean {
 			}
 			saveMatrix();
 		}else if(editOrAddFlag==1){
+			if(savedArchiveComboSelect.equals("Yes")){
+				int intSyllabusArchiveId = -1;
+				ExcelPOI excel = new ExcelPOI();
+				excel.generateFreshmanSheet(convertExcelBasicScheduleMatrixToStringMatrix(firstGradeSchedule));
+				excel.generateSophomoreSheet(convertExcelBasicScheduleMatrixToStringMatrix(secondGradeSchedule));
+				excel.generateJuniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(thirdGradeSchedule));
+				excel.generateSeniorSheet(convertExcelBasicScheduleMatrixToStringMatrix(fourthGradeSchedule));
+				
+				String strYear = "" + savedYear;
+				intSyllabusArchiveId = excel.writeToExcelPOI(strYear , savedSemester, savedVersionName);
+				setSyllabusArchiveIdToScheduleMatrix(intSyllabusArchiveId);
+			}//end of add syllabusArchive if
+			if(savedArchiveComboSelect.equals("No")){
+				setSyllabusArchiveIdToScheduleMatrix(1);
+			}
 			setMatrixSyllabusYearAndSemester();
 			updateMatrix();
+			
 		}
 		/*resetMatrix();
 		fillMatrix();*/
