@@ -490,10 +490,6 @@ public class DeanCourseBean
 					initFreshmanCourseTable[i][j] = "";
 				}
 			}
-			
-			this.clearControlTables("Freshman");
-			this.freshmanMarkedList.clear();
-			this.retrieveFromBackup("Freshman");
 		}
 		catch(Exception ex)
 		{
