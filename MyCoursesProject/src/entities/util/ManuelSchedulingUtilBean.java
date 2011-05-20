@@ -72,13 +72,8 @@ public class ManuelSchedulingUtilBean {
 	private int savedYear;
 	private String savedSemester;
 	
-
 	private String savedVersionName;
-	
 	private String savedArchiveComboSelect;
-	
-    
-
 	/*
      * Arayüzde yer alan herbir saat dilimi hücresinde sürükle bırak işlemi ardından etkilenen isim alanlarını
      * gösteren değişkenler.
@@ -123,7 +118,6 @@ public class ManuelSchedulingUtilBean {
 	private String valueForDt56;
 	private String valueForDt57;
 	private String valueForDt58;
-	///////
 	
 	/******Sınıf yapıcı metodu*************/
 	public ManuelSchedulingUtilBean(){
@@ -177,7 +171,6 @@ public class ManuelSchedulingUtilBean {
 		 * */
 		intGrade = 0;
 		semester="";
-		
 		
 		fillMatrix();
 	}
@@ -252,9 +245,7 @@ public class ManuelSchedulingUtilBean {
 				
 				String strYear = "" + savedYear;
 				intSyllabusArchiveId = excel.writeToExcelPOI(strYear , savedSemester, savedVersionName);
-				
 				setSyllabusArchiveIdToScheduleMatrix(intSyllabusArchiveId);
-				
 			}//end of add syllabusArchive if
 			if(savedArchiveComboSelect.equals("No")){
 				setSyllabusArchiveIdToScheduleMatrix(1);
@@ -275,7 +266,6 @@ public class ManuelSchedulingUtilBean {
 		if (!selectedValue.equals("")) {
 			semester = selectedValue;
 		}
-		
 	    System.out.println(semester);
 	}
 	
@@ -382,12 +372,10 @@ public class ManuelSchedulingUtilBean {
 			System.out.println("Bean.processDrop()");
 			tempBasicScheduleItem = (BasicScheduleUtilBean) event.getDragValue();
 			System.out.println("lecturer name in processDrop: " + tempBasicScheduleItem.getCourseTheoricOrPraticName());
-			//this.dragValue = (Object) event.getDragValue();
-			//tempBasicScheduleItem = (BasicScheduleUtilBean) dragValue;
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("Error in processDrop!!!!!******");
+			System.out.println("Error in processDrop!");
 		}
 		
 	}	
@@ -405,11 +393,9 @@ public class ManuelSchedulingUtilBean {
 			int timeofCourse;
 			timeofCourse = componentIdtoDay*8 + componentIdtoHour + 1;
 			
-			
 			System.out.println(tempBasicScheduleItem.getClassroomId());
 			System.out.println(tempBasicScheduleItem.getLecturerName());
 			System.out.println(tempBasicScheduleItem.getSyllabusId());
-			
 			
 			if(intGrade == 1){
 				System.out.println("in first grade if!!");
@@ -505,7 +491,7 @@ public class ManuelSchedulingUtilBean {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -634,69 +620,6 @@ public class ManuelSchedulingUtilBean {
 		}
 	}
 	
-	/*private void fillMatrixForEditOperation(){
-		if(allRealScheduleItems.size() != 0){
-			int grade;
-			int quotient;
-			int remainder;
-			BasicScheduleUtilBean bs = null;
-			fillMatrix();
-			for(int i=0;i<allRealScheduleItems.size();i++){
-				bs = new BasicScheduleUtilBean();
-				quotient = allRealScheduleItems.get(i).getTimeofCourse();
-				remainder = quotient % 8;
-				quotient = (int) Math.floor(quotient/8);
-				bs.setClassroomId(allRealScheduleItems.get(i).getSyllabus().getClassroom().getClassroomId());
-				bs.setCourseName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName());
-				grade = allRealScheduleItems.get(i).getSyllabus().getCourse().getGrade();
-				bs.setHours(1);
-				bs.setLecturerName(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName());
-				bs.setSyllabusId(allRealScheduleItems.get(i).getSyllabus().getSyllabusId());
-				bs.setTimeofCourse(allRealScheduleItems.get(i).getTimeofCourse());
-				bs.setCourseType(allRealScheduleItems.get(i).getCourseType());
-				bs.setScheduleId(allRealScheduleItems.get(i).getScheduleId());
-				bs.setCourseId(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseId());
-				bs.setLecturerId(allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerId());
-				//bs.setSectionNo(allRealScheduleItems.get(i).getSyllabus().getSectionNo());
-				
-				if(allRealScheduleItems.get(i).getCourseType().equals("theoric")){
-					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(T), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle()  + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
-				}else if(allRealScheduleItems.get(i).getCourseType().equals("practice")){
-					bs.setCourseTheoricOrPraticName(allRealScheduleItems.get(i).getSyllabus().getCourse().getCourseName() + "(P), {" + allRealScheduleItems.get(i).getSyllabus().getLecturer().getTitle() + allRealScheduleItems.get(i).getSyllabus().getLecturer().getLecturerName() + "}");
-				}
-				if(grade==1){
-					if(remainder == 0){
-						firstGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						firstGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==2){
-					if(remainder == 0){
-						secondGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						secondGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==3){
-					if(remainder == 0){
-						thirdGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						thirdGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}else if(grade==4){
-					if(remainder == 0){
-						fourthGradeSchedule[quotient-1][7]  = bs;
-						
-					}else{
-						fourthGradeSchedule[quotient][remainder-1] = bs;
-					}
-				}
-			}
-		}
-	}*/
-	
 	private int calculateYear(){
 		int year=-1;
 		
@@ -728,9 +651,7 @@ public class ManuelSchedulingUtilBean {
 						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
 						
 					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabus Error: "
-								+ e.getMessage());
-						e.printStackTrace();
+						System.out.println("!Load AllSyllabus Error: " + e.getMessage());
 					}
 			}
 		}
@@ -755,9 +676,7 @@ public class ManuelSchedulingUtilBean {
 						allSyllabuses = paramSyllabus.getSyllabusBySemesterAndGrade();
 						
 					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSyllabus Error: "
-								+ e.getMessage());
-						e.printStackTrace();
+						System.out.println("!Load AllSyllabus Error: " + e.getMessage());
 					}
 			}
 		}
@@ -796,17 +715,15 @@ public class ManuelSchedulingUtilBean {
 		synchronized (this) {
 			if (allRealScheduleItems == null) {
 				allRealScheduleItems = new ArrayList<Schedule>();
-					try {
-						paramSyllabus.setSemester(semester);
-						paramSyllabus.setYear(selectedYearForAdd);
-						paramSchedule.setSyllabus(paramSyllabus);
-						allRealScheduleItems = paramSchedule.getScheduleBySemesterAndYear();
-						
-					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSchedules Error: "
-								+ e.getMessage());
-						e.printStackTrace();
-					}
+				try {
+					paramSyllabus.setSemester(semester);
+					paramSyllabus.setYear(selectedYearForAdd);
+					paramSchedule.setSyllabus(paramSyllabus);
+					allRealScheduleItems = paramSchedule.getScheduleBySemesterAndYear();
+					
+				} catch (Exception e) {
+					System.out.println("!Load AllSchedules Error: " + e.getMessage());
+				}
 			}
 		}
 		return allRealScheduleItems;
@@ -824,9 +741,7 @@ public List<Schedule> getScheduleBySemesterAndYearForEdit() {
 						allRealScheduleItems = paramSchedule.getScheduleBySemesterAndYear();
 						
 					} catch (Exception e) {
-						System.out.println("!!!!!!loadAllSchedules Error: "
-								+ e.getMessage());
-						e.printStackTrace();
+						System.out.println("!Load AllSchedules Error: " + e.getMessage());
 					}
 			}
 		}
@@ -854,7 +769,7 @@ public List<Schedule> getScheduleBySemesterAndYearForEdit() {
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		return allBasicScheduleItems;
 	}
@@ -970,9 +885,9 @@ public List<Schedule> getScheduleBySemesterAndYearForEdit() {
 		}
 		return matrix;
 	}
-	
-	/* Sınıf alt lanlarının Getters and Setters*/
-	
+	/********************************************************************************************/
+	/************************ Sınıf alt lanlarının Getters and Setters**************************/
+	/********************************************************************************************/
 	public ArrayList<BasicScheduleUtilBean> getLabList() {
 		return labList;
 	}
@@ -1168,10 +1083,10 @@ public List<Schedule> getScheduleBySemesterAndYearForEdit() {
 		this.savedSemester = savedSemester;
 	}
 	
-	// Getters and setters for the 40 datatable values
-
+	/********************************************************************************************/
+	/***********************Getters and setters for the 40 datatable values*********************/
+	/*******************************************************************************************/
 	
-
 	public String getValueForDt11() {
 			if(intGrade == 1){
 				if(firstGradeSchedule[0][0].getClassroomId() == -1){
