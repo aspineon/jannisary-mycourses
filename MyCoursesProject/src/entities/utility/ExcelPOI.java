@@ -21,15 +21,11 @@ public class ExcelPOI
 	//**************************************************************************
 	// Writing Autoscheduling result to excel file******************************
 	//**************************************************************************
-	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester, String pVersion)
+	public void writeAutoSchedulingToExcelPOI(String pYear, String pSemester,String pVersion)
 	{
-		try
-		{			
-			/*String strPath = new java.io.File(".").getCanonicalPath();
-			strPath = strPath + "/ScheduleFiles/";
-			File scheduleFolder = new File(strPath);
-			
-			File scheduleFile = new File("C:\\Schedule Files\\"+pYear+"_"+pSemester+"_"+pVersion+".xls");
+		try{				
+			File scheduleFolder = new File("C:\\Schedule Files\\");
+			File scheduleFile = new File("C:\\Schedule Files\\" + pYear + "_" + pSemester  + "_" + pVersion + ".xls");
 			if(!scheduleFolder.exists())
 			{
 				scheduleFolder.mkdir();
@@ -37,16 +33,7 @@ public class ExcelPOI
 			if(!scheduleFile.exists())
 			{
 				scheduleFile.createNewFile();
-			}*/
-			
-			String strPath = new java.io.File(".").getCanonicalPath();
-			strPath = strPath + "/ScheduleFiles/";
-			File scheduleFolder = new File(strPath);
-			if(!scheduleFolder.exists()){scheduleFolder.mkdir();}
-			// siniflara ait excel dosyasinin yaratilmasi ***********************
-			String strFilePath =  strPath + pYear + "_"+ pSemester  + ".xls";
-			File scheduleFile = new File(strFilePath);
-			if(!scheduleFile.exists()){scheduleFile.createNewFile();}
+			}
 			
 			FileOutputStream fileOutputStream = new FileOutputStream(scheduleFile);
 			scheduleWorkbook.write(fileOutputStream);
