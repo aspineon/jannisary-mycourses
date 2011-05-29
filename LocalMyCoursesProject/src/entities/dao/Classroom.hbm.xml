@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 11, 2011 11:14:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.dao.Classroom" table="Classroom" catalog="janissary">
+        <id name="classroomId" type="java.lang.Integer">
+            <column name="Classroom_Id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one class="entities.dao.Department" fetch="select" name="department">
+   			<column name="Department_Id" not-null="true"/>
+  		</many-to-one>
+        <property name="classroomCode" type="string">
+            <column name="Classroom_Code" length="10" not-null="true" unique="true" />
+        </property>
+        <set name="syllabuses" table="Syllabus" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Course_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Syllabus" />
+        </set>
+    </class>
+    
+     <sql-query name="getAllClassroom" callable="true">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL GetAllClassrooms]]>
+    </sql-query>
+    
+    <sql-query name="addClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL AddClassroom(:pClassroomCode, :pDepartmentId)]]>
+    </sql-query>
+    
+    <sql-query name="deleteClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL DeleteClassroom(:pClassroomId)]]>
+    </sql-query>
+    
+    <sql-query name="updateClassroom">
+    <return alias="Classroom" class="entities.dao.Classroom"/>
+        <![CDATA[CALL UpdateClassroom(:pClassroomId,:pClassroomCode,:pDepartmentId)]]>
+    </sql-query>
+    
+    <sql-query callable="true" name="getIdByClassroomCode">
+ 	<return alias="Classroom" class="entities.dao.Classroom"/>
+ 	<![CDATA[CALL GetIdByClassroomCode(:pClassroomCode)]]>
+ </sql-query>
+    
+</hibernate-mapping>

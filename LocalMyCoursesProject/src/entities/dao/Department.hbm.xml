@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 11, 2011 11:14:10 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="entities.dao.Department" table="Department" catalog="janissary">
+        <id name="departmentId" type="java.lang.Integer">
+            <column name="Department_Id" />
+            <generator class="identity" />
+        </id>
+        <property name="deptCode" type="string">
+            <column name="Dept_Code" length="10" not-null="true" unique="true" />
+        </property>
+        <property name="deptDescription" type="string">
+            <column name="Dept_Description" length="100" />
+        </property>
+        <set name="courses" table="Course" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Department_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Course" />
+        </set>
+        <set name="lecturers" table="Lecturer" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Department_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Lecturer" />
+        </set>
+        <set name="classrooms" table="Classroom" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="Department_Id" not-null="true" />
+            </key>
+            <one-to-many class="entities.dao.Classroom" />
+        </set>
+    </class>
+    
+    <sql-query name="getAllDepartments">
+    	<return alias="Department" class="entities.dao.Department"/>
+    	<![CDATA[CALL GetAllDepartments()]]>
+ 	</sql-query>
+    
+    <sql-query name="getDepartmentByCode">
+    	<return alias="Department" class="entities.dao.Department"/>
+    	<![CDATA[CALL GetDepartmentByCode(:pDepartmentCode)]]>
+ 	</sql-query>
+ 	
+ 	
+ 	<sql-query name="AddDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL AddDepartment(:pDeptCode, :pDeptDescription)]]>
+    </sql-query>
+    
+    <sql-query name="DeleteDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL DeleteDepartment(:pDepartmentId)]]>
+    </sql-query>
+    
+    <sql-query name="UpdateDepartment">
+    <return alias="Department" class="entities.dao.Department"/>
+        <![CDATA[CALL UpdateDepartment(:pDepartmentId,:pDeptCode,:pDeptDescription)]]>
+    </sql-query>
+ 	
+ 	<sql-query name="getDepartmentName" callable="true">
+           <return alias="Department" class="entities.dao.Department"/>
+           <![CDATA[CALL getDepartmentName]]>
+   </sql-query>
+ 	
+</hibernate-mapping>
